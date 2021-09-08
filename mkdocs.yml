@@ -1,0 +1,20 @@
+site_name: AuroraX Documentation
+site_url: https://docs.aurorax.space
+repo_url: https://github.com/aurorax-space
+
+nav:
+  - Home: 'index.md'
+  - About: 'about.md'
+  - PyAuroraX:
+    - About: 'aurorax/aurorax.md'
+    - API reference: 'aurorax/index.html'
+
+theme:
+  name: material
+  logo: img/logo.svg
+  favicon: img/logo.svg
+  palette:
+    primary:
+      black
+    accent:
+      teal

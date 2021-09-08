@@ -1,0 +1,3 @@
+[submodule "pyaurorax"]
+	path = pyaurorax
+	url = https://github.com/aurorax-space/pyaurorax.git
