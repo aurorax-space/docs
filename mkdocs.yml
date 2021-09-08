@@ -1,6 +1,7 @@
 site_name: AuroraX Documentation
 site_url: https://docs.aurorax.space
 repo_url: https://github.com/aurorax-space
+edit_uri: ""
 
 nav:
   - Home: 'index.md'
