@@ -1,3 +1,7 @@
+.PHONY: update-submodules docs-install docs-generate docs-build docs-serve docs-deploy
+
+all:
+
 update-submodules:
 	git submodule foreach git pull
 
@@ -15,3 +19,4 @@ docs-serve:
 
 docs-deploy:
 	python3 -m mkdocs gh-deploy --force
+

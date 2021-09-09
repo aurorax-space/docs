@@ -1,21 +1,89 @@
+# top level
+# ------------------
 site_name: AuroraX Documentation
 site_url: https://docs.aurorax.space
 repo_url: https://github.com/aurorax-space
-edit_uri: ""
 
-nav:
-  - Home: 'index.md'
-  - About: 'about.md'
-  - PyAuroraX:
-    - About: 'aurorax/aurorax.md'
-    - API reference: 'aurorax/index.html'
 
+# theme settings
+# ------------------
 theme:
   name: material
   logo: img/logo.svg
   favicon: img/logo.svg
   palette:
-    primary:
-      black
-    accent:
-      teal
+    primary: black
+    accent: teal
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - search.suggest
+    - search.highlight
+markdown_extensions:
+  - meta
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - pymdownx.superfences:
+extra:
+  analytics:
+    provider: google
+    property: G-284760515
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://aurorax.space
+      name: AuroraX website
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/aurorax-space
+      name: Source code on Github
+extra_css:
+  - stylesheets/extra.css
+
+
+# navigation
+# ------------------
+nav:
+  - Home: index.md
+  - About the Data: 
+    - Data Categories: about_the_data/categories.md
+    - Instrument Descriptions: 
+      - Ground-based:
+        - ASIs: about_the_data/instruments/ground/asis.md
+      - Space-based:
+        - Ephemeris Data: about_the_data/instruments/space/footprints.md
+        - Swarm: about_the_data/instruments/space/swarm.md
+        - ePOP: about_the_data/instruments/ground/epop.md
+    - Data Availability: about_the_data/availability.md
+    - Data Policy: about_the_data/policy.md
+    - Data Contributors: about_the_data/contributors.md
+    - Recommended Standards: about_the_data/standards.md
+  - Machine Learning:
+    - Overview: ml/overview.md
+    - How models are used in AuroraX: ml/using_models.md
+    - Models:
+      - UCalgary Cloud: ml/models/ucalgary_cloud.md
+      - UCalgary APA: ml/models/ucalgary_apa.md
+      - Clausen OATH: ml/models/clausen_oath.md
+  - RESTful API:
+    - Overview: api/overview.md
+    - Basic Usage: api/basic_usage.md
+    - Advanced Usage: api/advanced_usage.md
+    - Authentication Strategy: api/authentication_strategy.md
+  - Python:
+    - PyAuroraX:
+      - Overview: pyaurorax/overview.md
+      - Installation: pyaurorax/installation.md
+      - Basic Usage: pyaurorax/basic_usage.md
+      - Advanced Usage:
+        - Authentication: pyaurorax/advanced_usage/authentication.md
+        - Triple conjunction searches: pyaurorax/advanced_usage/triple_conjunctions.md
+        - Searches with metadata filters: pyaurorax/advanced_usage/searches_with_metadata_filters.md
+        - Uploading data: pyaurorax/advanced_usage/uploading.md
+      - API reference: pyaurorax/aurorax/index.html
+    - aurorax-asilib:
+      - Overview: aurorax_asilib/overview.md
+  - IDL:
+      - Overview: idl_aurorax/overview.md
