@@ -1,3 +1,9 @@
+init:
+	git submodule update --init
+	cd pyaurorax
+	git checkout main
+	cd ..
+
 update-submodules:
 	git submodule foreach git pull
 

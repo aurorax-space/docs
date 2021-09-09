@@ -5,3 +5,6 @@ __pycache__/
 
 # Editor stuff
 .vscode
+
+# Site directory
+/site
