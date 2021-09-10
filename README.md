@@ -4,19 +4,32 @@ Documentation for AuroraX, PyAuroraX, and related projects.
 ## Setup & initialization
 This repository uses submodules to access the source code of the projects it documents. Currently only [PyAuroraX](https://github.com/aurorax-space/pyaurorax) is linked as a submodule.
 
-Submodules must be initialized. This step pulls code from PyAuroraX's latest upstream commit and switches the submodule to its main branch. From the root directory run:
+Submodules must be initialized and their dependencies must be installed before docs can be auto-generated. To initialize submodules and install their dependencies in one step, use the Makefile:
+```console
+$ make init
+```
+
+Alternatively, follow the initialization and installation steps below.
+
+### Initializing submodules
+This step pulls code from PyAuroraX's latest upstream commit and switches the submodule to its main branch. From the root directory run:
 
 ```console
 $ git submodule update --init
 $ cd pyaurorax
 $ git checkout main
-$ cd ..
 ```
 
-Or, using the Makefile:
+### Installing submodule dependencies
+Submodule dependencies must be installed before docs can be auto-generated.
+
+For PyAuroraX:
 ```console
-$ make init
+$ cd pyaurorax
+$ pip install poetry
+$ poetry install
 ```
+
 
 ## Updating submodules
 Submodules don't automatically update when changes are pushed to their upstream repositories. Therefore, updates must be pulled manually.

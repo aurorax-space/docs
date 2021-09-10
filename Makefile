@@ -2,6 +2,8 @@ init:
 	git submodule update --init
 	cd pyaurorax
 	git checkout main
+	pip install poetry
+	poetry install
 	cd ..
 
 update-submodules:
