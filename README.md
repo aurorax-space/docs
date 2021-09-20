@@ -18,54 +18,52 @@ To generate documentation for submodules. they must first be initialized and the
 $ git clone git@github.com:aurorax-space/docs.git
 ```
 
-2. Install mkdocs dependencies
-
-```
-python3 -m pip install -r requirements.txt
-```
-
-3. Initialize submodules
+2. Initialize submodules
 
 ```
 $ git submodule update --init
 $ cd pyaurorax
 $ git checkout main
-$ pip install poetry
+$ python3 -m pip install poetry
 $ poetry install
 $ cd ..
 ```
 
-4. Submodules don't automatically update when changes are pushed to their upstream repositories, so updates must be pulled manually.
+3. Submodules don't automatically update when changes are pushed to their upstream repositories, so updates must be pulled manually.
 
 ```
 $ git submodule foreach git pull
 ```
 
-5. Build the documentation website locally. This will build the HTML files and other assets into the ```site``` directory.
+4. Install mkdocs dependencies
 
 ```
-python3 -m mkdocs build
+$ python3 -m pip install -r requirements.txt
 ```
 
-6. Since the submodules in this repository are Python projects, their API references can be generated automatically using ```pdoc3```. This step generates HTML files and places them in the ```docs/<submodule_name>``` directory.
+5. Since the submodules in this repository are Python projects, their API references can be generated automatically using ```pdoc3```. This step generates HTML files and places them in the ```docs/<submodule_name>``` directory.
 
 ```
 $ python3 -m pdoc --html --force --output-dir docs/pyaurorax pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
 ```
 
-7. Serve the website locally.
+6. Build and serve the website locally.
 
 ```
-python3 -m mkdocs serve
+$ python3 -m mkdocs serve
 ```
 
-8. View the website at http://localhost:8000.
+7. View the website at http://localhost:8000.
 
 <br />
 
 ## How deployment works
 
-Deployment is done using the MkDocs ```gh-deploy``` command and happens automatically when new changes are committed to the "main" branch. When a commit happens, the docs are built and committed to the ```gh-pages``` branch, which Github then automically deploys.
+Deployment is done using the MkDocs ```gh-deploy``` command and is done manually. This command will build the docs, commit them to the "gh-pages" branch, and push this branch to GitHub. _Please make sure to build and preview any changes locally first_.
+
+```
+$ python3 -m mkdocs gh-deploy --force
+```
 
 <br />
 
