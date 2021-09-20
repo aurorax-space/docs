@@ -8,3 +8,6 @@ site/
 
 # Editor stuff
 .vscode
+
+# Site directory
+/site
