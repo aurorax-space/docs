@@ -42,22 +42,23 @@ from typing import Dict, List
 
 DEFAULT_CONJUNCTION_DISTANCE = 300
 
+
 class Conjunction(BaseModel):
     &#34;&#34;&#34;
     Conjunction data type.
-    
+
     Attributes:
-        conjunction_type: conjunction type &#34;nbtrace&#34; or &#34;sbtrace&#34;
-        start: start datetime.datetime of conjunction event(s)
-        end: end datetime.datetime of conjunction event(s)
-        data_sources: aurorax.sources.DataSource sources in the conjunction
-        min_distance: minimum kilometre distance of conjunction event(s), float
-        max_distance: maximum kilometre distance of conjunction event(s), float
-        events: list of dictionaries containing details of individual conjunction events
+        conjunction_type: conjunction type &#34;nbtrace&#34; or &#34;sbtrace&#34;.
+        start: start datetime.datetime of conjunction event(s).
+        end: end datetime.datetime of conjunction event(s).
+        data_sources: aurorax.sources.DataSource sources in the conjunction.
+        min_distance: minimum kilometre distance of conjunction event(s), float.
+        max_distance: maximum kilometre distance of conjunction event(s), float.
+        events: list of dictionaries containing details of individual conjunction events.
 
     &#34;&#34;&#34;
     conjunction_type: str
-    start: datetime.datetime 
+    start: datetime.datetime
     end: datetime.datetime
     data_sources: List[aurorax.sources.DataSource]
     min_distance: float
@@ -66,30 +67,32 @@ class Conjunction(BaseModel):
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of Conjunction object.
+
         &#34;&#34;&#34;
         return self.__repr__()
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of Conjunction object.
+
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)
 
 
 class Search():
     &#34;&#34;&#34;
-    Class representing an AuroraX conjunctions search
+    Class representing an AuroraX conjunctions search.
 
     Attributes:
-        start: start datetime.datetime timestamp of the search
-        end: end datetime.datetime timestamp of the search
+        start: start datetime.datetime timestamp of the search.
+        end: end datetime.datetime timestamp of the search.
         ground: List of ground instrument search parameters. See examples for usage.
             e.g. [
                 {
@@ -106,8 +109,8 @@ class Search():
                     &#34;instrument_types&#34;: [&#34;footprint&#34;]
                 }
             ]
-        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]
-        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions. 
+        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;].
+        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
             default_distance will be used for any ground-space and space-space maximum distances not specified.
             See examples for usage.
             e.g. distances = {
@@ -118,27 +121,27 @@ class Search():
                 &#34;ground2-space2&#34;: 500,
                 &#34;space1-space2&#34;: None
             }
-        default_distance: default maximum distance in kilometers for conjunction. 
+        default_distance: default maximum distance in kilometers for conjunction.
             Used when max distance is not specified for any ground-space and space-space instrument pairs.
-        request: aurorax.AuroraXResponse object returned when the search is executed
-        request_id: unique AuroraX string ID assigned to the request
-        request_url: unique AuroraX URL string assigned to the request
-        executed: boolean, gets set to True when the search is executed
-        completed: boolean, gets set to True when the search is checked to be finished
-        data_url: URL string where data is accessed
-        query: dictionary of values sent for the search query
-        status: dictionary of status updates
-        data: list of aurorax.conjunctions.Conjunction objects returned
-        logs: list of logging messages from the API
+        request: aurorax.AuroraXResponse object returned when the search is executed.
+        request_id: unique AuroraX string ID assigned to the request.
+        request_url: unique AuroraX URL string assigned to the request.
+        executed: boolean, gets set to True when the search is executed.
+        completed: boolean, gets set to True when the search is checked to be finished.
+        data_url: URL string where data is accessed.
+        query: dictionary of values sent for the search query.
+        status: dictionary of status updates.
+        data: list of aurorax.conjunctions.Conjunction objects returned.
+        logs: list of logging messages from the API.
 
         Returns:
-            aurorax.conjunctions.Search object
+            An aurorax.conjunctions.Search object.
 
     &#34;&#34;&#34;
 
-    def __init__(self, start: datetime.datetime, end: datetime.datetime, 
-                ground: List[Dict], space: List[Dict], conjunction_types: List[str] = [&#34;nbtrace&#34;],
-                max_distances: Dict[str, float] = None, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE):
+    def __init__(self, start: datetime.datetime, end: datetime.datetime,
+                 ground: List[Dict], space: List[Dict], conjunction_types: List[str] = [&#34;nbtrace&#34;],
+                 max_distances: Dict[str, float] = None, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE):
 
         self.request = None
         self.request_id = &#34;&#34;
@@ -161,19 +164,21 @@ class Search():
 
     def __str__(self):
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of Conjunction Search object.
+
         &#34;&#34;&#34;
         return self.__repr__()
 
     def __repr__(self):
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of Conjunction Search object.
+
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)
 
@@ -182,20 +187,22 @@ class Search():
         space_sources_len = len(self.space)
 
         # check for ground-space and space-ground distances
-        for g in range(1, ground_sources_len+1):
-            for s in range(1, space_sources_len+1):
-                if f&#34;ground{g}-space{s}&#34; not in self.max_distances and f&#34;space{s}-ground{g}&#34; not in self.max_distances:
+        for g in range(1, ground_sources_len + 1):
+            for s in range(1, space_sources_len + 1):
+                if (f&#34;ground{g}-space{s}&#34; not in self.max_distances
+                        and f&#34;space{s}-ground{g}&#34; not in self.max_distances):
                     self.max_distances[f&#34;ground{g}-space{s}&#34;] = self.default_distance
 
         # check for space-space distances
-        for s in range(1, space_sources_len+1):
-            for s2 in range(s+1, space_sources_len+1):
-                if s != s2 and f&#34;space{s}-space{s2}&#34; not in self.max_distances and f&#34;space{s2}-space{s}&#34; not in self.max_distances:
+        for s in range(1, space_sources_len + 1):
+            for s2 in range(s + 1, space_sources_len + 1):
+                if (s != s2 and f&#34;space{s}-space{s2}&#34; not in self.max_distances
+                        and f&#34;space{s2}-space{s}&#34; not in self.max_distances):
                     self.max_distances[f&#34;space{s}-space{s2}&#34;] = self.default_distance
 
     def execute(self):
         &#34;&#34;&#34;
-        Initiate conjunction search request
+        Initiate conjunction search request.
         &#34;&#34;&#34;
         # set up request
         url = aurorax.api.urls.conjunction_search_url
@@ -211,7 +218,8 @@ class Search():
         self.query = post_data
 
         # do request
-        req = aurorax.AuroraXRequest(method=&#34;post&#34;, url=url, body=post_data, null_response=True)
+        req = aurorax.AuroraXRequest(
+            method=&#34;post&#34;, url=url, body=post_data, null_response=True)
         res = req.execute()
 
         # set request ID, request_url, executed
@@ -226,10 +234,10 @@ class Search():
 
     def update_status(self, status: Dict = None) -&gt; None:
         &#34;&#34;&#34;
-        Update the status of this conjunctions search
+        Update the status of this conjunctions search.
 
         Attributes:
-            status: retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None
+            status: retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None.
         &#34;&#34;&#34;
         # get the status if it isn&#39;t passed in
         if status is None:
@@ -246,11 +254,14 @@ class Search():
 
     def check_for_data(self) -&gt; None:
         &#34;&#34;&#34;
-        Check to see if data is available for this conjunctions search request
+        Check to see if data is available for this conjunctions search request.
         &#34;&#34;&#34;
         self.update_status()
 
     def get_data(self) -&gt; None:
+        &#34;&#34;&#34;
+        Retrieve the data available for this conjunctions search request.
+        &#34;&#34;&#34;
         if not self.completed:
             print(&#34;No data available, update status first&#34;)
             return
@@ -261,31 +272,34 @@ class Search():
 
     def wait(self, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
         &#34;&#34;&#34;
-        Block and wait until the request is complete and data is available for retrieval
+        Block and wait until the request is complete and data is available for retrieval.
 
         Attributes:
-            poll_interval: time in seconds to wait between polling attempts, defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME
-            verbose: output poll times, defaults to False
+            poll_interval: time in seconds to wait between polling attempts, defaults
+                to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+            verbose: output poll times, defaults to False.
 
         &#34;&#34;&#34;
         url = aurorax.api.urls.conjunction_request_url.format(self.request_id)
-        self.update_status(aurorax.requests.wait_for_data(url, poll_interval=poll_interval, verbose=verbose))
+        self.update_status(aurorax.requests.wait_for_data(
+            url, poll_interval=poll_interval, verbose=verbose))
 
-    def cancel(self, wait: bool = False, verbose: bool = False, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
+    def cancel(self, wait: bool = False, verbose: bool = False,
+               poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
         &#34;&#34;&#34;
         Cancel the conjunction search request at the API. This method returns asynchronously by default.
 
         Attributes:
             wait: set to True to block until the cancellation request has been completed. This may take several minutes.
-            verbose: when wait=True, output poll times, defaults to False
-            poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME
+            verbose: when wait=True, output poll times, defaults to False.
+            poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.
 
         Returns:
-            1 on success
+            1 on success.
 
         Raises:
-            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
         &#34;&#34;&#34;
         url = aurorax.api.urls.conjunction_request_url.format(self.request_id)
@@ -293,18 +307,18 @@ class Search():
 
 
 def search_async(start: datetime.datetime,
-                 end: datetime.datetime, 
-                 ground: List[Dict], 
-                 space: List[Dict], 
+                 end: datetime.datetime,
+                 ground: List[Dict],
+                 space: List[Dict],
                  conjunction_types: List[str] = [&#34;nbtrace&#34;],
-                 max_distances: Dict[str, float] = {}, 
+                 max_distances: Dict[str, float] = {},
                  default_distance: float = DEFAULT_CONJUNCTION_DISTANCE) -&gt; Search:
     &#34;&#34;&#34;
     Submit a request for a conjunctions search, return asynchronously.
 
     Attributes:
-        start: start datetime.datetime timestamp of the search
-        end: end datetime.datetime timestamp of the search
+        start: start datetime.datetime timestamp of the search.
+        end: end datetime.datetime timestamp of the search.
         ground: List of ground instrument search parameters. See examples for usage.
             e.g. [
                 {
@@ -321,8 +335,8 @@ def search_async(start: datetime.datetime,
                     &#34;instrument_types&#34;: [&#34;footprint&#34;]
                 }
             ]
-        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]
-        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions. 
+        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;].
+        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
             default_distance will be used for any ground-space and space-space maximum distances not specified.
             See examples for usage.
             e.g. distances = {
@@ -333,27 +347,29 @@ def search_async(start: datetime.datetime,
                 &#34;ground2-space2&#34;: 500,
                 &#34;space1-space2&#34;: None
             }
-        default_distance: default maximum distance in kilometers for conjunction. 
+        default_distance: default maximum distance in kilometers for conjunction.
             Used when max distance is not specified for any ground-space and space-space instrument pairs.
 
     Returns:
-        aurorax.conjunctions.Search object
+        An aurorax.conjunctions.Search object.
     &#34;&#34;&#34;
-    s = Search(start=start, end=end, ground=ground, space=space, conjunction_types=conjunction_types, max_distances=max_distances, default_distance=default_distance)
+    s = Search(start=start, end=end, ground=ground, space=space, conjunction_types=conjunction_types,
+               max_distances=max_distances, default_distance=default_distance)
     s.execute()
 
     return s
 
-def search(start: datetime.datetime, end: datetime.datetime, 
-            ground: List[Dict], space: List[str], conjunction_types: List[str] = [&#34;nbtrace&#34;],
-            max_distances: Dict[str, float] = {}, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE, verbose: bool = False,
-            poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; Search:
+
+def search(start: datetime.datetime, end: datetime.datetime,
+           ground: List[Dict], space: List[str], conjunction_types: List[str] = [&#34;nbtrace&#34;],
+           max_distances: Dict[str, float] = {}, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE, verbose: bool = False,
+           poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; Search:
     &#34;&#34;&#34;
     Search for conjunctions and block until results are returned.
 
     Attributes:
-        start: start datetime.datetime timestamp of the search
-        end: end datetime.datetime timestamp of the search
+        start: start datetime.datetime timestamp of the search.
+        end: end datetime.datetime timestamp of the search.
         ground: List of ground instrument search parameters. See examples for usage.
             e.g. [
                 {
@@ -370,8 +386,8 @@ def search(start: datetime.datetime, end: datetime.datetime,
                     &#34;instrument_types&#34;: [&#34;footprint&#34;]
                 }
             ]
-        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]
-        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions. 
+        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;].
+        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
             default_distance will be used for any ground-space and space-space maximum distances not specified.
             See examples for usage.
             e.g. distances = {
@@ -382,20 +398,18 @@ def search(start: datetime.datetime, end: datetime.datetime,
                 &#34;ground2-space2&#34;: 500,
                 &#34;space1-space2&#34;: None
             }
-        default_distance: default maximum distance in kilometers for conjunction. 
-            Used when max distance is not specified for any ground-space and 
-            space-space instrument pairs.
-        verbose: boolean to show the progress of the request using the request 
-            log, defaults to False
-        poll_interval: seconds to wait between polling calls, defaults 
-            to aurorax.requests.STANDARD_POLLING_SLEEP_TIME
+        default_distance: default maximum distance in kilometers for conjunction.
+            Used when max distance is not specified for any ground-space and space-space instrument pairs.
+        verbose: boolean to show the progress of the request using the request log, defaults to False.
+        poll_interval: seconds to wait between polling calls, defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
 
     Returns:
-        aurorax.conjunctions.Search object
+        An aurorax.conjunctions.Search object.
 
     &#34;&#34;&#34;
     # create a Search object
-    s = Search(start, end, ground, space, conjunction_types, max_distances, default_distance)
+    s = Search(start, end, ground, space, conjunction_types,
+               max_distances, default_distance)
     if verbose:
         print(f&#34;[{datetime.datetime.now()}] Search object created&#34;)
 
@@ -404,7 +418,8 @@ def search(start: datetime.datetime, end: datetime.datetime,
     if verbose:
         print(f&#34;[{datetime.datetime.now()}] Request submitted&#34;)
         print(f&#34;[{datetime.datetime.now()}] Request ID: {s.request_id}&#34;)
-        print(f&#34;[{datetime.datetime.now()}] Request details available at: {s.request_url}&#34;)
+        print(
+            f&#34;[{datetime.datetime.now()}] Request details available at: {s.request_url}&#34;)
         print(f&#34;[{datetime.datetime.now()}] Waiting for data ...&#34;)
 
     s.wait(poll_interval=poll_interval, verbose=verbose)
@@ -416,8 +431,10 @@ def search(start: datetime.datetime, end: datetime.datetime,
     s.get_data()
 
     if verbose:
-        print(f&#39;[{datetime.datetime.now()}] Retrieved {humanize.filesize.naturalsize(s.status[&#34;search_result&#34;][&#34;file_size&#34;])} of data containing {s.status[&#34;search_result&#34;][&#34;result_count&#34;]} records&#39;)
-    
+        print(f&#39;[{datetime.datetime.now()}] Retrieved \
+        {humanize.filesize.naturalsize(s.status[&#34;search_result&#34;][&#34;file_size&#34;])} of data containing \
+        {s.status[&#34;search_result&#34;][&#34;result_count&#34;]} records&#39;)
+
     return s</code></pre>
 </details>
 </section>
@@ -429,16 +446,16 @@ def search(start: datetime.datetime, end: datetime.datetime,
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="aurorax.conjunctions.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, ground: List[Dict], space: List[str], conjunction_types: List[str] = ['nbtrace'], max_distances: Dict[str, float] = {}, default_distance: float = 300, verbose: bool = False, poll_interval: float = 1.0) ‑> <a title="aurorax.conjunctions.Search" href="#aurorax.conjunctions.Search">Search</a></span>
+<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, ground: List[Dict[~KT, ~VT]], space: List[str], conjunction_types: List[str] = ['nbtrace'], max_distances: Dict[str, float] = {}, default_distance: float = 300, verbose: bool = False, poll_interval: float = 1.0) ‑> <a title="aurorax.conjunctions.Search" href="#aurorax.conjunctions.Search">Search</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Search for conjunctions and block until results are returned.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>start</code></strong></dt>
-<dd>start datetime.datetime timestamp of the search</dd>
+<dd>start datetime.datetime timestamp of the search.</dd>
 <dt><strong><code>end</code></strong></dt>
-<dd>end datetime.datetime timestamp of the search</dd>
+<dd>end datetime.datetime timestamp of the search.</dd>
 <dt><strong><code>ground</code></strong></dt>
 <dd>List of ground instrument search parameters. See examples for usage.
 e.g. [
@@ -458,7 +475,7 @@ e.g. [
 }
 ]</dd>
 <dt><strong><code>conjunction_types</code></strong></dt>
-<dd>list of conjunction types, defaults to ["nbtrace"]</dd>
+<dd>list of conjunction types, defaults to ["nbtrace"].</dd>
 <dt><strong><code>max_distances</code></strong></dt>
 <dd>dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
 default_distance will be used for any ground-space and space-space maximum distances not specified.
@@ -473,31 +490,28 @@ e.g. distances = {
 }</dd>
 <dt><strong><code>default_distance</code></strong></dt>
 <dd>default maximum distance in kilometers for conjunction.
-Used when max distance is not specified for any ground-space and
-space-space instrument pairs.</dd>
+Used when max distance is not specified for any ground-space and space-space instrument pairs.</dd>
 <dt><strong><code>verbose</code></strong></dt>
-<dd>boolean to show the progress of the request using the request
-log, defaults to False</dd>
+<dd>boolean to show the progress of the request using the request log, defaults to False.</dd>
 <dt><strong><code>poll_interval</code></strong></dt>
-<dd>seconds to wait between polling calls, defaults
-to aurorax.requests.STANDARD_POLLING_SLEEP_TIME</dd>
+<dd>seconds to wait between polling calls, defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>aurorax.conjunctions.Search object</p></div>
+<p>An aurorax.conjunctions.Search object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def search(start: datetime.datetime, end: datetime.datetime, 
-            ground: List[Dict], space: List[str], conjunction_types: List[str] = [&#34;nbtrace&#34;],
-            max_distances: Dict[str, float] = {}, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE, verbose: bool = False,
-            poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; Search:
+<pre><code class="python">def search(start: datetime.datetime, end: datetime.datetime,
+           ground: List[Dict], space: List[str], conjunction_types: List[str] = [&#34;nbtrace&#34;],
+           max_distances: Dict[str, float] = {}, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE, verbose: bool = False,
+           poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; Search:
     &#34;&#34;&#34;
     Search for conjunctions and block until results are returned.
 
     Attributes:
-        start: start datetime.datetime timestamp of the search
-        end: end datetime.datetime timestamp of the search
+        start: start datetime.datetime timestamp of the search.
+        end: end datetime.datetime timestamp of the search.
         ground: List of ground instrument search parameters. See examples for usage.
             e.g. [
                 {
@@ -514,8 +528,8 @@ to aurorax.requests.STANDARD_POLLING_SLEEP_TIME</dd>
                     &#34;instrument_types&#34;: [&#34;footprint&#34;]
                 }
             ]
-        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]
-        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions. 
+        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;].
+        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
             default_distance will be used for any ground-space and space-space maximum distances not specified.
             See examples for usage.
             e.g. distances = {
@@ -526,20 +540,18 @@ to aurorax.requests.STANDARD_POLLING_SLEEP_TIME</dd>
                 &#34;ground2-space2&#34;: 500,
                 &#34;space1-space2&#34;: None
             }
-        default_distance: default maximum distance in kilometers for conjunction. 
-            Used when max distance is not specified for any ground-space and 
-            space-space instrument pairs.
-        verbose: boolean to show the progress of the request using the request 
-            log, defaults to False
-        poll_interval: seconds to wait between polling calls, defaults 
-            to aurorax.requests.STANDARD_POLLING_SLEEP_TIME
+        default_distance: default maximum distance in kilometers for conjunction.
+            Used when max distance is not specified for any ground-space and space-space instrument pairs.
+        verbose: boolean to show the progress of the request using the request log, defaults to False.
+        poll_interval: seconds to wait between polling calls, defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
 
     Returns:
-        aurorax.conjunctions.Search object
+        An aurorax.conjunctions.Search object.
 
     &#34;&#34;&#34;
     # create a Search object
-    s = Search(start, end, ground, space, conjunction_types, max_distances, default_distance)
+    s = Search(start, end, ground, space, conjunction_types,
+               max_distances, default_distance)
     if verbose:
         print(f&#34;[{datetime.datetime.now()}] Search object created&#34;)
 
@@ -548,7 +560,8 @@ to aurorax.requests.STANDARD_POLLING_SLEEP_TIME</dd>
     if verbose:
         print(f&#34;[{datetime.datetime.now()}] Request submitted&#34;)
         print(f&#34;[{datetime.datetime.now()}] Request ID: {s.request_id}&#34;)
-        print(f&#34;[{datetime.datetime.now()}] Request details available at: {s.request_url}&#34;)
+        print(
+            f&#34;[{datetime.datetime.now()}] Request details available at: {s.request_url}&#34;)
         print(f&#34;[{datetime.datetime.now()}] Waiting for data ...&#34;)
 
     s.wait(poll_interval=poll_interval, verbose=verbose)
@@ -560,22 +573,24 @@ to aurorax.requests.STANDARD_POLLING_SLEEP_TIME</dd>
     s.get_data()
 
     if verbose:
-        print(f&#39;[{datetime.datetime.now()}] Retrieved {humanize.filesize.naturalsize(s.status[&#34;search_result&#34;][&#34;file_size&#34;])} of data containing {s.status[&#34;search_result&#34;][&#34;result_count&#34;]} records&#39;)
-    
+        print(f&#39;[{datetime.datetime.now()}] Retrieved \
+        {humanize.filesize.naturalsize(s.status[&#34;search_result&#34;][&#34;file_size&#34;])} of data containing \
+        {s.status[&#34;search_result&#34;][&#34;result_count&#34;]} records&#39;)
+
     return s</code></pre>
 </details>
 </dd>
 <dt id="aurorax.conjunctions.search_async"><code class="name flex">
-<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, ground: List[Dict], space: List[Dict], conjunction_types: List[str] = ['nbtrace'], max_distances: Dict[str, float] = {}, default_distance: float = 300) ‑> <a title="aurorax.conjunctions.Search" href="#aurorax.conjunctions.Search">Search</a></span>
+<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, ground: List[Dict[~KT, ~VT]], space: List[Dict[~KT, ~VT]], conjunction_types: List[str] = ['nbtrace'], max_distances: Dict[str, float] = {}, default_distance: float = 300) ‑> <a title="aurorax.conjunctions.Search" href="#aurorax.conjunctions.Search">Search</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Submit a request for a conjunctions search, return asynchronously.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>start</code></strong></dt>
-<dd>start datetime.datetime timestamp of the search</dd>
+<dd>start datetime.datetime timestamp of the search.</dd>
 <dt><strong><code>end</code></strong></dt>
-<dd>end datetime.datetime timestamp of the search</dd>
+<dd>end datetime.datetime timestamp of the search.</dd>
 <dt><strong><code>ground</code></strong></dt>
 <dd>List of ground instrument search parameters. See examples for usage.
 e.g. [
@@ -595,7 +610,7 @@ e.g. [
 }
 ]</dd>
 <dt><strong><code>conjunction_types</code></strong></dt>
-<dd>list of conjunction types, defaults to ["nbtrace"]</dd>
+<dd>list of conjunction types, defaults to ["nbtrace"].</dd>
 <dt><strong><code>max_distances</code></strong></dt>
 <dd>dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
 default_distance will be used for any ground-space and space-space maximum distances not specified.
@@ -613,24 +628,24 @@ e.g. distances = {
 Used when max distance is not specified for any ground-space and space-space instrument pairs.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>aurorax.conjunctions.Search object</p></div>
+<p>An aurorax.conjunctions.Search object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def search_async(start: datetime.datetime,
-                 end: datetime.datetime, 
-                 ground: List[Dict], 
-                 space: List[Dict], 
+                 end: datetime.datetime,
+                 ground: List[Dict],
+                 space: List[Dict],
                  conjunction_types: List[str] = [&#34;nbtrace&#34;],
-                 max_distances: Dict[str, float] = {}, 
+                 max_distances: Dict[str, float] = {},
                  default_distance: float = DEFAULT_CONJUNCTION_DISTANCE) -&gt; Search:
     &#34;&#34;&#34;
     Submit a request for a conjunctions search, return asynchronously.
 
     Attributes:
-        start: start datetime.datetime timestamp of the search
-        end: end datetime.datetime timestamp of the search
+        start: start datetime.datetime timestamp of the search.
+        end: end datetime.datetime timestamp of the search.
         ground: List of ground instrument search parameters. See examples for usage.
             e.g. [
                 {
@@ -647,8 +662,8 @@ Used when max distance is not specified for any ground-space and space-space ins
                     &#34;instrument_types&#34;: [&#34;footprint&#34;]
                 }
             ]
-        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]
-        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions. 
+        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;].
+        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
             default_distance will be used for any ground-space and space-space maximum distances not specified.
             See examples for usage.
             e.g. distances = {
@@ -659,13 +674,14 @@ Used when max distance is not specified for any ground-space and space-space ins
                 &#34;ground2-space2&#34;: 500,
                 &#34;space1-space2&#34;: None
             }
-        default_distance: default maximum distance in kilometers for conjunction. 
+        default_distance: default maximum distance in kilometers for conjunction.
             Used when max distance is not specified for any ground-space and space-space instrument pairs.
 
     Returns:
-        aurorax.conjunctions.Search object
+        An aurorax.conjunctions.Search object.
     &#34;&#34;&#34;
-    s = Search(start=start, end=end, ground=ground, space=space, conjunction_types=conjunction_types, max_distances=max_distances, default_distance=default_distance)
+    s = Search(start=start, end=end, ground=ground, space=space, conjunction_types=conjunction_types,
+               max_distances=max_distances, default_distance=default_distance)
     s.execute()
 
     return s</code></pre>
@@ -685,19 +701,19 @@ Used when max distance is not specified for any ground-space and space-space ins
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>conjunction_type</code></strong></dt>
-<dd>conjunction type "nbtrace" or "sbtrace"</dd>
+<dd>conjunction type "nbtrace" or "sbtrace".</dd>
 <dt><strong><code>start</code></strong></dt>
-<dd>start datetime.datetime of conjunction event(s)</dd>
+<dd>start datetime.datetime of conjunction event(s).</dd>
 <dt><strong><code>end</code></strong></dt>
-<dd>end datetime.datetime of conjunction event(s)</dd>
+<dd>end datetime.datetime of conjunction event(s).</dd>
 <dt><strong><code>data_sources</code></strong></dt>
-<dd>aurorax.sources.DataSource sources in the conjunction</dd>
+<dd>aurorax.sources.DataSource sources in the conjunction.</dd>
 <dt><strong><code>min_distance</code></strong></dt>
-<dd>minimum kilometre distance of conjunction event(s), float</dd>
+<dd>minimum kilometre distance of conjunction event(s), float.</dd>
 <dt><strong><code>max_distance</code></strong></dt>
-<dd>maximum kilometre distance of conjunction event(s), float</dd>
+<dd>maximum kilometre distance of conjunction event(s), float.</dd>
 <dt><strong><code>events</code></strong></dt>
-<dd>list of dictionaries containing details of individual conjunction events</dd>
+<dd>list of dictionaries containing details of individual conjunction events.</dd>
 </dl>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p></div>
@@ -708,19 +724,19 @@ Used when max distance is not specified for any ground-space and space-space ins
 <pre><code class="python">class Conjunction(BaseModel):
     &#34;&#34;&#34;
     Conjunction data type.
-    
+
     Attributes:
-        conjunction_type: conjunction type &#34;nbtrace&#34; or &#34;sbtrace&#34;
-        start: start datetime.datetime of conjunction event(s)
-        end: end datetime.datetime of conjunction event(s)
-        data_sources: aurorax.sources.DataSource sources in the conjunction
-        min_distance: minimum kilometre distance of conjunction event(s), float
-        max_distance: maximum kilometre distance of conjunction event(s), float
-        events: list of dictionaries containing details of individual conjunction events
+        conjunction_type: conjunction type &#34;nbtrace&#34; or &#34;sbtrace&#34;.
+        start: start datetime.datetime of conjunction event(s).
+        end: end datetime.datetime of conjunction event(s).
+        data_sources: aurorax.sources.DataSource sources in the conjunction.
+        min_distance: minimum kilometre distance of conjunction event(s), float.
+        max_distance: maximum kilometre distance of conjunction event(s), float.
+        events: list of dictionaries containing details of individual conjunction events.
 
     &#34;&#34;&#34;
     conjunction_type: str
-    start: datetime.datetime 
+    start: datetime.datetime
     end: datetime.datetime
     data_sources: List[aurorax.sources.DataSource]
     min_distance: float
@@ -729,19 +745,21 @@ Used when max distance is not specified for any ground-space and space-space ins
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of Conjunction object.
+
         &#34;&#34;&#34;
         return self.__repr__()
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of Conjunction object.
+
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)</code></pre>
 </details>
@@ -764,7 +782,7 @@ Used when max distance is not specified for any ground-space and space-space ins
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.conjunctions.Conjunction.events"><code class="name">var <span class="ident">events</span> : List[Dict]</code></dt>
+<dt id="aurorax.conjunctions.Conjunction.events"><code class="name">var <span class="ident">events</span> : List[Dict[~KT, ~VT]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -784,16 +802,16 @@ Used when max distance is not specified for any ground-space and space-space ins
 </dd>
 <dt id="aurorax.conjunctions.Search"><code class="flex name class">
 <span>class <span class="ident">Search</span></span>
-<span>(</span><span>start: datetime.datetime, end: datetime.datetime, ground: List[Dict], space: List[Dict], conjunction_types: List[str] = ['nbtrace'], max_distances: Dict[str, float] = None, default_distance: float = 300)</span>
+<span>(</span><span>start: datetime.datetime, end: datetime.datetime, ground: List[Dict[~KT, ~VT]], space: List[Dict[~KT, ~VT]], conjunction_types: List[str] = ['nbtrace'], max_distances: Dict[str, float] = None, default_distance: float = 300)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class representing an AuroraX conjunctions search</p>
+<div class="desc"><p>Class representing an AuroraX conjunctions search.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>start</code></strong></dt>
-<dd>start datetime.datetime timestamp of the search</dd>
+<dd>start datetime.datetime timestamp of the search.</dd>
 <dt><strong><code>end</code></strong></dt>
-<dd>end datetime.datetime timestamp of the search</dd>
+<dd>end datetime.datetime timestamp of the search.</dd>
 <dt><strong><code>ground</code></strong></dt>
 <dd>List of ground instrument search parameters. See examples for usage.
 e.g. [
@@ -813,7 +831,7 @@ e.g. [
 }
 ]</dd>
 <dt><strong><code>conjunction_types</code></strong></dt>
-<dd>list of conjunction types, defaults to ["nbtrace"]</dd>
+<dd>list of conjunction types, defaults to ["nbtrace"].</dd>
 <dt><strong><code>max_distances</code></strong></dt>
 <dd>dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
 default_distance will be used for any ground-space and space-space maximum distances not specified.
@@ -830,39 +848,39 @@ e.g. distances = {
 <dd>default maximum distance in kilometers for conjunction.
 Used when max distance is not specified for any ground-space and space-space instrument pairs.</dd>
 <dt><strong><code>request</code></strong></dt>
-<dd>aurorax.AuroraXResponse object returned when the search is executed</dd>
+<dd>aurorax.AuroraXResponse object returned when the search is executed.</dd>
 <dt><strong><code>request_id</code></strong></dt>
-<dd>unique AuroraX string ID assigned to the request</dd>
+<dd>unique AuroraX string ID assigned to the request.</dd>
 <dt><strong><code>request_url</code></strong></dt>
-<dd>unique AuroraX URL string assigned to the request</dd>
+<dd>unique AuroraX URL string assigned to the request.</dd>
 <dt><strong><code>executed</code></strong></dt>
-<dd>boolean, gets set to True when the search is executed</dd>
+<dd>boolean, gets set to True when the search is executed.</dd>
 <dt><strong><code>completed</code></strong></dt>
-<dd>boolean, gets set to True when the search is checked to be finished</dd>
+<dd>boolean, gets set to True when the search is checked to be finished.</dd>
 <dt><strong><code>data_url</code></strong></dt>
-<dd>URL string where data is accessed</dd>
+<dd>URL string where data is accessed.</dd>
 <dt><strong><code>query</code></strong></dt>
-<dd>dictionary of values sent for the search query</dd>
+<dd>dictionary of values sent for the search query.</dd>
 <dt><strong><code>status</code></strong></dt>
-<dd>dictionary of status updates</dd>
+<dd>dictionary of status updates.</dd>
 <dt><strong><code>data</code></strong></dt>
-<dd>list of aurorax.conjunctions.Conjunction objects returned</dd>
+<dd>list of aurorax.conjunctions.Conjunction objects returned.</dd>
 <dt><strong><code>logs</code></strong></dt>
-<dd>list of logging messages from the API</dd>
+<dd>list of logging messages from the API.</dd>
 </dl>
 <p>Returns:
-aurorax.conjunctions.Search object</p></div>
+An aurorax.conjunctions.Search object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Search():
     &#34;&#34;&#34;
-    Class representing an AuroraX conjunctions search
+    Class representing an AuroraX conjunctions search.
 
     Attributes:
-        start: start datetime.datetime timestamp of the search
-        end: end datetime.datetime timestamp of the search
+        start: start datetime.datetime timestamp of the search.
+        end: end datetime.datetime timestamp of the search.
         ground: List of ground instrument search parameters. See examples for usage.
             e.g. [
                 {
@@ -879,8 +897,8 @@ aurorax.conjunctions.Search object</p></div>
                     &#34;instrument_types&#34;: [&#34;footprint&#34;]
                 }
             ]
-        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]
-        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions. 
+        conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;].
+        max_distances: dictionary of Dict[str, float] ground-space and space-space maximum distances for conjunctions.
             default_distance will be used for any ground-space and space-space maximum distances not specified.
             See examples for usage.
             e.g. distances = {
@@ -891,27 +909,27 @@ aurorax.conjunctions.Search object</p></div>
                 &#34;ground2-space2&#34;: 500,
                 &#34;space1-space2&#34;: None
             }
-        default_distance: default maximum distance in kilometers for conjunction. 
+        default_distance: default maximum distance in kilometers for conjunction.
             Used when max distance is not specified for any ground-space and space-space instrument pairs.
-        request: aurorax.AuroraXResponse object returned when the search is executed
-        request_id: unique AuroraX string ID assigned to the request
-        request_url: unique AuroraX URL string assigned to the request
-        executed: boolean, gets set to True when the search is executed
-        completed: boolean, gets set to True when the search is checked to be finished
-        data_url: URL string where data is accessed
-        query: dictionary of values sent for the search query
-        status: dictionary of status updates
-        data: list of aurorax.conjunctions.Conjunction objects returned
-        logs: list of logging messages from the API
+        request: aurorax.AuroraXResponse object returned when the search is executed.
+        request_id: unique AuroraX string ID assigned to the request.
+        request_url: unique AuroraX URL string assigned to the request.
+        executed: boolean, gets set to True when the search is executed.
+        completed: boolean, gets set to True when the search is checked to be finished.
+        data_url: URL string where data is accessed.
+        query: dictionary of values sent for the search query.
+        status: dictionary of status updates.
+        data: list of aurorax.conjunctions.Conjunction objects returned.
+        logs: list of logging messages from the API.
 
         Returns:
-            aurorax.conjunctions.Search object
+            An aurorax.conjunctions.Search object.
 
     &#34;&#34;&#34;
 
-    def __init__(self, start: datetime.datetime, end: datetime.datetime, 
-                ground: List[Dict], space: List[Dict], conjunction_types: List[str] = [&#34;nbtrace&#34;],
-                max_distances: Dict[str, float] = None, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE):
+    def __init__(self, start: datetime.datetime, end: datetime.datetime,
+                 ground: List[Dict], space: List[Dict], conjunction_types: List[str] = [&#34;nbtrace&#34;],
+                 max_distances: Dict[str, float] = None, default_distance: float = DEFAULT_CONJUNCTION_DISTANCE):
 
         self.request = None
         self.request_id = &#34;&#34;
@@ -934,19 +952,21 @@ aurorax.conjunctions.Search object</p></div>
 
     def __str__(self):
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of Conjunction Search object.
+
         &#34;&#34;&#34;
         return self.__repr__()
 
     def __repr__(self):
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of Conjunction Search object.
+
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)
 
@@ -955,20 +975,22 @@ aurorax.conjunctions.Search object</p></div>
         space_sources_len = len(self.space)
 
         # check for ground-space and space-ground distances
-        for g in range(1, ground_sources_len+1):
-            for s in range(1, space_sources_len+1):
-                if f&#34;ground{g}-space{s}&#34; not in self.max_distances and f&#34;space{s}-ground{g}&#34; not in self.max_distances:
+        for g in range(1, ground_sources_len + 1):
+            for s in range(1, space_sources_len + 1):
+                if (f&#34;ground{g}-space{s}&#34; not in self.max_distances
+                        and f&#34;space{s}-ground{g}&#34; not in self.max_distances):
                     self.max_distances[f&#34;ground{g}-space{s}&#34;] = self.default_distance
 
         # check for space-space distances
-        for s in range(1, space_sources_len+1):
-            for s2 in range(s+1, space_sources_len+1):
-                if s != s2 and f&#34;space{s}-space{s2}&#34; not in self.max_distances and f&#34;space{s2}-space{s}&#34; not in self.max_distances:
+        for s in range(1, space_sources_len + 1):
+            for s2 in range(s + 1, space_sources_len + 1):
+                if (s != s2 and f&#34;space{s}-space{s2}&#34; not in self.max_distances
+                        and f&#34;space{s2}-space{s}&#34; not in self.max_distances):
                     self.max_distances[f&#34;space{s}-space{s2}&#34;] = self.default_distance
 
     def execute(self):
         &#34;&#34;&#34;
-        Initiate conjunction search request
+        Initiate conjunction search request.
         &#34;&#34;&#34;
         # set up request
         url = aurorax.api.urls.conjunction_search_url
@@ -984,7 +1006,8 @@ aurorax.conjunctions.Search object</p></div>
         self.query = post_data
 
         # do request
-        req = aurorax.AuroraXRequest(method=&#34;post&#34;, url=url, body=post_data, null_response=True)
+        req = aurorax.AuroraXRequest(
+            method=&#34;post&#34;, url=url, body=post_data, null_response=True)
         res = req.execute()
 
         # set request ID, request_url, executed
@@ -999,10 +1022,10 @@ aurorax.conjunctions.Search object</p></div>
 
     def update_status(self, status: Dict = None) -&gt; None:
         &#34;&#34;&#34;
-        Update the status of this conjunctions search
+        Update the status of this conjunctions search.
 
         Attributes:
-            status: retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None
+            status: retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None.
         &#34;&#34;&#34;
         # get the status if it isn&#39;t passed in
         if status is None:
@@ -1019,11 +1042,14 @@ aurorax.conjunctions.Search object</p></div>
 
     def check_for_data(self) -&gt; None:
         &#34;&#34;&#34;
-        Check to see if data is available for this conjunctions search request
+        Check to see if data is available for this conjunctions search request.
         &#34;&#34;&#34;
         self.update_status()
 
     def get_data(self) -&gt; None:
+        &#34;&#34;&#34;
+        Retrieve the data available for this conjunctions search request.
+        &#34;&#34;&#34;
         if not self.completed:
             print(&#34;No data available, update status first&#34;)
             return
@@ -1034,31 +1060,34 @@ aurorax.conjunctions.Search object</p></div>
 
     def wait(self, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
         &#34;&#34;&#34;
-        Block and wait until the request is complete and data is available for retrieval
+        Block and wait until the request is complete and data is available for retrieval.
 
         Attributes:
-            poll_interval: time in seconds to wait between polling attempts, defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME
-            verbose: output poll times, defaults to False
+            poll_interval: time in seconds to wait between polling attempts, defaults
+                to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+            verbose: output poll times, defaults to False.
 
         &#34;&#34;&#34;
         url = aurorax.api.urls.conjunction_request_url.format(self.request_id)
-        self.update_status(aurorax.requests.wait_for_data(url, poll_interval=poll_interval, verbose=verbose))
+        self.update_status(aurorax.requests.wait_for_data(
+            url, poll_interval=poll_interval, verbose=verbose))
 
-    def cancel(self, wait: bool = False, verbose: bool = False, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
+    def cancel(self, wait: bool = False, verbose: bool = False,
+               poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
         &#34;&#34;&#34;
         Cancel the conjunction search request at the API. This method returns asynchronously by default.
 
         Attributes:
             wait: set to True to block until the cancellation request has been completed. This may take several minutes.
-            verbose: when wait=True, output poll times, defaults to False
-            poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME
+            verbose: when wait=True, output poll times, defaults to False.
+            poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.
 
         Returns:
-            1 on success
+            1 on success.
 
         Raises:
-            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
         &#34;&#34;&#34;
         url = aurorax.api.urls.conjunction_request_url.format(self.request_id)
@@ -1076,38 +1105,39 @@ aurorax.conjunctions.Search object</p></div>
 <dt><strong><code>wait</code></strong></dt>
 <dd>set to True to block until the cancellation request has been completed. This may take several minutes.</dd>
 <dt><strong><code>verbose</code></strong></dt>
-<dd>when wait=True, output poll times, defaults to False</dd>
+<dd>when wait=True, output poll times, defaults to False.</dd>
 <dt><strong><code>poll_interval</code></strong></dt>
-<dd>when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME</dd>
+<dd>when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>1 on success</p>
+<p>1 on success.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#aurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
-<dd>invalid API key for this operation</dd>
+<dd>invalid API key for this operation.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def cancel(self, wait: bool = False, verbose: bool = False, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
+<pre><code class="python">def cancel(self, wait: bool = False, verbose: bool = False,
+           poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
     &#34;&#34;&#34;
     Cancel the conjunction search request at the API. This method returns asynchronously by default.
 
     Attributes:
         wait: set to True to block until the cancellation request has been completed. This may take several minutes.
-        verbose: when wait=True, output poll times, defaults to False
-        poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME
+        verbose: when wait=True, output poll times, defaults to False.
+        poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.
 
     Returns:
-        1 on success
+        1 on success.
 
     Raises:
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
     &#34;&#34;&#34;
     url = aurorax.api.urls.conjunction_request_url.format(self.request_id)
@@ -1118,14 +1148,14 @@ aurorax.conjunctions.Search object</p></div>
 <span>def <span class="ident">check_for_data</span></span>(<span>self) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Check to see if data is available for this conjunctions search request</p></div>
+<div class="desc"><p>Check to see if data is available for this conjunctions search request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def check_for_data(self) -&gt; None:
     &#34;&#34;&#34;
-    Check to see if data is available for this conjunctions search request
+    Check to see if data is available for this conjunctions search request.
     &#34;&#34;&#34;
     self.update_status()</code></pre>
 </details>
@@ -1134,14 +1164,14 @@ aurorax.conjunctions.Search object</p></div>
 <span>def <span class="ident">execute</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Initiate conjunction search request</p></div>
+<div class="desc"><p>Initiate conjunction search request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def execute(self):
     &#34;&#34;&#34;
-    Initiate conjunction search request
+    Initiate conjunction search request.
     &#34;&#34;&#34;
     # set up request
     url = aurorax.api.urls.conjunction_search_url
@@ -1157,7 +1187,8 @@ aurorax.conjunctions.Search object</p></div>
     self.query = post_data
 
     # do request
-    req = aurorax.AuroraXRequest(method=&#34;post&#34;, url=url, body=post_data, null_response=True)
+    req = aurorax.AuroraXRequest(
+        method=&#34;post&#34;, url=url, body=post_data, null_response=True)
     res = req.execute()
 
     # set request ID, request_url, executed
@@ -1175,12 +1206,15 @@ aurorax.conjunctions.Search object</p></div>
 <span>def <span class="ident">get_data</span></span>(<span>self) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Retrieve the data available for this conjunctions search request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_data(self) -&gt; None:
+    &#34;&#34;&#34;
+    Retrieve the data available for this conjunctions search request.
+    &#34;&#34;&#34;
     if not self.completed:
         print(&#34;No data available, update status first&#34;)
         return
@@ -1191,14 +1225,14 @@ aurorax.conjunctions.Search object</p></div>
 </details>
 </dd>
 <dt id="aurorax.conjunctions.Search.update_status"><code class="name flex">
-<span>def <span class="ident">update_status</span></span>(<span>self, status: Dict = None) ‑> None</span>
+<span>def <span class="ident">update_status</span></span>(<span>self, status: Dict[~KT, ~VT] = None) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Update the status of this conjunctions search</p>
+<div class="desc"><p>Update the status of this conjunctions search.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>status</code></strong></dt>
-<dd>retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None</dd>
+<dd>retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1206,10 +1240,10 @@ aurorax.conjunctions.Search object</p></div>
 </summary>
 <pre><code class="python">def update_status(self, status: Dict = None) -&gt; None:
     &#34;&#34;&#34;
-    Update the status of this conjunctions search
+    Update the status of this conjunctions search.
 
     Attributes:
-        status: retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None
+        status: retrieved status dictionary (include to avoid requestinf it from the API again), defaults to None.
     &#34;&#34;&#34;
     # get the status if it isn&#39;t passed in
     if status is None:
@@ -1229,13 +1263,14 @@ aurorax.conjunctions.Search object</p></div>
 <span>def <span class="ident">wait</span></span>(<span>self, poll_interval: float = 1.0, verbose: bool = False) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Block and wait until the request is complete and data is available for retrieval</p>
+<div class="desc"><p>Block and wait until the request is complete and data is available for retrieval.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>poll_interval</code></strong></dt>
-<dd>time in seconds to wait between polling attempts, defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME</dd>
+<dd>time in seconds to wait between polling attempts, defaults
+to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
 <dt><strong><code>verbose</code></strong></dt>
-<dd>output poll times, defaults to False</dd>
+<dd>output poll times, defaults to False.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1243,15 +1278,17 @@ aurorax.conjunctions.Search object</p></div>
 </summary>
 <pre><code class="python">def wait(self, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
     &#34;&#34;&#34;
-    Block and wait until the request is complete and data is available for retrieval
+    Block and wait until the request is complete and data is available for retrieval.
 
     Attributes:
-        poll_interval: time in seconds to wait between polling attempts, defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME
-        verbose: output poll times, defaults to False
+        poll_interval: time in seconds to wait between polling attempts, defaults
+            to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+        verbose: output poll times, defaults to False.
 
     &#34;&#34;&#34;
     url = aurorax.api.urls.conjunction_request_url.format(self.request_id)
-    self.update_status(aurorax.requests.wait_for_data(url, poll_interval=poll_interval, verbose=verbose))</code></pre>
+    self.update_status(aurorax.requests.wait_for_data(
+        url, poll_interval=poll_interval, verbose=verbose))</code></pre>
 </details>
 </dd>
 </dl>

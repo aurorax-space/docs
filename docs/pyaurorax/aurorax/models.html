@@ -36,12 +36,12 @@ from typing import Union
 
 class Location(BaseModel):
     &#34;&#34;&#34;
-    Class representing an AuroraX location (ie. geographic coordinates,
-    GSM coordinates, northern/southern magnetic footprints)
+    Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
+    northern/southern magnetic footprints).
 
     Attributes:
-        lat: latitude
-        lon: longitude
+        lat: latitude (degrees East).
+        lon: longitude (degrees North).
 
     &#34;&#34;&#34;
     lat: Union[float, None]
@@ -50,24 +50,27 @@ class Location(BaseModel):
     @validator(&#34;lon&#34;)
     def both_must_be_none_or_number(cls, v, values):
         if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-            raise ValueError(&#34;lat and lon must both be numbers or both be None&#34;)
+            raise ValueError(
+                &#34;lat and lon must both be numbers or both be None&#34;)
         return v
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of Location object.
+
         &#34;&#34;&#34;
         return str(self.__dict__)
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of Location object.
+
         &#34;&#34;&#34;
         return &#34;%s(lat=%s, lon=%s)&#34; % (self.__class__.__name__, str(self.lat), str(self.lon))</code></pre>
 </details>
@@ -86,14 +89,14 @@ class Location(BaseModel):
 <span>(</span><span>**data: Any)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class representing an AuroraX location (ie. geographic coordinates,
-GSM coordinates, northern/southern magnetic footprints)</p>
+<div class="desc"><p>Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
+northern/southern magnetic footprints).</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>lat</code></strong></dt>
-<dd>latitude</dd>
+<dd>latitude (degrees East).</dd>
 <dt><strong><code>lon</code></strong></dt>
-<dd>longitude</dd>
+<dd>longitude (degrees North).</dd>
 </dl>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p></div>
@@ -103,12 +106,12 @@ GSM coordinates, northern/southern magnetic footprints)</p>
 </summary>
 <pre><code class="python">class Location(BaseModel):
     &#34;&#34;&#34;
-    Class representing an AuroraX location (ie. geographic coordinates,
-    GSM coordinates, northern/southern magnetic footprints)
+    Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
+    northern/southern magnetic footprints).
 
     Attributes:
-        lat: latitude
-        lon: longitude
+        lat: latitude (degrees East).
+        lon: longitude (degrees North).
 
     &#34;&#34;&#34;
     lat: Union[float, None]
@@ -117,24 +120,27 @@ GSM coordinates, northern/southern magnetic footprints)</p>
     @validator(&#34;lon&#34;)
     def both_must_be_none_or_number(cls, v, values):
         if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-            raise ValueError(&#34;lat and lon must both be numbers or both be None&#34;)
+            raise ValueError(
+                &#34;lat and lon must both be numbers or both be None&#34;)
         return v
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of Location object.
+
         &#34;&#34;&#34;
         return str(self.__dict__)
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of Location object.
+
         &#34;&#34;&#34;
         return &#34;%s(lat=%s, lon=%s)&#34; % (self.__class__.__name__, str(self.lat), str(self.lon))</code></pre>
 </details>
@@ -168,7 +174,8 @@ GSM coordinates, northern/southern magnetic footprints)</p>
 <pre><code class="python">@validator(&#34;lon&#34;)
 def both_must_be_none_or_number(cls, v, values):
     if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-        raise ValueError(&#34;lat and lon must both be numbers or both be None&#34;)
+        raise ValueError(
+            &#34;lat and lon must both be numbers or both be None&#34;)
     return v</code></pre>
 </details>
 </dd>

@@ -30,7 +30,7 @@ ephemeris and data product records.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-AuroraX metadata schemas describe the intended structure of metadata stored in 
+AuroraX metadata schemas describe the intended structure of metadata stored in
 ephemeris and data product records.
 &#34;&#34;&#34;
 import aurorax
@@ -39,17 +39,15 @@ from typing import Dict, List
 
 def validate(schema: List[Dict], record: Dict, quiet: bool = False) -&gt; bool:
     &#34;&#34;&#34;
-    Validate the metadata record against a schema. This checks
-    that the key names match and there aren&#39;t fewer or more keys
-    than expected.
+    Validate the metadata record against a schema. This checks that the key names match and there aren&#39;t
+    fewer or more keys than expected.
 
     Attributes:
-        schema: list of dictionaries representing the metadata schema to 
-            validate against
-        record: metadata record dictionary to validate
+        schema: list of dictionaries representing the metadata schema to validate against.
+        record: metadata record dictionary to validate.
 
     Returns:
-        True if the metadata record is valid
+        True if the metadata record is valid.
     &#34;&#34;&#34;
     # check keys
     schema_keys = sorted([i[&#34;field_name&#34;] for i in schema])
@@ -63,16 +61,17 @@ def validate(schema: List[Dict], record: Dict, quiet: bool = False) -&gt; bool:
 
 def get_ephemeris_schema(identifier: int) -&gt; List[Dict]:
     &#34;&#34;&#34;
-    Retrieve the metadata schema for an ephemeris record
+    Retrieve the metadata schema for an ephemeris record.
 
     Attributes:
-        identifier: ephemeris source ID
+        identifier: ephemeris source ID.
 
     Returns:
-        Metadata schema associated with the record
+        Metadata schema associated with the record.
 
     &#34;&#34;&#34;
-    source_info = aurorax.sources.get_using_identifier(identifier, format=&#34;full_record&#34;)
+    source_info = aurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
     if source_info.ephemeris_metadata_schema:
         return source_info.ephemeris_metadata_schema
     else:
@@ -81,16 +80,17 @@ def get_ephemeris_schema(identifier: int) -&gt; List[Dict]:
 
 def get_data_products_schema(identifier: int) -&gt; List[Dict]:
     &#34;&#34;&#34;
-    Retrieve the metadata schema for a data products record
+    Retrieve the metadata schema for a data products record.
 
     Attributes:
-        identifier: ephemeris source ID
+        identifier: ephemeris source ID.
 
     Returns:
-        Metadata schema associated with the record
-    
+        Metadata schema associated with the record.
+
     &#34;&#34;&#34;
-    source_info = aurorax.sources.get_using_identifier(identifier, format=&#34;full_record&#34;)
+    source_info = aurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
     if source_info.data_product_metadata_schema:
         return source_info.data_product_metadata_schema
     else:
@@ -105,33 +105,34 @@ def get_data_products_schema(identifier: int) -&gt; List[Dict]:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="aurorax.metadata.get_data_products_schema"><code class="name flex">
-<span>def <span class="ident">get_data_products_schema</span></span>(<span>identifier: int) ‑> List[Dict]</span>
+<span>def <span class="ident">get_data_products_schema</span></span>(<span>identifier: int) ‑> List[Dict[~KT, ~VT]]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve the metadata schema for a data products record</p>
+<div class="desc"><p>Retrieve the metadata schema for a data products record.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
-<dd>ephemeris source ID</dd>
+<dd>ephemeris source ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Metadata schema associated with the record</p></div>
+<p>Metadata schema associated with the record.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_data_products_schema(identifier: int) -&gt; List[Dict]:
     &#34;&#34;&#34;
-    Retrieve the metadata schema for a data products record
+    Retrieve the metadata schema for a data products record.
 
     Attributes:
-        identifier: ephemeris source ID
+        identifier: ephemeris source ID.
 
     Returns:
-        Metadata schema associated with the record
-    
+        Metadata schema associated with the record.
+
     &#34;&#34;&#34;
-    source_info = aurorax.sources.get_using_identifier(identifier, format=&#34;full_record&#34;)
+    source_info = aurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
     if source_info.data_product_metadata_schema:
         return source_info.data_product_metadata_schema
     else:
@@ -139,33 +140,34 @@ def get_data_products_schema(identifier: int) -&gt; List[Dict]:
 </details>
 </dd>
 <dt id="aurorax.metadata.get_ephemeris_schema"><code class="name flex">
-<span>def <span class="ident">get_ephemeris_schema</span></span>(<span>identifier: int) ‑> List[Dict]</span>
+<span>def <span class="ident">get_ephemeris_schema</span></span>(<span>identifier: int) ‑> List[Dict[~KT, ~VT]]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve the metadata schema for an ephemeris record</p>
+<div class="desc"><p>Retrieve the metadata schema for an ephemeris record.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
-<dd>ephemeris source ID</dd>
+<dd>ephemeris source ID.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Metadata schema associated with the record</p></div>
+<p>Metadata schema associated with the record.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_ephemeris_schema(identifier: int) -&gt; List[Dict]:
     &#34;&#34;&#34;
-    Retrieve the metadata schema for an ephemeris record
+    Retrieve the metadata schema for an ephemeris record.
 
     Attributes:
-        identifier: ephemeris source ID
+        identifier: ephemeris source ID.
 
     Returns:
-        Metadata schema associated with the record
+        Metadata schema associated with the record.
 
     &#34;&#34;&#34;
-    source_info = aurorax.sources.get_using_identifier(identifier, format=&#34;full_record&#34;)
+    source_info = aurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
     if source_info.ephemeris_metadata_schema:
         return source_info.ephemeris_metadata_schema
     else:
@@ -173,39 +175,35 @@ def get_data_products_schema(identifier: int) -&gt; List[Dict]:
 </details>
 </dd>
 <dt id="aurorax.metadata.validate"><code class="name flex">
-<span>def <span class="ident">validate</span></span>(<span>schema: List[Dict], record: Dict, quiet: bool = False) ‑> bool</span>
+<span>def <span class="ident">validate</span></span>(<span>schema: List[Dict[~KT, ~VT]], record: Dict[~KT, ~VT], quiet: bool = False) ‑> bool</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Validate the metadata record against a schema. This checks
-that the key names match and there aren't fewer or more keys
-than expected.</p>
+<div class="desc"><p>Validate the metadata record against a schema. This checks that the key names match and there aren't
+fewer or more keys than expected.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>schema</code></strong></dt>
-<dd>list of dictionaries representing the metadata schema to
-validate against</dd>
+<dd>list of dictionaries representing the metadata schema to validate against.</dd>
 <dt><strong><code>record</code></strong></dt>
-<dd>metadata record dictionary to validate</dd>
+<dd>metadata record dictionary to validate.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>True if the metadata record is valid</p></div>
+<p>True if the metadata record is valid.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def validate(schema: List[Dict], record: Dict, quiet: bool = False) -&gt; bool:
     &#34;&#34;&#34;
-    Validate the metadata record against a schema. This checks
-    that the key names match and there aren&#39;t fewer or more keys
-    than expected.
+    Validate the metadata record against a schema. This checks that the key names match and there aren&#39;t
+    fewer or more keys than expected.
 
     Attributes:
-        schema: list of dictionaries representing the metadata schema to 
-            validate against
-        record: metadata record dictionary to validate
+        schema: list of dictionaries representing the metadata schema to validate against.
+        record: metadata record dictionary to validate.
 
     Returns:
-        True if the metadata record is valid
+        True if the metadata record is valid.
     &#34;&#34;&#34;
     # check keys
     schema_keys = sorted([i[&#34;field_name&#34;] for i in schema])

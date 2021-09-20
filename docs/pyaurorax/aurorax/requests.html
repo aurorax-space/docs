@@ -42,13 +42,13 @@ STANDARD_POLLING_SLEEP_TIME = 1.0  # 1s
 
 def get_status(request_url: str) -&gt; Dict:
     &#34;&#34;&#34;
-    Retrieve the status of a request
+    Retrieve the status of a request.
 
     Attributes:
-        request_url: URL of the request information
+        request_url: URL of the request information.
 
     Returns:
-        Status dictionary for the request
+        Status dictionary for the request.
 
     &#34;&#34;&#34;
     # do request
@@ -61,13 +61,13 @@ def get_status(request_url: str) -&gt; Dict:
 
 def get_data(data_url: str) -&gt; List:
     &#34;&#34;&#34;
-    Retrieve the data for a request
+    Retrieve the data for a request.
 
     Attributes:
-        data_url: URL for the data of a request
+        data_url: URL for the data of a request.
 
     Returns:
-        List of JSON data objects in the response
+        List of JSON data objects in the response.
 
     &#34;&#34;&#34;
     # do request
@@ -101,13 +101,13 @@ def get_data(data_url: str) -&gt; List:
 
 def get_logs(request_url: str) -&gt; List:
     &#34;&#34;&#34;
-    Retrieve the logs for a request
+    Retrieve the logs for a request.
 
     Attributes:
-        request_url: URL of the request information
+        request_url: URL of the request information.
 
     Returns:
-        List of logged messages for the request
+        List of logged messages for the request.
 
     &#34;&#34;&#34;
     # get status
@@ -123,16 +123,16 @@ def wait_for_data(request_url: str,
                   poll_interval: float = STANDARD_POLLING_SLEEP_TIME,
                   verbose: bool = False) -&gt; Dict:
     &#34;&#34;&#34;
-    Block and wait for the data to be made available for a request
+    Block and wait for the data to be made available for a request.
 
     Attributes:
-        request_url: URL of the request information
-        poll_interval: seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME
-        verbose: output poll times, defaults to False
+        request_url: URL of the request information.
+        poll_interval: seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.
+        verbose: output poll times, defaults to False.
 
     Returns:
-        Status dictionary for the request
-    
+        Status dictionary for the request.
+
     &#34;&#34;&#34;
     status = get_status(request_url)
     while (status[&#34;search_result&#34;][&#34;data_uri&#34;] is None):
@@ -145,30 +145,31 @@ def wait_for_data(request_url: str,
     return status
 
 
-def cancel(request_url: str, 
-           wait: bool = False, 
+def cancel(request_url: str,
+           wait: bool = False,
            poll_interval: float = STANDARD_POLLING_SLEEP_TIME,
            verbose: bool = False) -&gt; int:
     &#34;&#34;&#34;
     Cancel the request at the given URL. This operation is asynchronous by default unless the wait param is set to True.
 
     Attributes:
-        request_url: URL string of the request to be canceled
+        request_url: URL string of the request to be canceled.
         wait: set to True to block until the cancellation request has been completed. This may take several minutes.
-        verbose: when wait=True, output poll times, defaults to False
-        poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME
+        verbose: when wait=True, output poll times, defaults to False.
+        poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.
 
     Returns:
-        1 on success
+        1 on success.
 
     Raises:
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
-    
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+
     &#34;&#34;&#34;
 
     # do request
-    req = aurorax.AuroraXRequest(method=&#34;delete&#34;, url=request_url, null_response=True)
+    req = aurorax.AuroraXRequest(
+        method=&#34;delete&#34;, url=request_url, null_response=True)
     req.execute()
 
     if not wait:
@@ -178,11 +179,13 @@ def cancel(request_url: str,
     while (status[&#34;search_result&#34;][&#34;data_uri&#34;] is None and status[&#34;search_result&#34;][&#34;error_condition&#34;] is False):
         time.sleep(poll_interval)
         if (verbose is True):
-            print(&#34;[%s] Checking for cancellation status ...&#34; % (datetime.datetime.now()))
+            print(&#34;[%s] Checking for cancellation status ...&#34; %
+                  (datetime.datetime.now()))
         status = get_status(request_url)
     if (verbose is True):
-        print(&#34;[%s] The request has been cancelled&#34; % (datetime.datetime.now()))
-    
+        print(&#34;[%s] The request has been cancelled&#34; %
+              (datetime.datetime.now()))
+
     return 1</code></pre>
 </details>
 </section>
@@ -201,51 +204,52 @@ def cancel(request_url: str,
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>request_url</code></strong></dt>
-<dd>URL string of the request to be canceled</dd>
+<dd>URL string of the request to be canceled.</dd>
 <dt><strong><code>wait</code></strong></dt>
 <dd>set to True to block until the cancellation request has been completed. This may take several minutes.</dd>
 <dt><strong><code>verbose</code></strong></dt>
-<dd>when wait=True, output poll times, defaults to False</dd>
+<dd>when wait=True, output poll times, defaults to False.</dd>
 <dt><strong><code>poll_interval</code></strong></dt>
-<dd>when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME</dd>
+<dd>when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>1 on success</p>
+<p>1 on success.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#aurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
-<dd>invalid API key for this operation</dd>
+<dd>invalid API key for this operation.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def cancel(request_url: str, 
-           wait: bool = False, 
+<pre><code class="python">def cancel(request_url: str,
+           wait: bool = False,
            poll_interval: float = STANDARD_POLLING_SLEEP_TIME,
            verbose: bool = False) -&gt; int:
     &#34;&#34;&#34;
     Cancel the request at the given URL. This operation is asynchronous by default unless the wait param is set to True.
 
     Attributes:
-        request_url: URL string of the request to be canceled
+        request_url: URL string of the request to be canceled.
         wait: set to True to block until the cancellation request has been completed. This may take several minutes.
-        verbose: when wait=True, output poll times, defaults to False
-        poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME
+        verbose: when wait=True, output poll times, defaults to False.
+        poll_interval: when wait=True, seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.
 
     Returns:
-        1 on success
+        1 on success.
 
     Raises:
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
-    
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+
     &#34;&#34;&#34;
 
     # do request
-    req = aurorax.AuroraXRequest(method=&#34;delete&#34;, url=request_url, null_response=True)
+    req = aurorax.AuroraXRequest(
+        method=&#34;delete&#34;, url=request_url, null_response=True)
     req.execute()
 
     if not wait:
@@ -255,39 +259,41 @@ def cancel(request_url: str,
     while (status[&#34;search_result&#34;][&#34;data_uri&#34;] is None and status[&#34;search_result&#34;][&#34;error_condition&#34;] is False):
         time.sleep(poll_interval)
         if (verbose is True):
-            print(&#34;[%s] Checking for cancellation status ...&#34; % (datetime.datetime.now()))
+            print(&#34;[%s] Checking for cancellation status ...&#34; %
+                  (datetime.datetime.now()))
         status = get_status(request_url)
     if (verbose is True):
-        print(&#34;[%s] The request has been cancelled&#34; % (datetime.datetime.now()))
-    
+        print(&#34;[%s] The request has been cancelled&#34; %
+              (datetime.datetime.now()))
+
     return 1</code></pre>
 </details>
 </dd>
 <dt id="aurorax.requests.get_data"><code class="name flex">
-<span>def <span class="ident">get_data</span></span>(<span>data_url: str) ‑> List</span>
+<span>def <span class="ident">get_data</span></span>(<span>data_url: str) ‑> List[~T]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve the data for a request</p>
+<div class="desc"><p>Retrieve the data for a request.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>data_url</code></strong></dt>
-<dd>URL for the data of a request</dd>
+<dd>URL for the data of a request.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>List of JSON data objects in the response</p></div>
+<p>List of JSON data objects in the response.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_data(data_url: str) -&gt; List:
     &#34;&#34;&#34;
-    Retrieve the data for a request
+    Retrieve the data for a request.
 
     Attributes:
-        data_url: URL for the data of a request
+        data_url: URL for the data of a request.
 
     Returns:
-        List of JSON data objects in the response
+        List of JSON data objects in the response.
 
     &#34;&#34;&#34;
     # do request
@@ -320,30 +326,30 @@ def cancel(request_url: str,
 </details>
 </dd>
 <dt id="aurorax.requests.get_logs"><code class="name flex">
-<span>def <span class="ident">get_logs</span></span>(<span>request_url: str) ‑> List</span>
+<span>def <span class="ident">get_logs</span></span>(<span>request_url: str) ‑> List[~T]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve the logs for a request</p>
+<div class="desc"><p>Retrieve the logs for a request.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>request_url</code></strong></dt>
-<dd>URL of the request information</dd>
+<dd>URL of the request information.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>List of logged messages for the request</p></div>
+<p>List of logged messages for the request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_logs(request_url: str) -&gt; List:
     &#34;&#34;&#34;
-    Retrieve the logs for a request
+    Retrieve the logs for a request.
 
     Attributes:
-        request_url: URL of the request information
+        request_url: URL of the request information.
 
     Returns:
-        List of logged messages for the request
+        List of logged messages for the request.
 
     &#34;&#34;&#34;
     # get status
@@ -356,30 +362,30 @@ def cancel(request_url: str,
 </details>
 </dd>
 <dt id="aurorax.requests.get_status"><code class="name flex">
-<span>def <span class="ident">get_status</span></span>(<span>request_url: str) ‑> Dict</span>
+<span>def <span class="ident">get_status</span></span>(<span>request_url: str) ‑> Dict[~KT, ~VT]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve the status of a request</p>
+<div class="desc"><p>Retrieve the status of a request.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>request_url</code></strong></dt>
-<dd>URL of the request information</dd>
+<dd>URL of the request information.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Status dictionary for the request</p></div>
+<p>Status dictionary for the request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_status(request_url: str) -&gt; Dict:
     &#34;&#34;&#34;
-    Retrieve the status of a request
+    Retrieve the status of a request.
 
     Attributes:
-        request_url: URL of the request information
+        request_url: URL of the request information.
 
     Returns:
-        Status dictionary for the request
+        Status dictionary for the request.
 
     &#34;&#34;&#34;
     # do request
@@ -391,21 +397,21 @@ def cancel(request_url: str,
 </details>
 </dd>
 <dt id="aurorax.requests.wait_for_data"><code class="name flex">
-<span>def <span class="ident">wait_for_data</span></span>(<span>request_url: str, poll_interval: float = 1.0, verbose: bool = False) ‑> Dict</span>
+<span>def <span class="ident">wait_for_data</span></span>(<span>request_url: str, poll_interval: float = 1.0, verbose: bool = False) ‑> Dict[~KT, ~VT]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Block and wait for the data to be made available for a request</p>
+<div class="desc"><p>Block and wait for the data to be made available for a request.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>request_url</code></strong></dt>
-<dd>URL of the request information</dd>
+<dd>URL of the request information.</dd>
 <dt><strong><code>poll_interval</code></strong></dt>
-<dd>seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME</dd>
+<dd>seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.</dd>
 <dt><strong><code>verbose</code></strong></dt>
-<dd>output poll times, defaults to False</dd>
+<dd>output poll times, defaults to False.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Status dictionary for the request</p></div>
+<p>Status dictionary for the request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -414,16 +420,16 @@ def cancel(request_url: str,
                   poll_interval: float = STANDARD_POLLING_SLEEP_TIME,
                   verbose: bool = False) -&gt; Dict:
     &#34;&#34;&#34;
-    Block and wait for the data to be made available for a request
+    Block and wait for the data to be made available for a request.
 
     Attributes:
-        request_url: URL of the request information
-        poll_interval: seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME
-        verbose: output poll times, defaults to False
+        request_url: URL of the request information.
+        poll_interval: seconds to wait between polling calls, defaults to STANDARD_POLLING_SLEEP_TIME.
+        verbose: output poll times, defaults to False.
 
     Returns:
-        Status dictionary for the request
-    
+        Status dictionary for the request.
+
     &#34;&#34;&#34;
     status = get_status(request_url)
     while (status[&#34;search_result&#34;][&#34;data_uri&#34;] is None):

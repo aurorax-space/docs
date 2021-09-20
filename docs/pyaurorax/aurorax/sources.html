@@ -35,25 +35,26 @@ import pprint
 from pydantic import BaseModel
 from typing import List, Dict
 
+
 class DataSource(BaseModel):
     &#34;&#34;&#34;
-    Data source data type
+    Data source data type.
 
     Attributes:
-        identifier: an integer unique to the data source
-        program: a string representing the data source program
-        platform: a string representing the data source platform
-        instrument_type: a string representing the data source instrument type
-        source_type: a string representing the data source type
-        display_name: a string representing the data source&#39;s proper display name
-        metadata: a dictionary of metadata properties
-        owner: a string representing the data source&#39;s owner in AuroraX
+        identifier: an integer unique to the data source.
+        program: a string representing the data source program.
+        platform: a string representing the data source platform.
+        instrument_type: a string representing the data source instrument type.
+        source_type: a string representing the data source type.
+        display_name: a string representing the data source&#39;s proper display name.
+        metadata: a dictionary of metadata properties.
+        owner: a string representing the data source&#39;s owner in AuroraX.
         maintainers: a list of strings representing the email addresses of AuroraX accounts
-            that can alter this data source and its associated records
-        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in ephemeris records associated with the data source
-        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in data product records associated with the data source
+            that can alter this data source and its associated records.
+        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in ephemeris records associated with the data source.
+        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in data product records associated with the data source.
 
     &#34;&#34;&#34;
     identifier: int = None
@@ -68,24 +69,26 @@ class DataSource(BaseModel):
     ephemeris_metadata_schema: List[Dict] = None
     data_product_metadata_schema: List[Dict] = None
 
-
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of DataSource object.
+
         &#34;&#34;&#34;
         return self.__repr__()
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of DataSource object.
+
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)
+
 
 def list(order: str = &#34;identifier&#34;, format: str = &#34;basic_info&#34;) -&gt; List[DataSource]:
     &#34;&#34;&#34;
@@ -93,21 +96,22 @@ def list(order: str = &#34;identifier&#34;, format: str = &#34;basic_info&#34;) 
 
     Attributes:
         order: string value to order results by (identifier, program, platform,
-            instrument_type, display_name, owner), defaults to &#34;identifier&#34;
-        format: string record format, defaults to &#34;basic_info&#34;
+            instrument_type, display_name, owner), defaults to &#34;identifier&#34;.
+        format: string record format, defaults to &#34;basic_info&#34;.
 
     Returns:
-        A list of AuroraX DataSource objects
+        A list of AuroraX DataSource objects.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
     &#34;&#34;&#34;
     params = {
         format: format
     }
     # make request
-    req = aurorax.AuroraXRequest(method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params if format else None)
+    req = aurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params if format else None)
     res = req.execute()
 
     # order results
@@ -115,6 +119,7 @@ def list(order: str = &#34;identifier&#34;, format: str = &#34;basic_info&#34;) 
 
     # return
     return [DataSource(**source) for source in res.data]
+
 
 def get(program: str,
         platform: str,
@@ -124,18 +129,18 @@ def get(program: str,
     Retrieve a specific data source record.
 
     Attributes:
-        program: the string name of the program
-        platform: the string name of the platform
-        instrument_type: the string name of the instrument type
-        format: record format, defaults to &#34;basic_info&#34;
+        program: the string name of the program.
+        platform: the string name of the platform.
+        instrument_type: the string name of the instrument type.
+        format: record format, defaults to &#34;basic_info&#34;.
 
     Returns:
-        An AuroraX DataSource object matching the input parameters
+        An AuroraX DataSource object matching the input parameters.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: source not found
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: source not found.
 
     &#34;&#34;&#34;
     # make request
@@ -145,19 +150,17 @@ def get(program: str,
         &#34;instrument_type&#34;: instrument_type,
         &#34;format&#34;: format,
     }
-    req = aurorax.AuroraXRequest(method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
+    req = aurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
     res = req.execute()
 
     # set results to the first thing
     if (len(res.data) == 1):
         res.data = res.data[0]
 
-        # if format == &#34;identifier_only&#34;:
-        #     return res.data[&#34;identifier&#34;]
-
         return DataSource(**res.data)
     else:
-        raise aurorax.AuroraXNotFoundException(&#34;data source not found&#34;)
+        raise aurorax.AuroraXNotFoundException(&#34;Data source not found&#34;)
 
 
 def get_using_filters(program: str = None,
@@ -171,21 +174,21 @@ def get_using_filters(program: str = None,
     Retrieve all data source records matching a filter.
 
     Attributes:
-        program: the string name of the program
-        platform: the string name of the platform
-        instrument_type: the string name of the instrument type
-        source_type: the string name of the data source type
-        owner: the AuroraX data source owner&#39;s email address
-        format: record format, defaults to &#34;basic_info&#34;
+        program: the string name of the program.
+        platform: the string name of the platform.
+        instrument_type: the string name of the instrument type.
+        source_type: the string name of the data source type.
+        owner: the AuroraX data source owner&#39;s email address.
+        format: record format, defaults to &#34;basic_info&#34;.
         order: string value to order results by (identifier, program, platform,
-            instrument_type, display_name, owner), defaults to &#34;identifier&#34;
+            instrument_type, display_name, owner), defaults to &#34;identifier&#34;.
 
     Returns:
-        A list of AuroraX DataSource objects matching the filter parameters
+        A list of AuroraX DataSource objects matching the filter parameters.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
     &#34;&#34;&#34;
     # make request
@@ -197,7 +200,8 @@ def get_using_filters(program: str = None,
         &#34;owner&#34;: owner,
         &#34;format&#34;: format,
     }
-    req = aurorax.AuroraXRequest(method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
+    req = aurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
     res = req.execute()
 
     # order results
@@ -206,7 +210,7 @@ def get_using_filters(program: str = None,
     # return
     try:
         return [DataSource(**ds) for ds in res.data]
-    except:
+    except Exception:
         return []
 
 
@@ -215,15 +219,15 @@ def get_using_identifier(identifier: int, format: str = &#34;basic_info&#34;) -&
     Retrieve data source record matching an identifier.
 
     Attributes:
-        identifier: an integer unique to the data source
-        format: record format, defaults to &#34;basic_info&#34;
+        identifier: an integer unique to the data source.
+        format: record format, defaults to &#34;basic_info&#34;.
 
     Returns:
         An AuroraX DataSource object matching the input identifier.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
     &#34;&#34;&#34;
     # make request
@@ -237,8 +241,9 @@ def get_using_identifier(identifier: int, format: str = &#34;basic_info&#34;) -&
     # return
     try:
         return DataSource(**res.data)
-    except:
-        raise aurorax.AuroraXNotFoundException(&#34;Data source not found. Check that the identifier is correct.&#34;)
+    except Exception:
+        raise aurorax.AuroraXNotFoundException(
+            &#34;Data source not found. Check that the identifier is correct.&#34;)
 
 
 def get_stats(identifier: int,
@@ -248,19 +253,17 @@ def get_stats(identifier: int,
     Retrieve statistics for a data source.
 
     Attributes:
-        identifier: an integer unique to the data source
-        format: record format, defaults to &#34;basic_info&#34;
-        slow: a boolean indicating whether to use slow method which gets most up-to-date stats info
+        identifier: an integer unique to the data source.
+        format: record format, defaults to &#34;basic_info&#34;.
+        slow: a boolean indicating whether to use slow method which gets most up-to-date stats info.
 
     Returns:
         A dictionary of statistics information about the data source.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
-    :return: stats info
-    :rtype: Dict
     &#34;&#34;&#34;
     # make request
     params = {
@@ -280,15 +283,15 @@ def add(data_source: DataSource) -&gt; DataSource:
     Add a new data source to AuroraX.
 
     Attributes:
-        data_source: the fully defined AuroraX DataSource object to add
+        data_source: the fully defined AuroraX DataSource object to add.
 
     Returns:
         The newly created AuroraX DataSource object.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXDuplicateException: duplicate data source, already exists
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXDuplicateException: duplicate data source, already exists.
 
     &#34;&#34;&#34;
 
@@ -307,17 +310,19 @@ def add(data_source: DataSource) -&gt; DataSource:
     if (data_source.identifier is not None):
         request_data[&#34;identifier&#34;] = data_source.identifier
 
-    req = aurorax.AuroraXRequest(method=&#34;post&#34;, url=aurorax.api.urls.data_sources_url, body=request_data)
+    req = aurorax.AuroraXRequest(
+        method=&#34;post&#34;, url=aurorax.api.urls.data_sources_url, body=request_data)
     res = req.execute()
 
     # evaluate response
     if (res.status_code == 409):
-        raise aurorax.AuroraXDuplicateException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXDuplicateException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
 
     # return
     try:
         return DataSource(**res.data)
-    except:
+    except Exception:
         raise aurorax.AuroraXException(&#34;Could not create data source.&#34;)
 
 
@@ -326,16 +331,16 @@ def delete(identifier: int) -&gt; int:
     Delete a data source from AuroraX.
 
     Attributes:
-        identifier: an integer unique to the data source
+        identifier: an integer unique to the data source.
 
     Returns:
         1 on success.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: data source not found
-        aurorax.exceptions.AuroraXConflictException: conflict of some type
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
+        aurorax.exceptions.AuroraXConflictException: conflict of some type.
 
     &#34;&#34;&#34;
     # do request
@@ -345,11 +350,14 @@ def delete(identifier: int) -&gt; int:
 
     # evaluate response
     if (res.status_code == 400):
-        raise aurorax.AuroraXBadParametersException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXBadParametersException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
     elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXNotFoundException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
     elif (res.status_code == 409):
-        raise aurorax.AuroraXConflictException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXConflictException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
 
     # return
     return 1
@@ -358,25 +366,27 @@ def delete(identifier: int) -&gt; int:
 def update(data_source: DataSource) -&gt; DataSource:
     &#34;&#34;&#34;
     Update a data source in AuroraX.
-    
+
     This operation will fully replace the data source with the data_source argument passed in.
     Please make sure data_source is complete. Refer to examples for usage.
 
     Attributes:
-        data_source: the fully defined AuroraX DataSource object to update
+        data_source: the fully defined AuroraX DataSource object to update.
 
     Returns:
         The updated AuroraX DataSource object.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: data source not found
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
+        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
 
     &#34;&#34;&#34;
-    if not all([data_source.identifier, data_source.program, data_source.platform, data_source.instrument_type, data_source.source_type, data_source.display_name]):
-        raise aurorax.AuroraXBadParametersException(&#34;One or more required data source fields are missing. Update operation aborted.&#34;)
+    if not all([data_source.identifier, data_source.program, data_source.platform,
+                data_source.instrument_type, data_source.source_type, data_source.display_name]):
+        raise aurorax.AuroraXBadParametersException(
+            &#34;One or more required data source fields are missing. Update operation aborted.&#34;)
 
     # set URL
     url = f&#34;{aurorax.api.urls.data_sources_url}/{data_source.identifier}&#34;
@@ -388,7 +398,7 @@ def update(data_source: DataSource) -&gt; DataSource:
     # return
     try:
         return aurorax.sources.get(data_source.program, data_source.platform, data_source.instrument_type, &#34;full_record&#34;)
-    except:
+    except Exception:
         raise aurorax.AuroraXException(&#34;Could not update data source.&#34;)
 
 
@@ -405,37 +415,38 @@ def partial_update(identifier: int,
                    data_product_metadata_schema: List[Dict] = None) -&gt; DataSource:
     &#34;&#34;&#34;
     Partially update a data source in AuroraX.
-    
+
     Omitted fields are ignored in the update. Refer to examples for usage.
 
     Attributes:
-        identifier: an integer unique to the data source
-        program: a string representing the data source program
-        platform: a string representing the data source platform
-        instrument_type: a string representing the data source instrument type
-        source_type: a string representing the data source type
-        display_name: a string representing the data source&#39;s proper display name
-        metadata: a dictionary of metadata properties
-        owner: a string representing the data source&#39;s owner in AuroraX
+        identifier: an integer unique to the data source.
+        program: a string representing the data source program.
+        platform: a string representing the data source platform.
+        instrument_type: a string representing the data source instrument type.
+        source_type: a string representing the data source type.
+        display_name: a string representing the data source&#39;s proper display name.
+        metadata: a dictionary of metadata properties.
+        owner: a string representing the data source&#39;s owner in AuroraX.
         maintainers: a list of strings representing the email addresses of AuroraX accounts
-            that can alter this data source and its associated records
-        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in ephemeris records associated with the data source
-        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in data product records associated with the data source
+            that can alter this data source and its associated records.
+        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in ephemeris records associated with the data source.
+        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in data product records associated with the data source.
 
     Returns:
         The updated AuroraX DataSource object.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: data source not found
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
+        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
 
     &#34;&#34;&#34;
     if not identifier:
-        raise aurorax.AuroraXBadParametersException(&#34;Required identifier field is missing. Update operation aborted.&#34;)
+        raise aurorax.AuroraXBadParametersException(
+            &#34;Required identifier field is missing. Update operation aborted.&#34;)
 
     # create a DataSource
     ds = DataSource(identifier=identifier,
@@ -460,7 +471,7 @@ def partial_update(identifier: int,
     # return
     try:
         return aurorax.sources.get_using_identifier(ds.identifier, &#34;full_record&#34;)
-    except:
+    except Exception:
         raise aurorax.AuroraXException(&#34;Could not update data source.&#34;)</code></pre>
 </details>
 </section>
@@ -479,18 +490,18 @@ def partial_update(identifier: int,
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>data_source</code></strong></dt>
-<dd>the fully defined AuroraX DataSource object to add</dd>
+<dd>the fully defined AuroraX DataSource object to add.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The newly created AuroraX DataSource object.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXDuplicateException" href="exceptions.html#aurorax.exceptions.AuroraXDuplicateException">AuroraXDuplicateException</a></code></dt>
-<dd>duplicate data source, already exists</dd>
+<dd>duplicate data source, already exists.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -501,15 +512,15 @@ def partial_update(identifier: int,
     Add a new data source to AuroraX.
 
     Attributes:
-        data_source: the fully defined AuroraX DataSource object to add
+        data_source: the fully defined AuroraX DataSource object to add.
 
     Returns:
         The newly created AuroraX DataSource object.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXDuplicateException: duplicate data source, already exists
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXDuplicateException: duplicate data source, already exists.
 
     &#34;&#34;&#34;
 
@@ -528,17 +539,19 @@ def partial_update(identifier: int,
     if (data_source.identifier is not None):
         request_data[&#34;identifier&#34;] = data_source.identifier
 
-    req = aurorax.AuroraXRequest(method=&#34;post&#34;, url=aurorax.api.urls.data_sources_url, body=request_data)
+    req = aurorax.AuroraXRequest(
+        method=&#34;post&#34;, url=aurorax.api.urls.data_sources_url, body=request_data)
     res = req.execute()
 
     # evaluate response
     if (res.status_code == 409):
-        raise aurorax.AuroraXDuplicateException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXDuplicateException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
 
     # return
     try:
         return DataSource(**res.data)
-    except:
+    except Exception:
         raise aurorax.AuroraXException(&#34;Could not create data source.&#34;)</code></pre>
 </details>
 </dd>
@@ -550,20 +563,20 @@ def partial_update(identifier: int,
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
-<dd>an integer unique to the data source</dd>
+<dd>an integer unique to the data source.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>1 on success.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
-<dd>data source not found</dd>
+<dd>data source not found.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXConflictException" href="exceptions.html#aurorax.exceptions.AuroraXConflictException">AuroraXConflictException</a></code></dt>
-<dd>conflict of some type</dd>
+<dd>conflict of some type.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -574,16 +587,16 @@ def partial_update(identifier: int,
     Delete a data source from AuroraX.
 
     Attributes:
-        identifier: an integer unique to the data source
+        identifier: an integer unique to the data source.
 
     Returns:
         1 on success.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: data source not found
-        aurorax.exceptions.AuroraXConflictException: conflict of some type
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
+        aurorax.exceptions.AuroraXConflictException: conflict of some type.
 
     &#34;&#34;&#34;
     # do request
@@ -593,11 +606,14 @@ def partial_update(identifier: int,
 
     # evaluate response
     if (res.status_code == 400):
-        raise aurorax.AuroraXBadParametersException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXBadParametersException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
     elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXNotFoundException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
     elif (res.status_code == 409):
-        raise aurorax.AuroraXConflictException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise aurorax.AuroraXConflictException(
+            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
 
     # return
     return 1</code></pre>
@@ -611,24 +627,24 @@ def partial_update(identifier: int,
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>program</code></strong></dt>
-<dd>the string name of the program</dd>
+<dd>the string name of the program.</dd>
 <dt><strong><code>platform</code></strong></dt>
-<dd>the string name of the platform</dd>
+<dd>the string name of the platform.</dd>
 <dt><strong><code>instrument_type</code></strong></dt>
-<dd>the string name of the instrument type</dd>
+<dd>the string name of the instrument type.</dd>
 <dt><strong><code>format</code></strong></dt>
-<dd>record format, defaults to "basic_info"</dd>
+<dd>record format, defaults to "basic_info".</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>An AuroraX DataSource object matching the input parameters</p>
+<p>An AuroraX DataSource object matching the input parameters.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
-<dd>source not found</dd>
+<dd>source not found.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -642,18 +658,18 @@ def partial_update(identifier: int,
     Retrieve a specific data source record.
 
     Attributes:
-        program: the string name of the program
-        platform: the string name of the platform
-        instrument_type: the string name of the instrument type
-        format: record format, defaults to &#34;basic_info&#34;
+        program: the string name of the program.
+        platform: the string name of the platform.
+        instrument_type: the string name of the instrument type.
+        format: record format, defaults to &#34;basic_info&#34;.
 
     Returns:
-        An AuroraX DataSource object matching the input parameters
+        An AuroraX DataSource object matching the input parameters.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: source not found
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: source not found.
 
     &#34;&#34;&#34;
     # make request
@@ -663,46 +679,42 @@ def partial_update(identifier: int,
         &#34;instrument_type&#34;: instrument_type,
         &#34;format&#34;: format,
     }
-    req = aurorax.AuroraXRequest(method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
+    req = aurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
     res = req.execute()
 
     # set results to the first thing
     if (len(res.data) == 1):
         res.data = res.data[0]
 
-        # if format == &#34;identifier_only&#34;:
-        #     return res.data[&#34;identifier&#34;]
-
         return DataSource(**res.data)
     else:
-        raise aurorax.AuroraXNotFoundException(&#34;data source not found&#34;)</code></pre>
+        raise aurorax.AuroraXNotFoundException(&#34;Data source not found&#34;)</code></pre>
 </details>
 </dd>
 <dt id="aurorax.sources.get_stats"><code class="name flex">
-<span>def <span class="ident">get_stats</span></span>(<span>identifier: int, format: str = 'basic_info', slow: bool = False) ‑> Dict</span>
+<span>def <span class="ident">get_stats</span></span>(<span>identifier: int, format: str = 'basic_info', slow: bool = False) ‑> Dict[~KT, ~VT]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve statistics for a data source.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
-<dd>an integer unique to the data source</dd>
+<dd>an integer unique to the data source.</dd>
 <dt><strong><code>format</code></strong></dt>
-<dd>record format, defaults to "basic_info"</dd>
+<dd>record format, defaults to "basic_info".</dd>
 <dt><strong><code>slow</code></strong></dt>
-<dd>a boolean indicating whether to use slow method which gets most up-to-date stats info</dd>
+<dd>a boolean indicating whether to use slow method which gets most up-to-date stats info.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>A dictionary of statistics information about the data source.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
-</dl>
-<p>:return: stats info
-:rtype: Dict</p></div>
+<dd>unexpected error.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -714,19 +726,17 @@ def partial_update(identifier: int,
     Retrieve statistics for a data source.
 
     Attributes:
-        identifier: an integer unique to the data source
-        format: record format, defaults to &#34;basic_info&#34;
-        slow: a boolean indicating whether to use slow method which gets most up-to-date stats info
+        identifier: an integer unique to the data source.
+        format: record format, defaults to &#34;basic_info&#34;.
+        slow: a boolean indicating whether to use slow method which gets most up-to-date stats info.
 
     Returns:
         A dictionary of statistics information about the data source.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
-    :return: stats info
-    :rtype: Dict
     &#34;&#34;&#34;
     # make request
     params = {
@@ -749,29 +759,29 @@ def partial_update(identifier: int,
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>program</code></strong></dt>
-<dd>the string name of the program</dd>
+<dd>the string name of the program.</dd>
 <dt><strong><code>platform</code></strong></dt>
-<dd>the string name of the platform</dd>
+<dd>the string name of the platform.</dd>
 <dt><strong><code>instrument_type</code></strong></dt>
-<dd>the string name of the instrument type</dd>
+<dd>the string name of the instrument type.</dd>
 <dt><strong><code>source_type</code></strong></dt>
-<dd>the string name of the data source type</dd>
+<dd>the string name of the data source type.</dd>
 <dt><strong><code>owner</code></strong></dt>
-<dd>the AuroraX data source owner's email address</dd>
+<dd>the AuroraX data source owner's email address.</dd>
 <dt><strong><code>format</code></strong></dt>
-<dd>record format, defaults to "basic_info"</dd>
+<dd>record format, defaults to "basic_info".</dd>
 <dt><strong><code>order</code></strong></dt>
 <dd>string value to order results by (identifier, program, platform,
-instrument_type, display_name, owner), defaults to "identifier"</dd>
+instrument_type, display_name, owner), defaults to "identifier".</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>A list of AuroraX DataSource objects matching the filter parameters</p>
+<p>A list of AuroraX DataSource objects matching the filter parameters.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -788,21 +798,21 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
     Retrieve all data source records matching a filter.
 
     Attributes:
-        program: the string name of the program
-        platform: the string name of the platform
-        instrument_type: the string name of the instrument type
-        source_type: the string name of the data source type
-        owner: the AuroraX data source owner&#39;s email address
-        format: record format, defaults to &#34;basic_info&#34;
+        program: the string name of the program.
+        platform: the string name of the platform.
+        instrument_type: the string name of the instrument type.
+        source_type: the string name of the data source type.
+        owner: the AuroraX data source owner&#39;s email address.
+        format: record format, defaults to &#34;basic_info&#34;.
         order: string value to order results by (identifier, program, platform,
-            instrument_type, display_name, owner), defaults to &#34;identifier&#34;
+            instrument_type, display_name, owner), defaults to &#34;identifier&#34;.
 
     Returns:
-        A list of AuroraX DataSource objects matching the filter parameters
+        A list of AuroraX DataSource objects matching the filter parameters.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
     &#34;&#34;&#34;
     # make request
@@ -814,7 +824,8 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
         &#34;owner&#34;: owner,
         &#34;format&#34;: format,
     }
-    req = aurorax.AuroraXRequest(method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
+    req = aurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params)
     res = req.execute()
 
     # order results
@@ -823,7 +834,7 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
     # return
     try:
         return [DataSource(**ds) for ds in res.data]
-    except:
+    except Exception:
         return []</code></pre>
 </details>
 </dd>
@@ -835,18 +846,18 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
-<dd>an integer unique to the data source</dd>
+<dd>an integer unique to the data source.</dd>
 <dt><strong><code>format</code></strong></dt>
-<dd>record format, defaults to "basic_info"</dd>
+<dd>record format, defaults to "basic_info".</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>An AuroraX DataSource object matching the input identifier.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -857,15 +868,15 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
     Retrieve data source record matching an identifier.
 
     Attributes:
-        identifier: an integer unique to the data source
-        format: record format, defaults to &#34;basic_info&#34;
+        identifier: an integer unique to the data source.
+        format: record format, defaults to &#34;basic_info&#34;.
 
     Returns:
         An AuroraX DataSource object matching the input identifier.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
     &#34;&#34;&#34;
     # make request
@@ -879,8 +890,9 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
     # return
     try:
         return DataSource(**res.data)
-    except:
-        raise aurorax.AuroraXNotFoundException(&#34;Data source not found. Check that the identifier is correct.&#34;)</code></pre>
+    except Exception:
+        raise aurorax.AuroraXNotFoundException(
+            &#34;Data source not found. Check that the identifier is correct.&#34;)</code></pre>
 </details>
 </dd>
 <dt id="aurorax.sources.list"><code class="name flex">
@@ -892,18 +904,18 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 <dl>
 <dt><strong><code>order</code></strong></dt>
 <dd>string value to order results by (identifier, program, platform,
-instrument_type, display_name, owner), defaults to "identifier"</dd>
+instrument_type, display_name, owner), defaults to "identifier".</dd>
 <dt><strong><code>format</code></strong></dt>
-<dd>string record format, defaults to "basic_info"</dd>
+<dd>string record format, defaults to "basic_info".</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>A list of AuroraX DataSource objects</p>
+<p>A list of AuroraX DataSource objects.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -915,21 +927,22 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 
     Attributes:
         order: string value to order results by (identifier, program, platform,
-            instrument_type, display_name, owner), defaults to &#34;identifier&#34;
-        format: string record format, defaults to &#34;basic_info&#34;
+            instrument_type, display_name, owner), defaults to &#34;identifier&#34;.
+        format: string record format, defaults to &#34;basic_info&#34;.
 
     Returns:
-        A list of AuroraX DataSource objects
+        A list of AuroraX DataSource objects.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
     &#34;&#34;&#34;
     params = {
         format: format
     }
     # make request
-    req = aurorax.AuroraXRequest(method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params if format else None)
+    req = aurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=aurorax.api.urls.data_sources_url, params=params if format else None)
     res = req.execute()
 
     # order results
@@ -940,7 +953,7 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 </details>
 </dd>
 <dt id="aurorax.sources.partial_update"><code class="name flex">
-<span>def <span class="ident">partial_update</span></span>(<span>identifier: int, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, display_name: str = None, metadata: Dict = None, owner: str = None, maintainers: List[str] = None, ephemeris_metadata_schema: List[Dict] = None, data_product_metadata_schema: List[Dict] = None) ‑> <a title="aurorax.sources.DataSource" href="#aurorax.sources.DataSource">DataSource</a></span>
+<span>def <span class="ident">partial_update</span></span>(<span>identifier: int, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, display_name: str = None, metadata: Dict[~KT, ~VT] = None, owner: str = None, maintainers: List[str] = None, ephemeris_metadata_schema: List[Dict[~KT, ~VT]] = None, data_product_metadata_schema: List[Dict[~KT, ~VT]] = None) ‑> <a title="aurorax.sources.DataSource" href="#aurorax.sources.DataSource">DataSource</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Partially update a data source in AuroraX.</p>
@@ -948,43 +961,43 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
-<dd>an integer unique to the data source</dd>
+<dd>an integer unique to the data source.</dd>
 <dt><strong><code>program</code></strong></dt>
-<dd>a string representing the data source program</dd>
+<dd>a string representing the data source program.</dd>
 <dt><strong><code>platform</code></strong></dt>
-<dd>a string representing the data source platform</dd>
+<dd>a string representing the data source platform.</dd>
 <dt><strong><code>instrument_type</code></strong></dt>
-<dd>a string representing the data source instrument type</dd>
+<dd>a string representing the data source instrument type.</dd>
 <dt><strong><code>source_type</code></strong></dt>
-<dd>a string representing the data source type</dd>
+<dd>a string representing the data source type.</dd>
 <dt><strong><code>display_name</code></strong></dt>
-<dd>a string representing the data source's proper display name</dd>
+<dd>a string representing the data source's proper display name.</dd>
 <dt><strong><code>metadata</code></strong></dt>
-<dd>a dictionary of metadata properties</dd>
+<dd>a dictionary of metadata properties.</dd>
 <dt><strong><code>owner</code></strong></dt>
-<dd>a string representing the data source's owner in AuroraX</dd>
+<dd>a string representing the data source's owner in AuroraX.</dd>
 <dt><strong><code>maintainers</code></strong></dt>
 <dd>a list of strings representing the email addresses of AuroraX accounts
-that can alter this data source and its associated records</dd>
+that can alter this data source and its associated records.</dd>
 <dt><strong><code>ephemeris_metadata_schema</code></strong></dt>
 <dd>a list of dictionaries capturing the metadata keys and values
-that can appear in ephemeris records associated with the data source</dd>
+that can appear in ephemeris records associated with the data source.</dd>
 <dt><strong><code>data_product_metadata_schema</code></strong></dt>
 <dd>a list of dictionaries capturing the metadata keys and values
-that can appear in data product records associated with the data source</dd>
+that can appear in data product records associated with the data source.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The updated AuroraX DataSource object.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
-<dd>data source not found</dd>
+<dd>data source not found.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#aurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
-<dd>missing parameters</dd>
+<dd>missing parameters.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1003,37 +1016,38 @@ that can appear in data product records associated with the data source</dd>
                    data_product_metadata_schema: List[Dict] = None) -&gt; DataSource:
     &#34;&#34;&#34;
     Partially update a data source in AuroraX.
-    
+
     Omitted fields are ignored in the update. Refer to examples for usage.
 
     Attributes:
-        identifier: an integer unique to the data source
-        program: a string representing the data source program
-        platform: a string representing the data source platform
-        instrument_type: a string representing the data source instrument type
-        source_type: a string representing the data source type
-        display_name: a string representing the data source&#39;s proper display name
-        metadata: a dictionary of metadata properties
-        owner: a string representing the data source&#39;s owner in AuroraX
+        identifier: an integer unique to the data source.
+        program: a string representing the data source program.
+        platform: a string representing the data source platform.
+        instrument_type: a string representing the data source instrument type.
+        source_type: a string representing the data source type.
+        display_name: a string representing the data source&#39;s proper display name.
+        metadata: a dictionary of metadata properties.
+        owner: a string representing the data source&#39;s owner in AuroraX.
         maintainers: a list of strings representing the email addresses of AuroraX accounts
-            that can alter this data source and its associated records
-        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in ephemeris records associated with the data source
-        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in data product records associated with the data source
+            that can alter this data source and its associated records.
+        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in ephemeris records associated with the data source.
+        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in data product records associated with the data source.
 
     Returns:
         The updated AuroraX DataSource object.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: data source not found
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
+        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
 
     &#34;&#34;&#34;
     if not identifier:
-        raise aurorax.AuroraXBadParametersException(&#34;Required identifier field is missing. Update operation aborted.&#34;)
+        raise aurorax.AuroraXBadParametersException(
+            &#34;Required identifier field is missing. Update operation aborted.&#34;)
 
     # create a DataSource
     ds = DataSource(identifier=identifier,
@@ -1058,7 +1072,7 @@ that can appear in data product records associated with the data source</dd>
     # return
     try:
         return aurorax.sources.get_using_identifier(ds.identifier, &#34;full_record&#34;)
-    except:
+    except Exception:
         raise aurorax.AuroraXException(&#34;Could not update data source.&#34;)</code></pre>
 </details>
 </dd>
@@ -1072,20 +1086,20 @@ Please make sure data_source is complete. Refer to examples for usage.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>data_source</code></strong></dt>
-<dd>the fully defined AuroraX DataSource object to update</dd>
+<dd>the fully defined AuroraX DataSource object to update.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The updated AuroraX DataSource object.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected error</dd>
+<dd>unexpected error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
-<dd>data source not found</dd>
+<dd>data source not found.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#aurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
-<dd>missing parameters</dd>
+<dd>missing parameters.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1094,25 +1108,27 @@ Please make sure data_source is complete. Refer to examples for usage.</p>
 <pre><code class="python">def update(data_source: DataSource) -&gt; DataSource:
     &#34;&#34;&#34;
     Update a data source in AuroraX.
-    
+
     This operation will fully replace the data source with the data_source argument passed in.
     Please make sure data_source is complete. Refer to examples for usage.
 
     Attributes:
-        data_source: the fully defined AuroraX DataSource object to update
+        data_source: the fully defined AuroraX DataSource object to update.
 
     Returns:
         The updated AuroraX DataSource object.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
-        aurorax.exceptions.AuroraXNotFoundException: data source not found
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
+        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
 
     &#34;&#34;&#34;
-    if not all([data_source.identifier, data_source.program, data_source.platform, data_source.instrument_type, data_source.source_type, data_source.display_name]):
-        raise aurorax.AuroraXBadParametersException(&#34;One or more required data source fields are missing. Update operation aborted.&#34;)
+    if not all([data_source.identifier, data_source.program, data_source.platform,
+                data_source.instrument_type, data_source.source_type, data_source.display_name]):
+        raise aurorax.AuroraXBadParametersException(
+            &#34;One or more required data source fields are missing. Update operation aborted.&#34;)
 
     # set URL
     url = f&#34;{aurorax.api.urls.data_sources_url}/{data_source.identifier}&#34;
@@ -1124,7 +1140,7 @@ Please make sure data_source is complete. Refer to examples for usage.</p>
     # return
     try:
         return aurorax.sources.get(data_source.program, data_source.platform, data_source.instrument_type, &#34;full_record&#34;)
-    except:
+    except Exception:
         raise aurorax.AuroraXException(&#34;Could not update data source.&#34;)</code></pre>
 </details>
 </dd>
@@ -1138,34 +1154,34 @@ Please make sure data_source is complete. Refer to examples for usage.</p>
 <span>(</span><span>**data: Any)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Data source data type</p>
+<div class="desc"><p>Data source data type.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
-<dd>an integer unique to the data source</dd>
+<dd>an integer unique to the data source.</dd>
 <dt><strong><code>program</code></strong></dt>
-<dd>a string representing the data source program</dd>
+<dd>a string representing the data source program.</dd>
 <dt><strong><code>platform</code></strong></dt>
-<dd>a string representing the data source platform</dd>
+<dd>a string representing the data source platform.</dd>
 <dt><strong><code>instrument_type</code></strong></dt>
-<dd>a string representing the data source instrument type</dd>
+<dd>a string representing the data source instrument type.</dd>
 <dt><strong><code>source_type</code></strong></dt>
-<dd>a string representing the data source type</dd>
+<dd>a string representing the data source type.</dd>
 <dt><strong><code>display_name</code></strong></dt>
-<dd>a string representing the data source's proper display name</dd>
+<dd>a string representing the data source's proper display name.</dd>
 <dt><strong><code>metadata</code></strong></dt>
-<dd>a dictionary of metadata properties</dd>
+<dd>a dictionary of metadata properties.</dd>
 <dt><strong><code>owner</code></strong></dt>
-<dd>a string representing the data source's owner in AuroraX</dd>
+<dd>a string representing the data source's owner in AuroraX.</dd>
 <dt><strong><code>maintainers</code></strong></dt>
 <dd>a list of strings representing the email addresses of AuroraX accounts
-that can alter this data source and its associated records</dd>
+that can alter this data source and its associated records.</dd>
 <dt><strong><code>ephemeris_metadata_schema</code></strong></dt>
 <dd>a list of dictionaries capturing the metadata keys and values
-that can appear in ephemeris records associated with the data source</dd>
+that can appear in ephemeris records associated with the data source.</dd>
 <dt><strong><code>data_product_metadata_schema</code></strong></dt>
 <dd>a list of dictionaries capturing the metadata keys and values
-that can appear in data product records associated with the data source</dd>
+that can appear in data product records associated with the data source.</dd>
 </dl>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p></div>
@@ -1175,23 +1191,23 @@ that can appear in data product records associated with the data source</dd>
 </summary>
 <pre><code class="python">class DataSource(BaseModel):
     &#34;&#34;&#34;
-    Data source data type
+    Data source data type.
 
     Attributes:
-        identifier: an integer unique to the data source
-        program: a string representing the data source program
-        platform: a string representing the data source platform
-        instrument_type: a string representing the data source instrument type
-        source_type: a string representing the data source type
-        display_name: a string representing the data source&#39;s proper display name
-        metadata: a dictionary of metadata properties
-        owner: a string representing the data source&#39;s owner in AuroraX
+        identifier: an integer unique to the data source.
+        program: a string representing the data source program.
+        platform: a string representing the data source platform.
+        instrument_type: a string representing the data source instrument type.
+        source_type: a string representing the data source type.
+        display_name: a string representing the data source&#39;s proper display name.
+        metadata: a dictionary of metadata properties.
+        owner: a string representing the data source&#39;s owner in AuroraX.
         maintainers: a list of strings representing the email addresses of AuroraX accounts
-            that can alter this data source and its associated records
-        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in ephemeris records associated with the data source
-        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values 
-            that can appear in data product records associated with the data source
+            that can alter this data source and its associated records.
+        ephemeris_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in ephemeris records associated with the data source.
+        data_product_metadata_schema: a list of dictionaries capturing the metadata keys and values
+            that can appear in data product records associated with the data source.
 
     &#34;&#34;&#34;
     identifier: int = None
@@ -1206,22 +1222,23 @@ that can appear in data product records associated with the data source</dd>
     ephemeris_metadata_schema: List[Dict] = None
     data_product_metadata_schema: List[Dict] = None
 
-
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
-        String method
+        String method.
 
-        :return: string format
-        :rtype: str
+        Returns:
+            String format of DataSource object.
+
         &#34;&#34;&#34;
         return self.__repr__()
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
-        Object representation
+        Object representation.
 
-        :return: object representation
-        :rtype: str
+        Returns:
+            Object representation of DataSource object.
+
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)</code></pre>
 </details>
@@ -1232,7 +1249,7 @@ that can appear in data product records associated with the data source</dd>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="aurorax.sources.DataSource.data_product_metadata_schema"><code class="name">var <span class="ident">data_product_metadata_schema</span> : List[Dict]</code></dt>
+<dt id="aurorax.sources.DataSource.data_product_metadata_schema"><code class="name">var <span class="ident">data_product_metadata_schema</span> : List[Dict[~KT, ~VT]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1240,7 +1257,7 @@ that can appear in data product records associated with the data source</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.sources.DataSource.ephemeris_metadata_schema"><code class="name">var <span class="ident">ephemeris_metadata_schema</span> : List[Dict]</code></dt>
+<dt id="aurorax.sources.DataSource.ephemeris_metadata_schema"><code class="name">var <span class="ident">ephemeris_metadata_schema</span> : List[Dict[~KT, ~VT]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1256,7 +1273,7 @@ that can appear in data product records associated with the data source</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.sources.DataSource.metadata"><code class="name">var <span class="ident">metadata</span> : Dict</code></dt>
+<dt id="aurorax.sources.DataSource.metadata"><code class="name">var <span class="ident">metadata</span> : Dict[~KT, ~VT]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>

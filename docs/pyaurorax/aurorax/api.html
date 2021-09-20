@@ -53,29 +53,22 @@ API_KEY_HEADER_NAME = &#34;x-aurorax-api-key&#34;
 __api_key = &#34;&#34;
 
 
-
 def get_api_key():
     return __api_key
 
 
-def authenticate(api_key: str) -&gt; int:
+def authenticate(api_key: str) -&gt; None:
     &#34;&#34;&#34;
-    Set authentication values for use with subsequent queries
+    Set authentication values for use with subsequent queries.
 
     Attributes:
-        api_key: AuroraX API key string
-
-    Returns:
-        0
+        api_key: AuroraX API key string.
 
     &#34;&#34;&#34;
 
     # set the global variable
     global __api_key
     __api_key = api_key
-
-    # return
-    return 0
 
 
 class AuroraXResponse(BaseModel):
@@ -118,19 +111,20 @@ class AuroraXRequest(BaseModel):
         return all_headers
 
     def execute(self, limited_evaluation: bool = False) -&gt; AuroraXResponse:
-        &#34;&#34;&#34;Execute an AuroraX request
+        &#34;&#34;&#34;
+        Execute an AuroraX request.
 
         Attributes:
             limited_evaluation: set this to True if you don&#39;t want to evaluate the response outside of
-                the retry mechanism, defaults to False
+                the retry mechanism, defaults to False.
 
         Returns:
-            An AuroraXResponse object
+            An AuroraXResponse object.
 
         Raises:
-            aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error
-            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+            aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
+            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
         &#34;&#34;&#34;
         # sanitize data
@@ -165,7 +159,8 @@ class AuroraXRequest(BaseModel):
 
         # check if we only want to do limited evaluation
         if (limited_evaluation is True):
-            res = AuroraXResponse(request=req, data=None, status_code=req.status_code)
+            res = AuroraXResponse(request=req, data=None,
+                                  status_code=req.status_code)
             return res
 
         # check content type
@@ -191,7 +186,8 @@ class AuroraXRequest(BaseModel):
                 raise aurorax.AuroraXException(response_json)
 
         # create reponse object
-        res = AuroraXResponse(request=req, data=response_data, status_code=req.status_code)
+        res = AuroraXResponse(
+            request=req, data=response_data, status_code=req.status_code)
 
         # return
         return res
@@ -201,6 +197,7 @@ class AuroraXRequest(BaseModel):
 
     def __repr__(self) -&gt; str:
         return pprint.pformat(self.__dict__)
+
 
 class URLs:
     __DEFAULT_URL_DATA_SOURCES = &#34;/api/v1/data-sources&#34;
@@ -304,18 +301,25 @@ urls = URLs()
 
 def set_base_url(url: str) -&gt; None:
     &#34;&#34;&#34;
-    Change the base URL for the API (ie. change to the staging system or local server)
+    Change the base URL for the API (ie. change to the staging system or local server).
 
     Attributes:
-        url: new base url string (ie. &#39;https://api.staging.aurorax.space&#39;)
-    
+        url: new base url string (ie. &#39;https://api.staging.aurorax.space&#39;).
+
     &#34;&#34;&#34;
     urls.base_url = url
 
 
+def get_base_url() -&gt; str:
+    &#34;&#34;&#34;
+    Returns the current base URL for the API.
+    &#34;&#34;&#34;
+    return urls.base_url
+
+
 def reset_base_url() -&gt; None:
     &#34;&#34;&#34;
-    Set the base URL for the API back to the default
+    Set the base URL for the API back to the default.
     &#34;&#34;&#34;
     urls.base_url = DEFAULT_URL_BASE</code></pre>
 </details>
@@ -328,39 +332,31 @@ def reset_base_url() -&gt; None:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="aurorax.api.authenticate"><code class="name flex">
-<span>def <span class="ident">authenticate</span></span>(<span>api_key: str) ‑> int</span>
+<span>def <span class="ident">authenticate</span></span>(<span>api_key: str) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Set authentication values for use with subsequent queries</p>
+<div class="desc"><p>Set authentication values for use with subsequent queries.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>api_key</code></strong></dt>
-<dd>AuroraX API key string</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>0</p></div>
+<dd>AuroraX API key string.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def authenticate(api_key: str) -&gt; int:
+<pre><code class="python">def authenticate(api_key: str) -&gt; None:
     &#34;&#34;&#34;
-    Set authentication values for use with subsequent queries
+    Set authentication values for use with subsequent queries.
 
     Attributes:
-        api_key: AuroraX API key string
-
-    Returns:
-        0
+        api_key: AuroraX API key string.
 
     &#34;&#34;&#34;
 
     # set the global variable
     global __api_key
-    __api_key = api_key
-
-    # return
-    return 0</code></pre>
+    __api_key = api_key</code></pre>
 </details>
 </dd>
 <dt id="aurorax.api.get_api_key"><code class="name flex">
@@ -376,18 +372,34 @@ def reset_base_url() -&gt; None:
     return __api_key</code></pre>
 </details>
 </dd>
+<dt id="aurorax.api.get_base_url"><code class="name flex">
+<span>def <span class="ident">get_base_url</span></span>(<span>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the current base URL for the API.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_base_url() -&gt; str:
+    &#34;&#34;&#34;
+    Returns the current base URL for the API.
+    &#34;&#34;&#34;
+    return urls.base_url</code></pre>
+</details>
+</dd>
 <dt id="aurorax.api.reset_base_url"><code class="name flex">
 <span>def <span class="ident">reset_base_url</span></span>(<span>) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Set the base URL for the API back to the default</p></div>
+<div class="desc"><p>Set the base URL for the API back to the default.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def reset_base_url() -&gt; None:
     &#34;&#34;&#34;
-    Set the base URL for the API back to the default
+    Set the base URL for the API back to the default.
     &#34;&#34;&#34;
     urls.base_url = DEFAULT_URL_BASE</code></pre>
 </details>
@@ -396,11 +408,11 @@ def reset_base_url() -&gt; None:
 <span>def <span class="ident">set_base_url</span></span>(<span>url: str) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Change the base URL for the API (ie. change to the staging system or local server)</p>
+<div class="desc"><p>Change the base URL for the API (ie. change to the staging system or local server).</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>url</code></strong></dt>
-<dd>new base url string (ie. 'https://api.staging.aurorax.space')</dd>
+<dd>new base url string (ie. 'https://api.staging.aurorax.space').</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -408,11 +420,11 @@ def reset_base_url() -&gt; None:
 </summary>
 <pre><code class="python">def set_base_url(url: str) -&gt; None:
     &#34;&#34;&#34;
-    Change the base URL for the API (ie. change to the staging system or local server)
+    Change the base URL for the API (ie. change to the staging system or local server).
 
     Attributes:
-        url: new base url string (ie. &#39;https://api.staging.aurorax.space&#39;)
-    
+        url: new base url string (ie. &#39;https://api.staging.aurorax.space&#39;).
+
     &#34;&#34;&#34;
     urls.base_url = url</code></pre>
 </details>
@@ -461,19 +473,20 @@ def reset_base_url() -&gt; None:
         return all_headers
 
     def execute(self, limited_evaluation: bool = False) -&gt; AuroraXResponse:
-        &#34;&#34;&#34;Execute an AuroraX request
+        &#34;&#34;&#34;
+        Execute an AuroraX request.
 
         Attributes:
             limited_evaluation: set this to True if you don&#39;t want to evaluate the response outside of
-                the retry mechanism, defaults to False
+                the retry mechanism, defaults to False.
 
         Returns:
-            An AuroraXResponse object
+            An AuroraXResponse object.
 
         Raises:
-            aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error
-            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+            aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
+            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
         &#34;&#34;&#34;
         # sanitize data
@@ -508,7 +521,8 @@ def reset_base_url() -&gt; None:
 
         # check if we only want to do limited evaluation
         if (limited_evaluation is True):
-            res = AuroraXResponse(request=req, data=None, status_code=req.status_code)
+            res = AuroraXResponse(request=req, data=None,
+                                  status_code=req.status_code)
             return res
 
         # check content type
@@ -534,7 +548,8 @@ def reset_base_url() -&gt; None:
                 raise aurorax.AuroraXException(response_json)
 
         # create reponse object
-        res = AuroraXResponse(request=req, data=response_data, status_code=req.status_code)
+        res = AuroraXResponse(
+            request=req, data=response_data, status_code=req.status_code)
 
         # return
         return res
@@ -552,11 +567,11 @@ def reset_base_url() -&gt; None:
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="aurorax.api.AuroraXRequest.body"><code class="name">var <span class="ident">body</span> : Union[Dict, ForwardRef(None), List]</code></dt>
+<dt id="aurorax.api.AuroraXRequest.body"><code class="name">var <span class="ident">body</span> : Union[Dict[~KT, ~VT], None, List[~T]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.api.AuroraXRequest.headers"><code class="name">var <span class="ident">headers</span> : Optional[Dict]</code></dt>
+<dt id="aurorax.api.AuroraXRequest.headers"><code class="name">var <span class="ident">headers</span> : Optional[Dict[~KT, ~VT]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -568,7 +583,7 @@ def reset_base_url() -&gt; None:
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.api.AuroraXRequest.params"><code class="name">var <span class="ident">params</span> : Optional[Dict]</code></dt>
+<dt id="aurorax.api.AuroraXRequest.params"><code class="name">var <span class="ident">params</span> : Optional[Dict[~KT, ~VT]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -583,42 +598,43 @@ def reset_base_url() -&gt; None:
 <span>def <span class="ident">execute</span></span>(<span>self, limited_evaluation: bool = False) ‑> <a title="aurorax.api.AuroraXResponse" href="#aurorax.api.AuroraXResponse">AuroraXResponse</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Execute an AuroraX request</p>
+<div class="desc"><p>Execute an AuroraX request.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>limited_evaluation</code></strong></dt>
 <dd>set this to True if you don't want to evaluate the response outside of
-the retry mechanism, defaults to False</dd>
+the retry mechanism, defaults to False.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>An AuroraXResponse object</p>
+<p>An AuroraXResponse object.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
-<dd>max retry error</dd>
+<dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
-<dd>unexpected content error</dd>
+<dd>unexpected content error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#aurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
-<dd>invalid API key for this operation</dd>
+<dd>invalid API key for this operation.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def execute(self, limited_evaluation: bool = False) -&gt; AuroraXResponse:
-    &#34;&#34;&#34;Execute an AuroraX request
+    &#34;&#34;&#34;
+    Execute an AuroraX request.
 
     Attributes:
         limited_evaluation: set this to True if you don&#39;t want to evaluate the response outside of
-            the retry mechanism, defaults to False
+            the retry mechanism, defaults to False.
 
     Returns:
-        An AuroraXResponse object
+        An AuroraXResponse object.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error
-        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
+        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
     &#34;&#34;&#34;
     # sanitize data
@@ -653,7 +669,8 @@ the retry mechanism, defaults to False</dd>
 
     # check if we only want to do limited evaluation
     if (limited_evaluation is True):
-        res = AuroraXResponse(request=req, data=None, status_code=req.status_code)
+        res = AuroraXResponse(request=req, data=None,
+                              status_code=req.status_code)
         return res
 
     # check content type
@@ -679,7 +696,8 @@ the retry mechanism, defaults to False</dd>
             raise aurorax.AuroraXException(response_json)
 
     # create reponse object
-    res = AuroraXResponse(request=req, data=response_data, status_code=req.status_code)
+    res = AuroraXResponse(
+        request=req, data=response_data, status_code=req.status_code)
 
     # return
     return res</code></pre>
@@ -1059,6 +1077,7 @@ setTimeout(() => input.focus(), 100);
 <ul class="">
 <li><code><a title="aurorax.api.authenticate" href="#aurorax.api.authenticate">authenticate</a></code></li>
 <li><code><a title="aurorax.api.get_api_key" href="#aurorax.api.get_api_key">get_api_key</a></code></li>
+<li><code><a title="aurorax.api.get_base_url" href="#aurorax.api.get_base_url">get_base_url</a></code></li>
 <li><code><a title="aurorax.api.reset_base_url" href="#aurorax.api.reset_base_url">reset_base_url</a></code></li>
 <li><code><a title="aurorax.api.set_base_url" href="#aurorax.api.set_base_url">set_base_url</a></code></li>
 </ul>
