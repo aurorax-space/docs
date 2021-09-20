@@ -1,0 +1,1 @@
+# UCalgary Cloud detection model

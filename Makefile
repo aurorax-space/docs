@@ -14,7 +14,7 @@ update-submodules:
 	git submodule foreach git pull
 
 docs-generate: 
-	python3 -m pdoc --html --force --output-dir docs/pyaurorax pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
+	python3 -m pdoc --html --force --output-dir docs/python_libraries/pyaurorax/api_reference pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
 
 docs-build:
 	python3 -m mkdocs build

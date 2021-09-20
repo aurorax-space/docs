@@ -1,11 +1,12 @@
-# All Sky Imagers
+# Ground-based Instruments
 
-All Sky Imagers, or ASIs in short form, are cameras that collect images of auroral phenomenon using a wide-angle fisheye lens. The "all sky" aspect is what differentiates them from other types of data since they capture horizon-to-horizon images.
+The only ground-based instrument currently in AuroraX are All Sky Imagers (ASIs). More will follow as we evolve the system.
 
+## All Sky Imagers
 
-## Examples of Data
+All Sky Imagers are cameras that collect images of auroral phenomenon using a wide-angle fisheye lens. The "all sky" aspect is what differentiates them from other types of auroral data since they capture horizon-to-horizon images.
 
-Below are some examples of data.
+### Examples of data
 
 <figure>
   <img src="/img/example_asi_data_1.jpg" />
@@ -24,7 +25,7 @@ Below are some examples of data.
   </video>
 </figure>
 
-## Keograms
+### Keograms
 
 Keograms are images that represent a period of time of data from an ASI. The centre column of each frame is extracted and stacked left-to-right to form the keogram. North is at the top, south at the bottom, and time runs from left-to-right.
 
@@ -34,7 +35,6 @@ Keograms are images that represent a period of time of data from an ASI. The cen
     Your browser does not support the video tag.
   </video>
 </figure>
-
 
 Below is one example of keograms with several stacked vertically. The top frames are all from a certain time identified by the red lines, each image is from a different ASI (left to right and top to bottom: TREx Blueline, TREx NIR, TREx RGB, REGO).
 

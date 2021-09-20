@@ -44,7 +44,7 @@ $ python3 -m pip install -r requirements.txt
 5. Since the submodules in this repository are Python projects, their API references can be generated automatically using ```pdoc3```. This step generates HTML files and places them in the ```docs/<submodule_name>``` directory.
 
 ```
-$ python3 -m pdoc --html --force --output-dir docs/pyaurorax pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
+$ python3 -m pdoc --html --force --output-dir docs/python_libraries/pyaurorax/api_reference pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
 ```
 
 6. Build and serve the website locally.
