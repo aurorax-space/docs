@@ -13,9 +13,6 @@ init:
 update-submodules:
 	git submodule foreach git pull
 
-docs-install:
-	python3 -m pip install mkdocs mkdocs-material pdoc3
-
 docs-generate: 
 	python3 -m pdoc --html --force --output-dir docs/pyaurorax pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
 

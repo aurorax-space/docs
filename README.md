@@ -2,6 +2,10 @@
 
 This repository contains the documentation website for AuroraX, found at https://docs.aurorax.space. The site has information about AuroraX and its data, the API, client libraries for Python and IDL, and more.
 
+## Requirements
+
+- Python 3.6+
+
 ## Installation
 
 This documentation repository contains pages discussing AuroraX, and also API reference documentation for supporting client libraries (ie. Python packages). To generate these API reference pages, we use "submodules" to link other repositories. Currently only [PyAuroraX](https://github.com/aurorax-space/pyaurorax) is linked as a submodule.
@@ -14,43 +18,54 @@ To generate documentation for submodules. they must first be initialized and the
 $ git clone git@github.com:aurorax-space/docs.git
 ```
 
-2. Initialize submodules
+2. Install mkdocs dependencies
 
 ```
-$ make init
+python3 -m pip install -r requirements.txt
 ```
 
-3. Submodules don't automatically update when changes are pushed to their upstream repositories, so updates must be pulled manually.
+3. Initialize submodules
+
+```
+$ git submodule update --init
+$ cd pyaurorax
+$ git checkout main
+$ pip install poetry
+$ poetry install
+$ cd ..
+```
+
+4. Submodules don't automatically update when changes are pushed to their upstream repositories, so updates must be pulled manually.
 
 ```
 $ git submodule foreach git pull
 ```
 
-4. Build the documentation website locally. This will build the HTML files and assets into the ```site``` directory.
+5. Build the documentation website locally. This will build the HTML files and other assets into the ```site``` directory.
 
 ```
-$ make docs-build
+python3 -m mkdocs build
 ```
 
-5. The submodules in this repository are Python projects, and their API references are generated automatically using ```pdoc3```. This step generates HTML files in the ```docs/<submodule_name>``` directory.
+6. Since the submodules in this repository are Python projects, their API references can be generated automatically using ```pdoc3```. This step generates HTML files and places them in the ```docs/<submodule_name>``` directory.
 
 ```
-$ make docs-generate
+$ python3 -m pdoc --html --force --output-dir docs/pyaurorax pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
 ```
 
-6. Serve the website locally.
+7. Serve the website locally.
 
 ```
-$ make docs-serve
+python3 -m mkdocs serve
 ```
 
-7. View the website at http://localhost:8000.
+8. View the website at http://localhost:8000.
 
 <br />
 
 ## How deployment works
 
-Deployment is done using the MkDocs ```gh-deploy``` command. This step will build the docs, commit them to the ```gh-pages``` branch, and push the ```gh-pages``` branch to GitHub. __Please make sure to build and preview any changes locally first.__
+Deployment is done using the MkDocs ```gh-deploy``` command and happens automatically when new changes are committed to the "main" branch. When a commit happens, the docs are built and committed to the ```gh-pages``` branch, which Github then automically deploys.
 
 <br />
 
