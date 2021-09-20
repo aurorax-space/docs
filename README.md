@@ -1,8 +1,6 @@
-# AuroraX documentation repository
+# AuroraX Documentation
 
 This repository contains the documentation website for AuroraX, found at https://docs.aurorax.space. The site has information about AuroraX and its data, the API, client libraries for Python and IDL, and more.
-
-<br />
 
 ## Installation
 
@@ -11,29 +9,41 @@ This documentation repository contains pages discussing AuroraX, and also API re
 To generate documentation for submodules. they must first be initialized and their dependencies installed. You can either use a makefile target we have, or initialize the submodule manually.
 
 1. Clone repository
+
 ```
 $ git clone git@github.com:aurorax-space/docs.git
 ```
+
 2. Initialize submodules
+
 ```
 $ make init
 ```
+
 3. Submodules don't automatically update when changes are pushed to their upstream repositories, so updates must be pulled manually.
+
 ```
 $ git submodule foreach git pull
 ```
+
 4. Build the documentation website locally. This will build the HTML files and assets into the ```site``` directory.
+
 ```
 $ make docs-build
 ```
+
 5. The submodules in this repository are Python projects, and their API references are generated automatically using ```pdoc3```. This step generates HTML files in the ```docs/<submodule_name>``` directory.
+
 ```
 $ make docs-generate
 ```
+
 6. Serve the website locally.
+
 ```
 $ make docs-serve
 ```
+
 7. View the website at http://localhost:8000.
 
 <br />
