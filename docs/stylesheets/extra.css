@@ -1,0 +1,18 @@
+/* Custom CSS styles */
+article {
+    padding-bottom: 50px;
+}
+
+figcaption {
+    font-size: 12px;
+    max-width: 95% !important;
+}
+
+li {
+    margin-bottom: 2px !important;
+}
+
+ul {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+}
