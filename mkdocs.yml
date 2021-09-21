@@ -12,8 +12,18 @@ theme:
   logo: img/logo.svg
   favicon: img/logo.svg
   palette:
-    primary: black
-    accent: teal
+    - scheme: default
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
   features:
     - navigation.instant
     - navigation.tracking
@@ -48,17 +58,16 @@ extra_css:
 nav:
   - Home: index.md
   - About the Data: 
+    - What Data is in AuroraX?: about_the_data/data_in_aurorax.md
     - Data Categories: about_the_data/categories.md
     - Instrument Descriptions: 
       - Ground-based: about_the_data/instruments/ground.md
       - Space-based: about_the_data/instruments/space.md
     - Data Availability: about_the_data/availability.md
     - Data Policy: about_the_data/policy.md
-    - Data Contributors: about_the_data/contributors.md
     - Recommended Standards: about_the_data/standards.md
   - Machine Learning:
     - Overview: ml/overview.md
-    - How models are used in AuroraX: ml/using_models.md
     - Models:
       - UCalgary Cloud: ml/models/ucalgary_cloud.md
       - UCalgary APA: ml/models/ucalgary_apa.md
@@ -66,7 +75,8 @@ nav:
   - RESTful API:
     - Overview: api/overview.md
     - Basic Usage: api/basic_usage.md
-    - Advanced Usage: api/advanced_usage.md
+    - Advanced Usage: 
+      - Data Availability and Stats: api/advanced_usage/availability_and_stats.md
     - Authentication Strategy: api/authentication_strategy.md
   - Python:
     - PyAuroraX:
@@ -78,6 +88,7 @@ nav:
         - Triple conjunction searches: python_libraries/pyaurorax/advanced_usage/triple_conjunctions.md
         - Searches with metadata filters: python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters.md
         - Uploading data: python_libraries/pyaurorax/advanced_usage/uploading.md
+        - Data Availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
       - API reference: python_libraries/pyaurorax/api_reference/aurorax/index.html
     - aurorax-asilib:
       - Overview: python_libraries/aurorax_asilib/overview.md
