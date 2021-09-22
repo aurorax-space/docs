@@ -3,6 +3,7 @@
 site_name: AuroraX Documentation
 site_url: https://docs.aurorax.space
 repo_url: https://github.com/aurorax-space
+edit_uri: "docs/edit/main/docs/"
 
 
 # theme settings
@@ -58,7 +59,8 @@ extra_css:
 nav:
   - Home: index.md
   - About the Data: 
-    - What Data is in AuroraX?: about_the_data/data_in_aurorax.md
+    - Overview: about_the_data/overview.md
+    - What metadata is in the AuroraX database?: about_the_data/metadata_in_aurorax.md
     - Data Categories: about_the_data/categories.md
     - Instrument Descriptions: 
       - Ground-based: about_the_data/instruments/ground.md
