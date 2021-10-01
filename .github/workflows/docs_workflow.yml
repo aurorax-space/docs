@@ -18,6 +18,8 @@ jobs:
       - name: Install dependencies
         run: |
           make docs-install
+      - name: Pull submodules
+          make update-submodules
       - name: Generate and deploy docs
         run: |
           make docs-generate
