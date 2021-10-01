@@ -1,4 +1,4 @@
-.PHONY: update-submodules docs-install docs-generate docs-build docs-serve docs-deploy
+.PHONY: update-submodules docs-install docs-install docs-generate docs-build docs-serve docs-deploy
 
 all:
 
@@ -12,6 +12,10 @@ init:
 
 update-submodules:
 	git submodule foreach git pull
+
+docs-install:
+	python3 -m pip install --upgrade pip
+	python3 -m pip install -r requirements.txt
 
 docs-generate: 
 	python3 -m pdoc --html --force --output-dir docs/python_libraries/pyaurorax/api_reference pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"

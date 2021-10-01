@@ -92,7 +92,7 @@ nav:
         - Uploading data: python_libraries/pyaurorax/advanced_usage/uploading.md
         - Data Availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
       - API reference: python_libraries/pyaurorax/api_reference/aurorax/index.html
-    - aurorax-asilib:
-      - Overview: python_libraries/aurorax_asilib/overview.md
+#    - aurorax-asilib:
+#      - Overview: python_libraries/aurorax_asilib/overview.md
   - IDL:
       - Overview: idl_libraries/idl_aurorax/overview.md
