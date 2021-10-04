@@ -18,9 +18,18 @@ jobs:
       - name: Install dependencies
         run: |
           make docs-install
-      - name: Pull submodules
-          make update-submodules
-      - name: Generate and deploy docs
+      - name: Initialize and update submodules
         run: |
-          make docs-generate
+          git submodule update --init
+          cd pyaurorax
+          git checkout main
+          git pull 
+      - name: Install PyAuroraX and build docs
+        working-directory: ./pyaurorax
+        run: |
+          pip install poetry
+          poetry add pdoc3
+          poetry install
+          poetry run python3 -m pdoc --html --force --output-dir ../docs/python_libraries/pyaurorax/api_reference aurorax --config "lunr_search={'fuzziness': 1}"
+          cd ..
           make docs-deploy

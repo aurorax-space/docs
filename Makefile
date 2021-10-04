@@ -1,13 +1,15 @@
-.PHONY: update-submodules docs-install docs-install docs-generate docs-build docs-serve docs-deploy
+.PHONY: init-submodules update-submodules docs-install docs-generate docs-build docs-serve docs-deploy
 
 all:
 
-init:
+init-submodules:
 	git submodule update --init
-	cd pyaurorax
-	git checkout main
-	pip install poetry
-	poetry install
+	cd pyaurorax && \
+		git checkout main && \
+		git pull && \
+		pip install poetry && \
+		poetry add pdoc3 && \
+		poetry install
 	cd ..
 
 update-submodules:
@@ -18,7 +20,8 @@ docs-install:
 	python3 -m pip install -r requirements.txt
 
 docs-generate: 
-	python3 -m pdoc --html --force --output-dir docs/python_libraries/pyaurorax/api_reference pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
+	cd pyaurorax && \
+		poetry run python3 -m pdoc --html --force --output-dir docs/python_libraries/pyaurorax/api_reference pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
 
 docs-build:
 	python3 -m mkdocs build
@@ -28,4 +31,3 @@ docs-serve:
 
 docs-deploy:
 	python3 -m mkdocs gh-deploy --force
-

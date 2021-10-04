@@ -24,7 +24,9 @@ $ git clone git@github.com:aurorax-space/docs.git
 $ git submodule update --init
 $ cd pyaurorax
 $ git checkout main
+$ git pull
 $ python3 -m pip install poetry
+$ poetry add pdoc3
 $ poetry install
 $ cd ..
 ```
@@ -41,10 +43,11 @@ $ git submodule foreach git pull
 $ python3 -m pip install -r requirements.txt
 ```
 
-5. Since the submodules in this repository are Python projects, their API references can be generated automatically using ```pdoc3```. This step generates HTML files and places them in the ```docs/<submodule_name>``` directory.
+5. Since the submodules in this repository are Python projects, their API references can be generated automatically using ```pdoc3```. This step generates HTML files and places them in the ```docs/python_libraries/<submodule_name>``` directory. The command to generate the docs is run through Poetry because the dependencies of the package were installed by Poetry in a virtual environment. This additional step ensures that each submodule maintains its own dependencies and that the documentation is generated for exactly the dependencies used by the submodule.
 
 ```
-$ python3 -m pdoc --html --force --output-dir docs/python_libraries/pyaurorax/api_reference pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
+$ cd pyaurorax
+$ poetry run python3 -m pdoc --html --force --output-dir docs/python_libraries/pyaurorax/api_reference pyaurorax/aurorax --config "lunr_search={'fuzziness': 1}"
 ```
 
 6. Build and serve the website locally.
