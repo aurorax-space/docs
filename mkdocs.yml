@@ -87,9 +87,9 @@ nav:
       - Basic Usage: python_libraries/pyaurorax/basic_usage.md
       - Advanced Usage:
         - Authentication: python_libraries/pyaurorax/advanced_usage/authentication.md
-        - Triple conjunction searches: python_libraries/pyaurorax/advanced_usage/triple_conjunctions.md
+        - Advanced conjunction searches: python_libraries/pyaurorax/advanced_usage/advanced_conjunctions.md
         - Searches with metadata filters: python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters.md
-        - Uploading data: python_libraries/pyaurorax/advanced_usage/uploading.md
+        - Managing data: python_libraries/pyaurorax/advanced_usage/managing_data.md
         - Data Availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
       - API reference: python_libraries/pyaurorax/api_reference/aurorax/index.html
 #    - aurorax-asilib:
