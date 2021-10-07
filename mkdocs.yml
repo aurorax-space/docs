@@ -90,7 +90,7 @@ nav:
         - Advanced conjunction searches: python_libraries/pyaurorax/advanced_usage/advanced_conjunctions.md
         - Searches with metadata filters: python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters.md
         - Managing data: python_libraries/pyaurorax/advanced_usage/managing_data.md
-        - Data Availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
+        - Data availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
       - API reference: python_libraries/pyaurorax/api_reference/aurorax/index.html
 #    - aurorax-asilib:
 #      - Overview: python_libraries/aurorax_asilib/overview.md
