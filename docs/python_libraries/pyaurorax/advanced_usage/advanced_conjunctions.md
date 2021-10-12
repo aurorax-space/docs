@@ -2,8 +2,10 @@
 The ```conjunctions``` module's search functions provide an interface for running powerful and highly customizable conjunction search queries. While the [basic usage](/python_libraries/pyaurorax/basic_usage/#conjunction-search) section covers the quickest way to get started in finding conjunctions, there are additional options for more advanced use of the functions in this module. This section will cover multi-conjunction searches and custom conjunction distances.
 
 ## Multi-conjunctions
+Coming soon
 
-
+## Epoch search precision
+Coming soon
 
 ## Custom conjunction distances
 The ```conjunctions``` module's search functions use a default conjunction distance of 300 km, intended to facilitate fast access to data. Given that there are cases where a user may want to be more specific, however, the search functions also provide a way to explicitly set custom distances between criteria blocks. In the ```conjunctions.search``` and ```conjunctions.search_async``` functions, this option is provided by the ```max_distances``` argument. Combined with the ```default_distance``` argument, this provides a highly customizable search with full control over conjunction distances.
