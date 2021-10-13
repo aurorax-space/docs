@@ -1,11 +1,47 @@
 # Advanced conjunction searches
-The ```conjunctions``` module's search functions provide an interface for running powerful and highly customizable conjunction search queries. While the [basic usage](/python_libraries/pyaurorax/basic_usage/#conjunction-search) section covers the quickest way to get started in finding conjunctions, there are additional options for more advanced use of the functions in this module. This section will cover multi-conjunction searches and custom conjunction distances.
+The [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html) module's search functions provide an interface for running powerful and highly customizable conjunction search queries. While the [basic usage](/python_libraries/pyaurorax/basic_usage/conjunctions/) section covers the quickest way to get started in finding conjunctions, there are additional options for more advanced use of the functions in this module. This section will cover multi-conjunction searches and custom conjunction distances.
 
 ## Multi-conjunctions
-Coming soon
+Conjunctions happen between at least two data sources. A conjunction event in which more than two data sources are involved is called a *multi-conjunction*. The number of data sources involved in a conjunction is determined by the number of [criteria blocks](/python_libraries/pyaurorax/basic_usage/conjunctions/#criteria-blocks) in the query. PyAuroraX imposes a limit of **10** criteria blocks in a single search execution.
+
+For example, the code snippet below would return a 4-way conjunction between a data source in program "trex", a data source with instrument_type "redline ASI", a data source in program "swarm", and a data source in program "themis".
+```python
+start = datetime.datetime(2020, 1, 1, 0, 0, 0)
+end = datetime.datetime(2020, 1, 4, 23, 59, 59)
+ground_params = [
+      "programs": ["trex"]
+    },
+    {
+      "instrument_types": ["redline ASI"]
+    }
+]
+space_params = [
+    {
+      "programs": ["swarm"]
+    },
+    {
+      "programs": ["themis"]
+    }
+]
+
+s = aurorax.conjunctions.search(start=start,
+                                end=end,
+                                ground=ground_params,
+                                space=space_params)
+```
 
 ## Epoch search precision
-Coming soon
+By default, conjunction searches query the database for events at the beginning of every minute. This means that conjunction events resturned by the API will have timestamps that occur exactly on the minute, e.g. 00:01:00, 00:02:00, 00:03:00, and so on.
+
+There are cases where this 60-second precision misses a very short conjunction event. To account for those cases, the [`conjunction.search`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search) and [`conjunction.search_async`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search_async) functions allow for the time precision to be set to 30 seconds. Doing so may result in more conjunctions being found, although it is rare.
+
+```python hl_lines="5"
+s = aurorax.conjunctions.search(start=start,
+                                end=end,
+                                ground=ground_params,
+                                space=space_params,
+                                epoch_search_precision=30)
+```
 
 ## Custom conjunction distances
 The ```conjunctions``` module's search functions use a default conjunction distance of 300 km, intended to facilitate fast access to data. Given that there are cases where a user may want to be more specific, however, the search functions also provide a way to explicitly set custom distances between criteria blocks. In the ```conjunctions.search``` and ```conjunctions.search_async``` functions, this option is provided by the ```max_distances``` argument. Combined with the ```default_distance``` argument, this provides a highly customizable search with full control over conjunction distances.
@@ -85,6 +121,8 @@ This setting indicates that, in order for an event to be returned as a conjuncti
 
 The missing pair in this dictionary is ```"ground1-space2"```. The search function will automatically fill in the entry for this pair using the default setting of 300 km, or using the ```default_distance``` argument if it is provided.
 
+*A pair can also be assigned a value of `None` if the distance between those two data sources does not matter.*
+
 
 ### Combining default and maximum distance
 To override all distances in the query while also setting specific cases, the ```default_distance``` and ```maximum_distances``` arguments can be used together.
@@ -114,7 +152,7 @@ distance = 400
 
 # override specific cases
 max_distances = {
-    "ground2-space2": 200,
+    "ground2-space2": None,
     "space1-space2": 700
 }
 
@@ -133,7 +171,7 @@ In this example, the distances that get used in the query are:
     "ground1-space1": 400,
     "ground1-space2": 400,
     "ground2-space1": 400,
-    "ground2-space2": 200,
+    "ground2-space2": None,
     "space1-space2": 700
 }
 ```
