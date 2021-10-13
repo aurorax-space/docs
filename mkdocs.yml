@@ -84,7 +84,11 @@ nav:
     - PyAuroraX:
       - Overview: python_libraries/pyaurorax/overview.md
       - Installation: python_libraries/pyaurorax/installation.md
-      - Basic Usage: python_libraries/pyaurorax/basic_usage.md
+      - Basic Usage:
+        - Data Sources: python_libraries/pyaurorax/basic_usage/data_sources.md
+        - Ephemeris: python_libraries/pyaurorax/basic_usage/ephemeris.md
+        - Data Products: python_libraries/pyaurorax/basic_usage/data_products.md
+        - Conjunctions: python_libraries/pyaurorax/basic_usage/conjunctions.md
       - Advanced Usage:
         - Authentication: python_libraries/pyaurorax/advanced_usage/authentication.md
         - Advanced conjunction searches: python_libraries/pyaurorax/advanced_usage/advanced_conjunctions.md
