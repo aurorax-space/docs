@@ -68,6 +68,8 @@ nav:
     - Data Availability: about_the_data/availability.md
     - Data Policy: about_the_data/policy.md
     - Recommended Standards: about_the_data/standards.md
+  - Conjunction Search:
+    - Overview: conjunction_search/overview.md
   - Machine Learning:
     - Overview: ml/overview.md
     - Models:
