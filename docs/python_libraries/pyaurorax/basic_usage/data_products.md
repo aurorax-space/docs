@@ -1,7 +1,8 @@
 # Data Products
-The [`data_products`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html) module provides functions for searching, adding, updating, and deleting data product records. 
+The [`data_products`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html) module provides functions for searching, adding, updating, and deleting data product records. Synchronous and [asynchronous search](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/) functions are available in the data_products module.
 
 * See [this description](/about_the_data/categories/#data-products) of the data product category.
+* [Asynchronous searches](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/)
 * [Searches with metadata filters](/python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters/)
 
 

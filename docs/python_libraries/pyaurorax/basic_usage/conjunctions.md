@@ -1,13 +1,14 @@
 # Conjunction Search
-The [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html) module provides a way to quickly find conjunctions between instruments. Synchronous and asynchronous search functions are available in the conjunctions module.
+The [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html) module provides a way to quickly find conjunctions between instruments. Synchronous and [asynchronous search](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/) functions are available in the conjunctions module.
 
 Also see:
 
 * [Advanced conjunction searches](/python_libraries/pyaurorax/advanced_usage/advanced_conjunctions/)
+* [Asynchronous searches](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/)
 * [Searches with metadata filters](/python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters/)
 
 ## Criteria blocks
-Conjunction searches are performed between data sources that fall into what we call **criteria blocks**. A criteria block is simply a dictionary that specifies data source parameters. It is used to filter down the set of data sources we want to consider in our conjunction search. Filtering criteria are lists of program names, platform names, instrument types, and [ephemeris metadata filters](/python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters/). **There will be one data source from each criteria block in every conjunction found.**
+Conjunction searches are performed between data sources that fall into what we call **criteria blocks**. A criteria block is simply a dictionary that specifies data source parameters. It is used to filter down the set of data sources we want to consider in our conjunction search. Filtering criteria are lists of program names, platform names, instrument types, and [ephemeris metadata filters](/python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters/). **Every conjunction found will be comprised of one data source per criteria block.**
 
 ```python
 criteria = [
