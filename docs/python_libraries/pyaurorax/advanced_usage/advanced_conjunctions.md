@@ -44,7 +44,7 @@ s = aurorax.conjunctions.search(start=start,
 ```
 
 ## Custom conjunction distances
-The ```conjunctions``` module's search functions use a default conjunction distance of 300 km, intended to facilitate fast access to data. Given that there are cases where a user may want to be more specific, however, the search functions also provide a way to explicitly set custom distances between criteria blocks. In the ```conjunctions.search``` and ```conjunctions.search_async``` functions, this option is provided by the ```max_distances``` argument. Combined with the ```default_distance``` argument, this provides a highly customizable search with full control over conjunction distances.
+The `conjunctions` module's search functions use a default conjunction distance of 300 km, intended to facilitate fast access to data. Given that there are cases where a user may want to be more specific, however, the search functions also provide a way to explicitly set custom distances between criteria blocks. In the `conjunctions.search` and `conjunctions.search_async` functions, this option is provided by the `max_distances` argument. Combined with the `default_distance` argument, this provides a highly customizable search with full control over conjunction distances.
 
 ### Default distance
 Under the hood, every conjunction search query sent to the API includes a parameter that indicates the maximum distance between each pair of criteria blocks. That parameter is a dictionary with the following form:
@@ -66,7 +66,7 @@ As shown above, an entry is included for every ground-space instrument combinati
 
 *Note that ground-ground pairs aren't included because their distances are fixed.*
 
-The ```default_distance``` argument, when provided, is used to override every entry in this dictionary. Below is an example of how this would work for a query with two space criteria blocks and one ground criteria block:
+The `default_distance` argument, when provided, is used to override every entry in this dictionary. Below is an example of how this would work for a query with two space criteria blocks and one ground criteria block:
 ```python hl_lines="19 26"
 start = datetime.datetime(2019, 1, 1, 0, 0, 0)
 end = datetime.datetime(2019, 1, 9, 23, 59, 59)
@@ -106,7 +106,7 @@ Behind the scenes, the search function will take the ```default_distance``` argu
 ```
 
 ### Custom maximum distances
-The ```max_distances``` argument is a dictionary with an entry for each space-space or ground-space criteria block pair in the conjunction search for which the user wishes to specify a custom distance. For example, in a search with two space criteria blocks and one ground criteria block, the dictionary might be set by the user to look like this:
+The `max_distances` argument is a dictionary with an entry for each space-space or ground-space criteria block pair in the conjunction search for which the user wishes to specify a custom distance. For example, in a search with two space criteria blocks and one ground criteria block, the dictionary might be set by the user to look like this:
 ```python
 {
     "ground1-space1": 400,
@@ -119,13 +119,13 @@ This setting indicates that, in order for an event to be returned as a conjuncti
 1. maximum 400 km between ground instruments in criteria block 1 and space instruments in criteria block 1, and
 2. maximum 805 km between space instruments in criteria block 1 and space instruments in criteria block 2
 
-The missing pair in this dictionary is ```"ground1-space2"```. The search function will automatically fill in the entry for this pair using the default setting of 300 km, or using the ```default_distance``` argument if it is provided.
+The missing pair in this dictionary is `"ground1-space2"`. The search function will automatically fill in the entry for this pair using the default setting of 300 km, or using the `default_distance` argument if it is provided.
 
 *A pair can also be assigned a value of `None` if the distance between those two data sources does not matter.*
 
 
 ### Combining default and maximum distance
-To override all distances in the query while also setting specific cases, the ```default_distance``` and ```maximum_distances``` arguments can be used together.
+To override all distances in the query while also setting specific cases, the `default_distance` and `maximum_distances` arguments can be used together.
 ```python hl_lines="22 25-28 35-36"
 start = datetime.datetime(2019, 1, 1, 0, 0, 0)
 end = datetime.datetime(2019, 1, 9, 23, 59, 59)

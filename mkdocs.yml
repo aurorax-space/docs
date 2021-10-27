@@ -94,11 +94,10 @@ nav:
       - Advanced Usage:
         - Authentication: python_libraries/pyaurorax/advanced_usage/authentication.md
         - Advanced conjunction searches: python_libraries/pyaurorax/advanced_usage/advanced_conjunctions.md
+        - Asynchronous searches: python_libraries/pyaurorax/advanced_usage/asynchronous_search.md
         - Searches with metadata filters: python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters.md
         - Managing data: python_libraries/pyaurorax/advanced_usage/managing_data.md
         - Data availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
       - API reference: python_libraries/pyaurorax/api_reference/aurorax/index.html
-#    - aurorax-asilib:
-#      - Overview: python_libraries/aurorax_asilib/overview.md
   - IDL:
       - Overview: idl_libraries/idl_aurorax/overview.md

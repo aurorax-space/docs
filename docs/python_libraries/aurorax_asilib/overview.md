@@ -1,3 +1,0 @@
-# AuroraX-ASILib
-
-
