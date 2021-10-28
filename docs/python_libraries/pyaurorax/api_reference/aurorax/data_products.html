@@ -254,7 +254,7 @@ def delete(data_source: aurorax.sources.DataSource, urls: List[str]) -&gt; int:
     Raises:
         aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
         aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
-        aurorax.exceptions.AuroraXNotFoundException: source not found.
+        aurorax.exceptions.AuroraXBadParametersException: invalid parameters entered.
         aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
     &#34;&#34;&#34;
@@ -281,9 +281,6 @@ def delete(data_source: aurorax.sources.DataSource, urls: List[str]) -&gt; int:
             raise aurorax.AuroraXBadParametersException(
                 &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;message&#34;]))
         raise aurorax.AuroraXBadParametersException(
-            &#34;%s - %s&#34; % (res.status_code, res.data[&#34;message&#34;]))
-    elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(
             &#34;%s - %s&#34; % (res.status_code, res.data[&#34;message&#34;]))
 
     # return
@@ -434,18 +431,23 @@ class Search():
         self.status = status
         self.logs = status[&#34;logs&#34;]
 
-    def check_for_data(self) -&gt; None:
+    def check_for_data(self) -&gt; bool:
         &#34;&#34;&#34;
         Check to see if data is available for this data products search request.
+
+        Returns:
+            True if data is available, else False.
         &#34;&#34;&#34;
         self.update_status()
+
+        return self.completed
 
     def get_data(self) -&gt; None:
         &#34;&#34;&#34;
         Retrieve the data available for this data products search request.
         &#34;&#34;&#34;
         if (self.completed is False):
-            print(&#34;No data available, update status first&#34;)
+            print(&#34;No data available, update status or check for data first&#34;)
             return
 
         url = self.data_url
@@ -644,8 +646,8 @@ Identifier, program, platform, and instrument_type are required.</dd>
 <dd>max retry error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
 <dd>unexpected error.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
-<dd>source not found.</dd>
+<dt><code><a title="aurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#aurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
+<dd>invalid parameters entered.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#aurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
 <dd>invalid API key for this operation.</dd>
 </dl></div>
@@ -668,7 +670,7 @@ Identifier, program, platform, and instrument_type are required.</dd>
     Raises:
         aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
         aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
-        aurorax.exceptions.AuroraXNotFoundException: source not found.
+        aurorax.exceptions.AuroraXBadParametersException: invalid parameters entered.
         aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
     &#34;&#34;&#34;
@@ -696,16 +698,13 @@ Identifier, program, platform, and instrument_type are required.</dd>
                 &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;message&#34;]))
         raise aurorax.AuroraXBadParametersException(
             &#34;%s - %s&#34; % (res.status_code, res.data[&#34;message&#34;]))
-    elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(
-            &#34;%s - %s&#34; % (res.status_code, res.data[&#34;message&#34;]))
 
     # return
     return 1</code></pre>
 </details>
 </dd>
 <dt id="aurorax.data_products.delete_daterange"><code class="name flex">
-<span>def <span class="ident">delete_daterange</span></span>(<span>data_source: <a title="aurorax.sources.DataSource" href="sources.html#aurorax.sources.DataSource">DataSource</a>, start: datetime.datetime, end: datetime.datetime, data_product_types: List[str] = None, metadata_filters: List[Dict[~KT, ~VT]] = None) ‑> int</span>
+<span>def <span class="ident">delete_daterange</span></span>(<span>data_source: <a title="aurorax.sources.DataSource" href="sources.html#aurorax.sources.DataSource">DataSource</a>, start: datetime.datetime, end: datetime.datetime, data_product_types: List[str] = None, metadata_filters: List[Dict] = None) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Deletes data products associated with a data source in the date range provided. This method is asynchronous.</p>
@@ -790,7 +789,7 @@ If omitted, all data product types will be deleted.</dd>
 </details>
 </dd>
 <dt id="aurorax.data_products.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict[~KT, ~VT]] = None, data_product_type_filters: List[str] = None, verbose: bool = False, poll_interval: float = 1.0) ‑> <a title="aurorax.data_products.Search" href="#aurorax.data_products.Search">Search</a></span>
+<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, data_product_type_filters: List[str] = None, verbose: bool = False, poll_interval: float = 1.0) ‑> <a title="aurorax.data_products.Search" href="#aurorax.data_products.Search">Search</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Search for data product records and block until results are returned.</p>
@@ -914,7 +913,7 @@ defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
 </details>
 </dd>
 <dt id="aurorax.data_products.search_async"><code class="name flex">
-<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict[~KT, ~VT]] = None, data_product_type_filters: List[str] = None) ‑> <a title="aurorax.data_products.Search" href="#aurorax.data_products.Search">Search</a></span>
+<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, data_product_type_filters: List[str] = None) ‑> <a title="aurorax.data_products.Search" href="#aurorax.data_products.Search">Search</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Submit a request for a data products search, return asynchronously.</p>
@@ -1211,7 +1210,7 @@ e.g. {
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.data_products.DataProduct.metadata"><code class="name">var <span class="ident">metadata</span> : Dict[~KT, ~VT]</code></dt>
+<dt id="aurorax.data_products.DataProduct.metadata"><code class="name">var <span class="ident">metadata</span> : Dict</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1227,7 +1226,7 @@ e.g. {
 <h3>Methods</h3>
 <dl>
 <dt id="aurorax.data_products.DataProduct.to_json_serializable"><code class="name flex">
-<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict[~KT, ~VT]</span>
+<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert object to a JSON-serializable object (ie. translate datetime objects to strings).</p>
@@ -1276,7 +1275,7 @@ e.g. {
 </dd>
 <dt id="aurorax.data_products.Search"><code class="flex name class">
 <span>class <span class="ident">Search</span></span>
-<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict[~KT, ~VT]] = None, data_product_type_filters: List[str] = None)</span>
+<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, data_product_type_filters: List[str] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class representing an AuroraX data products search.</p>
@@ -1462,18 +1461,23 @@ logs: list of logging messages from the API.</p>
         self.status = status
         self.logs = status[&#34;logs&#34;]
 
-    def check_for_data(self) -&gt; None:
+    def check_for_data(self) -&gt; bool:
         &#34;&#34;&#34;
         Check to see if data is available for this data products search request.
+
+        Returns:
+            True if data is available, else False.
         &#34;&#34;&#34;
         self.update_status()
+
+        return self.completed
 
     def get_data(self) -&gt; None:
         &#34;&#34;&#34;
         Retrieve the data available for this data products search request.
         &#34;&#34;&#34;
         if (self.completed is False):
-            print(&#34;No data available, update status first&#34;)
+            print(&#34;No data available, update status or check for data first&#34;)
             return
 
         url = self.data_url
@@ -1571,19 +1575,26 @@ logs: list of logging messages from the API.</p>
 </details>
 </dd>
 <dt id="aurorax.data_products.Search.check_for_data"><code class="name flex">
-<span>def <span class="ident">check_for_data</span></span>(<span>self) ‑> None</span>
+<span>def <span class="ident">check_for_data</span></span>(<span>self) ‑> bool</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Check to see if data is available for this data products search request.</p></div>
+<div class="desc"><p>Check to see if data is available for this data products search request.</p>
+<h2 id="returns">Returns</h2>
+<p>True if data is available, else False.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def check_for_data(self) -&gt; None:
+<pre><code class="python">def check_for_data(self) -&gt; bool:
     &#34;&#34;&#34;
     Check to see if data is available for this data products search request.
+
+    Returns:
+        True if data is available, else False.
     &#34;&#34;&#34;
-    self.update_status()</code></pre>
+    self.update_status()
+
+    return self.completed</code></pre>
 </details>
 </dd>
 <dt id="aurorax.data_products.Search.execute"><code class="name flex">
@@ -1643,7 +1654,7 @@ logs: list of logging messages from the API.</p>
     Retrieve the data available for this data products search request.
     &#34;&#34;&#34;
     if (self.completed is False):
-        print(&#34;No data available, update status first&#34;)
+        print(&#34;No data available, update status or check for data first&#34;)
         return
 
     url = self.data_url
@@ -1653,7 +1664,7 @@ logs: list of logging messages from the API.</p>
 </details>
 </dd>
 <dt id="aurorax.data_products.Search.update_status"><code class="name flex">
-<span>def <span class="ident">update_status</span></span>(<span>self, status: Dict[~KT, ~VT] = None) ‑> None</span>
+<span>def <span class="ident">update_status</span></span>(<span>self, status: Dict = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update the status of this data products search request.</p>

@@ -51,8 +51,8 @@ class AvailabilityResult(BaseModel):
 
     &#34;&#34;&#34;
     data_source: aurorax.sources.DataSource
-    available_data_products: Dict = None
-    available_ephemeris: Dict = None
+    available_data_products: Dict[str, int] = None
+    available_ephemeris: Dict[str, int] = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
@@ -183,7 +183,7 @@ def data_products(start: datetime,
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="aurorax.availability.data_products"><code class="name flex">
-<span>def <span class="ident">data_products</span></span>(<span>start: <module 'datetime' from '/home/darrenc/anaconda3/envs/docs/lib/python3.8/datetime.py'>, end: <module 'datetime' from '/home/darrenc/anaconda3/envs/docs/lib/python3.8/datetime.py'>, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, owner: str = None, format: str = 'basic_info', slow: bool = False) ‑> List[<a title="aurorax.availability.AvailabilityResult" href="#aurorax.availability.AvailabilityResult">AvailabilityResult</a>]</span>
+<span>def <span class="ident">data_products</span></span>(<span>start: <module 'datetime' from 'C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.2032.0_x64__qbz5n2kfra8p0\\lib\\datetime.py'>, end: <module 'datetime' from 'C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.2032.0_x64__qbz5n2kfra8p0\\lib\\datetime.py'>, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, owner: str = None, format: str = 'basic_info', slow: bool = False) ‑> List[<a title="aurorax.availability.AvailabilityResult" href="#aurorax.availability.AvailabilityResult">AvailabilityResult</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve information about the number of existing data product records.</p>
@@ -385,8 +385,8 @@ full_record), defaults to "basic_info".</dd>
 
     &#34;&#34;&#34;
     data_source: aurorax.sources.DataSource
-    available_data_products: Dict = None
-    available_ephemeris: Dict = None
+    available_data_products: Dict[str, int] = None
+    available_ephemeris: Dict[str, int] = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
@@ -415,11 +415,11 @@ full_record), defaults to "basic_info".</dd>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="aurorax.availability.AvailabilityResult.available_data_products"><code class="name">var <span class="ident">available_data_products</span> : Dict[~KT, ~VT]</code></dt>
+<dt id="aurorax.availability.AvailabilityResult.available_data_products"><code class="name">var <span class="ident">available_data_products</span> : Dict[str, int]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.availability.AvailabilityResult.available_ephemeris"><code class="name">var <span class="ident">available_ephemeris</span> : Dict[~KT, ~VT]</code></dt>
+<dt id="aurorax.availability.AvailabilityResult.available_ephemeris"><code class="name">var <span class="ident">available_ephemeris</span> : Dict[str, int]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>

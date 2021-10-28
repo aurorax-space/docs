@@ -53,7 +53,13 @@ API_KEY_HEADER_NAME = &#34;x-aurorax-api-key&#34;
 __api_key = &#34;&#34;
 
 
-def get_api_key():
+def get_api_key() -&gt; str:
+    &#34;&#34;&#34;
+    Returns the currently set API key for the module.
+
+    Returns:
+        Current API key string.
+    &#34;&#34;&#34;
     return __api_key
 
 
@@ -104,7 +110,7 @@ class AuroraXRequest(BaseModel):
 
         # add api key
         api_key = get_api_key()
-        if (api_key is not None):
+        if api_key:
             all_headers[API_KEY_HEADER_NAME] = api_key
 
         # return
@@ -123,6 +129,7 @@ class AuroraXRequest(BaseModel):
 
         Raises:
             aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+            aurorax.exceptions.AuroraXNotFoundException: requested resource was not found.
             aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
             aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
@@ -156,6 +163,10 @@ class AuroraXRequest(BaseModel):
         if (req.status_code == 401):
             raise aurorax.AuroraXUnauthorizedException(&#34;%s %s&#34; % (req.status_code,
                                                                   req.json()[&#34;error_message&#34;]))
+
+        if (req.status_code == 404):
+            raise aurorax.AuroraXNotFoundException(&#34;%s %s&#34; % (req.status_code,
+                                                              req.json()[&#34;error_message&#34;]))
 
         # check if we only want to do limited evaluation
         if (limited_evaluation is True):
@@ -360,15 +371,23 @@ def reset_base_url() -&gt; None:
 </details>
 </dd>
 <dt id="aurorax.api.get_api_key"><code class="name flex">
-<span>def <span class="ident">get_api_key</span></span>(<span>)</span>
+<span>def <span class="ident">get_api_key</span></span>(<span>) ‑> str</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Returns the currently set API key for the module.</p>
+<h2 id="returns">Returns</h2>
+<p>Current API key string.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_api_key():
+<pre><code class="python">def get_api_key() -&gt; str:
+    &#34;&#34;&#34;
+    Returns the currently set API key for the module.
+
+    Returns:
+        Current API key string.
+    &#34;&#34;&#34;
     return __api_key</code></pre>
 </details>
 </dd>
@@ -466,7 +485,7 @@ def reset_base_url() -&gt; None:
 
         # add api key
         api_key = get_api_key()
-        if (api_key is not None):
+        if api_key:
             all_headers[API_KEY_HEADER_NAME] = api_key
 
         # return
@@ -485,6 +504,7 @@ def reset_base_url() -&gt; None:
 
         Raises:
             aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+            aurorax.exceptions.AuroraXNotFoundException: requested resource was not found.
             aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
             aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
@@ -518,6 +538,10 @@ def reset_base_url() -&gt; None:
         if (req.status_code == 401):
             raise aurorax.AuroraXUnauthorizedException(&#34;%s %s&#34; % (req.status_code,
                                                                   req.json()[&#34;error_message&#34;]))
+
+        if (req.status_code == 404):
+            raise aurorax.AuroraXNotFoundException(&#34;%s %s&#34; % (req.status_code,
+                                                              req.json()[&#34;error_message&#34;]))
 
         # check if we only want to do limited evaluation
         if (limited_evaluation is True):
@@ -567,11 +591,11 @@ def reset_base_url() -&gt; None:
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="aurorax.api.AuroraXRequest.body"><code class="name">var <span class="ident">body</span> : Union[Dict[~KT, ~VT], None, List[~T]]</code></dt>
+<dt id="aurorax.api.AuroraXRequest.body"><code class="name">var <span class="ident">body</span> : Union[Dict, ForwardRef(None), List]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.api.AuroraXRequest.headers"><code class="name">var <span class="ident">headers</span> : Optional[Dict[~KT, ~VT]]</code></dt>
+<dt id="aurorax.api.AuroraXRequest.headers"><code class="name">var <span class="ident">headers</span> : Optional[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -583,7 +607,7 @@ def reset_base_url() -&gt; None:
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.api.AuroraXRequest.params"><code class="name">var <span class="ident">params</span> : Optional[Dict[~KT, ~VT]]</code></dt>
+<dt id="aurorax.api.AuroraXRequest.params"><code class="name">var <span class="ident">params</span> : Optional[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -611,6 +635,8 @@ the retry mechanism, defaults to False.</dd>
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
 <dd>max retry error.</dd>
+<dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
+<dd>requested resource was not found.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
 <dd>unexpected content error.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#aurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
@@ -633,6 +659,7 @@ the retry mechanism, defaults to False.</dd>
 
     Raises:
         aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXNotFoundException: requested resource was not found.
         aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
         aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
@@ -666,6 +693,10 @@ the retry mechanism, defaults to False.</dd>
     if (req.status_code == 401):
         raise aurorax.AuroraXUnauthorizedException(&#34;%s %s&#34; % (req.status_code,
                                                               req.json()[&#34;error_message&#34;]))
+
+    if (req.status_code == 404):
+        raise aurorax.AuroraXNotFoundException(&#34;%s %s&#34; % (req.status_code,
+                                                          req.json()[&#34;error_message&#34;]))
 
     # check if we only want to do limited evaluation
     if (limited_evaluation is True):

@@ -1,6 +1,6 @@
 # Asynchronous Searches
 
-Search times for data products, ephemeris, and conunctions can vary widely depending on the length of time, number of data sources involved, and metadata filters used. The basic search functions in the [`data_products`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html#aurorax.data_products.search), [`ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html#aurorax.ephemeris.search), and [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search) modules will block and wait until results are returned. The blocked time waiting for the query results to be returned can be anywhere from several seconds to many minutes. To avoid idle time during this blocking time in your scripts and programs, or to take advantage of the possibility to run multiple search queries in parallel, consider using an **asynchronous search**.
+Search times for data products, ephemeris, and conunctions can vary widely depending on the length of time, number of data sources involved, and metadata filters used. The basic search functions in the [`data_products`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html#aurorax.data_products.search), [`ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html#aurorax.ephemeris.search), and [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search) modules will block and wait until results are returned and may return more than a gigabyte of data. The blocked time waiting for the query results to be returned can be anywhere from several seconds to many minutes. To avoid idle time during this blocking time in your scripts and programs, or to take advantage of the possibility to run multiple search queries in parallel, consider using an **asynchronous search**.
 
 ## Overview
 Asynchronous searches in PyAuroraX modules all follow the same process:
@@ -8,6 +8,8 @@ Asynchronous searches in PyAuroraX modules all follow the same process:
 1. The client executes an asynchronous search using the same parameters as what would be used in a regular (synchronous) search.
 2. The API starts processing the query in the background, and immediately responds with a request ID that is stored in the response object.
 3. The client continues with execution flow in their application, checking the status of the asynchronous query periodically and retrieving data whenever it is ready.
+
+Separating the request and the resulting data into two different API calls allows flexibility in duration and size of the overall request.
 
 Asynchronous search is available in the [`data_products`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html#aurorax.data_products.search_async), [`ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html#aurorax.ephemeris.search_async), and [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search_async) modules. The example below illustrates its use in the conjunctions module, but the same usage applies in the data_products and ephemeris.
 

@@ -68,8 +68,7 @@ nav:
     - Data Availability: about_the_data/availability.md
     - Data Policy: about_the_data/policy.md
     - Recommended Standards: about_the_data/standards.md
-  - Conjunction Search:
-    - Overview: conjunction_search/overview.md
+  - Conjunction Search: conjunction_search/overview.md
   - Machine Learning:
     - Overview: ml/overview.md
     - Models:
@@ -87,6 +86,7 @@ nav:
       - Overview: python_libraries/pyaurorax/overview.md
       - Installation: python_libraries/pyaurorax/installation.md
       - Basic Usage:
+        - Basics - Introduction: python_libraries/pyaurorax/basic_usage/basics_intro.md
         - Data Sources: python_libraries/pyaurorax/basic_usage/data_sources.md
         - Ephemeris: python_libraries/pyaurorax/basic_usage/ephemeris.md
         - Data Products: python_libraries/pyaurorax/basic_usage/data_products.md

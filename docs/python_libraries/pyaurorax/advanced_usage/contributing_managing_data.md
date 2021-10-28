@@ -106,7 +106,7 @@ identifier = r.identifier
 
 When the adding operation is successful, the return value `r` from the API is a `DataSource` object. This object contains the full record from the database including default values for attributes we omitted. In this case, since we didn't specify an identifier, we can find out what identifier our new data source was assigned by accessing its `identifier` attribute.
 
-### Updating a data source
+### Updating data sources
 There are two functions for updating the information associated with a data source in the AuroraX database: [`sources.partial_update`](/python_libraries/pyaurorax/api_reference/aurorax/sources.html#aurorax.sources.partial_update), which updates the values for specified attributes, and a full [`sources.update`](/python_libraries/pyaurorax/api_reference/aurorax/sources.html#aurorax.sources.update) function that replaces the database record with a new DataSource object passed in. We recommend using `sources.partial_update` whenever possible because it reduces the risk of accidental data loss.
 
 ### Example: partial update of a data source
@@ -134,4 +134,146 @@ ds.maintainers = ["maintainer@program.com"]
 
 # send to API
 updated_ds = aurorax.sources.update(ds)
+```
+
+## Ephemeris records
+Ephemeris records uploaded to AuroraX can be found in conjunction searches and ephemeris searches by anyone using the platform. Using the [`ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html) module, records are uploaded and updated using the [`Ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html#aurorax.ephemeris.Ephemeris) class and [`upload`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html#aurorax.ephemeris.upload) function.
+
+### Example: uploading an ephemeris record
+In this example we create two `Ephemeris` objects associated with the same data source and upload them to the database. `Ephemeris` objects hold a reference to their data source, and so we first have to retrieve the data source.
+
+```python
+ds = aurorax.sources.get(program="example-program",
+                         platform="example-platform",
+                         instrument_type="example-instrument")
+```
+
+Next, we create two `Ephemeris` objects one minute apart. Note that the location attributes are passed in as a [`aurorax.Location`](/python_libraries/pyaurorax/api_reference/aurorax/models.html#aurorax.models.Location) object.
+```python
+epoch = datetime.datetime(2020, 1, 1, 0, 0)
+location_geo = aurorax.Location(lat=51.049999, lon=-114.066666)
+location_gsm = aurorax.Location(lat=150.25, lon=-10.75)
+nbtrace = aurorax.Location(lat=1.23, lon=45.6)
+sbtrace = aurorax.Location(lat=7.89, lon=101.23)
+metadata = {
+    "example_meta1": "testing1",
+    "example_meta2": "testing2",
+}
+
+# create first Ephemeris object
+e1 = aurorax.ephemeris.Ephemeris(data_source=ds,
+                                 epoch=epoch,
+                                 location_geo=location_geo,
+                                 location_gsm=location_gsm,
+                                 nbtrace=nbtrace,
+                                 sbtrace=sbtrace,
+                                 metadata=metadata)
+
+# create second Ephemeris object
+epoch2 = datetime.datetime(2020, 1, 1, 0, 1)
+metadata2 = {
+    "example_meta1": "testing12",
+    "example_meta2": "testing22",
+}
+e2 = aurorax.ephemeris.Ephemeris(data_source=ds,
+                                 epoch=epoch2,
+                                 location_geo=location_geo,
+                                 location_gsm=location_gsm,
+                                 nbtrace=nbtrace,
+                                 sbtrace=sbtrace,
+                                 metadata=metadata2)
+```
+
+To upload the records, we pass them in a list to the [`upload`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html#aurorax.ephemeris.upload) function along with the identifier of the data source. `validate_source` is an optional argument that, if True, will independently check the validity of each record's `data_source` attribute against the data source associated with the `identifier` argument in the database. It is recommended to use this optional check.
+
+```python
+aurorax.ephemeris.upload(identifier=ds.identifier,
+                         records=[e1, e2],
+                         validate_source=True)
+```
+
+### Updating ephemeris records
+Updating ephemeris records is also done using the `upload` function. Ephemeris records are uniquely identified by the combination of their data source and epoch. Uploading a new record with the same data source and epoch as an existing record will overwrite the existing record with the new values.
+
+### Example: updating an ephemeris record
+In this example we use the same variables as the previous example and update the metadata field of one of the records we uploaded. 
+
+```python
+e1.metadata = {
+    "example_meta1": "testing1_updated",
+    "example_meta2": "testing2_updated",
+}
+
+aurorax.ephemeris.upload(identifier=ds.identifier,
+                         records=[e1],
+                         validate_source=True)
+```
+
+## Data product records
+Data product records uploaded to AuroraX can be found in data product searches by anyone using the platform. Using the [`data_products`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html) module, records are uploaded and updated using the [`DataProduct`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html#aurorax.data_products.DataProduct) class and [`upload`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html#aurorax.data_products.upload) function.
+
+### Example: uploading a data product record
+In this example we create two `DataProduct` objects associated with the same data source and upload them to the database. `DataProduct` objects hold a reference to their data source, and so we first have to retrieve the data source.
+
+```python
+ds = aurorax.sources.get(program="example-program",
+                         platform="example-platform",
+                         instrument_type="example-instrument")
+```
+
+Next, we create two `DataProduct` objects one day apart.
+
+```python
+url = "example1.jpg"
+metadata = {
+    "example_meta1": "example1",
+    "example_meta2": "example2",
+}
+data_product_type = "keogram"
+start_dt = datetime.datetime(2020, 1, 1, 0, 0, 0)
+end_dt = start_dt.replace(hour=23, minute=59, second=59)
+
+# create first DataProduct object
+dp1 = aurorax.data_products.DataProduct(data_source=ds,
+                                       data_product_type=data_product_type,
+                                       url=url,
+                                       start=start_dt,
+                                       end=end_dt,
+                                       metadata=metadata)
+
+# create second DataProduct object
+start_dt2 = datetime.datetime(2020, 1, 2, 0, 0, 0)
+end_dt2 = start_dt2.replace(hour=23, minute=59, second=59)
+url2 = "example2.jpg"
+dp2 = aurorax.data_products.DataProduct(data_source=ds,
+                                        data_product_type=data_product_type,
+                                        url=url2,
+                                        start=start_dt2,
+                                        end=end_dt2,
+                                        metadata=metadata)
+```
+
+To upload the records, we pass them in a list to the [`upload`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html#aurorax.data_products.upload) function along with the identifier of the data source. `validate_source` is an optional argument that, if True, will independently check the validity of each record's `data_source` attribute against the data source associated with the `identifier` argument in the database. It is recommended to use this optional check.
+
+```python
+aurorax.data_products.upload(identifier=ds.identifier,
+                             records=[dp1, dp2],
+                             validate_source=True)
+```
+
+### Updating data product records
+Updating data product records is also done using the `upload` function. Data product records are uniquely identified by the combination of their data source and URL. Uploading a new record with the same data source and URL as an existing record will overwrite the existing record with the new values.
+
+### Example: updating a data product record
+In this example we use the same variables as the previous example and update the metadata field of one of the records we uploaded. 
+
+```python
+dp1.metadata = {
+    "example_meta1": "example1_updated",
+    "example_meta2": "example2_updated",
+}
+
+aurorax.data_products.upload(identifier=ds.identifier,
+                             records=[dp1],
+                             validate_source=True)
 ```

@@ -1,8 +1,9 @@
 # Ephemeris
 
-The [`ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html) module provides functions for searching, adding, updating, and deleting ephemeris records. 
+The [`ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html) module provides functions for searching, adding, updating, and deleting ephemeris records. Synchronous and [asynchronous search](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/) functions are available in the data_products module.
 
 * See [this description](/about_the_data/categories/#ephemeris) of the ephemeris category.
+* [Asynchronous searches](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/)
 * [Searches with metadata filters](/python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters/)
 
 
