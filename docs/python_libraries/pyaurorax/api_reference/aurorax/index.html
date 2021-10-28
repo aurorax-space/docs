@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>aurorax API documentation</title>
-<meta name="description" content="PyAuroraX package." />
+<meta name="description" content="The PyAuroraX package provides a way to interact with the [AuroraX REST API](https://aurorax.space/data/api_libraries).
+It is intended to provide an …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,15 +23,51 @@
 <h1 class="title">Package <code>aurorax</code></h1>
 </header>
 <section id="section-intro">
-<p>PyAuroraX package.</p>
+<p>The PyAuroraX package provides a way to interact with the <a href="https://aurorax.space/data/api_libraries">AuroraX REST API</a>.
+It is intended to provide an intuitive process for those in the space physics and citizen science communities to
+programmatically query AuroraX's vast database for conjunctions, ephemeris or data product records, data availability, and
+statistics. Requires Python3.6+.</p>
+<p>Check out this project on <a href="https://github.com/aurorax-space/pyaurorax">GitHub</a> and explore the evolving ecosystem of
+visualizations, tools, and data at <a href="https://aurorax.space/">AuroraX</a>.</p>
+<p>For an overview of intended usage and examples, visit the
+<a href="https://docs.aurorax.space/python_libraries/pyaurorax/">AuroraX Documentation website</a>.
+Details of functionality and options are available in the
+<a href="https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/">API reference</a>.</p>
+<p>Installation:</p>
+<pre><code class="language-console">$ pip install pyaurorax
+</code></pre>
+<p>Basic usage:</p>
+<pre><code class="language-python">&gt; import aurorax
+</code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-PyAuroraX package.
+The PyAuroraX package provides a way to interact with the [AuroraX REST API](https://aurorax.space/data/api_libraries).
+It is intended to provide an intuitive process for those in the space physics and citizen science communities to
+programmatically query AuroraX&#39;s vast database for conjunctions, ephemeris or data product records, data availability, and
+statistics. Requires Python3.6+.
+
+Check out this project on [GitHub](https://github.com/aurorax-space/pyaurorax) and explore the evolving ecosystem of
+visualizations, tools, and data at [AuroraX](https://aurorax.space/).
+
+For an overview of intended usage and examples, visit the
+[AuroraX Documentation website](https://docs.aurorax.space/python_libraries/pyaurorax/).
+Details of functionality and options are available in the
+[API reference](https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/).
+
+Installation:
+```console
+$ pip install pyaurorax
+```
+
+Basic usage:
+```python
+&gt; import aurorax
+```
 &#34;&#34;&#34;
-__version__ = &#34;0.6.5&#34;
+__version__ = &#34;0.6.9&#34;
 
 # pull in top level functions
 from .api import AuroraXRequest

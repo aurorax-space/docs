@@ -31,6 +31,7 @@
 AuroraX data sources are unique instruments that produce ephemeris or data product records.
 &#34;&#34;&#34;
 import aurorax
+import datetime
 import pprint
 from pydantic import BaseModel
 from typing import List, Dict
@@ -68,6 +69,48 @@ class DataSource(BaseModel):
     maintainers: List[str] = None
     ephemeris_metadata_schema: List[Dict] = None
     data_product_metadata_schema: List[Dict] = None
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;
+        String method.
+
+        Returns:
+            String format of DataSource object.
+
+        &#34;&#34;&#34;
+        return self.__repr__()
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Object representation.
+
+        Returns:
+            Object representation of DataSource object.
+
+        &#34;&#34;&#34;
+        return pprint.pformat(self.__dict__)
+
+
+class DataSourceStatistics(BaseModel):
+    &#34;&#34;&#34;
+    Data type for data source statistics.
+
+    Attributes:
+        data_source: the data source the statistics are associated with
+        earliest_ephemeris_loaded: datetime.datetime of the earliest ephemeris record
+        latest_ephemeris_loaded: datetime.datetime of the latest ephemeris record
+        ephemeris_count: total number of ephemeris records for this data source
+        earliest_data_product_loaded: datetime.datetime of the earliest data_product record
+        latest_data_product_loaded: datetime.datetime of the latest data product record
+        data_product_count: total number of ephemeris records for this data source
+    &#34;&#34;&#34;
+    data_source: DataSource
+    earliest_ephemeris_loaded: datetime.datetime = None
+    latest_ephemeris_loaded: datetime.datetime = None
+    ephemeris_count: int
+    earliest_data_product_loaded: datetime.datetime = None
+    latest_data_product_loaded: datetime.datetime = None
+    data_product_count: int
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
@@ -208,9 +251,9 @@ def get_using_filters(program: str = None,
     res.data = sorted(res.data, key=lambda x: x[order])
 
     # return
-    try:
+    if len(res.data):
         return [DataSource(**ds) for ds in res.data]
-    except Exception:
+    else:
         return []
 
 
@@ -239,11 +282,7 @@ def get_using_identifier(identifier: int, format: str = &#34;basic_info&#34;) -&
     res = req.execute()
 
     # return
-    try:
-        return DataSource(**res.data)
-    except Exception:
-        raise aurorax.AuroraXNotFoundException(
-            &#34;Data source not found. Check that the identifier is correct.&#34;)
+    return DataSource(**res.data)
 
 
 def get_stats(identifier: int,
@@ -262,6 +301,7 @@ def get_stats(identifier: int,
 
     Raises:
         aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
         aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
     &#34;&#34;&#34;
@@ -275,7 +315,7 @@ def get_stats(identifier: int,
     res = req.execute()
 
     # return
-    return res.data
+    return DataSourceStatistics(**res.data)
 
 
 def add(data_source: DataSource) -&gt; DataSource:
@@ -351,9 +391,6 @@ def delete(identifier: int) -&gt; int:
     # evaluate response
     if (res.status_code == 400):
         raise aurorax.AuroraXBadParametersException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
-    elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(
             &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
     elif (res.status_code == 409):
         raise aurorax.AuroraXConflictException(
@@ -608,9 +645,6 @@ def partial_update(identifier: int,
     if (res.status_code == 400):
         raise aurorax.AuroraXBadParametersException(
             &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
-    elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
     elif (res.status_code == 409):
         raise aurorax.AuroraXConflictException(
             &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
@@ -693,7 +727,7 @@ def partial_update(identifier: int,
 </details>
 </dd>
 <dt id="aurorax.sources.get_stats"><code class="name flex">
-<span>def <span class="ident">get_stats</span></span>(<span>identifier: int, format: str = 'basic_info', slow: bool = False) ‑> Dict[~KT, ~VT]</span>
+<span>def <span class="ident">get_stats</span></span>(<span>identifier: int, format: str = 'basic_info', slow: bool = False) ‑> Dict</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve statistics for a data source.</p>
@@ -712,6 +746,8 @@ def partial_update(identifier: int,
 <dl>
 <dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
 <dd>max retry error.</dd>
+<dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
+<dd>data source not found.</dd>
 <dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
 <dd>unexpected error.</dd>
 </dl></div>
@@ -735,6 +771,7 @@ def partial_update(identifier: int,
 
     Raises:
         aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        aurorax.exceptions.AuroraXNotFoundException: data source not found.
         aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
 
     &#34;&#34;&#34;
@@ -748,7 +785,7 @@ def partial_update(identifier: int,
     res = req.execute()
 
     # return
-    return res.data</code></pre>
+    return DataSourceStatistics(**res.data)</code></pre>
 </details>
 </dd>
 <dt id="aurorax.sources.get_using_filters"><code class="name flex">
@@ -832,9 +869,9 @@ instrument_type, display_name, owner), defaults to "identifier".</dd>
     res.data = sorted(res.data, key=lambda x: x[order])
 
     # return
-    try:
+    if len(res.data):
         return [DataSource(**ds) for ds in res.data]
-    except Exception:
+    else:
         return []</code></pre>
 </details>
 </dd>
@@ -888,11 +925,7 @@ instrument_type, display_name, owner), defaults to "identifier".</dd>
     res = req.execute()
 
     # return
-    try:
-        return DataSource(**res.data)
-    except Exception:
-        raise aurorax.AuroraXNotFoundException(
-            &#34;Data source not found. Check that the identifier is correct.&#34;)</code></pre>
+    return DataSource(**res.data)</code></pre>
 </details>
 </dd>
 <dt id="aurorax.sources.list"><code class="name flex">
@@ -953,7 +986,7 @@ instrument_type, display_name, owner), defaults to "identifier".</dd>
 </details>
 </dd>
 <dt id="aurorax.sources.partial_update"><code class="name flex">
-<span>def <span class="ident">partial_update</span></span>(<span>identifier: int, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, display_name: str = None, metadata: Dict[~KT, ~VT] = None, owner: str = None, maintainers: List[str] = None, ephemeris_metadata_schema: List[Dict[~KT, ~VT]] = None, data_product_metadata_schema: List[Dict[~KT, ~VT]] = None) ‑> <a title="aurorax.sources.DataSource" href="#aurorax.sources.DataSource">DataSource</a></span>
+<span>def <span class="ident">partial_update</span></span>(<span>identifier: int, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, display_name: str = None, metadata: Dict = None, owner: str = None, maintainers: List[str] = None, ephemeris_metadata_schema: List[Dict] = None, data_product_metadata_schema: List[Dict] = None) ‑> <a title="aurorax.sources.DataSource" href="#aurorax.sources.DataSource">DataSource</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Partially update a data source in AuroraX.</p>
@@ -1249,7 +1282,7 @@ that can appear in data product records associated with the data source.</dd>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="aurorax.sources.DataSource.data_product_metadata_schema"><code class="name">var <span class="ident">data_product_metadata_schema</span> : List[Dict[~KT, ~VT]]</code></dt>
+<dt id="aurorax.sources.DataSource.data_product_metadata_schema"><code class="name">var <span class="ident">data_product_metadata_schema</span> : List[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1257,7 +1290,7 @@ that can appear in data product records associated with the data source.</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.sources.DataSource.ephemeris_metadata_schema"><code class="name">var <span class="ident">ephemeris_metadata_schema</span> : List[Dict[~KT, ~VT]]</code></dt>
+<dt id="aurorax.sources.DataSource.ephemeris_metadata_schema"><code class="name">var <span class="ident">ephemeris_metadata_schema</span> : List[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1273,7 +1306,7 @@ that can appear in data product records associated with the data source.</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.sources.DataSource.metadata"><code class="name">var <span class="ident">metadata</span> : Dict[~KT, ~VT]</code></dt>
+<dt id="aurorax.sources.DataSource.metadata"><code class="name">var <span class="ident">metadata</span> : Dict</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1290,6 +1323,113 @@ that can appear in data product records associated with the data source.</dd>
 <div class="desc"></div>
 </dd>
 <dt id="aurorax.sources.DataSource.source_type"><code class="name">var <span class="ident">source_type</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="aurorax.sources.DataSourceStatistics"><code class="flex name class">
+<span>class <span class="ident">DataSourceStatistics</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data type for data source statistics.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>data_source</code></strong></dt>
+<dd>the data source the statistics are associated with</dd>
+<dt><strong><code>earliest_ephemeris_loaded</code></strong></dt>
+<dd>datetime.datetime of the earliest ephemeris record</dd>
+<dt><strong><code>latest_ephemeris_loaded</code></strong></dt>
+<dd>datetime.datetime of the latest ephemeris record</dd>
+<dt><strong><code>ephemeris_count</code></strong></dt>
+<dd>total number of ephemeris records for this data source</dd>
+<dt><strong><code>earliest_data_product_loaded</code></strong></dt>
+<dd>datetime.datetime of the earliest data_product record</dd>
+<dt><strong><code>latest_data_product_loaded</code></strong></dt>
+<dd>datetime.datetime of the latest data product record</dd>
+<dt><strong><code>data_product_count</code></strong></dt>
+<dd>total number of ephemeris records for this data source</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DataSourceStatistics(BaseModel):
+    &#34;&#34;&#34;
+    Data type for data source statistics.
+
+    Attributes:
+        data_source: the data source the statistics are associated with
+        earliest_ephemeris_loaded: datetime.datetime of the earliest ephemeris record
+        latest_ephemeris_loaded: datetime.datetime of the latest ephemeris record
+        ephemeris_count: total number of ephemeris records for this data source
+        earliest_data_product_loaded: datetime.datetime of the earliest data_product record
+        latest_data_product_loaded: datetime.datetime of the latest data product record
+        data_product_count: total number of ephemeris records for this data source
+    &#34;&#34;&#34;
+    data_source: DataSource
+    earliest_ephemeris_loaded: datetime.datetime = None
+    latest_ephemeris_loaded: datetime.datetime = None
+    ephemeris_count: int
+    earliest_data_product_loaded: datetime.datetime = None
+    latest_data_product_loaded: datetime.datetime = None
+    data_product_count: int
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;
+        String method.
+
+        Returns:
+            String format of DataSource object.
+
+        &#34;&#34;&#34;
+        return self.__repr__()
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Object representation.
+
+        Returns:
+            Object representation of DataSource object.
+
+        &#34;&#34;&#34;
+        return pprint.pformat(self.__dict__)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+<li>pydantic.utils.Representation</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="aurorax.sources.DataSourceStatistics.data_product_count"><code class="name">var <span class="ident">data_product_count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="aurorax.sources.DataSourceStatistics.data_source"><code class="name">var <span class="ident">data_source</span> : <a title="aurorax.sources.DataSource" href="#aurorax.sources.DataSource">DataSource</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="aurorax.sources.DataSourceStatistics.earliest_data_product_loaded"><code class="name">var <span class="ident">earliest_data_product_loaded</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="aurorax.sources.DataSourceStatistics.earliest_ephemeris_loaded"><code class="name">var <span class="ident">earliest_ephemeris_loaded</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="aurorax.sources.DataSourceStatistics.ephemeris_count"><code class="name">var <span class="ident">ephemeris_count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="aurorax.sources.DataSourceStatistics.latest_data_product_loaded"><code class="name">var <span class="ident">latest_data_product_loaded</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="aurorax.sources.DataSourceStatistics.latest_ephemeris_loaded"><code class="name">var <span class="ident">latest_ephemeris_loaded</span> : datetime.datetime</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1384,6 +1524,18 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="aurorax.sources.DataSource.platform" href="#aurorax.sources.DataSource.platform">platform</a></code></li>
 <li><code><a title="aurorax.sources.DataSource.program" href="#aurorax.sources.DataSource.program">program</a></code></li>
 <li><code><a title="aurorax.sources.DataSource.source_type" href="#aurorax.sources.DataSource.source_type">source_type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="aurorax.sources.DataSourceStatistics" href="#aurorax.sources.DataSourceStatistics">DataSourceStatistics</a></code></h4>
+<ul class="">
+<li><code><a title="aurorax.sources.DataSourceStatistics.data_product_count" href="#aurorax.sources.DataSourceStatistics.data_product_count">data_product_count</a></code></li>
+<li><code><a title="aurorax.sources.DataSourceStatistics.data_source" href="#aurorax.sources.DataSourceStatistics.data_source">data_source</a></code></li>
+<li><code><a title="aurorax.sources.DataSourceStatistics.earliest_data_product_loaded" href="#aurorax.sources.DataSourceStatistics.earliest_data_product_loaded">earliest_data_product_loaded</a></code></li>
+<li><code><a title="aurorax.sources.DataSourceStatistics.earliest_ephemeris_loaded" href="#aurorax.sources.DataSourceStatistics.earliest_ephemeris_loaded">earliest_ephemeris_loaded</a></code></li>
+<li><code><a title="aurorax.sources.DataSourceStatistics.ephemeris_count" href="#aurorax.sources.DataSourceStatistics.ephemeris_count">ephemeris_count</a></code></li>
+<li><code><a title="aurorax.sources.DataSourceStatistics.latest_data_product_loaded" href="#aurorax.sources.DataSourceStatistics.latest_data_product_loaded">latest_data_product_loaded</a></code></li>
+<li><code><a title="aurorax.sources.DataSourceStatistics.latest_ephemeris_loaded" href="#aurorax.sources.DataSourceStatistics.latest_ephemeris_loaded">latest_ephemeris_loaded</a></code></li>
 </ul>
 </li>
 </ul>

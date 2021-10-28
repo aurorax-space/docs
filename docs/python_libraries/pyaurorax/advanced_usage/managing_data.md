@@ -1,2 +1,0 @@
-# Managing data
-Coming soon

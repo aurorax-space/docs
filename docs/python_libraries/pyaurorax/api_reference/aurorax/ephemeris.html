@@ -267,18 +267,23 @@ class Search():
         self.status = status
         self.logs = status[&#34;logs&#34;]
 
-    def check_for_data(self) -&gt; None:
+    def check_for_data(self) -&gt; bool:
         &#34;&#34;&#34;
         Check to see if data is available for this ephemeris search request.
+
+        Returns:
+            True if data is available, else False.
         &#34;&#34;&#34;
         self.update_status()
+
+        return self.completed
 
     def get_data(self) -&gt; None:
         &#34;&#34;&#34;
         Retrieve the data available for this ephemeris search request.
         &#34;&#34;&#34;
         if (self.completed is False):
-            print(&#34;No data available, update status first&#34;)
+            print(&#34;No data available, update status or check for data first&#34;)
             return
         url = self.data_url
         raw_data = aurorax.requests.get_data(url)
@@ -551,9 +556,6 @@ def delete(data_source: aurorax.sources.DataSource, start: datetime.datetime, en
                 &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;message&#34;]))
         raise aurorax.AuroraXBadParametersException(
             &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
-    elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
 
     # return
     return 1</code></pre>
@@ -645,16 +647,13 @@ Identifier, program, platform, and instrument_type are required.</dd>
                 &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;message&#34;]))
         raise aurorax.AuroraXBadParametersException(
             &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
-    elif (res.status_code == 404):
-        raise aurorax.AuroraXNotFoundException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
 
     # return
     return 1</code></pre>
 </details>
 </dd>
 <dt id="aurorax.ephemeris.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict[~KT, ~VT]] = None, verbose: bool = False, poll_interval: float = 1.0) ‑> <a title="aurorax.ephemeris.Search" href="#aurorax.ephemeris.Search">Search</a></span>
+<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, verbose: bool = False, poll_interval: float = 1.0) ‑> <a title="aurorax.ephemeris.Search" href="#aurorax.ephemeris.Search">Search</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Search for ephemeris records.</p>
@@ -771,7 +770,7 @@ defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
 </details>
 </dd>
 <dt id="aurorax.ephemeris.search_async"><code class="name flex">
-<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict[~KT, ~VT]] = None) ‑> <a title="aurorax.ephemeris.Search" href="#aurorax.ephemeris.Search">Search</a></span>
+<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None) ‑> <a title="aurorax.ephemeris.Search" href="#aurorax.ephemeris.Search">Search</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Submit a request for an ephemeris search, return asynchronously.</p>
@@ -1074,7 +1073,7 @@ data sources with a type of 'ground').</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.ephemeris.Ephemeris.metadata"><code class="name">var <span class="ident">metadata</span> : Dict[~KT, ~VT]</code></dt>
+<dt id="aurorax.ephemeris.Ephemeris.metadata"><code class="name">var <span class="ident">metadata</span> : Dict</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1090,7 +1089,7 @@ data sources with a type of 'ground').</dd>
 <h3>Methods</h3>
 <dl>
 <dt id="aurorax.ephemeris.Ephemeris.to_json_serializable"><code class="name flex">
-<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict[~KT, ~VT]</span>
+<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert object to a JSON-serializable object (ie. translate datetime objects to strings).</p>
@@ -1147,7 +1146,7 @@ data sources with a type of 'ground').</dd>
 </dd>
 <dt id="aurorax.ephemeris.Search"><code class="flex name class">
 <span>class <span class="ident">Search</span></span>
-<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict[~KT, ~VT]] = None)</span>
+<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class representing an AuroraX ephemeris search.</p>
@@ -1324,18 +1323,23 @@ logs: list of logging messages from the API.</p>
         self.status = status
         self.logs = status[&#34;logs&#34;]
 
-    def check_for_data(self) -&gt; None:
+    def check_for_data(self) -&gt; bool:
         &#34;&#34;&#34;
         Check to see if data is available for this ephemeris search request.
+
+        Returns:
+            True if data is available, else False.
         &#34;&#34;&#34;
         self.update_status()
+
+        return self.completed
 
     def get_data(self) -&gt; None:
         &#34;&#34;&#34;
         Retrieve the data available for this ephemeris search request.
         &#34;&#34;&#34;
         if (self.completed is False):
-            print(&#34;No data available, update status first&#34;)
+            print(&#34;No data available, update status or check for data first&#34;)
             return
         url = self.data_url
         raw_data = aurorax.requests.get_data(url)
@@ -1429,19 +1433,26 @@ logs: list of logging messages from the API.</p>
 </details>
 </dd>
 <dt id="aurorax.ephemeris.Search.check_for_data"><code class="name flex">
-<span>def <span class="ident">check_for_data</span></span>(<span>self) ‑> None</span>
+<span>def <span class="ident">check_for_data</span></span>(<span>self) ‑> bool</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Check to see if data is available for this ephemeris search request.</p></div>
+<div class="desc"><p>Check to see if data is available for this ephemeris search request.</p>
+<h2 id="returns">Returns</h2>
+<p>True if data is available, else False.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def check_for_data(self) -&gt; None:
+<pre><code class="python">def check_for_data(self) -&gt; bool:
     &#34;&#34;&#34;
     Check to see if data is available for this ephemeris search request.
+
+    Returns:
+        True if data is available, else False.
     &#34;&#34;&#34;
-    self.update_status()</code></pre>
+    self.update_status()
+
+    return self.completed</code></pre>
 </details>
 </dd>
 <dt id="aurorax.ephemeris.Search.execute"><code class="name flex">
@@ -1514,7 +1525,7 @@ logs: list of logging messages from the API.</p>
     Retrieve the data available for this ephemeris search request.
     &#34;&#34;&#34;
     if (self.completed is False):
-        print(&#34;No data available, update status first&#34;)
+        print(&#34;No data available, update status or check for data first&#34;)
         return
     url = self.data_url
     raw_data = aurorax.requests.get_data(url)
@@ -1523,7 +1534,7 @@ logs: list of logging messages from the API.</p>
 </details>
 </dd>
 <dt id="aurorax.ephemeris.Search.update_status"><code class="name flex">
-<span>def <span class="ident">update_status</span></span>(<span>self, status: Dict[~KT, ~VT] = None) ‑> None</span>
+<span>def <span class="ident">update_status</span></span>(<span>self, status: Dict = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update the status of this ephemeris search request.</p>

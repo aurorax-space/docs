@@ -1,7 +1,7 @@
 # Data Availability and Stats
 
 ## Availability queries
-The [```availability```](/python_libraries/pyaurorax/api_reference/aurorax/availability.html) module has functions for retrieving the availability of ephemeris and data product records. These functions return a list of [```AvailabilityResult```](/python_libraries/pyaurorax/api_reference/aurorax/availability.html#aurorax.availability.AvailabilityResult) objects for every data source that matches the filter criteria provided to the function.
+The [`availability`](/python_libraries/pyaurorax/api_reference/aurorax/availability.html) module has functions for retrieving the availability of ephemeris and data product records. These functions return a list of [`AvailabilityResult`](/python_libraries/pyaurorax/api_reference/aurorax/availability.html#aurorax.availability.AvailabilityResult) objects for every data source that matches the filter criteria provided to the function.
 
 ### Retrieve availability of ephemeris records
 In this example, the availability of ephemeris records is retrieved for all Swarm instruments:
@@ -43,8 +43,8 @@ first = availability[0]
 first.available_data_products["2019-01-21"]
 ```
 
-## Data source statistics queries
-The [```sources```](/python_libraries/pyaurorax/api_reference/aurorax/sources.html) module has a function for retrieving statistics about a specific data source. The information retrieved includes the earliest and latest dates for ephemeris and data product records associated with the data source. This function returns a [```DataStatisticsResult```](/python_libraries/pyaurorax/api_reference/aurorax/sources.html#aurorax.sources.DataStatisticsResult) object.
+## Data source statistics
+The [`sources`](/python_libraries/pyaurorax/api_reference/aurorax/sources.html) module has a function for retrieving statistics of a data source. The information retrieved includes the earliest and latest dates for ephemeris and data product records associated with the data source. A [`DataStatisticsResult`](/python_libraries/pyaurorax/api_reference/aurorax/sources.html#aurorax.sources.DataStatisticsResult) object is returned by this function.
 
 ### Get statistics for a data source
 ```python

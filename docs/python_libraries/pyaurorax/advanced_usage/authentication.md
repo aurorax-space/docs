@@ -11,7 +11,7 @@ At this time PyAuroraX only supports authenticated access using API keys. If you
 
 *Please note that only one API key is valid at a time! If you request a new key, you will have to update it wherever your old key was used.*
 
-Set the API key using the ```api.authenticate``` function. The API key will be used for the remainder of your program.
+Set the API key using the [`api.authenticate`](/python_libraries/pyaurorax/api_reference/aurorax/api.html#aurorax.api.authenticate) function. The API key will be used for the remainder of your program.
 ```python
 # set API key
 aurorax.api.authenticate("API_KEY_HERE")
