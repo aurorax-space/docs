@@ -58,8 +58,6 @@ $ python3 -m mkdocs serve
 
 7. View the website at http://localhost:8000.
 
-<br />
-
 ## How deployment works
 
 Deployment is done using the MkDocs ```gh-deploy``` command and is done manually. This command will build the docs, commit them to the "gh-pages" branch, and push this branch to GitHub. _Please make sure to build and preview any changes locally first_.
@@ -68,15 +66,11 @@ Deployment is done using the MkDocs ```gh-deploy``` command and is done manually
 $ python3 -m mkdocs gh-deploy --force
 ```
 
-<br />
-
 ## Editing pages
 
 Markdown files used to generate the documentation are located in the ```docs``` directory. Add or edit existing documents directly in this directory.
 
 The navigation menu is generated from the structure provided in the ```mkdocs.yml``` file. To modify the navigation menu, modify this file and rebuild the docs.
-
-<br />
 
 ## Resources
 
