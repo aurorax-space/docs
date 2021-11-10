@@ -69,6 +69,10 @@ nav:
     - Data Policy: about_the_data/policy.md
     - Recommended Standards: about_the_data/standards.md
   - Conjunction Search: conjunction_search/overview.md
+  - Virtual Observatory: 
+    - Overview: virtual_observatory/overview.md
+    - Keogramist: virtual_observatory/keogramist.md
+    - Event Explorer: virtual_observatory/event_explorer.md
   - Machine Learning:
     - Overview: ml/overview.md
     - Models:

@@ -16,7 +16,6 @@ update-submodules:
 	git submodule foreach git pull
 
 docs-install:
-	python3 -m pip install --upgrade pip
 	python3 -m pip install -r requirements.txt
 
 docs-generate: 
