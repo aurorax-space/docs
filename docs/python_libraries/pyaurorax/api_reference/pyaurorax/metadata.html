@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>aurorax API documentation</title>
-<meta name="description" content="The PyAuroraX package provides a way to interact with the [AuroraX REST API](https://aurorax.space/data/api_libraries).
-It is intended to provide an …" />
+<title>pyaurorax.metadata API documentation</title>
+<meta name="description" content="AuroraX metadata schemas describe the intended structure of metadata stored in
+ephemeris and data product records." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -20,144 +20,202 @@ It is intended to provide an …" />
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>aurorax</code></h1>
+<h1 class="title">Module <code>pyaurorax.metadata</code></h1>
 </header>
 <section id="section-intro">
-<p>The PyAuroraX package provides a way to interact with the <a href="https://aurorax.space/data/api_libraries">AuroraX REST API</a>.
-It is intended to provide an intuitive process for those in the space physics and citizen science communities to
-programmatically query AuroraX's vast database for conjunctions, ephemeris or data product records, data availability, and
-statistics. Requires Python3.6+.</p>
-<p>Check out this project on <a href="https://github.com/aurorax-space/pyaurorax">GitHub</a> and explore the evolving ecosystem of
-visualizations, tools, and data at <a href="https://aurorax.space/">AuroraX</a>.</p>
-<p>For an overview of intended usage and examples, visit the
-<a href="https://docs.aurorax.space/python_libraries/pyaurorax/">AuroraX Documentation website</a>.
-Details of functionality and options are available in the
-<a href="https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/">API reference</a>.</p>
-<p>Installation:</p>
-<pre><code class="language-console">$ pip install pyaurorax
-</code></pre>
-<p>Basic usage:</p>
-<pre><code class="language-python">&gt; import aurorax
-</code></pre>
+<p>AuroraX metadata schemas describe the intended structure of metadata stored in
+ephemeris and data product records.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-The PyAuroraX package provides a way to interact with the [AuroraX REST API](https://aurorax.space/data/api_libraries).
-It is intended to provide an intuitive process for those in the space physics and citizen science communities to
-programmatically query AuroraX&#39;s vast database for conjunctions, ephemeris or data product records, data availability, and
-statistics. Requires Python3.6+.
-
-Check out this project on [GitHub](https://github.com/aurorax-space/pyaurorax) and explore the evolving ecosystem of
-visualizations, tools, and data at [AuroraX](https://aurorax.space/).
-
-For an overview of intended usage and examples, visit the
-[AuroraX Documentation website](https://docs.aurorax.space/python_libraries/pyaurorax/).
-Details of functionality and options are available in the
-[API reference](https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/).
-
-Installation:
-```console
-$ pip install pyaurorax
-```
-
-Basic usage:
-```python
-&gt; import aurorax
-```
+AuroraX metadata schemas describe the intended structure of metadata stored in
+ephemeris and data product records.
 &#34;&#34;&#34;
-__version__ = &#34;0.6.9&#34;
+import pyaurorax
+from typing import Dict, List
 
-# pull in top level functions
-from .api import AuroraXRequest
-from .api import authenticate
-from .api import get_api_key
 
-# pull in exceptions at top level
-from .exceptions import AuroraXException
-from .exceptions import AuroraXNotFoundException
-from .exceptions import AuroraXMaxRetriesException
-from .exceptions import AuroraXDuplicateException
-from .exceptions import AuroraXUnexpectedContentTypeException
-from .exceptions import AuroraXValidationException
-from .exceptions import AuroraXBadParametersException
-from .exceptions import AuroraXUnauthorizedException
-from .exceptions import AuroraXConflictException
-from .exceptions import AuroraXUploadException
+def validate(schema: List[Dict], record: Dict, quiet: bool = False) -&gt; bool:
+    &#34;&#34;&#34;
+    Validate the metadata record against a schema. This checks that the key names match and there aren&#39;t
+    fewer or more keys than expected.
 
-# pull in models
-from .models import Location
+    Attributes:
+        schema: list of dictionaries representing the metadata schema to validate against.
+        record: metadata record dictionary to validate.
 
-# pull in modules
-from aurorax import requests
-from aurorax import exceptions
-from aurorax import api
-from aurorax import sources
-from aurorax import metadata
-from aurorax import availability
-from aurorax import ephemeris
-from aurorax import data_products
-from aurorax import conjunctions
-from aurorax import util</code></pre>
+    Returns:
+        True if the metadata record is valid.
+    &#34;&#34;&#34;
+    # check keys
+    schema_keys = sorted([i[&#34;field_name&#34;] for i in schema])
+    record_keys = sorted(record.keys())
+    if (schema_keys != record_keys):
+        if (quiet is False):
+            print(&#34;Metadata invalid, keys don&#39;t match&#34;)
+        return False
+    return True
+
+
+def get_ephemeris_schema(identifier: int) -&gt; List[Dict]:
+    &#34;&#34;&#34;
+    Retrieve the metadata schema for an ephemeris record.
+
+    Attributes:
+        identifier: ephemeris source ID.
+
+    Returns:
+        Metadata schema associated with the record.
+
+    &#34;&#34;&#34;
+    source_info = pyaurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
+    if source_info.ephemeris_metadata_schema:
+        return source_info.ephemeris_metadata_schema
+    else:
+        return []
+
+
+def get_data_products_schema(identifier: int) -&gt; List[Dict]:
+    &#34;&#34;&#34;
+    Retrieve the metadata schema for a data products record.
+
+    Attributes:
+        identifier: ephemeris source ID.
+
+    Returns:
+        Metadata schema associated with the record.
+
+    &#34;&#34;&#34;
+    source_info = pyaurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
+    if source_info.data_product_metadata_schema:
+        return source_info.data_product_metadata_schema
+    else:
+        return []</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="aurorax.api" href="api.html">aurorax.api</a></code></dt>
+<dt id="pyaurorax.metadata.get_data_products_schema"><code class="name flex">
+<span>def <span class="ident">get_data_products_schema</span></span>(<span>identifier: int) ‑> List[Dict]</span>
+</code></dt>
 <dd>
-<div class="desc"><p>The API module contains classes and methods used throughout PyAuroraX for API interaction.</p></div>
+<div class="desc"><p>Retrieve the metadata schema for a data products record.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>identifier</code></strong></dt>
+<dd>ephemeris source ID.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Metadata schema associated with the record.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_data_products_schema(identifier: int) -&gt; List[Dict]:
+    &#34;&#34;&#34;
+    Retrieve the metadata schema for a data products record.
+
+    Attributes:
+        identifier: ephemeris source ID.
+
+    Returns:
+        Metadata schema associated with the record.
+
+    &#34;&#34;&#34;
+    source_info = pyaurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
+    if source_info.data_product_metadata_schema:
+        return source_info.data_product_metadata_schema
+    else:
+        return []</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="aurorax.availability" href="availability.html">aurorax.availability</a></code></dt>
+<dt id="pyaurorax.metadata.get_ephemeris_schema"><code class="name flex">
+<span>def <span class="ident">get_ephemeris_schema</span></span>(<span>identifier: int) ‑> List[Dict]</span>
+</code></dt>
 <dd>
-<div class="desc"><p>The availability module provides the means to quickly determine the availability of
-desired ephemeris or data product records in AuroraX.</p></div>
+<div class="desc"><p>Retrieve the metadata schema for an ephemeris record.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>identifier</code></strong></dt>
+<dd>ephemeris source ID.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Metadata schema associated with the record.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_ephemeris_schema(identifier: int) -&gt; List[Dict]:
+    &#34;&#34;&#34;
+    Retrieve the metadata schema for an ephemeris record.
+
+    Attributes:
+        identifier: ephemeris source ID.
+
+    Returns:
+        Metadata schema associated with the record.
+
+    &#34;&#34;&#34;
+    source_info = pyaurorax.sources.get_using_identifier(
+        identifier, format=&#34;full_record&#34;)
+    if source_info.ephemeris_metadata_schema:
+        return source_info.ephemeris_metadata_schema
+    else:
+        return []</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="aurorax.conjunctions" href="conjunctions.html">aurorax.conjunctions</a></code></dt>
+<dt id="pyaurorax.metadata.validate"><code class="name flex">
+<span>def <span class="ident">validate</span></span>(<span>schema: List[Dict], record: Dict, quiet: bool = False) ‑> bool</span>
+</code></dt>
 <dd>
-<div class="desc"><p>AuroraX provides a conjunction module for finding conjunction events between ground and space instruments,
-and between space instruments.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.data_products" href="data_products.html">aurorax.data_products</a></code></dt>
-<dd>
-<div class="desc"><p>AuroraX holds records for various types of data products produced by ground and space instruments.
-The most common type of data product is the keogram.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.ephemeris" href="ephemeris.html">aurorax.ephemeris</a></code></dt>
-<dd>
-<div class="desc"><p>AuroraX holds ephemeris records for ground and space instruments in operation.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.exceptions" href="exceptions.html">aurorax.exceptions</a></code></dt>
-<dd>
-<div class="desc"><p>The exceptions module contains descriptive exceptions unique to AuroraX.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.metadata" href="metadata.html">aurorax.metadata</a></code></dt>
-<dd>
-<div class="desc"><p>AuroraX metadata schemas describe the intended structure of metadata stored in
-ephemeris and data product records.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.models" href="models.html">aurorax.models</a></code></dt>
-<dd>
-<div class="desc"><p>This module contains the Location class.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.requests" href="requests.html">aurorax.requests</a></code></dt>
-<dd>
-<div class="desc"><p>The requests module contains methods for retrieving data from an AuroraX request.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.sources" href="sources.html">aurorax.sources</a></code></dt>
-<dd>
-<div class="desc"><p>AuroraX data sources are unique instruments that produce ephemeris or data product records.</p></div>
-</dd>
-<dt><code class="name"><a title="aurorax.util" href="util.html">aurorax.util</a></code></dt>
-<dd>
-<div class="desc"><p>Utility methods for converting geographic locations to North/South B trace coordinates.</p></div>
+<div class="desc"><p>Validate the metadata record against a schema. This checks that the key names match and there aren't
+fewer or more keys than expected.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>schema</code></strong></dt>
+<dd>list of dictionaries representing the metadata schema to validate against.</dd>
+<dt><strong><code>record</code></strong></dt>
+<dd>metadata record dictionary to validate.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the metadata record is valid.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate(schema: List[Dict], record: Dict, quiet: bool = False) -&gt; bool:
+    &#34;&#34;&#34;
+    Validate the metadata record against a schema. This checks that the key names match and there aren&#39;t
+    fewer or more keys than expected.
+
+    Attributes:
+        schema: list of dictionaries representing the metadata schema to validate against.
+        record: metadata record dictionary to validate.
+
+    Returns:
+        True if the metadata record is valid.
+    &#34;&#34;&#34;
+    # check keys
+    schema_keys = sorted([i[&#34;field_name&#34;] for i in schema])
+    record_keys = sorted(record.keys())
+    if (schema_keys != record_keys):
+        if (quiet is False):
+            print(&#34;Metadata invalid, keys don&#39;t match&#34;)
+        return False
+    return True</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -214,19 +272,16 @@ setTimeout(() => input.focus(), 100);
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="aurorax.api" href="api.html">aurorax.api</a></code></li>
-<li><code><a title="aurorax.availability" href="availability.html">aurorax.availability</a></code></li>
-<li><code><a title="aurorax.conjunctions" href="conjunctions.html">aurorax.conjunctions</a></code></li>
-<li><code><a title="aurorax.data_products" href="data_products.html">aurorax.data_products</a></code></li>
-<li><code><a title="aurorax.ephemeris" href="ephemeris.html">aurorax.ephemeris</a></code></li>
-<li><code><a title="aurorax.exceptions" href="exceptions.html">aurorax.exceptions</a></code></li>
-<li><code><a title="aurorax.metadata" href="metadata.html">aurorax.metadata</a></code></li>
-<li><code><a title="aurorax.models" href="models.html">aurorax.models</a></code></li>
-<li><code><a title="aurorax.requests" href="requests.html">aurorax.requests</a></code></li>
-<li><code><a title="aurorax.sources" href="sources.html">aurorax.sources</a></code></li>
-<li><code><a title="aurorax.util" href="util.html">aurorax.util</a></code></li>
+<li><code><a title="pyaurorax" href="index.html">pyaurorax</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pyaurorax.metadata.get_data_products_schema" href="#pyaurorax.metadata.get_data_products_schema">get_data_products_schema</a></code></li>
+<li><code><a title="pyaurorax.metadata.get_ephemeris_schema" href="#pyaurorax.metadata.get_ephemeris_schema">get_ephemeris_schema</a></code></li>
+<li><code><a title="pyaurorax.metadata.validate" href="#pyaurorax.metadata.validate">validate</a></code></li>
 </ul>
 </li>
 </ul>

@@ -1,5 +1,5 @@
 # Conjunction Search
-The [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html) module provides a way to quickly find conjunctions between instruments. Synchronous and [asynchronous search](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/) functions are available in the conjunctions module.
+The [`conjunctions`](/python_libraries/pyaurorax/api_reference/pyaurorax/conjunctions.html) module provides a way to quickly find conjunctions between instruments. Synchronous and [asynchronous search](/python_libraries/pyaurorax/advanced_usage/asynchronous_search/) functions are available in the conjunctions module.
 
 Also see:
 
@@ -79,7 +79,7 @@ space_params = [
 ]
 
 # synchronous search returns a completed Search object with data
-s1 = aurorax.conjunctions.search(start=start,
+s1 = pyaurorax.conjunctions.search(start=start,
                                  end=end,
                                  ground=ground_params,
                                  space=space_params)
@@ -108,7 +108,7 @@ space_params = [
 ]
 
 # synchronous search returns a completed Search object with data
-s1 = aurorax.conjunctions.search(start=start,
+s1 = pyaurorax.conjunctions.search(start=start,
                                  end=end,
                                  ground=ground_params,
                                  space=space_params)
@@ -150,7 +150,7 @@ space_params = [
 ]
 
 # execute synchronous search
-s = aurorax.conjunctions.search(start=start,
+s = pyaurorax.conjunctions.search(start=start,
                                 end=end,
                                 ground=ground_params,
                                 space=space_params)

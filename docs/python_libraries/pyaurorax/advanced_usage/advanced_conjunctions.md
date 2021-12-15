@@ -1,5 +1,5 @@
 # Advanced conjunction searches
-The [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html) module's search functions provide an interface for running powerful and highly customizable conjunction search queries. While the [basic usage](/python_libraries/pyaurorax/basic_usage/conjunctions/) section covers the quickest way to get started in finding conjunctions, there are additional options for more advanced use of the functions in this module. This section will cover multi-conjunction searches and custom conjunction distances.
+The [`conjunctions`](/python_libraries/pyaurorax/api_reference/pyaurorax/conjunctions.html) module's search functions provide an interface for running powerful and highly customizable conjunction search queries. While the [basic usage](/python_libraries/pyaurorax/basic_usage/conjunctions/) section covers the quickest way to get started in finding conjunctions, there are additional options for more advanced use of the functions in this module. This section will cover multi-conjunction searches and custom conjunction distances.
 
 ## Multi-conjunctions
 Conjunctions happen between at least two data sources. A conjunction event in which more than two data sources are involved is called a *multi-conjunction*. The number of data sources involved in a conjunction is determined by the number of [criteria blocks](/python_libraries/pyaurorax/basic_usage/conjunctions/#criteria-blocks) in the query. PyAuroraX imposes a limit of **10** criteria blocks in a single search execution.
@@ -24,7 +24,7 @@ space_params = [
     }
 ]
 
-s = aurorax.conjunctions.search(start=start,
+s = pyaurorax.conjunctions.search(start=start,
                                 end=end,
                                 ground=ground_params,
                                 space=space_params)
@@ -33,10 +33,10 @@ s = aurorax.conjunctions.search(start=start,
 ## Epoch search precision
 By default, conjunction searches query the database for events at the beginning of every minute. This means that conjunction events resturned by the API will have timestamps that occur exactly on the minute, e.g. 00:01:00, 00:02:00, 00:03:00, and so on.
 
-There are cases where this 60-second precision misses a very short conjunction event. To account for those cases, the [`conjunction.search`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search) and [`conjunction.search_async`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search_async) functions allow for the time precision to be set to 30 seconds. Doing so may result in more conjunctions being found, although it is rare.
+There are cases where this 60-second precision misses a very short conjunction event. To account for those cases, the [`conjunction.search`](/python_libraries/pyaurorax/api_reference/pyaurorax/conjunctions.html#pyaurorax.conjunctions.search) and [`conjunction.search_async`](/python_libraries/pyaurorax/api_reference/pyaurorax/conjunctions.html#pyaurorax.conjunctions.search_async) functions allow for the time precision to be set to 30 seconds. Doing so may result in more conjunctions being found, although it is rare.
 
 ```python hl_lines="5"
-s = aurorax.conjunctions.search(start=start,
+s = pyaurorax.conjunctions.search(start=start,
                                 end=end,
                                 ground=ground_params,
                                 space=space_params,
@@ -89,7 +89,7 @@ space_params = [
 distance = 1000
 
 # execute synchronous search
-s = aurorax.conjunctions.search(start=start,
+s = pyaurorax.conjunctions.search(start=start,
                                 end=end,
                                 ground=ground_params,
                                 space=space_params,
@@ -157,7 +157,7 @@ max_distances = {
 }
 
 # execute synchronous search
-s = aurorax.conjunctions.search(start=start,
+s = pyaurorax.conjunctions.search(start=start,
                                 end=end,
                                 ground=ground_params,
                                 space=space_params,

@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>aurorax.ephemeris API documentation</title>
-<meta name="description" content="AuroraX holds ephemeris records for ground and space instruments in operation." />
+<title>pyaurorax.data_products API documentation</title>
+<meta name="description" content="AuroraX holds records for various types of data products produced by ground and space instruments.
+The most common type of data product is the keogram." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,47 +20,46 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>aurorax.ephemeris</code></h1>
+<h1 class="title">Module <code>pyaurorax.data_products</code></h1>
 </header>
 <section id="section-intro">
-<p>AuroraX holds ephemeris records for ground and space instruments in operation.</p>
+<p>AuroraX holds records for various types of data products produced by ground and space instruments.
+The most common type of data product is the keogram.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-AuroraX holds ephemeris records for ground and space instruments in operation.
+AuroraX holds records for various types of data products produced by ground and space instruments.
+The most common type of data product is the keogram.
 &#34;&#34;&#34;
-import aurorax
+
+import pyaurorax
 import datetime
 import humanize
 import pprint
 from pydantic import BaseModel
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 
-class Ephemeris(BaseModel):
+class DataProduct(BaseModel):
     &#34;&#34;&#34;
-    Ephemeris data type.
+    DataProduct data type.
 
     Attributes:
-        data_source: aurorax.sources.DataSource source that the ephemeris record is associated with.
-        epoch: datetime.datetime timestamp for the record in UTC.
-        location_geo: aurorax.Location object with latitude and longitude in geographic coordinates.
-        location_gsm: aurorax.Location object with latitude and longitude in GSM coordinates (leave empty for
-            data sources with a type of &#39;ground&#39;).
-        nbtrace: aurorax.Location object with north B-trace geomagnetic latitude and longitude.
-        sbtrace: aurorax.Location object with south B-trace geomagnetic latitude and longitude.
-        metadata: dictionary containing metadata values for this record.
-
+        data_source: pyaurorax.sources.DataSource source that the ephemeris record is associated with.
+        data_product_type: data product type (&#34;keogram&#34;, &#34;movie&#34;, &#34;summary_plot&#34;).
+        start: starting datetime.datetime timestamp for the record in UTC.
+        end: ending datetime.datetime timestamp for the record in UTC.
+        url: URL location string of data product.
+        metdata: metadata dictionary for this record.
     &#34;&#34;&#34;
-    data_source: aurorax.sources.DataSource
-    epoch: datetime.datetime
-    location_geo: aurorax.Location
-    location_gsm: aurorax.Location = aurorax.Location(lat=None, lon=None)
-    nbtrace: aurorax.Location
-    sbtrace: aurorax.Location
-    metadata: Dict = None
+    data_source: pyaurorax.sources.DataSource
+    data_product_type: str
+    start: datetime.datetime
+    end: datetime.datetime
+    url: str
+    metadata: Dict
 
     def to_json_serializable(self) -&gt; Dict:
         &#34;&#34;&#34;
@@ -72,18 +72,10 @@ class Ephemeris(BaseModel):
         d = self.__dict__
 
         # format epoch as str
-        if (type(d[&#34;epoch&#34;]) is datetime.datetime):
-            d[&#34;epoch&#34;] = d[&#34;epoch&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
-
-        # format location
-        if (type(d[&#34;location_geo&#34;]) is aurorax.Location):
-            d[&#34;location_geo&#34;] = d[&#34;location_geo&#34;].__dict__
-        if (type(d[&#34;location_gsm&#34;]) is aurorax.Location):
-            d[&#34;location_gsm&#34;] = d[&#34;location_gsm&#34;].__dict__
-        if (type(d[&#34;nbtrace&#34;]) is aurorax.Location):
-            d[&#34;nbtrace&#34;] = d[&#34;nbtrace&#34;].__dict__
-        if (type(d[&#34;sbtrace&#34;]) is aurorax.Location):
-            d[&#34;sbtrace&#34;] = d[&#34;sbtrace&#34;].__dict__
+        if (type(d[&#34;start&#34;]) is datetime.datetime):
+            d[&#34;start&#34;] = d[&#34;start&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
+        if (type(d[&#34;end&#34;]) is datetime.datetime):
+            d[&#34;end&#34;] = d[&#34;end&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
 
         # format metadata
         if (type(self.metadata) is dict):
@@ -108,7 +100,7 @@ class Ephemeris(BaseModel):
         String method.
 
         Returns:
-            String format of Ephemeris.
+            String format of DataProduct object.
 
         &#34;&#34;&#34;
         return self.__repr__()
@@ -118,18 +110,186 @@ class Ephemeris(BaseModel):
         Object representation.
 
         Returns:
-            Object representation of Ephemeris.
+            Object representation of DataProduct object.
 
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)
 
 
+def __validate_data_source(identifier: int, records: List[DataProduct]) -&gt; Optional[DataProduct]:
+    # get all current sources
+    sources = {source.identifier: source for source in pyaurorax.sources.list()}
+    if identifier not in sources.keys():
+        raise pyaurorax.AuroraXValidationException(
+            f&#34;Data source with unique identifier {identifier} could not be found.&#34;)
+
+    for record in records:
+        # check the identifier, program name, platform name, and instrument type
+        try:
+            reference = sources[record.data_source.identifier]
+        except KeyError:
+            raise pyaurorax.AuroraXValidationException(
+                f&#34;Data source with unique identifier {record.data_source.identifier} could not be found.&#34;)
+
+        if not (record.data_source.program == reference.program
+                and record.data_source.platform == reference.platform
+                and record.data_source.instrument_type == reference.instrument_type):
+            return record
+
+    return None
+
+
+def upload(identifier: int, records: List[DataProduct], validate_source: bool = False) -&gt; int:
+    &#34;&#34;&#34;
+    Upload data product records to AuroraX.
+
+    Attributes:
+        identifier: AuroraX data source ID int.
+        records: list of pyaurorax.data_products.DataProduct records to upload.
+        validate_source: boolean, set to True to validate all records before uploading.
+
+    Returns:
+        1 for success, raises exception on error.
+
+    Raises:
+        pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
+        pyaurorax.exceptions.AuroraXUploadException: upload error.
+        pyaurorax.exceptions.AuroraXValidationException: data source validation error.
+
+    &#34;&#34;&#34;
+    # validate record sources if the flag is set
+    if validate_source:
+        validation_error = __validate_data_source(identifier, records)
+        if validation_error:
+            raise pyaurorax.AuroraXValidationException(
+                f&#34;Unable to validate data source found in record: {validation_error}&#34;)
+
+    # translate each data product record to a request-friendly dict (ie. convert datetimes to strings, etc.)
+    for i, _ in enumerate(records):
+        if (type(records[i]) is DataProduct):
+            records[i] = records[i].to_json_serializable()
+
+    # make request
+    url = pyaurorax.api.urls.data_products_upload_url.format(identifier)
+    req = pyaurorax.AuroraXRequest(
+        method=&#34;post&#34;, url=url, body=records, null_response=True)
+    res = req.execute()
+
+    # evaluate response
+    if (res.status_code == 400):
+        if type(res.data) is list:
+            raise pyaurorax.AuroraXUploadException(
+                &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;error_message&#34;]))
+
+        raise pyaurorax.AuroraXUploadException(
+            &#34;%s - %s&#34; % (res.status_code, res.data[&#34;error_message&#34;]))
+
+    # return
+    return 1
+
+
+def delete_daterange(data_source: pyaurorax.sources.DataSource, start: datetime.datetime,
+                     end: datetime.datetime, data_product_types: List[str] = None,
+                     metadata_filters: List[Dict] = None) -&gt; int:
+    &#34;&#34;&#34;
+    Deletes data products associated with a data source in the date range provided. This method is asynchronous.
+
+    Attributes:
+        data_source: pyaurorax.sources.DataSource source associated with the data product records.
+            Identifier, program, platform, and instrument_type are required.
+        start: datetime.datetime beginning of range to delete records for, inclusive.
+        end: datetime.datetime end of datetime range to delete records for, inclusive.
+        data_product_types: specific types of data product to delete, e.g. [&#34;keogram&#34;, &#34;movie&#34;].
+            If omitted, all data product types will be deleted.
+
+    Returns:
+        1 on success.
+
+    Raises:
+        pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        pyaurorax.exceptions.AuroraXNotFoundException: source not found.
+        pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+
+    &#34;&#34;&#34;
+    if not all([data_source.identifier, data_source.program, data_source.platform, data_source.instrument_type]):
+        raise pyaurorax.AuroraXBadParametersException(
+            &#34;One or more required data source parameters are missing. Delete operation aborted.&#34;)
+
+    # do request to get all data products between start and end datetimes
+    try:
+        s = pyaurorax.data_products.search(start=start,
+                                           end=end,
+                                           programs=[data_source.program],
+                                           platforms=[data_source.platform],
+                                           instrument_types=[
+                                               data_source.instrument_type],
+                                           metadata_filters=[] if not metadata_filters else metadata_filters,
+                                           data_product_type_filters=[] if not data_product_types else data_product_types)
+    except Exception as e:
+        raise pyaurorax.AuroraXException(e)
+
+    # collect URLs from search result
+    urls = []
+    for dp in s.data:
+        urls.append(dp.url)
+
+    # do delete request
+    return delete(data_source, urls)
+
+
+def delete(data_source: pyaurorax.sources.DataSource, urls: List[str]) -&gt; int:
+    &#34;&#34;&#34;
+    Delete data products by URL. This method is asynchronous.
+
+    Attributes:
+        data_source: pyaurorax.sources.DataSource source associated with the data product records.
+            Identifier, program, platform, and instrument_type are required.
+        urls: list of URL strings associated with the data products being deleted.
+
+    Returns:
+        1 on success.
+
+    Raises:
+        pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        pyaurorax.exceptions.AuroraXBadParametersException: invalid parameters entered.
+        pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+
+    &#34;&#34;&#34;
+    if not all([data_source.identifier, data_source.program, data_source.platform, data_source.instrument_type]):
+        raise pyaurorax.AuroraXBadParametersException(
+            &#34;One or more required data source parameters are missing. Delete operation aborted.&#34;)
+
+    # do request
+    url = pyaurorax.api.urls.data_products_upload_url.format(
+        data_source.identifier)
+    params = {
+        &#34;program&#34;: data_source.program,
+        &#34;platform&#34;: data_source.platform,
+        &#34;instrument_type&#34;: data_source.instrument_type,
+        &#34;urls&#34;: urls
+    }
+    delete_req = pyaurorax.AuroraXRequest(
+        method=&#34;delete&#34;, url=url, body=params, null_response=True)
+    res = delete_req.execute()
+
+    # evaluate response
+    if (res.status_code == 400):
+        if type(res.data) is list:
+            raise pyaurorax.AuroraXBadParametersException(
+                &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;message&#34;]))
+        raise pyaurorax.AuroraXBadParametersException(
+            &#34;%s - %s&#34; % (res.status_code, res.data[&#34;message&#34;]))
+
+    # return
+    return 1
+
+
 class Search():
     &#34;&#34;&#34;
-    Class representing an AuroraX ephemeris search.
-
-    At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-    must be specified.
+    Class representing an AuroraX data products search.
 
     start: start datetime.datetime timestamp of the search.
     end: end datetime.datetime timestamp of the search.
@@ -144,7 +304,17 @@ class Search():
                 &#34;string&#34;
             ]
         }
-    request: aurorax.AuroraXResponse object returned when the search is executed.
+    data_product_type_filters: list of dictionaries describing data product  types to filter on e.g. &#34;keogram&#34;,
+        defaults to None.
+        e.g. {
+            &#34;key&#34;: &#34;string&#34;,
+            &#34;operator&#34;: &#34;=&#34;,
+            &#34;values&#34;: [
+                &#34;string&#34;
+            ]
+        }
+    response_format: JSON representation of desired data response format.
+    request: pyaurorax.AuroraXResponse object returned when the search is executed.
     request_id: unique AuroraX string ID assigned to the request.
     request_url: unique AuroraX URL string assigned to the request.
     executed: boolean, gets set to True when the search is executed.
@@ -152,7 +322,8 @@ class Search():
     data_url: URL string where data is accessed.
     query: dictionary of values sent for the search query.
     status: dictionary of status updates.
-    data: list of aurorax.ephemeris.Ephemeris objects returned.
+    data: list of pyaurorax.data_products.DataProduct objects returned, or a list of raw JSON results
+        if response_format is specified.
     logs: list of logging messages from the API.
     &#34;&#34;&#34;
 
@@ -162,7 +333,9 @@ class Search():
                  programs: List[str] = None,
                  platforms: List[str] = None,
                  instrument_types: List[str] = None,
-                 metadata_filters: List[Dict] = None) -&gt; None:
+                 metadata_filters: List[Dict] = None,
+                 data_product_type_filters: List[str] = None,
+                 response_format: Dict = None) -&gt; None:
         &#34;&#34;&#34;
         Create a new Search object.
 
@@ -175,7 +348,7 @@ class Search():
         self.data_url = &#34;&#34;
         self.query = {}
         self.status = {}
-        self.data: List[Ephemeris] = []
+        self.data: List[Union[DataProduct, Dict]] = []
         self.logs = []
 
         self.start = start
@@ -184,13 +357,15 @@ class Search():
         self.platforms = platforms
         self.instrument_types = instrument_types
         self.metadata_filters = metadata_filters
+        self.data_product_type_filters = data_product_type_filters
+        self.response_format = response_format
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
         String method.
 
         Returns:
-            String format of Ephemeris Search object.
+            String format of DataProduct Search object.
 
         &#34;&#34;&#34;
         return self.__repr__()
@@ -200,40 +375,32 @@ class Search():
         Object representation.
 
         Returns:
-            Object representation of Ephemeris Search object.
+            Object representation of DataProduct Search object.
 
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)
 
     def execute(self) -&gt; None:
         &#34;&#34;&#34;
-        Initiate ephemeris search request.
-
-        Raises:
-            aurorax.exceptions.AuroraXBadParametersException: missing parameters.
-
+        Initiate data products search request.
         &#34;&#34;&#34;
-        # check for at least one filter criteria
-        if not (self.programs or self.platforms or self.instrument_types or self.metadata_filters):
-            raise aurorax.AuroraXBadParametersException(
-                &#34;At least one filter criteria parameter besides Start and End must be specified.&#34;)
-
         # set up request
-        url = aurorax.api.urls.ephemeris_search_url
+        url = pyaurorax.api.urls.data_products_search_url
         post_data = {
             &#34;data_sources&#34;: {
                 &#34;programs&#34;: [] if not self.programs else self.programs,
                 &#34;platforms&#34;: [] if not self.platforms else self.platforms,
                 &#34;instrument_types&#34;: [] if not self.instrument_types else self.instrument_types,
-                &#34;ephemeris_metadata_filters&#34;: [] if not self.metadata_filters else self.metadata_filters,
+                &#34;data_product_metadata_filters&#34;: [] if not self.metadata_filters else self.metadata_filters,
             },
             &#34;start&#34;: self.start.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
             &#34;end&#34;: self.end.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
+            &#34;data_product_type_filters&#34;: [] if not self.data_product_type_filters else self.data_product_type_filters,
         }
         self.query = post_data
 
         # do request
-        req = aurorax.AuroraXRequest(
+        req = pyaurorax.AuroraXRequest(
             method=&#34;post&#34;, url=url, body=post_data, null_response=True)
         res = req.execute()
 
@@ -248,20 +415,21 @@ class Search():
 
     def update_status(self, status: Dict = None) -&gt; None:
         &#34;&#34;&#34;
-        Update the status of this ephemeris search request.
+        Update the status of this data products search request.
 
         Attributes:
             status: retrieved status dictionary (include to avoid requesting it from the API again), defaults to None.
+
         &#34;&#34;&#34;
         # get the status if it isn&#39;t passed in
         if (status is None):
-            status = aurorax.requests.get_status(self.request_url)
+            status = pyaurorax.requests.get_status(self.request_url)
 
         # update request status by checking if data URI is set
         if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
             self.completed = True
             self.data_url = &#34;%s%s&#34; % (
-                aurorax.api.urls.base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+                pyaurorax.api.urls.base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
 
         # set class variable &#34;status&#34; and &#34;logs&#34;
         self.status = status
@@ -269,7 +437,7 @@ class Search():
 
     def check_for_data(self) -&gt; bool:
         &#34;&#34;&#34;
-        Check to see if data is available for this ephemeris search request.
+        Check to see if data is available for this data products search request.
 
         Returns:
             True if data is available, else False.
@@ -280,34 +448,40 @@ class Search():
 
     def get_data(self) -&gt; None:
         &#34;&#34;&#34;
-        Retrieve the data available for this ephemeris search request.
+        Retrieve the data available for this data products search request.
         &#34;&#34;&#34;
         if (self.completed is False):
             print(&#34;No data available, update status or check for data first&#34;)
             return
+
         url = self.data_url
-        raw_data = aurorax.requests.get_data(url)
+        raw_data = pyaurorax.requests.get_data(
+            url, post_body=self.response_format)
 
-        self.data = [Ephemeris(**e) for e in raw_data]
+        if self.response_format is not None:
+            self.data = raw_data
+        else:
+            self.data = [DataProduct(**dp) for dp in raw_data]
 
-    def wait(self, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
+    def wait(self, poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
         &#34;&#34;&#34;
         Block and wait for the request to complete and data is available for retrieval.
 
         Attributes:
             poll_interval: time in seconds to wait between polling attempts,
-                defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+                defaults to pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME.
             verbose: output poll times, defaults to False.
 
         &#34;&#34;&#34;
-        url = aurorax.api.urls.ephemeris_request_url.format(self.request_id)
-        self.update_status(aurorax.requests.wait_for_data(
+        url = pyaurorax.api.urls.data_products_request_url.format(
+            self.request_id)
+        self.update_status(pyaurorax.requests.wait_for_data(
             url, poll_interval=poll_interval, verbose=verbose))
 
     def cancel(self, wait: bool = False, verbose: bool = False,
-               poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
+               poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
         &#34;&#34;&#34;
-        Cancel the ephemeris search request at the API. This method returns asynchronously by default.
+        Cancel the data product search request at the API. This method returns asynchronously by default.
 
         Attributes:
             wait: set to True to block until the cancellation request has been completed. This may take several minutes.
@@ -318,12 +492,13 @@ class Search():
             1 on success.
 
         Raises:
-            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
-            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+            pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+            pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
         &#34;&#34;&#34;
-        url = aurorax.api.urls.ephemeris_request_url.format(self.request_id)
-        return aurorax.requests.cancel(url, wait=wait, poll_interval=poll_interval, verbose=verbose)
+        url = pyaurorax.api.urls.data_products_request_url.format(
+            self.request_id)
+        return pyaurorax.requests.cancel(url, wait=wait, poll_interval=poll_interval, verbose=verbose)
 
 
 def search_async(start: datetime.datetime,
@@ -331,12 +506,11 @@ def search_async(start: datetime.datetime,
                  programs: List[str] = None,
                  platforms: List[str] = None,
                  instrument_types: List[str] = None,
-                 metadata_filters: List[Dict] = None) -&gt; Search:
+                 metadata_filters: List[Dict] = None,
+                 data_product_type_filters: List[str] = None,
+                 response_format: Dict = None) -&gt; Search:
     &#34;&#34;&#34;
-    Submit a request for an ephemeris search, return asynchronously.
-
-    At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-    must be specified.
+    Submit a request for a data products search, return asynchronously.
 
     Attributes:
         start: start datetime.datetime timestamp of the search.
@@ -352,20 +526,29 @@ def search_async(start: datetime.datetime,
                     &#34;string&#34;
                 ]
             }
+        data_product_type_filters: list of dictionaries describing data product  types to filter on e.g. &#34;keogram&#34;,
+            defaults to None.
+            e.g. {
+                &#34;key&#34;: &#34;string&#34;,
+                &#34;operator&#34;: &#34;=&#34;,
+                &#34;values&#34;: [
+                    &#34;string&#34;
+                ]
+            }
+        response_format: JSON representation of desired data response format.
 
     Returns:
-        An aurorax.ephemeris.Search object.
-
-    Raises:
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
+        A pyaurorax.data_products.Search object.
 
     &#34;&#34;&#34;
-    s = aurorax.ephemeris.Search(start=start,
-                                 end=end,
-                                 programs=programs,
-                                 platforms=platforms,
-                                 instrument_types=instrument_types,
-                                 metadata_filters=metadata_filters)
+    s = pyaurorax.data_products.Search(start,
+                                       end,
+                                       programs=programs,
+                                       platforms=platforms,
+                                       instrument_types=instrument_types,
+                                       metadata_filters=metadata_filters,
+                                       data_product_type_filters=data_product_type_filters,
+                                       response_format=response_format)
     s.execute()
     return s
 
@@ -376,13 +559,12 @@ def search(start: datetime.datetime,
            platforms: List[str] = None,
            instrument_types: List[str] = None,
            metadata_filters: List[Dict] = None,
+           data_product_type_filters: List[str] = None,
            verbose: bool = False,
-           poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; Search:
+           poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME,
+           response_format: Dict = None) -&gt; Search:
     &#34;&#34;&#34;
-    Search for ephemeris records.
-
-    At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-    must be specified.
+    Search for data product records and block until results are returned.
 
     Attributes:
         start: start datetime.datetime timestamp of the search.
@@ -398,20 +580,27 @@ def search(start: datetime.datetime,
                     &#34;string&#34;
                 ]
             }
+        data_product_type_filters: list of dictionaries describing data product types to filter on e.g. &#34;keogram&#34;,
+            defaults to None.
+            e.g. {
+                &#34;key&#34;: &#34;string&#34;,
+                &#34;operator&#34;: &#34;=&#34;,
+                &#34;values&#34;: [
+                    &#34;string&#34;
+                ]
+            }
         verbose: output poll times, defaults to False.
         poll_interval: time in seconds to wait between polling attempts,
-            defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+            defaults to pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+        response_format: JSON representation of desired data response format.
 
     Returns:
-        An aurorax.ephemeris.Search object.
-
-    Raises:
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters
+        A pyaurorax.data_products.Search object.
 
     &#34;&#34;&#34;
     # create a Search() object
-    s = Search(start=start, end=end, programs=programs, platforms=platforms,
-               instrument_types=instrument_types, metadata_filters=metadata_filters)
+    s = Search(start, end, programs, platforms, instrument_types,
+               metadata_filters, data_product_type_filters, response_format=response_format)
     if (verbose is True):
         print(&#34;[%s] Search object created&#34; % (datetime.datetime.now()))
 
@@ -439,126 +628,7 @@ def search(start: datetime.datetime,
                                                                    humanize.filesize.naturalsize(
                                                                        s.status[&#34;search_result&#34;][&#34;file_size&#34;]),
                                                                    s.status[&#34;search_result&#34;][&#34;result_count&#34;]))
-    return s
-
-
-def __validate_data_source(identifier: int, records: List[Ephemeris]) -&gt; Optional[Ephemeris]:
-    # get all current sources
-    sources = {source.identifier: source for source in aurorax.sources.list()}
-    if identifier not in sources.keys():
-        raise aurorax.AuroraXValidationException(
-            f&#34;Data source with unique identifier {identifier} could not be found.&#34;)
-
-    for record in records:
-        # check the identifier, program name, platform name, and instrument type
-        try:
-            reference = sources[record.data_source.identifier]
-        except KeyError:
-            raise aurorax.AuroraXValidationException(
-                f&#34;Data source with unique identifier {record.data_source.identifier} could not be found.&#34;)
-
-        if not (record.data_source.program == reference.program
-                and record.data_source.platform == reference.platform
-                and record.data_source.instrument_type == reference.instrument_type):
-            return record
-
-    return None
-
-
-def upload(identifier: int, records: List[Ephemeris], validate_source: bool = False) -&gt; int:
-    &#34;&#34;&#34;
-    Upload ephemeris records to AuroraX.
-
-    Attributes:
-        identifier: AuroraX data source ID int.
-        records: list of aurorax.ephemeris.Ephemeris records to upload.
-        validate_source: boolean, set to True to validate all records before uploading.
-
-    Returns:
-        1 for success, raises exception on error.
-
-    Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
-        aurorax.exceptions.AuroraXUploadException: upload error.
-        aurorax.exceptions.AuroraXValidationException: data source validation error.
-
-    &#34;&#34;&#34;
-    # validate record sources if the flag is set
-    if validate_source:
-        validation_error = __validate_data_source(identifier, records)
-        if validation_error:
-            raise aurorax.AuroraXValidationException(
-                &#34;Unable to validate data source found in record: {}&#34;.format(validation_error))
-
-    # translate each ephemeris record to a request-friendly dict (ie. convert datetimes to strings, etc.)
-    for i, _ in enumerate(records):
-        if (type(records[i]) is Ephemeris):
-            records[i] = records[i].to_json_serializable()
-
-    # make request
-    url = aurorax.api.urls.ephemeris_upload_url.format(identifier)
-    req = aurorax.AuroraXRequest(
-        method=&#34;post&#34;, url=url, body=records, null_response=True)
-    res = req.execute()
-
-    # evaluate response
-    if (res.status_code == 400):
-        raise aurorax.AuroraXUploadException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
-
-    # return
-    return 1
-
-
-def delete(data_source: aurorax.sources.DataSource, start: datetime.datetime, end: datetime.datetime) -&gt; int:
-    &#34;&#34;&#34;
-    Delete a range of ephemeris records. This method is asynchronous.
-
-    Attributes:
-        data_source: aurorax.sources.DataSource source associated with the data product records.
-            Identifier, program, platform, and instrument_type are required.
-        start: datetime.datetime beginning of range to delete records for, inclusive.
-        end: datetime.datetime end of datetime range to delete records for, inclusive.
-
-    Returns:
-        1 on success.
-
-    Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
-        aurorax.exceptions.AuroraXNotFoundException: source not found.
-        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
-
-    &#34;&#34;&#34;
-    if not all([data_source.identifier, data_source.program, data_source.platform, data_source.instrument_type]):
-        raise aurorax.AuroraXBadParametersException(
-            &#34;One or more required data source parameters are missing. Delete operation aborted.&#34;)
-
-    # do request
-    url = aurorax.api.urls.ephemeris_upload_url.format(data_source.identifier)
-    params = {
-        &#34;program&#34;: data_source.program,
-        &#34;platform&#34;: data_source.platform,
-        &#34;instrument_type&#34;: data_source.instrument_type,
-        &#34;start&#34;: start.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
-        &#34;end&#34;: end.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;)
-    }
-    delete_req = aurorax.AuroraXRequest(
-        method=&#34;delete&#34;, url=url, body=params, null_response=True)
-    res = delete_req.execute()
-
-    # evaluate response
-    if (res.status_code == 400):
-        if type(res.data) is list:
-            raise aurorax.AuroraXBadParametersException(
-                &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;message&#34;]))
-        raise aurorax.AuroraXBadParametersException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
-
-    # return
-    return 1</code></pre>
+    return s</code></pre>
 </details>
 </section>
 <section>
@@ -568,97 +638,174 @@ def delete(data_source: aurorax.sources.DataSource, start: datetime.datetime, en
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="aurorax.ephemeris.delete"><code class="name flex">
-<span>def <span class="ident">delete</span></span>(<span>data_source: <a title="aurorax.sources.DataSource" href="sources.html#aurorax.sources.DataSource">DataSource</a>, start: datetime.datetime, end: datetime.datetime) ‑> int</span>
+<dt id="pyaurorax.data_products.delete"><code class="name flex">
+<span>def <span class="ident">delete</span></span>(<span>data_source: <a title="pyaurorax.sources.DataSource" href="sources.html#pyaurorax.sources.DataSource">DataSource</a>, urls: List[str]) ‑> int</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Delete a range of ephemeris records. This method is asynchronous.</p>
+<div class="desc"><p>Delete data products by URL. This method is asynchronous.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>data_source</code></strong></dt>
-<dd>aurorax.sources.DataSource source associated with the data product records.
+<dd>pyaurorax.sources.DataSource source associated with the data product records.
 Identifier, program, platform, and instrument_type are required.</dd>
-<dt><strong><code>start</code></strong></dt>
-<dd>datetime.datetime beginning of range to delete records for, inclusive.</dd>
-<dt><strong><code>end</code></strong></dt>
-<dd>datetime.datetime end of datetime range to delete records for, inclusive.</dd>
+<dt><strong><code>urls</code></strong></dt>
+<dd>list of URL strings associated with the data products being deleted.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>1 on success.</p>
 <h2 id="raises">Raises</h2>
 <dl>
-<dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
 <dd>max retry error.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
 <dd>unexpected error.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#aurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
-<dd>source not found.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#aurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#pyaurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
+<dd>invalid parameters entered.</dd>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
 <dd>invalid API key for this operation.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#aurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
-<dd>missing parameters.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def delete(data_source: aurorax.sources.DataSource, start: datetime.datetime, end: datetime.datetime) -&gt; int:
+<pre><code class="python">def delete(data_source: pyaurorax.sources.DataSource, urls: List[str]) -&gt; int:
     &#34;&#34;&#34;
-    Delete a range of ephemeris records. This method is asynchronous.
+    Delete data products by URL. This method is asynchronous.
 
     Attributes:
-        data_source: aurorax.sources.DataSource source associated with the data product records.
+        data_source: pyaurorax.sources.DataSource source associated with the data product records.
             Identifier, program, platform, and instrument_type are required.
-        start: datetime.datetime beginning of range to delete records for, inclusive.
-        end: datetime.datetime end of datetime range to delete records for, inclusive.
+        urls: list of URL strings associated with the data products being deleted.
 
     Returns:
         1 on success.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
-        aurorax.exceptions.AuroraXNotFoundException: source not found.
-        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
+        pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        pyaurorax.exceptions.AuroraXBadParametersException: invalid parameters entered.
+        pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
     &#34;&#34;&#34;
     if not all([data_source.identifier, data_source.program, data_source.platform, data_source.instrument_type]):
-        raise aurorax.AuroraXBadParametersException(
+        raise pyaurorax.AuroraXBadParametersException(
             &#34;One or more required data source parameters are missing. Delete operation aborted.&#34;)
 
     # do request
-    url = aurorax.api.urls.ephemeris_upload_url.format(data_source.identifier)
+    url = pyaurorax.api.urls.data_products_upload_url.format(
+        data_source.identifier)
     params = {
         &#34;program&#34;: data_source.program,
         &#34;platform&#34;: data_source.platform,
         &#34;instrument_type&#34;: data_source.instrument_type,
-        &#34;start&#34;: start.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
-        &#34;end&#34;: end.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;)
+        &#34;urls&#34;: urls
     }
-    delete_req = aurorax.AuroraXRequest(
+    delete_req = pyaurorax.AuroraXRequest(
         method=&#34;delete&#34;, url=url, body=params, null_response=True)
     res = delete_req.execute()
 
     # evaluate response
     if (res.status_code == 400):
         if type(res.data) is list:
-            raise aurorax.AuroraXBadParametersException(
+            raise pyaurorax.AuroraXBadParametersException(
                 &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;message&#34;]))
-        raise aurorax.AuroraXBadParametersException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        raise pyaurorax.AuroraXBadParametersException(
+            &#34;%s - %s&#34; % (res.status_code, res.data[&#34;message&#34;]))
 
     # return
     return 1</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, verbose: bool = False, poll_interval: float = 1.0) ‑> <a title="aurorax.ephemeris.Search" href="#aurorax.ephemeris.Search">Search</a></span>
+<dt id="pyaurorax.data_products.delete_daterange"><code class="name flex">
+<span>def <span class="ident">delete_daterange</span></span>(<span>data_source: <a title="pyaurorax.sources.DataSource" href="sources.html#pyaurorax.sources.DataSource">DataSource</a>, start: datetime.datetime, end: datetime.datetime, data_product_types: List[str] = None, metadata_filters: List[Dict] = None) ‑> int</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Search for ephemeris records.</p>
-<p>At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-must be specified.</p>
+<div class="desc"><p>Deletes data products associated with a data source in the date range provided. This method is asynchronous.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>data_source</code></strong></dt>
+<dd>pyaurorax.sources.DataSource source associated with the data product records.
+Identifier, program, platform, and instrument_type are required.</dd>
+<dt><strong><code>start</code></strong></dt>
+<dd>datetime.datetime beginning of range to delete records for, inclusive.</dd>
+<dt><strong><code>end</code></strong></dt>
+<dd>datetime.datetime end of datetime range to delete records for, inclusive.</dd>
+<dt><strong><code>data_product_types</code></strong></dt>
+<dd>specific types of data product to delete, e.g. ["keogram", "movie"].
+If omitted, all data product types will be deleted.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>1 on success.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
+<dd>max retry error.</dd>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
+<dd>unexpected error.</dd>
+<dt><code><a title="pyaurorax.exceptions.AuroraXNotFoundException" href="exceptions.html#pyaurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
+<dd>source not found.</dd>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
+<dd>invalid API key for this operation.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete_daterange(data_source: pyaurorax.sources.DataSource, start: datetime.datetime,
+                     end: datetime.datetime, data_product_types: List[str] = None,
+                     metadata_filters: List[Dict] = None) -&gt; int:
+    &#34;&#34;&#34;
+    Deletes data products associated with a data source in the date range provided. This method is asynchronous.
+
+    Attributes:
+        data_source: pyaurorax.sources.DataSource source associated with the data product records.
+            Identifier, program, platform, and instrument_type are required.
+        start: datetime.datetime beginning of range to delete records for, inclusive.
+        end: datetime.datetime end of datetime range to delete records for, inclusive.
+        data_product_types: specific types of data product to delete, e.g. [&#34;keogram&#34;, &#34;movie&#34;].
+            If omitted, all data product types will be deleted.
+
+    Returns:
+        1 on success.
+
+    Raises:
+        pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        pyaurorax.exceptions.AuroraXNotFoundException: source not found.
+        pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+
+    &#34;&#34;&#34;
+    if not all([data_source.identifier, data_source.program, data_source.platform, data_source.instrument_type]):
+        raise pyaurorax.AuroraXBadParametersException(
+            &#34;One or more required data source parameters are missing. Delete operation aborted.&#34;)
+
+    # do request to get all data products between start and end datetimes
+    try:
+        s = pyaurorax.data_products.search(start=start,
+                                           end=end,
+                                           programs=[data_source.program],
+                                           platforms=[data_source.platform],
+                                           instrument_types=[
+                                               data_source.instrument_type],
+                                           metadata_filters=[] if not metadata_filters else metadata_filters,
+                                           data_product_type_filters=[] if not data_product_types else data_product_types)
+    except Exception as e:
+        raise pyaurorax.AuroraXException(e)
+
+    # collect URLs from search result
+    urls = []
+    for dp in s.data:
+        urls.append(dp.url)
+
+    # do delete request
+    return delete(data_source, urls)</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.data_products.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, data_product_type_filters: List[str] = None, verbose: bool = False, poll_interval: float = 1.0, response_format: Dict = None) ‑> <a title="pyaurorax.data_products.Search" href="#pyaurorax.data_products.Search">Search</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Search for data product records and block until results are returned.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>start</code></strong></dt>
@@ -673,6 +820,16 @@ must be specified.</p>
 <dd>list of instrument types to search through, defaults to None.</dd>
 <dt><strong><code>metadata_filters</code></strong></dt>
 <dd>list of dictionaries describing metadata keys and values to filter on, defaults to None.
+e.g. {
+"key": "string",
+"operator": "=",
+"values": [
+"string"
+]
+}</dd>
+<dt><strong><code>data_product_type_filters</code></strong></dt>
+<dd>list of dictionaries describing data product types to filter on e.g. "keogram",
+defaults to None.
 e.g. {
 "key": "string",
 "operator": "=",
@@ -684,15 +841,12 @@ e.g. {
 <dd>output poll times, defaults to False.</dd>
 <dt><strong><code>poll_interval</code></strong></dt>
 <dd>time in seconds to wait between polling attempts,
-defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
+defaults to pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
+<dt><strong><code>response_format</code></strong></dt>
+<dd>JSON representation of desired data response format.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>An aurorax.ephemeris.Search object.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code><a title="aurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#aurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
-<dd>missing parameters</dd>
-</dl></div>
+<p>A pyaurorax.data_products.Search object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -703,13 +857,12 @@ defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
            platforms: List[str] = None,
            instrument_types: List[str] = None,
            metadata_filters: List[Dict] = None,
+           data_product_type_filters: List[str] = None,
            verbose: bool = False,
-           poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; Search:
+           poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME,
+           response_format: Dict = None) -&gt; Search:
     &#34;&#34;&#34;
-    Search for ephemeris records.
-
-    At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-    must be specified.
+    Search for data product records and block until results are returned.
 
     Attributes:
         start: start datetime.datetime timestamp of the search.
@@ -725,20 +878,27 @@ defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
                     &#34;string&#34;
                 ]
             }
+        data_product_type_filters: list of dictionaries describing data product types to filter on e.g. &#34;keogram&#34;,
+            defaults to None.
+            e.g. {
+                &#34;key&#34;: &#34;string&#34;,
+                &#34;operator&#34;: &#34;=&#34;,
+                &#34;values&#34;: [
+                    &#34;string&#34;
+                ]
+            }
         verbose: output poll times, defaults to False.
         poll_interval: time in seconds to wait between polling attempts,
-            defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+            defaults to pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+        response_format: JSON representation of desired data response format.
 
     Returns:
-        An aurorax.ephemeris.Search object.
-
-    Raises:
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters
+        A pyaurorax.data_products.Search object.
 
     &#34;&#34;&#34;
     # create a Search() object
-    s = Search(start=start, end=end, programs=programs, platforms=platforms,
-               instrument_types=instrument_types, metadata_filters=metadata_filters)
+    s = Search(start, end, programs, platforms, instrument_types,
+               metadata_filters, data_product_type_filters, response_format=response_format)
     if (verbose is True):
         print(&#34;[%s] Search object created&#34; % (datetime.datetime.now()))
 
@@ -769,13 +929,11 @@ defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
     return s</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.search_async"><code class="name flex">
-<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None) ‑> <a title="aurorax.ephemeris.Search" href="#aurorax.ephemeris.Search">Search</a></span>
+<dt id="pyaurorax.data_products.search_async"><code class="name flex">
+<span>def <span class="ident">search_async</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, data_product_type_filters: List[str] = None, response_format: Dict = None) ‑> <a title="pyaurorax.data_products.Search" href="#pyaurorax.data_products.Search">Search</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Submit a request for an ephemeris search, return asynchronously.</p>
-<p>At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-must be specified.</p>
+<div class="desc"><p>Submit a request for a data products search, return asynchronously.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>start</code></strong></dt>
@@ -797,14 +955,22 @@ e.g. {
 "string"
 ]
 }</dd>
+<dt><strong><code>data_product_type_filters</code></strong></dt>
+<dd>list of dictionaries describing data product
+types to filter on e.g. "keogram",
+defaults to None.
+e.g. {
+"key": "string",
+"operator": "=",
+"values": [
+"string"
+]
+}</dd>
+<dt><strong><code>response_format</code></strong></dt>
+<dd>JSON representation of desired data response format.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>An aurorax.ephemeris.Search object.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code><a title="aurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#aurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
-<dd>missing parameters.</dd>
-</dl></div>
+<p>A pyaurorax.data_products.Search object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -814,12 +980,11 @@ e.g. {
                  programs: List[str] = None,
                  platforms: List[str] = None,
                  instrument_types: List[str] = None,
-                 metadata_filters: List[Dict] = None) -&gt; Search:
+                 metadata_filters: List[Dict] = None,
+                 data_product_type_filters: List[str] = None,
+                 response_format: Dict = None) -&gt; Search:
     &#34;&#34;&#34;
-    Submit a request for an ephemeris search, return asynchronously.
-
-    At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-    must be specified.
+    Submit a request for a data products search, return asynchronously.
 
     Attributes:
         start: start datetime.datetime timestamp of the search.
@@ -835,35 +1000,44 @@ e.g. {
                     &#34;string&#34;
                 ]
             }
+        data_product_type_filters: list of dictionaries describing data product  types to filter on e.g. &#34;keogram&#34;,
+            defaults to None.
+            e.g. {
+                &#34;key&#34;: &#34;string&#34;,
+                &#34;operator&#34;: &#34;=&#34;,
+                &#34;values&#34;: [
+                    &#34;string&#34;
+                ]
+            }
+        response_format: JSON representation of desired data response format.
 
     Returns:
-        An aurorax.ephemeris.Search object.
-
-    Raises:
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
+        A pyaurorax.data_products.Search object.
 
     &#34;&#34;&#34;
-    s = aurorax.ephemeris.Search(start=start,
-                                 end=end,
-                                 programs=programs,
-                                 platforms=platforms,
-                                 instrument_types=instrument_types,
-                                 metadata_filters=metadata_filters)
+    s = pyaurorax.data_products.Search(start,
+                                       end,
+                                       programs=programs,
+                                       platforms=platforms,
+                                       instrument_types=instrument_types,
+                                       metadata_filters=metadata_filters,
+                                       data_product_type_filters=data_product_type_filters,
+                                       response_format=response_format)
     s.execute()
     return s</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.upload"><code class="name flex">
-<span>def <span class="ident">upload</span></span>(<span>identifier: int, records: List[<a title="aurorax.ephemeris.Ephemeris" href="#aurorax.ephemeris.Ephemeris">Ephemeris</a>], validate_source: bool = False) ‑> int</span>
+<dt id="pyaurorax.data_products.upload"><code class="name flex">
+<span>def <span class="ident">upload</span></span>(<span>identifier: int, records: List[<a title="pyaurorax.data_products.DataProduct" href="#pyaurorax.data_products.DataProduct">DataProduct</a>], validate_source: bool = False) ‑> int</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Upload ephemeris records to AuroraX.</p>
+<div class="desc"><p>Upload data product records to AuroraX.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>identifier</code></strong></dt>
 <dd>AuroraX data source ID int.</dd>
 <dt><strong><code>records</code></strong></dt>
-<dd>list of aurorax.ephemeris.Ephemeris records to upload.</dd>
+<dd>list of pyaurorax.data_products.DataProduct records to upload.</dd>
 <dt><strong><code>validate_source</code></strong></dt>
 <dd>boolean, set to True to validate all records before uploading.</dd>
 </dl>
@@ -871,60 +1045,64 @@ e.g. {
 <p>1 for success, raises exception on error.</p>
 <h2 id="raises">Raises</h2>
 <dl>
-<dt><code><a title="aurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#aurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="exceptions.html#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
 <dd>max retry error.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
 <dd>unexpected content error.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXUploadException" href="exceptions.html#aurorax.exceptions.AuroraXUploadException">AuroraXUploadException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUploadException" href="exceptions.html#pyaurorax.exceptions.AuroraXUploadException">AuroraXUploadException</a></code></dt>
 <dd>upload error.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXValidationException" href="exceptions.html#aurorax.exceptions.AuroraXValidationException">AuroraXValidationException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXValidationException" href="exceptions.html#pyaurorax.exceptions.AuroraXValidationException">AuroraXValidationException</a></code></dt>
 <dd>data source validation error.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def upload(identifier: int, records: List[Ephemeris], validate_source: bool = False) -&gt; int:
+<pre><code class="python">def upload(identifier: int, records: List[DataProduct], validate_source: bool = False) -&gt; int:
     &#34;&#34;&#34;
-    Upload ephemeris records to AuroraX.
+    Upload data product records to AuroraX.
 
     Attributes:
         identifier: AuroraX data source ID int.
-        records: list of aurorax.ephemeris.Ephemeris records to upload.
+        records: list of pyaurorax.data_products.DataProduct records to upload.
         validate_source: boolean, set to True to validate all records before uploading.
 
     Returns:
         1 for success, raises exception on error.
 
     Raises:
-        aurorax.exceptions.AuroraXMaxRetriesException: max retry error.
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
-        aurorax.exceptions.AuroraXUploadException: upload error.
-        aurorax.exceptions.AuroraXValidationException: data source validation error.
+        pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error.
+        pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected content error.
+        pyaurorax.exceptions.AuroraXUploadException: upload error.
+        pyaurorax.exceptions.AuroraXValidationException: data source validation error.
 
     &#34;&#34;&#34;
     # validate record sources if the flag is set
     if validate_source:
         validation_error = __validate_data_source(identifier, records)
         if validation_error:
-            raise aurorax.AuroraXValidationException(
-                &#34;Unable to validate data source found in record: {}&#34;.format(validation_error))
+            raise pyaurorax.AuroraXValidationException(
+                f&#34;Unable to validate data source found in record: {validation_error}&#34;)
 
-    # translate each ephemeris record to a request-friendly dict (ie. convert datetimes to strings, etc.)
+    # translate each data product record to a request-friendly dict (ie. convert datetimes to strings, etc.)
     for i, _ in enumerate(records):
-        if (type(records[i]) is Ephemeris):
+        if (type(records[i]) is DataProduct):
             records[i] = records[i].to_json_serializable()
 
     # make request
-    url = aurorax.api.urls.ephemeris_upload_url.format(identifier)
-    req = aurorax.AuroraXRequest(
+    url = pyaurorax.api.urls.data_products_upload_url.format(identifier)
+    req = pyaurorax.AuroraXRequest(
         method=&#34;post&#34;, url=url, body=records, null_response=True)
     res = req.execute()
 
     # evaluate response
     if (res.status_code == 400):
-        raise aurorax.AuroraXUploadException(
-            &#34;%s - %s&#34; % (res.data[&#34;error_code&#34;], res.data[&#34;error_message&#34;]))
+        if type(res.data) is list:
+            raise pyaurorax.AuroraXUploadException(
+                &#34;%s - %s&#34; % (res.status_code, res.data[0][&#34;error_message&#34;]))
+
+        raise pyaurorax.AuroraXUploadException(
+            &#34;%s - %s&#34; % (res.status_code, res.data[&#34;error_message&#34;]))
 
     # return
     return 1</code></pre>
@@ -935,29 +1113,26 @@ e.g. {
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="aurorax.ephemeris.Ephemeris"><code class="flex name class">
-<span>class <span class="ident">Ephemeris</span></span>
+<dt id="pyaurorax.data_products.DataProduct"><code class="flex name class">
+<span>class <span class="ident">DataProduct</span></span>
 <span>(</span><span>**data: Any)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Ephemeris data type.</p>
+<div class="desc"><p>DataProduct data type.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>data_source</code></strong></dt>
-<dd>aurorax.sources.DataSource source that the ephemeris record is associated with.</dd>
-<dt><strong><code>epoch</code></strong></dt>
-<dd>datetime.datetime timestamp for the record in UTC.</dd>
-<dt><strong><code>location_geo</code></strong></dt>
-<dd>aurorax.Location object with latitude and longitude in geographic coordinates.</dd>
-<dt><strong><code>location_gsm</code></strong></dt>
-<dd>aurorax.Location object with latitude and longitude in GSM coordinates (leave empty for
-data sources with a type of 'ground').</dd>
-<dt><strong><code>nbtrace</code></strong></dt>
-<dd>aurorax.Location object with north B-trace geomagnetic latitude and longitude.</dd>
-<dt><strong><code>sbtrace</code></strong></dt>
-<dd>aurorax.Location object with south B-trace geomagnetic latitude and longitude.</dd>
-<dt><strong><code>metadata</code></strong></dt>
-<dd>dictionary containing metadata values for this record.</dd>
+<dd>pyaurorax.sources.DataSource source that the ephemeris record is associated with.</dd>
+<dt><strong><code>data_product_type</code></strong></dt>
+<dd>data product type ("keogram", "movie", "summary_plot").</dd>
+<dt><strong><code>start</code></strong></dt>
+<dd>starting datetime.datetime timestamp for the record in UTC.</dd>
+<dt><strong><code>end</code></strong></dt>
+<dd>ending datetime.datetime timestamp for the record in UTC.</dd>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL location string of data product.</dd>
+<dt><strong><code>metdata</code></strong></dt>
+<dd>metadata dictionary for this record.</dd>
 </dl>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p></div>
@@ -965,28 +1140,24 @@ data sources with a type of 'ground').</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Ephemeris(BaseModel):
+<pre><code class="python">class DataProduct(BaseModel):
     &#34;&#34;&#34;
-    Ephemeris data type.
+    DataProduct data type.
 
     Attributes:
-        data_source: aurorax.sources.DataSource source that the ephemeris record is associated with.
-        epoch: datetime.datetime timestamp for the record in UTC.
-        location_geo: aurorax.Location object with latitude and longitude in geographic coordinates.
-        location_gsm: aurorax.Location object with latitude and longitude in GSM coordinates (leave empty for
-            data sources with a type of &#39;ground&#39;).
-        nbtrace: aurorax.Location object with north B-trace geomagnetic latitude and longitude.
-        sbtrace: aurorax.Location object with south B-trace geomagnetic latitude and longitude.
-        metadata: dictionary containing metadata values for this record.
-
+        data_source: pyaurorax.sources.DataSource source that the ephemeris record is associated with.
+        data_product_type: data product type (&#34;keogram&#34;, &#34;movie&#34;, &#34;summary_plot&#34;).
+        start: starting datetime.datetime timestamp for the record in UTC.
+        end: ending datetime.datetime timestamp for the record in UTC.
+        url: URL location string of data product.
+        metdata: metadata dictionary for this record.
     &#34;&#34;&#34;
-    data_source: aurorax.sources.DataSource
-    epoch: datetime.datetime
-    location_geo: aurorax.Location
-    location_gsm: aurorax.Location = aurorax.Location(lat=None, lon=None)
-    nbtrace: aurorax.Location
-    sbtrace: aurorax.Location
-    metadata: Dict = None
+    data_source: pyaurorax.sources.DataSource
+    data_product_type: str
+    start: datetime.datetime
+    end: datetime.datetime
+    url: str
+    metadata: Dict
 
     def to_json_serializable(self) -&gt; Dict:
         &#34;&#34;&#34;
@@ -999,18 +1170,10 @@ data sources with a type of 'ground').</dd>
         d = self.__dict__
 
         # format epoch as str
-        if (type(d[&#34;epoch&#34;]) is datetime.datetime):
-            d[&#34;epoch&#34;] = d[&#34;epoch&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
-
-        # format location
-        if (type(d[&#34;location_geo&#34;]) is aurorax.Location):
-            d[&#34;location_geo&#34;] = d[&#34;location_geo&#34;].__dict__
-        if (type(d[&#34;location_gsm&#34;]) is aurorax.Location):
-            d[&#34;location_gsm&#34;] = d[&#34;location_gsm&#34;].__dict__
-        if (type(d[&#34;nbtrace&#34;]) is aurorax.Location):
-            d[&#34;nbtrace&#34;] = d[&#34;nbtrace&#34;].__dict__
-        if (type(d[&#34;sbtrace&#34;]) is aurorax.Location):
-            d[&#34;sbtrace&#34;] = d[&#34;sbtrace&#34;].__dict__
+        if (type(d[&#34;start&#34;]) is datetime.datetime):
+            d[&#34;start&#34;] = d[&#34;start&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
+        if (type(d[&#34;end&#34;]) is datetime.datetime):
+            d[&#34;end&#34;] = d[&#34;end&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
 
         # format metadata
         if (type(self.metadata) is dict):
@@ -1035,7 +1198,7 @@ data sources with a type of 'ground').</dd>
         String method.
 
         Returns:
-            String format of Ephemeris.
+            String format of DataProduct object.
 
         &#34;&#34;&#34;
         return self.__repr__()
@@ -1045,7 +1208,7 @@ data sources with a type of 'ground').</dd>
         Object representation.
 
         Returns:
-            Object representation of Ephemeris.
+            Object representation of DataProduct object.
 
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)</code></pre>
@@ -1057,38 +1220,34 @@ data sources with a type of 'ground').</dd>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="aurorax.ephemeris.Ephemeris.data_source"><code class="name">var <span class="ident">data_source</span> : <a title="aurorax.sources.DataSource" href="sources.html#aurorax.sources.DataSource">DataSource</a></code></dt>
+<dt id="pyaurorax.data_products.DataProduct.data_product_type"><code class="name">var <span class="ident">data_product_type</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.ephemeris.Ephemeris.epoch"><code class="name">var <span class="ident">epoch</span> : datetime.datetime</code></dt>
+<dt id="pyaurorax.data_products.DataProduct.data_source"><code class="name">var <span class="ident">data_source</span> : <a title="pyaurorax.sources.DataSource" href="sources.html#pyaurorax.sources.DataSource">DataSource</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.ephemeris.Ephemeris.location_geo"><code class="name">var <span class="ident">location_geo</span> : <a title="aurorax.models.Location" href="models.html#aurorax.models.Location">Location</a></code></dt>
+<dt id="pyaurorax.data_products.DataProduct.end"><code class="name">var <span class="ident">end</span> : datetime.datetime</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.ephemeris.Ephemeris.location_gsm"><code class="name">var <span class="ident">location_gsm</span> : <a title="aurorax.models.Location" href="models.html#aurorax.models.Location">Location</a></code></dt>
+<dt id="pyaurorax.data_products.DataProduct.metadata"><code class="name">var <span class="ident">metadata</span> : Dict</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.ephemeris.Ephemeris.metadata"><code class="name">var <span class="ident">metadata</span> : Dict</code></dt>
+<dt id="pyaurorax.data_products.DataProduct.start"><code class="name">var <span class="ident">start</span> : datetime.datetime</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.ephemeris.Ephemeris.nbtrace"><code class="name">var <span class="ident">nbtrace</span> : <a title="aurorax.models.Location" href="models.html#aurorax.models.Location">Location</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="aurorax.ephemeris.Ephemeris.sbtrace"><code class="name">var <span class="ident">sbtrace</span> : <a title="aurorax.models.Location" href="models.html#aurorax.models.Location">Location</a></code></dt>
+<dt id="pyaurorax.data_products.DataProduct.url"><code class="name">var <span class="ident">url</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="aurorax.ephemeris.Ephemeris.to_json_serializable"><code class="name flex">
+<dt id="pyaurorax.data_products.DataProduct.to_json_serializable"><code class="name flex">
 <span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict</span>
 </code></dt>
 <dd>
@@ -1110,18 +1269,10 @@ data sources with a type of 'ground').</dd>
     d = self.__dict__
 
     # format epoch as str
-    if (type(d[&#34;epoch&#34;]) is datetime.datetime):
-        d[&#34;epoch&#34;] = d[&#34;epoch&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
-
-    # format location
-    if (type(d[&#34;location_geo&#34;]) is aurorax.Location):
-        d[&#34;location_geo&#34;] = d[&#34;location_geo&#34;].__dict__
-    if (type(d[&#34;location_gsm&#34;]) is aurorax.Location):
-        d[&#34;location_gsm&#34;] = d[&#34;location_gsm&#34;].__dict__
-    if (type(d[&#34;nbtrace&#34;]) is aurorax.Location):
-        d[&#34;nbtrace&#34;] = d[&#34;nbtrace&#34;].__dict__
-    if (type(d[&#34;sbtrace&#34;]) is aurorax.Location):
-        d[&#34;sbtrace&#34;] = d[&#34;sbtrace&#34;].__dict__
+    if (type(d[&#34;start&#34;]) is datetime.datetime):
+        d[&#34;start&#34;] = d[&#34;start&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
+    if (type(d[&#34;end&#34;]) is datetime.datetime):
+        d[&#34;end&#34;] = d[&#34;end&#34;].strftime(&#34;%Y-%m-%dT%H:%M:00.000Z&#34;)
 
     # format metadata
     if (type(self.metadata) is dict):
@@ -1144,14 +1295,12 @@ data sources with a type of 'ground').</dd>
 </dd>
 </dl>
 </dd>
-<dt id="aurorax.ephemeris.Search"><code class="flex name class">
+<dt id="pyaurorax.data_products.Search"><code class="flex name class">
 <span>class <span class="ident">Search</span></span>
-<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None)</span>
+<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: List[str] = None, platforms: List[str] = None, instrument_types: List[str] = None, metadata_filters: List[Dict] = None, data_product_type_filters: List[str] = None, response_format: Dict = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class representing an AuroraX ephemeris search.</p>
-<p>At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-must be specified.</p>
+<div class="desc"><p>Class representing an AuroraX data products search.</p>
 <p>start: start datetime.datetime timestamp of the search.
 end: end datetime.datetime timestamp of the search.
 programs: list of program names to search.
@@ -1165,7 +1314,18 @@ e.g. {
 "string"
 ]
 }
-request: aurorax.AuroraXResponse object returned when the search is executed.
+data_product_type_filters: list of dictionaries describing data product
+types to filter on e.g. "keogram",
+defaults to None.
+e.g. {
+"key": "string",
+"operator": "=",
+"values": [
+"string"
+]
+}
+response_format: JSON representation of desired data response format.
+request: pyaurorax.AuroraXResponse object returned when the search is executed.
 request_id: unique AuroraX string ID assigned to the request.
 request_url: unique AuroraX URL string assigned to the request.
 executed: boolean, gets set to True when the search is executed.
@@ -1173,7 +1333,8 @@ completed: boolean, gets set to True when the search is checked to be finished.
 data_url: URL string where data is accessed.
 query: dictionary of values sent for the search query.
 status: dictionary of status updates.
-data: list of aurorax.ephemeris.Ephemeris objects returned.
+data: list of pyaurorax.data_products.DataProduct objects returned, or a list of raw JSON results
+if response_format is specified.
 logs: list of logging messages from the API.</p>
 <p>Create a new Search object.</p></div>
 <details class="source">
@@ -1182,10 +1343,7 @@ logs: list of logging messages from the API.</p>
 </summary>
 <pre><code class="python">class Search():
     &#34;&#34;&#34;
-    Class representing an AuroraX ephemeris search.
-
-    At least one search criteria from programs, platforms, instrument_types, or metadata_filters
-    must be specified.
+    Class representing an AuroraX data products search.
 
     start: start datetime.datetime timestamp of the search.
     end: end datetime.datetime timestamp of the search.
@@ -1200,7 +1358,17 @@ logs: list of logging messages from the API.</p>
                 &#34;string&#34;
             ]
         }
-    request: aurorax.AuroraXResponse object returned when the search is executed.
+    data_product_type_filters: list of dictionaries describing data product  types to filter on e.g. &#34;keogram&#34;,
+        defaults to None.
+        e.g. {
+            &#34;key&#34;: &#34;string&#34;,
+            &#34;operator&#34;: &#34;=&#34;,
+            &#34;values&#34;: [
+                &#34;string&#34;
+            ]
+        }
+    response_format: JSON representation of desired data response format.
+    request: pyaurorax.AuroraXResponse object returned when the search is executed.
     request_id: unique AuroraX string ID assigned to the request.
     request_url: unique AuroraX URL string assigned to the request.
     executed: boolean, gets set to True when the search is executed.
@@ -1208,7 +1376,8 @@ logs: list of logging messages from the API.</p>
     data_url: URL string where data is accessed.
     query: dictionary of values sent for the search query.
     status: dictionary of status updates.
-    data: list of aurorax.ephemeris.Ephemeris objects returned.
+    data: list of pyaurorax.data_products.DataProduct objects returned, or a list of raw JSON results
+        if response_format is specified.
     logs: list of logging messages from the API.
     &#34;&#34;&#34;
 
@@ -1218,7 +1387,9 @@ logs: list of logging messages from the API.</p>
                  programs: List[str] = None,
                  platforms: List[str] = None,
                  instrument_types: List[str] = None,
-                 metadata_filters: List[Dict] = None) -&gt; None:
+                 metadata_filters: List[Dict] = None,
+                 data_product_type_filters: List[str] = None,
+                 response_format: Dict = None) -&gt; None:
         &#34;&#34;&#34;
         Create a new Search object.
 
@@ -1231,7 +1402,7 @@ logs: list of logging messages from the API.</p>
         self.data_url = &#34;&#34;
         self.query = {}
         self.status = {}
-        self.data: List[Ephemeris] = []
+        self.data: List[Union[DataProduct, Dict]] = []
         self.logs = []
 
         self.start = start
@@ -1240,13 +1411,15 @@ logs: list of logging messages from the API.</p>
         self.platforms = platforms
         self.instrument_types = instrument_types
         self.metadata_filters = metadata_filters
+        self.data_product_type_filters = data_product_type_filters
+        self.response_format = response_format
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
         String method.
 
         Returns:
-            String format of Ephemeris Search object.
+            String format of DataProduct Search object.
 
         &#34;&#34;&#34;
         return self.__repr__()
@@ -1256,40 +1429,32 @@ logs: list of logging messages from the API.</p>
         Object representation.
 
         Returns:
-            Object representation of Ephemeris Search object.
+            Object representation of DataProduct Search object.
 
         &#34;&#34;&#34;
         return pprint.pformat(self.__dict__)
 
     def execute(self) -&gt; None:
         &#34;&#34;&#34;
-        Initiate ephemeris search request.
-
-        Raises:
-            aurorax.exceptions.AuroraXBadParametersException: missing parameters.
-
+        Initiate data products search request.
         &#34;&#34;&#34;
-        # check for at least one filter criteria
-        if not (self.programs or self.platforms or self.instrument_types or self.metadata_filters):
-            raise aurorax.AuroraXBadParametersException(
-                &#34;At least one filter criteria parameter besides Start and End must be specified.&#34;)
-
         # set up request
-        url = aurorax.api.urls.ephemeris_search_url
+        url = pyaurorax.api.urls.data_products_search_url
         post_data = {
             &#34;data_sources&#34;: {
                 &#34;programs&#34;: [] if not self.programs else self.programs,
                 &#34;platforms&#34;: [] if not self.platforms else self.platforms,
                 &#34;instrument_types&#34;: [] if not self.instrument_types else self.instrument_types,
-                &#34;ephemeris_metadata_filters&#34;: [] if not self.metadata_filters else self.metadata_filters,
+                &#34;data_product_metadata_filters&#34;: [] if not self.metadata_filters else self.metadata_filters,
             },
             &#34;start&#34;: self.start.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
             &#34;end&#34;: self.end.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
+            &#34;data_product_type_filters&#34;: [] if not self.data_product_type_filters else self.data_product_type_filters,
         }
         self.query = post_data
 
         # do request
-        req = aurorax.AuroraXRequest(
+        req = pyaurorax.AuroraXRequest(
             method=&#34;post&#34;, url=url, body=post_data, null_response=True)
         res = req.execute()
 
@@ -1304,20 +1469,21 @@ logs: list of logging messages from the API.</p>
 
     def update_status(self, status: Dict = None) -&gt; None:
         &#34;&#34;&#34;
-        Update the status of this ephemeris search request.
+        Update the status of this data products search request.
 
         Attributes:
             status: retrieved status dictionary (include to avoid requesting it from the API again), defaults to None.
+
         &#34;&#34;&#34;
         # get the status if it isn&#39;t passed in
         if (status is None):
-            status = aurorax.requests.get_status(self.request_url)
+            status = pyaurorax.requests.get_status(self.request_url)
 
         # update request status by checking if data URI is set
         if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
             self.completed = True
             self.data_url = &#34;%s%s&#34; % (
-                aurorax.api.urls.base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+                pyaurorax.api.urls.base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
 
         # set class variable &#34;status&#34; and &#34;logs&#34;
         self.status = status
@@ -1325,7 +1491,7 @@ logs: list of logging messages from the API.</p>
 
     def check_for_data(self) -&gt; bool:
         &#34;&#34;&#34;
-        Check to see if data is available for this ephemeris search request.
+        Check to see if data is available for this data products search request.
 
         Returns:
             True if data is available, else False.
@@ -1336,34 +1502,40 @@ logs: list of logging messages from the API.</p>
 
     def get_data(self) -&gt; None:
         &#34;&#34;&#34;
-        Retrieve the data available for this ephemeris search request.
+        Retrieve the data available for this data products search request.
         &#34;&#34;&#34;
         if (self.completed is False):
             print(&#34;No data available, update status or check for data first&#34;)
             return
+
         url = self.data_url
-        raw_data = aurorax.requests.get_data(url)
+        raw_data = pyaurorax.requests.get_data(
+            url, post_body=self.response_format)
 
-        self.data = [Ephemeris(**e) for e in raw_data]
+        if self.response_format is not None:
+            self.data = raw_data
+        else:
+            self.data = [DataProduct(**dp) for dp in raw_data]
 
-    def wait(self, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
+    def wait(self, poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
         &#34;&#34;&#34;
         Block and wait for the request to complete and data is available for retrieval.
 
         Attributes:
             poll_interval: time in seconds to wait between polling attempts,
-                defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+                defaults to pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME.
             verbose: output poll times, defaults to False.
 
         &#34;&#34;&#34;
-        url = aurorax.api.urls.ephemeris_request_url.format(self.request_id)
-        self.update_status(aurorax.requests.wait_for_data(
+        url = pyaurorax.api.urls.data_products_request_url.format(
+            self.request_id)
+        self.update_status(pyaurorax.requests.wait_for_data(
             url, poll_interval=poll_interval, verbose=verbose))
 
     def cancel(self, wait: bool = False, verbose: bool = False,
-               poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
+               poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
         &#34;&#34;&#34;
-        Cancel the ephemeris search request at the API. This method returns asynchronously by default.
+        Cancel the data product search request at the API. This method returns asynchronously by default.
 
         Attributes:
             wait: set to True to block until the cancellation request has been completed. This may take several minutes.
@@ -1374,20 +1546,21 @@ logs: list of logging messages from the API.</p>
             1 on success.
 
         Raises:
-            aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
-            aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+            pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+            pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
         &#34;&#34;&#34;
-        url = aurorax.api.urls.ephemeris_request_url.format(self.request_id)
-        return aurorax.requests.cancel(url, wait=wait, poll_interval=poll_interval, verbose=verbose)</code></pre>
+        url = pyaurorax.api.urls.data_products_request_url.format(
+            self.request_id)
+        return pyaurorax.requests.cancel(url, wait=wait, poll_interval=poll_interval, verbose=verbose)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="aurorax.ephemeris.Search.cancel"><code class="name flex">
+<dt id="pyaurorax.data_products.Search.cancel"><code class="name flex">
 <span>def <span class="ident">cancel</span></span>(<span>self, wait: bool = False, verbose: bool = False, poll_interval: float = 1.0) ‑> int</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Cancel the ephemeris search request at the API. This method returns asynchronously by default.</p>
+<div class="desc"><p>Cancel the data product search request at the API. This method returns asynchronously by default.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>wait</code></strong></dt>
@@ -1401,9 +1574,9 @@ logs: list of logging messages from the API.</p>
 <p>1 on success.</p>
 <h2 id="raises">Raises</h2>
 <dl>
-<dt><code><a title="aurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#aurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="exceptions.html#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
 <dd>unexpected error.</dd>
-<dt><code><a title="aurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#aurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="exceptions.html#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
 <dd>invalid API key for this operation.</dd>
 </dl></div>
 <details class="source">
@@ -1411,9 +1584,9 @@ logs: list of logging messages from the API.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def cancel(self, wait: bool = False, verbose: bool = False,
-           poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
+           poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME) -&gt; int:
     &#34;&#34;&#34;
-    Cancel the ephemeris search request at the API. This method returns asynchronously by default.
+    Cancel the data product search request at the API. This method returns asynchronously by default.
 
     Attributes:
         wait: set to True to block until the cancellation request has been completed. This may take several minutes.
@@ -1424,19 +1597,20 @@ logs: list of logging messages from the API.</p>
         1 on success.
 
     Raises:
-        aurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
-        aurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
+        pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error.
+        pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation.
 
     &#34;&#34;&#34;
-    url = aurorax.api.urls.ephemeris_request_url.format(self.request_id)
-    return aurorax.requests.cancel(url, wait=wait, poll_interval=poll_interval, verbose=verbose)</code></pre>
+    url = pyaurorax.api.urls.data_products_request_url.format(
+        self.request_id)
+    return pyaurorax.requests.cancel(url, wait=wait, poll_interval=poll_interval, verbose=verbose)</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.Search.check_for_data"><code class="name flex">
+<dt id="pyaurorax.data_products.Search.check_for_data"><code class="name flex">
 <span>def <span class="ident">check_for_data</span></span>(<span>self) ‑> bool</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Check to see if data is available for this ephemeris search request.</p>
+<div class="desc"><p>Check to see if data is available for this data products search request.</p>
 <h2 id="returns">Returns</h2>
 <p>True if data is available, else False.</p></div>
 <details class="source">
@@ -1445,7 +1619,7 @@ logs: list of logging messages from the API.</p>
 </summary>
 <pre><code class="python">def check_for_data(self) -&gt; bool:
     &#34;&#34;&#34;
-    Check to see if data is available for this ephemeris search request.
+    Check to see if data is available for this data products search request.
 
     Returns:
         True if data is available, else False.
@@ -1455,49 +1629,36 @@ logs: list of logging messages from the API.</p>
     return self.completed</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.Search.execute"><code class="name flex">
+<dt id="pyaurorax.data_products.Search.execute"><code class="name flex">
 <span>def <span class="ident">execute</span></span>(<span>self) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Initiate ephemeris search request.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code><a title="aurorax.exceptions.AuroraXBadParametersException" href="exceptions.html#aurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></dt>
-<dd>missing parameters.</dd>
-</dl></div>
+<div class="desc"><p>Initiate data products search request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def execute(self) -&gt; None:
     &#34;&#34;&#34;
-    Initiate ephemeris search request.
-
-    Raises:
-        aurorax.exceptions.AuroraXBadParametersException: missing parameters.
-
+    Initiate data products search request.
     &#34;&#34;&#34;
-    # check for at least one filter criteria
-    if not (self.programs or self.platforms or self.instrument_types or self.metadata_filters):
-        raise aurorax.AuroraXBadParametersException(
-            &#34;At least one filter criteria parameter besides Start and End must be specified.&#34;)
-
     # set up request
-    url = aurorax.api.urls.ephemeris_search_url
+    url = pyaurorax.api.urls.data_products_search_url
     post_data = {
         &#34;data_sources&#34;: {
             &#34;programs&#34;: [] if not self.programs else self.programs,
             &#34;platforms&#34;: [] if not self.platforms else self.platforms,
             &#34;instrument_types&#34;: [] if not self.instrument_types else self.instrument_types,
-            &#34;ephemeris_metadata_filters&#34;: [] if not self.metadata_filters else self.metadata_filters,
+            &#34;data_product_metadata_filters&#34;: [] if not self.metadata_filters else self.metadata_filters,
         },
         &#34;start&#34;: self.start.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
         &#34;end&#34;: self.end.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;),
+        &#34;data_product_type_filters&#34;: [] if not self.data_product_type_filters else self.data_product_type_filters,
     }
     self.query = post_data
 
     # do request
-    req = aurorax.AuroraXRequest(
+    req = pyaurorax.AuroraXRequest(
         method=&#34;post&#34;, url=url, body=post_data, null_response=True)
     res = req.execute()
 
@@ -1511,33 +1672,38 @@ logs: list of logging messages from the API.</p>
     self.request = res</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.Search.get_data"><code class="name flex">
+<dt id="pyaurorax.data_products.Search.get_data"><code class="name flex">
 <span>def <span class="ident">get_data</span></span>(<span>self) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve the data available for this ephemeris search request.</p></div>
+<div class="desc"><p>Retrieve the data available for this data products search request.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_data(self) -&gt; None:
     &#34;&#34;&#34;
-    Retrieve the data available for this ephemeris search request.
+    Retrieve the data available for this data products search request.
     &#34;&#34;&#34;
     if (self.completed is False):
         print(&#34;No data available, update status or check for data first&#34;)
         return
-    url = self.data_url
-    raw_data = aurorax.requests.get_data(url)
 
-    self.data = [Ephemeris(**e) for e in raw_data]</code></pre>
+    url = self.data_url
+    raw_data = pyaurorax.requests.get_data(
+        url, post_body=self.response_format)
+
+    if self.response_format is not None:
+        self.data = raw_data
+    else:
+        self.data = [DataProduct(**dp) for dp in raw_data]</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.Search.update_status"><code class="name flex">
+<dt id="pyaurorax.data_products.Search.update_status"><code class="name flex">
 <span>def <span class="ident">update_status</span></span>(<span>self, status: Dict = None) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Update the status of this ephemeris search request.</p>
+<div class="desc"><p>Update the status of this data products search request.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>status</code></strong></dt>
@@ -1549,27 +1715,28 @@ logs: list of logging messages from the API.</p>
 </summary>
 <pre><code class="python">def update_status(self, status: Dict = None) -&gt; None:
     &#34;&#34;&#34;
-    Update the status of this ephemeris search request.
+    Update the status of this data products search request.
 
     Attributes:
         status: retrieved status dictionary (include to avoid requesting it from the API again), defaults to None.
+
     &#34;&#34;&#34;
     # get the status if it isn&#39;t passed in
     if (status is None):
-        status = aurorax.requests.get_status(self.request_url)
+        status = pyaurorax.requests.get_status(self.request_url)
 
     # update request status by checking if data URI is set
     if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
         self.completed = True
         self.data_url = &#34;%s%s&#34; % (
-            aurorax.api.urls.base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+            pyaurorax.api.urls.base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
 
     # set class variable &#34;status&#34; and &#34;logs&#34;
     self.status = status
     self.logs = status[&#34;logs&#34;]</code></pre>
 </details>
 </dd>
-<dt id="aurorax.ephemeris.Search.wait"><code class="name flex">
+<dt id="pyaurorax.data_products.Search.wait"><code class="name flex">
 <span>def <span class="ident">wait</span></span>(<span>self, poll_interval: float = 1.0, verbose: bool = False) ‑> None</span>
 </code></dt>
 <dd>
@@ -1578,7 +1745,7 @@ logs: list of logging messages from the API.</p>
 <dl>
 <dt><strong><code>poll_interval</code></strong></dt>
 <dd>time in seconds to wait between polling attempts,
-defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
+defaults to pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
 <dt><strong><code>verbose</code></strong></dt>
 <dd>output poll times, defaults to False.</dd>
 </dl></div>
@@ -1586,18 +1753,19 @@ defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wait(self, poll_interval: float = aurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
+<pre><code class="python">def wait(self, poll_interval: float = pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME, verbose: bool = False) -&gt; None:
     &#34;&#34;&#34;
     Block and wait for the request to complete and data is available for retrieval.
 
     Attributes:
         poll_interval: time in seconds to wait between polling attempts,
-            defaults to aurorax.requests.STANDARD_POLLING_SLEEP_TIME.
+            defaults to pyaurorax.requests.STANDARD_POLLING_SLEEP_TIME.
         verbose: output poll times, defaults to False.
 
     &#34;&#34;&#34;
-    url = aurorax.api.urls.ephemeris_request_url.format(self.request_id)
-    self.update_status(aurorax.requests.wait_for_data(
+    url = pyaurorax.api.urls.data_products_request_url.format(
+        self.request_id)
+    self.update_status(pyaurorax.requests.wait_for_data(
         url, poll_interval=poll_interval, verbose=verbose))</code></pre>
 </details>
 </dd>
@@ -1660,41 +1828,41 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="aurorax" href="index.html">aurorax</a></code></li>
+<li><code><a title="pyaurorax" href="index.html">pyaurorax</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="aurorax.ephemeris.delete" href="#aurorax.ephemeris.delete">delete</a></code></li>
-<li><code><a title="aurorax.ephemeris.search" href="#aurorax.ephemeris.search">search</a></code></li>
-<li><code><a title="aurorax.ephemeris.search_async" href="#aurorax.ephemeris.search_async">search_async</a></code></li>
-<li><code><a title="aurorax.ephemeris.upload" href="#aurorax.ephemeris.upload">upload</a></code></li>
+<li><code><a title="pyaurorax.data_products.delete" href="#pyaurorax.data_products.delete">delete</a></code></li>
+<li><code><a title="pyaurorax.data_products.delete_daterange" href="#pyaurorax.data_products.delete_daterange">delete_daterange</a></code></li>
+<li><code><a title="pyaurorax.data_products.search" href="#pyaurorax.data_products.search">search</a></code></li>
+<li><code><a title="pyaurorax.data_products.search_async" href="#pyaurorax.data_products.search_async">search_async</a></code></li>
+<li><code><a title="pyaurorax.data_products.upload" href="#pyaurorax.data_products.upload">upload</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="aurorax.ephemeris.Ephemeris" href="#aurorax.ephemeris.Ephemeris">Ephemeris</a></code></h4>
+<h4><code><a title="pyaurorax.data_products.DataProduct" href="#pyaurorax.data_products.DataProduct">DataProduct</a></code></h4>
 <ul class="">
-<li><code><a title="aurorax.ephemeris.Ephemeris.data_source" href="#aurorax.ephemeris.Ephemeris.data_source">data_source</a></code></li>
-<li><code><a title="aurorax.ephemeris.Ephemeris.epoch" href="#aurorax.ephemeris.Ephemeris.epoch">epoch</a></code></li>
-<li><code><a title="aurorax.ephemeris.Ephemeris.location_geo" href="#aurorax.ephemeris.Ephemeris.location_geo">location_geo</a></code></li>
-<li><code><a title="aurorax.ephemeris.Ephemeris.location_gsm" href="#aurorax.ephemeris.Ephemeris.location_gsm">location_gsm</a></code></li>
-<li><code><a title="aurorax.ephemeris.Ephemeris.metadata" href="#aurorax.ephemeris.Ephemeris.metadata">metadata</a></code></li>
-<li><code><a title="aurorax.ephemeris.Ephemeris.nbtrace" href="#aurorax.ephemeris.Ephemeris.nbtrace">nbtrace</a></code></li>
-<li><code><a title="aurorax.ephemeris.Ephemeris.sbtrace" href="#aurorax.ephemeris.Ephemeris.sbtrace">sbtrace</a></code></li>
-<li><code><a title="aurorax.ephemeris.Ephemeris.to_json_serializable" href="#aurorax.ephemeris.Ephemeris.to_json_serializable">to_json_serializable</a></code></li>
+<li><code><a title="pyaurorax.data_products.DataProduct.data_product_type" href="#pyaurorax.data_products.DataProduct.data_product_type">data_product_type</a></code></li>
+<li><code><a title="pyaurorax.data_products.DataProduct.data_source" href="#pyaurorax.data_products.DataProduct.data_source">data_source</a></code></li>
+<li><code><a title="pyaurorax.data_products.DataProduct.end" href="#pyaurorax.data_products.DataProduct.end">end</a></code></li>
+<li><code><a title="pyaurorax.data_products.DataProduct.metadata" href="#pyaurorax.data_products.DataProduct.metadata">metadata</a></code></li>
+<li><code><a title="pyaurorax.data_products.DataProduct.start" href="#pyaurorax.data_products.DataProduct.start">start</a></code></li>
+<li><code><a title="pyaurorax.data_products.DataProduct.to_json_serializable" href="#pyaurorax.data_products.DataProduct.to_json_serializable">to_json_serializable</a></code></li>
+<li><code><a title="pyaurorax.data_products.DataProduct.url" href="#pyaurorax.data_products.DataProduct.url">url</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="aurorax.ephemeris.Search" href="#aurorax.ephemeris.Search">Search</a></code></h4>
+<h4><code><a title="pyaurorax.data_products.Search" href="#pyaurorax.data_products.Search">Search</a></code></h4>
 <ul class="two-column">
-<li><code><a title="aurorax.ephemeris.Search.cancel" href="#aurorax.ephemeris.Search.cancel">cancel</a></code></li>
-<li><code><a title="aurorax.ephemeris.Search.check_for_data" href="#aurorax.ephemeris.Search.check_for_data">check_for_data</a></code></li>
-<li><code><a title="aurorax.ephemeris.Search.execute" href="#aurorax.ephemeris.Search.execute">execute</a></code></li>
-<li><code><a title="aurorax.ephemeris.Search.get_data" href="#aurorax.ephemeris.Search.get_data">get_data</a></code></li>
-<li><code><a title="aurorax.ephemeris.Search.update_status" href="#aurorax.ephemeris.Search.update_status">update_status</a></code></li>
-<li><code><a title="aurorax.ephemeris.Search.wait" href="#aurorax.ephemeris.Search.wait">wait</a></code></li>
+<li><code><a title="pyaurorax.data_products.Search.cancel" href="#pyaurorax.data_products.Search.cancel">cancel</a></code></li>
+<li><code><a title="pyaurorax.data_products.Search.check_for_data" href="#pyaurorax.data_products.Search.check_for_data">check_for_data</a></code></li>
+<li><code><a title="pyaurorax.data_products.Search.execute" href="#pyaurorax.data_products.Search.execute">execute</a></code></li>
+<li><code><a title="pyaurorax.data_products.Search.get_data" href="#pyaurorax.data_products.Search.get_data">get_data</a></code></li>
+<li><code><a title="pyaurorax.data_products.Search.update_status" href="#pyaurorax.data_products.Search.update_status">update_status</a></code></li>
+<li><code><a title="pyaurorax.data_products.Search.wait" href="#pyaurorax.data_products.Search.wait">wait</a></code></li>
 </ul>
 </li>
 </ul>

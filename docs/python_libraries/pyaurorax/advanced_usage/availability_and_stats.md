@@ -1,7 +1,7 @@
 # Data Availability and Stats
 
 ## Availability queries
-The [`availability`](/python_libraries/pyaurorax/api_reference/aurorax/availability.html) module has functions for retrieving the availability of ephemeris and data product records. These functions return a list of [`AvailabilityResult`](/python_libraries/pyaurorax/api_reference/aurorax/availability.html#aurorax.availability.AvailabilityResult) objects for every data source that matches the filter criteria provided to the function.
+The [`availability`](/python_libraries/pyaurorax/api_reference/pyaurorax/availability.html) module has functions for retrieving the availability of ephemeris and data product records. These functions return a list of [`AvailabilityResult`](/python_libraries/pyaurorax/api_reference/pyaurorax/availability.html#pyaurorax.availability.AvailabilityResult) objects for every data source that matches the filter criteria provided to the function.
 
 ### Retrieve availability of ephemeris records
 In this example, the availability of ephemeris records is retrieved for all Swarm instruments:
@@ -11,7 +11,7 @@ end_date = datetime.date(2019, 1, 31)
 program = "swarm"
 
 # get availability
-availability = aurorax.availability.ephemeris(start_date, 
+availability = pyaurorax.availability.ephemeris(start_date, 
                                               end_date,
                                               program=program)
 
@@ -31,7 +31,7 @@ program = "trex"
 instrument_type = "RGB ASI"
 
 # get availability
-availability = aurorax.availability.data_products(start_date,
+availability = pyaurorax.availability.data_products(start_date,
                                                   end_date,
                                                   program=program,
                                                   instrument_type=instrument_type)
@@ -44,12 +44,12 @@ first.available_data_products["2019-01-21"]
 ```
 
 ## Data source statistics
-The [`sources`](/python_libraries/pyaurorax/api_reference/aurorax/sources.html) module has a function for retrieving statistics of a data source. The information retrieved includes the earliest and latest dates for ephemeris and data product records associated with the data source. A [`DataStatisticsResult`](/python_libraries/pyaurorax/api_reference/aurorax/sources.html#aurorax.sources.DataStatisticsResult) object is returned by this function.
+The [`sources`](/python_libraries/pyaurorax/api_reference/pyaurorax/sources.html) module has a function for retrieving statistics of a data source. The information retrieved includes the earliest and latest dates for ephemeris and data product records associated with the data source. A [`DataStatisticsResult`](/python_libraries/pyaurorax/api_reference/pyaurorax/sources.html#pyaurorax.sources.DataStatisticsResult) object is returned by this function.
 
 ### Get statistics for a data source
 ```python
 identifier = 3
-stats = aurorax.sources.get_stats(identifier, "full_record")
+stats = pyaurorax.sources.get_stats(identifier, "full_record")
 
 # data source information
 stats.data_source

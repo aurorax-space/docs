@@ -1,6 +1,6 @@
 # Searches with metadata filters
 
-All AuroraX records contain a flexible metadata field that can contain additional information about the record. Search functions in the [`data_products`](/python_libraries/pyaurorax/api_reference/aurorax/data_products.html#aurorax.data_products.search), [`ephemeris`](/python_libraries/pyaurorax/api_reference/aurorax/ephemeris.html#aurorax.ephemeris.search), and [`conjunctions`](/python_libraries/pyaurorax/api_reference/aurorax/conjunctions.html#aurorax.conjunctions.search) modules include the option of refining a search by specifying additional metadata filters.
+All AuroraX records contain a flexible metadata field that can contain additional information about the record. Search functions in the [`data_products`](/python_libraries/pyaurorax/api_reference/pyaurorax/data_products.html#pyaurorax.data_products.search), [`ephemeris`](/python_libraries/pyaurorax/api_reference/pyaurorax/ephemeris.html#pyaurorax.ephemeris.search), and [`conjunctions`](/python_libraries/pyaurorax/api_reference/pyaurorax/conjunctions.html#pyaurorax.conjunctions.search) modules include the option of refining a search by specifying additional metadata filters.
 
 Also see:
 
@@ -63,7 +63,7 @@ metadata_filters = [
     }
 ]
 
-s = aurorax.ephemeris.search(start=start, 
+s = pyaurorax.ephemeris.search(start=start, 
                              end=end,
                              programs=programs,
                              platforms=platforms,
@@ -98,7 +98,7 @@ metadata_filters = [
     }
 ]
 
-s = aurorax.data_products.search(start=start, 
+s = pyaurorax.data_products.search(start=start, 
                                  end=end,
                                  programs=programs,
                                  platforms=platforms,
@@ -142,7 +142,7 @@ space_params = [{
     ]
 }]
 
-s = aurorax.conjunctions.search(start=start,
+s = pyaurorax.conjunctions.search(start=start,
                                 end=end,
                                 ground=ground_params,
                                 space=space_params)
