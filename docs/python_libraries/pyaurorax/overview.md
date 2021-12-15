@@ -5,7 +5,7 @@
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![PyPI Python versions](https://img.shields.io/pypi/pyversions/pyaurorax.svg)](https://pypi.python.org/pypi/pyaurorax/)
 
-**API Docs**: [https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/](https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/)
+**API Docs**: [https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/pyaurorax/](/python_libraries/pyaurorax/api_reference/pyaurorax/)
 
 **Source code**: [https://github.com/aurorax-space/pyaurorax](https://github.com/aurorax-space/pyaurorax)
 

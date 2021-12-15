@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>aurorax.models API documentation</title>
-<meta name="description" content="This module contains the Location class." />
+<title>pyaurorax.util API documentation</title>
+<meta name="description" content="Utility methods for converting geographic locations to North/South B trace coordinates." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,60 +19,90 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>aurorax.models</code></h1>
+<h1 class="title">Module <code>pyaurorax.util</code></h1>
 </header>
 <section id="section-intro">
-<p>This module contains the Location class.</p>
+<p>Utility methods for converting geographic locations to North/South B trace coordinates.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-This module contains the Location class.
+Utility methods for converting geographic locations to North/South B trace coordinates.
 &#34;&#34;&#34;
-from pydantic import BaseModel, validator
-from typing import Union
+import aacgmv2
+from pyaurorax import Location
+import datetime
 
 
-class Location(BaseModel):
+def __calculate_btrace(geo_location: Location, dt) -&gt; Location:
+    # convert to magnetic coordinates
+    mag_location = aacgmv2.convert_latlon(geo_location.lat,
+                                          geo_location.lon,
+                                          0.0,
+                                          dt,
+                                          method_code=&#34;G2A&#34;)
+
+    # change magnetic latitude to other hemisphere
+    mag_location = (
+        mag_location[0] * -1.0,
+        mag_location[1],
+        mag_location[2]
+    )
+
+    # convert magnetic coordinates back to geographic
+    btrace_aacgm = aacgmv2.convert_latlon(mag_location[0],
+                                          mag_location[1],
+                                          mag_location[2],
+                                          dt,
+                                          method_code=&#34;A2G&#34;)
+
+    # return as Location object
+    return Location(lat=btrace_aacgm[0], lon=btrace_aacgm[1])
+
+
+def ground_geo_to_nbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
     &#34;&#34;&#34;
-    Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
-    northern/southern magnetic footprints).
+    Convert geographic location to North B-Trace geographic location.
 
     Attributes:
-        lat: latitude (degrees East).
-        lon: longitude (degrees North).
+        geo_location: pyaurorax.Location object representing the geographic location.
+        dt: datetime.datetime object representing the timestamp.
+
+    Returns:
+        North B-trace location as a pyaurorax.Location object.
 
     &#34;&#34;&#34;
-    lat: Union[float, None]
-    lon: Union[float, None]
+    # check if location is in northern hemisphere
+    if (geo_location.lat &gt;= 0):
+        # northern hemisphere, north b-trace is the same as geographic location
+        return geo_location
 
-    @validator(&#34;lon&#34;)
-    def both_must_be_none_or_number(cls, v, values):
-        if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-            raise ValueError(
-                &#34;lat and lon must both be numbers or both be None&#34;)
-        return v
+    # calculate South B-trace and return
+    sbtrace = __calculate_btrace(geo_location, timestamp)
+    return sbtrace
 
-    def __str__(self) -&gt; str:
-        &#34;&#34;&#34;
-        String method.
 
-        Returns:
-            String format of Location object.
+def ground_geo_to_sbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
+    &#34;&#34;&#34;
+    Convert geographic location to South B-Trace geographic location.
 
-        &#34;&#34;&#34;
-        return str(self.__dict__)
+    Attributes:
+        geo_location: pyaurorax.Location object representing the geographic location.
+        dt: datetime.datetime object representing the timestamp.
 
-    def __repr__(self) -&gt; str:
-        &#34;&#34;&#34;
-        Object representation.
+    Returns:
+        South B-trace location as a pyaurorax.Location object.
 
-        Returns:
-            Object representation of Location object.
+    &#34;&#34;&#34;
+    # check if location is in southern hemisphere
+    if (geo_location.lat &lt; 0):
+        # southern hemisphere, south b-trace is the same as geographic location
+        return geo_location
 
-        &#34;&#34;&#34;
-        return &#34;%s(lat=%s, lon=%s)&#34; % (self.__class__.__name__, str(self.lat), str(self.lon))</code></pre>
+    # calculate North B-trace and return
+    nbtrace = __calculate_btrace(geo_location, timestamp)
+    return nbtrace</code></pre>
 </details>
 </section>
 <section>
@@ -80,108 +110,91 @@ class Location(BaseModel):
 <section>
 </section>
 <section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="aurorax.models.Location"><code class="flex name class">
-<span>class <span class="ident">Location</span></span>
-<span>(</span><span>**data: Any)</span>
+<dt id="pyaurorax.util.ground_geo_to_nbtrace"><code class="name flex">
+<span>def <span class="ident">ground_geo_to_nbtrace</span></span>(<span>geo_location: <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a>, timestamp: datetime.datetime) ‑> <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
-northern/southern magnetic footprints).</p>
+<div class="desc"><p>Convert geographic location to North B-Trace geographic location.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
-<dt><strong><code>lat</code></strong></dt>
-<dd>latitude (degrees East).</dd>
-<dt><strong><code>lon</code></strong></dt>
-<dd>longitude (degrees North).</dd>
+<dt><strong><code>geo_location</code></strong></dt>
+<dd>pyaurorax.Location object representing the geographic location.</dd>
+<dt><strong><code>dt</code></strong></dt>
+<dd>datetime.datetime object representing the timestamp.</dd>
 </dl>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p></div>
+<h2 id="returns">Returns</h2>
+<p>North B-trace location as a pyaurorax.Location object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Location(BaseModel):
+<pre><code class="python">def ground_geo_to_nbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
     &#34;&#34;&#34;
-    Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
-    northern/southern magnetic footprints).
+    Convert geographic location to North B-Trace geographic location.
 
     Attributes:
-        lat: latitude (degrees East).
-        lon: longitude (degrees North).
+        geo_location: pyaurorax.Location object representing the geographic location.
+        dt: datetime.datetime object representing the timestamp.
+
+    Returns:
+        North B-trace location as a pyaurorax.Location object.
 
     &#34;&#34;&#34;
-    lat: Union[float, None]
-    lon: Union[float, None]
+    # check if location is in northern hemisphere
+    if (geo_location.lat &gt;= 0):
+        # northern hemisphere, north b-trace is the same as geographic location
+        return geo_location
 
-    @validator(&#34;lon&#34;)
-    def both_must_be_none_or_number(cls, v, values):
-        if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-            raise ValueError(
-                &#34;lat and lon must both be numbers or both be None&#34;)
-        return v
-
-    def __str__(self) -&gt; str:
-        &#34;&#34;&#34;
-        String method.
-
-        Returns:
-            String format of Location object.
-
-        &#34;&#34;&#34;
-        return str(self.__dict__)
-
-    def __repr__(self) -&gt; str:
-        &#34;&#34;&#34;
-        Object representation.
-
-        Returns:
-            Object representation of Location object.
-
-        &#34;&#34;&#34;
-        return &#34;%s(lat=%s, lon=%s)&#34; % (self.__class__.__name__, str(self.lat), str(self.lon))</code></pre>
+    # calculate South B-trace and return
+    sbtrace = __calculate_btrace(geo_location, timestamp)
+    return sbtrace</code></pre>
 </details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-<li>pydantic.utils.Representation</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="aurorax.models.Location.lat"><code class="name">var <span class="ident">lat</span> : Optional[float]</code></dt>
-<dd>
-<div class="desc"></div>
 </dd>
-<dt id="aurorax.models.Location.lon"><code class="name">var <span class="ident">lon</span> : Optional[float]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Static methods</h3>
-<dl>
-<dt id="aurorax.models.Location.both_must_be_none_or_number"><code class="name flex">
-<span>def <span class="ident">both_must_be_none_or_number</span></span>(<span>v, values)</span>
+<dt id="pyaurorax.util.ground_geo_to_sbtrace"><code class="name flex">
+<span>def <span class="ident">ground_geo_to_sbtrace</span></span>(<span>geo_location: <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a>, timestamp: datetime.datetime) ‑> <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Convert geographic location to South B-Trace geographic location.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>geo_location</code></strong></dt>
+<dd>pyaurorax.Location object representing the geographic location.</dd>
+<dt><strong><code>dt</code></strong></dt>
+<dd>datetime.datetime object representing the timestamp.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>South B-trace location as a pyaurorax.Location object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@validator(&#34;lon&#34;)
-def both_must_be_none_or_number(cls, v, values):
-    if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-        raise ValueError(
-            &#34;lat and lon must both be numbers or both be None&#34;)
-    return v</code></pre>
+<pre><code class="python">def ground_geo_to_sbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
+    &#34;&#34;&#34;
+    Convert geographic location to South B-Trace geographic location.
+
+    Attributes:
+        geo_location: pyaurorax.Location object representing the geographic location.
+        dt: datetime.datetime object representing the timestamp.
+
+    Returns:
+        South B-trace location as a pyaurorax.Location object.
+
+    &#34;&#34;&#34;
+    # check if location is in southern hemisphere
+    if (geo_location.lat &lt; 0):
+        # southern hemisphere, south b-trace is the same as geographic location
+        return geo_location
+
+    # calculate North B-trace and return
+    nbtrace = __calculate_btrace(geo_location, timestamp)
+    return nbtrace</code></pre>
 </details>
 </dd>
 </dl>
-</dd>
-</dl>
+</section>
+<section>
 </section>
 </article>
 <nav id="sidebar">
@@ -238,19 +251,13 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="aurorax" href="index.html">aurorax</a></code></li>
+<li><code><a title="pyaurorax" href="index.html">pyaurorax</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="aurorax.models.Location" href="#aurorax.models.Location">Location</a></code></h4>
+<li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="aurorax.models.Location.both_must_be_none_or_number" href="#aurorax.models.Location.both_must_be_none_or_number">both_must_be_none_or_number</a></code></li>
-<li><code><a title="aurorax.models.Location.lat" href="#aurorax.models.Location.lat">lat</a></code></li>
-<li><code><a title="aurorax.models.Location.lon" href="#aurorax.models.Location.lon">lon</a></code></li>
-</ul>
-</li>
+<li><code><a title="pyaurorax.util.ground_geo_to_nbtrace" href="#pyaurorax.util.ground_geo_to_nbtrace">ground_geo_to_nbtrace</a></code></li>
+<li><code><a title="pyaurorax.util.ground_geo_to_sbtrace" href="#pyaurorax.util.ground_geo_to_sbtrace">ground_geo_to_sbtrace</a></code></li>
 </ul>
 </li>
 </ul>

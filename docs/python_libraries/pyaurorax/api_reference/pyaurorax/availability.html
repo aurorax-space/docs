@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>aurorax.availability API documentation</title>
+<title>pyaurorax.availability API documentation</title>
 <meta name="description" content="The availability module provides the means to quickly determine the availability of
 desired ephemeris or data product records in AuroraX." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -20,7 +20,7 @@ desired ephemeris or data product records in AuroraX." />
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>aurorax.availability</code></h1>
+<h1 class="title">Module <code>pyaurorax.availability</code></h1>
 </header>
 <section id="section-intro">
 <p>The availability module provides the means to quickly determine the availability of
@@ -33,7 +33,7 @@ desired ephemeris or data product records in AuroraX.</p>
 The availability module provides the means to quickly determine the availability of
 desired ephemeris or data product records in AuroraX.
 &#34;&#34;&#34;
-import aurorax
+import pyaurorax
 import datetime
 import pprint
 from pydantic import BaseModel
@@ -45,12 +45,12 @@ class AvailabilityResult(BaseModel):
     Availability result data type.
 
     Attributes:
-        data_source: aurorax.sources.DataSource object that the ephemeris record is associated with.
+        data_source: pyaurorax.sources.DataSource object that the ephemeris record is associated with.
         available_data_products: data product availability dictionary of shape {&#34;YYYY-MM-DD&#34;: &lt;# of records&gt;}.
         available_ephemeris: ephemeris availability dictionary of shape {&#34;YYYY-MM-DD&#34;: &lt;# of records&gt;}.
 
     &#34;&#34;&#34;
-    data_source: aurorax.sources.DataSource
+    data_source: pyaurorax.sources.DataSource
     available_data_products: Dict[str, int] = None
     available_ephemeris: Dict[str, int] = None
 
@@ -100,7 +100,7 @@ def ephemeris(start: datetime.date,
         slow: query the data directly (slower) for more accurate results, defaults to false.
 
     Returns:
-        A list of aurorax.availability.AvailabilityResult objects.
+        A list of pyaurorax.availability.AvailabilityResult objects.
 
     &#34;&#34;&#34;
     # set parameters
@@ -117,8 +117,8 @@ def ephemeris(start: datetime.date,
     }
 
     # do request
-    req = aurorax.AuroraXRequest(
-        method=&#34;get&#34;, url=aurorax.api.urls.ephemeris_availability_url, params=params)
+    req = pyaurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=pyaurorax.api.urls.ephemeris_availability_url, params=params)
     res = req.execute()
 
     # return
@@ -150,7 +150,7 @@ def data_products(start: datetime,
         slow: query the data directly (slower) for more accurate results, defaults to false.
 
     Returns:
-        A list of aurorax.availability.AvailabilityResult objects.
+        A list of pyaurorax.availability.AvailabilityResult objects.
 
     &#34;&#34;&#34;
     # set parameters
@@ -167,8 +167,8 @@ def data_products(start: datetime,
     }
 
     # do request
-    req = aurorax.AuroraXRequest(
-        method=&#34;get&#34;, url=aurorax.api.urls.data_products_availability_url, params=params)
+    req = pyaurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=pyaurorax.api.urls.data_products_availability_url, params=params)
     res = req.execute()
 
     # return
@@ -182,8 +182,8 @@ def data_products(start: datetime,
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="aurorax.availability.data_products"><code class="name flex">
-<span>def <span class="ident">data_products</span></span>(<span>start: <module 'datetime' from 'C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.2032.0_x64__qbz5n2kfra8p0\\lib\\datetime.py'>, end: <module 'datetime' from 'C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.2032.0_x64__qbz5n2kfra8p0\\lib\\datetime.py'>, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, owner: str = None, format: str = 'basic_info', slow: bool = False) ‑> List[<a title="aurorax.availability.AvailabilityResult" href="#aurorax.availability.AvailabilityResult">AvailabilityResult</a>]</span>
+<dt id="pyaurorax.availability.data_products"><code class="name flex">
+<span>def <span class="ident">data_products</span></span>(<span>start: <module 'datetime' from 'C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.2544.0_x64__qbz5n2kfra8p0\\lib\\datetime.py'>, end: <module 'datetime' from 'C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_3.9.2544.0_x64__qbz5n2kfra8p0\\lib\\datetime.py'>, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, owner: str = None, format: str = 'basic_info', slow: bool = False) ‑> List[<a title="pyaurorax.availability.AvailabilityResult" href="#pyaurorax.availability.AvailabilityResult">AvailabilityResult</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve information about the number of existing data product records.</p>
@@ -210,7 +210,7 @@ full_record), defaults to "basic_info".</dd>
 <dd>query the data directly (slower) for more accurate results, defaults to false.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>A list of aurorax.availability.AvailabilityResult objects.</p></div>
+<p>A list of pyaurorax.availability.AvailabilityResult objects.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -240,7 +240,7 @@ full_record), defaults to "basic_info".</dd>
         slow: query the data directly (slower) for more accurate results, defaults to false.
 
     Returns:
-        A list of aurorax.availability.AvailabilityResult objects.
+        A list of pyaurorax.availability.AvailabilityResult objects.
 
     &#34;&#34;&#34;
     # set parameters
@@ -257,16 +257,16 @@ full_record), defaults to "basic_info".</dd>
     }
 
     # do request
-    req = aurorax.AuroraXRequest(
-        method=&#34;get&#34;, url=aurorax.api.urls.data_products_availability_url, params=params)
+    req = pyaurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=pyaurorax.api.urls.data_products_availability_url, params=params)
     res = req.execute()
 
     # return
     return [AvailabilityResult(**av) for av in res.data]</code></pre>
 </details>
 </dd>
-<dt id="aurorax.availability.ephemeris"><code class="name flex">
-<span>def <span class="ident">ephemeris</span></span>(<span>start: datetime.date, end: datetime.date, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, owner: str = None, format: str = 'basic_info', slow: bool = False) ‑> List[<a title="aurorax.availability.AvailabilityResult" href="#aurorax.availability.AvailabilityResult">AvailabilityResult</a>]</span>
+<dt id="pyaurorax.availability.ephemeris"><code class="name flex">
+<span>def <span class="ident">ephemeris</span></span>(<span>start: datetime.date, end: datetime.date, program: str = None, platform: str = None, instrument_type: str = None, source_type: str = None, owner: str = None, format: str = 'basic_info', slow: bool = False) ‑> List[<a title="pyaurorax.availability.AvailabilityResult" href="#pyaurorax.availability.AvailabilityResult">AvailabilityResult</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve information about the number of existing ephemeris records.</p>
@@ -293,7 +293,7 @@ full_record), defaults to "basic_info".</dd>
 <dd>query the data directly (slower) for more accurate results, defaults to false.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>A list of aurorax.availability.AvailabilityResult objects.</p></div>
+<p>A list of pyaurorax.availability.AvailabilityResult objects.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -323,7 +323,7 @@ full_record), defaults to "basic_info".</dd>
         slow: query the data directly (slower) for more accurate results, defaults to false.
 
     Returns:
-        A list of aurorax.availability.AvailabilityResult objects.
+        A list of pyaurorax.availability.AvailabilityResult objects.
 
     &#34;&#34;&#34;
     # set parameters
@@ -340,8 +340,8 @@ full_record), defaults to "basic_info".</dd>
     }
 
     # do request
-    req = aurorax.AuroraXRequest(
-        method=&#34;get&#34;, url=aurorax.api.urls.ephemeris_availability_url, params=params)
+    req = pyaurorax.AuroraXRequest(
+        method=&#34;get&#34;, url=pyaurorax.api.urls.ephemeris_availability_url, params=params)
     res = req.execute()
 
     # return
@@ -353,7 +353,7 @@ full_record), defaults to "basic_info".</dd>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="aurorax.availability.AvailabilityResult"><code class="flex name class">
+<dt id="pyaurorax.availability.AvailabilityResult"><code class="flex name class">
 <span>class <span class="ident">AvailabilityResult</span></span>
 <span>(</span><span>**data: Any)</span>
 </code></dt>
@@ -362,7 +362,7 @@ full_record), defaults to "basic_info".</dd>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>data_source</code></strong></dt>
-<dd>aurorax.sources.DataSource object that the ephemeris record is associated with.</dd>
+<dd>pyaurorax.sources.DataSource object that the ephemeris record is associated with.</dd>
 <dt><strong><code>available_data_products</code></strong></dt>
 <dd>data product availability dictionary of shape {"YYYY-MM-DD": &lt;# of records&gt;}.</dd>
 <dt><strong><code>available_ephemeris</code></strong></dt>
@@ -379,12 +379,12 @@ full_record), defaults to "basic_info".</dd>
     Availability result data type.
 
     Attributes:
-        data_source: aurorax.sources.DataSource object that the ephemeris record is associated with.
+        data_source: pyaurorax.sources.DataSource object that the ephemeris record is associated with.
         available_data_products: data product availability dictionary of shape {&#34;YYYY-MM-DD&#34;: &lt;# of records&gt;}.
         available_ephemeris: ephemeris availability dictionary of shape {&#34;YYYY-MM-DD&#34;: &lt;# of records&gt;}.
 
     &#34;&#34;&#34;
-    data_source: aurorax.sources.DataSource
+    data_source: pyaurorax.sources.DataSource
     available_data_products: Dict[str, int] = None
     available_ephemeris: Dict[str, int] = None
 
@@ -415,15 +415,15 @@ full_record), defaults to "basic_info".</dd>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="aurorax.availability.AvailabilityResult.available_data_products"><code class="name">var <span class="ident">available_data_products</span> : Dict[str, int]</code></dt>
+<dt id="pyaurorax.availability.AvailabilityResult.available_data_products"><code class="name">var <span class="ident">available_data_products</span> : Dict[str, int]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.availability.AvailabilityResult.available_ephemeris"><code class="name">var <span class="ident">available_ephemeris</span> : Dict[str, int]</code></dt>
+<dt id="pyaurorax.availability.AvailabilityResult.available_ephemeris"><code class="name">var <span class="ident">available_ephemeris</span> : Dict[str, int]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="aurorax.availability.AvailabilityResult.data_source"><code class="name">var <span class="ident">data_source</span> : <a title="aurorax.sources.DataSource" href="sources.html#aurorax.sources.DataSource">DataSource</a></code></dt>
+<dt id="pyaurorax.availability.AvailabilityResult.data_source"><code class="name">var <span class="ident">data_source</span> : <a title="pyaurorax.sources.DataSource" href="sources.html#pyaurorax.sources.DataSource">DataSource</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -486,23 +486,23 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="aurorax" href="index.html">aurorax</a></code></li>
+<li><code><a title="pyaurorax" href="index.html">pyaurorax</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="aurorax.availability.data_products" href="#aurorax.availability.data_products">data_products</a></code></li>
-<li><code><a title="aurorax.availability.ephemeris" href="#aurorax.availability.ephemeris">ephemeris</a></code></li>
+<li><code><a title="pyaurorax.availability.data_products" href="#pyaurorax.availability.data_products">data_products</a></code></li>
+<li><code><a title="pyaurorax.availability.ephemeris" href="#pyaurorax.availability.ephemeris">ephemeris</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="aurorax.availability.AvailabilityResult" href="#aurorax.availability.AvailabilityResult">AvailabilityResult</a></code></h4>
+<h4><code><a title="pyaurorax.availability.AvailabilityResult" href="#pyaurorax.availability.AvailabilityResult">AvailabilityResult</a></code></h4>
 <ul class="">
-<li><code><a title="aurorax.availability.AvailabilityResult.available_data_products" href="#aurorax.availability.AvailabilityResult.available_data_products">available_data_products</a></code></li>
-<li><code><a title="aurorax.availability.AvailabilityResult.available_ephemeris" href="#aurorax.availability.AvailabilityResult.available_ephemeris">available_ephemeris</a></code></li>
-<li><code><a title="aurorax.availability.AvailabilityResult.data_source" href="#aurorax.availability.AvailabilityResult.data_source">data_source</a></code></li>
+<li><code><a title="pyaurorax.availability.AvailabilityResult.available_data_products" href="#pyaurorax.availability.AvailabilityResult.available_data_products">available_data_products</a></code></li>
+<li><code><a title="pyaurorax.availability.AvailabilityResult.available_ephemeris" href="#pyaurorax.availability.AvailabilityResult.available_ephemeris">available_ephemeris</a></code></li>
+<li><code><a title="pyaurorax.availability.AvailabilityResult.data_source" href="#pyaurorax.availability.AvailabilityResult.data_source">data_source</a></code></li>
 </ul>
 </li>
 </ul>

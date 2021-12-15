@@ -98,6 +98,6 @@ nav:
         - Searches with metadata filters: python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters.md
         - Contributing and managing data: python_libraries/pyaurorax/advanced_usage/contributing_managing_data.md
         - Data availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
-      - API reference: python_libraries/pyaurorax/api_reference/aurorax/index.html
+      - API reference: python_libraries/pyaurorax/api_reference/pyaurorax/index.html
   - IDL:
       - Overview: idl_libraries/idl_aurorax/overview.md
