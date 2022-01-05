@@ -26,7 +26,6 @@ $ cd pyaurorax
 $ git checkout main
 $ git pull
 $ python3 -m pip install poetry
-$ poetry add pdoc3
 $ poetry install
 $ cd ..
 ```
