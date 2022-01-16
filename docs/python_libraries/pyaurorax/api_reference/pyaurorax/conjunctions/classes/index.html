@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>pyaurorax.util API documentation</title>
-<meta name="description" content="Utility methods for converting geographic locations to North/South B trace coordinates." />
+<title>pyaurorax.conjunctions.classes API documentation</title>
+<meta name="description" content="Separted classes and functions used by the conjunctions module …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,180 +19,42 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyaurorax.util</code></h1>
+<h1 class="title">Module <code>pyaurorax.conjunctions.classes</code></h1>
 </header>
 <section id="section-intro">
-<p>Utility methods for converting geographic locations to North/South B trace coordinates.</p>
+<p>Separted classes and functions used by the conjunctions module.</p>
+<p>Note that these classes and variables are all imported higher up at the
+top of the conjunctions module. They can be referenced from there instead
+of digging in deeper to these submodules.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-Utility methods for converting geographic locations to North/South B trace coordinates.
-&#34;&#34;&#34;
-import aacgmv2
-from pyaurorax import Location
-import datetime
+Separted classes and functions used by the conjunctions module.
 
-
-def __calculate_btrace(geo_location: Location, dt) -&gt; Location:
-    # convert to magnetic coordinates
-    mag_location = aacgmv2.convert_latlon(geo_location.lat,
-                                          geo_location.lon,
-                                          0.0,
-                                          dt,
-                                          method_code=&#34;G2A&#34;)
-
-    # change magnetic latitude to other hemisphere
-    mag_location = (
-        mag_location[0] * -1.0,
-        mag_location[1],
-        mag_location[2]
-    )
-
-    # convert magnetic coordinates back to geographic
-    btrace_aacgm = aacgmv2.convert_latlon(mag_location[0],
-                                          mag_location[1],
-                                          mag_location[2],
-                                          dt,
-                                          method_code=&#34;A2G&#34;)
-
-    # return as Location object
-    return Location(lat=btrace_aacgm[0], lon=btrace_aacgm[1])
-
-
-def ground_geo_to_nbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
-    &#34;&#34;&#34;
-    Convert geographic location to North B-Trace geographic location.
-
-    Attributes:
-        geo_location: pyaurorax.Location object representing the geographic location.
-        dt: datetime.datetime object representing the timestamp.
-
-    Returns:
-        North B-trace location as a pyaurorax.Location object.
-
-    &#34;&#34;&#34;
-    # check if location is in northern hemisphere
-    if (geo_location.lat &gt;= 0):
-        # northern hemisphere, north b-trace is the same as geographic location
-        return geo_location
-
-    # calculate South B-trace and return
-    sbtrace = __calculate_btrace(geo_location, timestamp)
-    return sbtrace
-
-
-def ground_geo_to_sbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
-    &#34;&#34;&#34;
-    Convert geographic location to South B-Trace geographic location.
-
-    Attributes:
-        geo_location: pyaurorax.Location object representing the geographic location.
-        dt: datetime.datetime object representing the timestamp.
-
-    Returns:
-        South B-trace location as a pyaurorax.Location object.
-
-    &#34;&#34;&#34;
-    # check if location is in southern hemisphere
-    if (geo_location.lat &lt; 0):
-        # southern hemisphere, south b-trace is the same as geographic location
-        return geo_location
-
-    # calculate North B-trace and return
-    nbtrace = __calculate_btrace(geo_location, timestamp)
-    return nbtrace</code></pre>
+Note that these classes and variables are all imported higher up at the
+top of the conjunctions module. They can be referenced from there instead
+of digging in deeper to these submodules.
+&#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-functions">Functions</h2>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
-<dt id="pyaurorax.util.ground_geo_to_nbtrace"><code class="name flex">
-<span>def <span class="ident">ground_geo_to_nbtrace</span></span>(<span>geo_location: <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a>, timestamp: datetime.datetime) ‑> <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a></span>
-</code></dt>
+<dt><code class="name"><a title="pyaurorax.conjunctions.classes.conjunction" href="conjunction.html">pyaurorax.conjunctions.classes.conjunction</a></code></dt>
 <dd>
-<div class="desc"><p>Convert geographic location to North B-Trace geographic location.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>geo_location</code></strong></dt>
-<dd>pyaurorax.Location object representing the geographic location.</dd>
-<dt><strong><code>dt</code></strong></dt>
-<dd>datetime.datetime object representing the timestamp.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>North B-trace location as a pyaurorax.Location object.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def ground_geo_to_nbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
-    &#34;&#34;&#34;
-    Convert geographic location to North B-Trace geographic location.
-
-    Attributes:
-        geo_location: pyaurorax.Location object representing the geographic location.
-        dt: datetime.datetime object representing the timestamp.
-
-    Returns:
-        North B-trace location as a pyaurorax.Location object.
-
-    &#34;&#34;&#34;
-    # check if location is in northern hemisphere
-    if (geo_location.lat &gt;= 0):
-        # northern hemisphere, north b-trace is the same as geographic location
-        return geo_location
-
-    # calculate South B-trace and return
-    sbtrace = __calculate_btrace(geo_location, timestamp)
-    return sbtrace</code></pre>
-</details>
+<div class="desc"><p>Class definition for a conjunction</p></div>
 </dd>
-<dt id="pyaurorax.util.ground_geo_to_sbtrace"><code class="name flex">
-<span>def <span class="ident">ground_geo_to_sbtrace</span></span>(<span>geo_location: <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a>, timestamp: datetime.datetime) ‑> <a title="pyaurorax.models.Location" href="models.html#pyaurorax.models.Location">Location</a></span>
-</code></dt>
+<dt><code class="name"><a title="pyaurorax.conjunctions.classes.search" href="search.html">pyaurorax.conjunctions.classes.search</a></code></dt>
 <dd>
-<div class="desc"><p>Convert geographic location to South B-Trace geographic location.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>geo_location</code></strong></dt>
-<dd>pyaurorax.Location object representing the geographic location.</dd>
-<dt><strong><code>dt</code></strong></dt>
-<dd>datetime.datetime object representing the timestamp.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>South B-trace location as a pyaurorax.Location object.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def ground_geo_to_sbtrace(geo_location: Location, timestamp: datetime.datetime) -&gt; Location:
-    &#34;&#34;&#34;
-    Convert geographic location to South B-Trace geographic location.
-
-    Attributes:
-        geo_location: pyaurorax.Location object representing the geographic location.
-        dt: datetime.datetime object representing the timestamp.
-
-    Returns:
-        South B-trace location as a pyaurorax.Location object.
-
-    &#34;&#34;&#34;
-    # check if location is in southern hemisphere
-    if (geo_location.lat &lt; 0):
-        # southern hemisphere, south b-trace is the same as geographic location
-        return geo_location
-
-    # calculate North B-trace and return
-    nbtrace = __calculate_btrace(geo_location, timestamp)
-    return nbtrace</code></pre>
-</details>
+<div class="desc"><p>Class definition for a conjunction search</p></div>
 </dd>
 </dl>
+</section>
+<section>
+</section>
+<section>
 </section>
 <section>
 </section>
@@ -232,7 +94,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = '../doc-search.html#' + encodeURIComponent(query);
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -251,13 +113,13 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyaurorax" href="index.html">pyaurorax</a></code></li>
+<li><code><a title="pyaurorax.conjunctions" href="../index.html">pyaurorax.conjunctions</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="pyaurorax.util.ground_geo_to_nbtrace" href="#pyaurorax.util.ground_geo_to_nbtrace">ground_geo_to_nbtrace</a></code></li>
-<li><code><a title="pyaurorax.util.ground_geo_to_sbtrace" href="#pyaurorax.util.ground_geo_to_sbtrace">ground_geo_to_sbtrace</a></code></li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="pyaurorax.conjunctions.classes.conjunction" href="conjunction.html">pyaurorax.conjunctions.classes.conjunction</a></code></li>
+<li><code><a title="pyaurorax.conjunctions.classes.search" href="search.html">pyaurorax.conjunctions.classes.search</a></code></li>
 </ul>
 </li>
 </ul>

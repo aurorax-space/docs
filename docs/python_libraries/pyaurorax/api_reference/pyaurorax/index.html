@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>pyaurorax API documentation</title>
-<meta name="description" content="The PyAuroraX package provides a way to interact with the [AuroraX REST API](https://aurorax.space/data/api_libraries).
-It is intended to provide an …" />
+<meta name="description" content="The PyAuroraX package provides a way to interact with the
+[AuroraX API](https://aurorax.space/data/api_libraries). It is intended
+to provide an …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -23,18 +24,22 @@ It is intended to provide an …" />
 <h1 class="title">Package <code>pyaurorax</code></h1>
 </header>
 <section id="section-intro">
-<p>The PyAuroraX package provides a way to interact with the <a href="https://aurorax.space/data/api_libraries">AuroraX REST API</a>.
-It is intended to provide an intuitive process for those in the space physics and citizen science communities to
-programmatically query AuroraX's vast database for conjunctions, ephemeris or data product records, data availability, and
-statistics. Requires Python3.6+.</p>
-<p>Check out this project on <a href="https://github.com/aurorax-space/pyaurorax">GitHub</a> and explore the evolving ecosystem of
-visualizations, tools, and data at <a href="https://aurorax.space/">AuroraX</a>.</p>
-<p>For an overview of intended usage and examples, visit the
+<p>The PyAuroraX package provides a way to interact with the
+<a href="https://aurorax.space/data/api_libraries">AuroraX API</a>. It is intended
+to provide an intuitive process for those in the space physics and related
+communities to programmatically query AuroraX's vast database for conjunctions,
+ephemeris or data product records, data availability information, and more.
+PyAuroraX requires Python 3.6, 3.7, 3.8, or 3.9 (Python 3.10 currently not
+supported).</p>
+<p>Check out this project on <a href="https://github.com/aurorax-space/pyaurorax">GitHub</a>
+and explore the evolving ecosystem of visualizations, tools, and data
+at <a href="https://aurorax.space/">AuroraX</a>.</p>
+<p>For an overview of usage and examples, visit the
 <a href="https://docs.aurorax.space/python_libraries/pyaurorax/">AuroraX Documentation website</a>.
 Details of functionality and options are available in the
 <a href="https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/">API reference</a>.</p>
 <p>Installation:</p>
-<pre><code class="language-console">$ pip install pyaurorax
+<pre><code class="language-console">$ python -m pip install pyaurorax
 </code></pre>
 <p>Basic usage:</p>
 <pre><code class="language-python">&gt; import pyaurorax
@@ -44,22 +49,26 @@ Details of functionality and options are available in the
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-The PyAuroraX package provides a way to interact with the [AuroraX REST API](https://aurorax.space/data/api_libraries).
-It is intended to provide an intuitive process for those in the space physics and citizen science communities to
-programmatically query AuroraX&#39;s vast database for conjunctions, ephemeris or data product records, data availability, and
-statistics. Requires Python3.6+.
+The PyAuroraX package provides a way to interact with the
+[AuroraX API](https://aurorax.space/data/api_libraries). It is intended
+to provide an intuitive process for those in the space physics and related
+communities to programmatically query AuroraX&#39;s vast database for conjunctions,
+ephemeris or data product records, data availability information, and more.
+PyAuroraX requires Python 3.6, 3.7, 3.8, or 3.9 (Python 3.10 currently not
+supported).
 
-Check out this project on [GitHub](https://github.com/aurorax-space/pyaurorax) and explore the evolving ecosystem of
-visualizations, tools, and data at [AuroraX](https://aurorax.space/).
+Check out this project on [GitHub](https://github.com/aurorax-space/pyaurorax)
+and explore the evolving ecosystem of visualizations, tools, and data
+at [AuroraX](https://aurorax.space/).
 
-For an overview of intended usage and examples, visit the
+For an overview of usage and examples, visit the
 [AuroraX Documentation website](https://docs.aurorax.space/python_libraries/pyaurorax/).
 Details of functionality and options are available in the
 [API reference](https://docs.aurorax.space/python_libraries/pyaurorax/api_reference/aurorax/).
 
 Installation:
 ```console
-$ pip install pyaurorax
+$ python -m pip install pyaurorax
 ```
 
 Basic usage:
@@ -67,91 +76,125 @@ Basic usage:
 &gt; import pyaurorax
 ```
 &#34;&#34;&#34;
-__version__ = &#34;0.7.0&#34;
+
+# versioning info
+__version__ = &#34;0.9.0&#34;
+
+# documentation excludes
+__pdoc__ = {&#34;cli&#34;: False}
 
 # pull in top level functions
-from .api import AuroraXRequest
-from .api import authenticate
-from .api import get_api_key
+from .api import (AuroraXRequest,
+                  authenticate,
+                  get_api_key)
+from .sources import (FORMAT_BASIC_INFO,
+                      FORMAT_BASIC_INFO_WITH_METADATA,
+                      FORMAT_FULL_RECORD,
+                      FORMAT_IDENTIFIER_ONLY,
+                      FORMAT_DEFAULT,
+                      SOURCE_TYPE_EVENT_LIST,
+                      SOURCE_TYPE_GROUND,
+                      SOURCE_TYPE_HEO,
+                      SOURCE_TYPE_LEO,
+                      SOURCE_TYPE_LUNAR)
+from .conjunctions import (CONJUNCTION_TYPE_NBTRACE,
+                           CONJUNCTION_TYPE_SBTRACE)
+from .data_products import (DATA_PRODUCT_TYPE_KEOGRAM,
+                            DATA_PRODUCT_TYPE_MONTAGE,
+                            DATA_PRODUCT_TYPE_MOVIE,
+                            DATA_PRODUCT_TYPE_SUMMARY_PLOT,
+                            DATA_PRODUCT_TYPE_DATA_AVAILABILITY)
 
 # pull in exceptions at top level
-from .exceptions import AuroraXException
-from .exceptions import AuroraXNotFoundException
-from .exceptions import AuroraXMaxRetriesException
-from .exceptions import AuroraXDuplicateException
-from .exceptions import AuroraXUnexpectedContentTypeException
-from .exceptions import AuroraXValidationException
-from .exceptions import AuroraXBadParametersException
-from .exceptions import AuroraXUnauthorizedException
-from .exceptions import AuroraXConflictException
-from .exceptions import AuroraXUploadException
+from .exceptions import (AuroraXException,
+                         AuroraXNotFoundException,
+                         AuroraXMaxRetriesException,
+                         AuroraXDuplicateException,
+                         AuroraXUnexpectedContentTypeException,
+                         AuroraXValidationException,
+                         AuroraXBadParametersException,
+                         AuroraXUnauthorizedException,
+                         AuroraXConflictException,
+                         AuroraXUploadException,
+                         AuroraXUnexpectedEmptyResponse,
+                         AuroraXDataRetrievalError)
 
 # pull in models
-from .models import Location
+from .location import Location
 
-# pull in modules
+# pull in modules (order matters otherwise we get circular import errors)
 from pyaurorax import requests
-from pyaurorax import exceptions
 from pyaurorax import api
 from pyaurorax import sources
+from pyaurorax import exceptions
 from pyaurorax import metadata
+from pyaurorax import util
 from pyaurorax import availability
-from pyaurorax import ephemeris
-from pyaurorax import data_products
 from pyaurorax import conjunctions
-from pyaurorax import util</code></pre>
+from pyaurorax import ephemeris
+from pyaurorax import data_products</code></pre>
 </details>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
-<dt><code class="name"><a title="pyaurorax.api" href="api.html">pyaurorax.api</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.api" href="api/index.html">pyaurorax.api</a></code></dt>
 <dd>
-<div class="desc"><p>The API module contains classes and methods used throughout PyAuroraX for API interaction.</p></div>
+<div class="desc"><p>This module is the under-the-hood interface for RESTful API
+requests. It provides helper functions that the PyAuroraX library
+uses to make robust …</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.availability" href="availability.html">pyaurorax.availability</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.availability" href="availability/index.html">pyaurorax.availability</a></code></dt>
 <dd>
-<div class="desc"><p>The availability module provides the means to quickly determine the availability of
-desired ephemeris or data product records in AuroraX.</p></div>
+<div class="desc"><p>The availability module provides functions to quickly
+determine what data exists on the AuroraX platform …</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.conjunctions" href="conjunctions.html">pyaurorax.conjunctions</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.conjunctions" href="conjunctions/index.html">pyaurorax.conjunctions</a></code></dt>
 <dd>
-<div class="desc"><p>AuroraX provides a conjunction module for finding conjunction events between ground and space instruments,
-and between space instruments.</p></div>
+<div class="desc"><p>The conjunction module is used for finding conjunctions between
+groupings of data sources …</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.data_products" href="data_products.html">pyaurorax.data_products</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.data_products" href="data_products/index.html">pyaurorax.data_products</a></code></dt>
 <dd>
-<div class="desc"><p>AuroraX holds records for various types of data products produced by ground and space instruments.
-The most common type of data product is the keogram.</p></div>
+<div class="desc"><p>The data_products module is used to search and upload data
+product records within AuroraX. One example of a data product
+is a keogram …</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.ephemeris" href="ephemeris.html">pyaurorax.ephemeris</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.ephemeris" href="ephemeris/index.html">pyaurorax.ephemeris</a></code></dt>
 <dd>
-<div class="desc"><p>AuroraX holds ephemeris records for ground and space instruments in operation.</p></div>
+<div class="desc"><p>The ephemeris module is used to search and upload ephemeris records
+within AuroraX …</p></div>
 </dd>
 <dt><code class="name"><a title="pyaurorax.exceptions" href="exceptions.html">pyaurorax.exceptions</a></code></dt>
 <dd>
-<div class="desc"><p>The exceptions module contains descriptive exceptions unique to AuroraX.</p></div>
+<div class="desc"><p>The exceptions module contains exceptions unique to the PyAuroraX library</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.metadata" href="metadata.html">pyaurorax.metadata</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.location" href="location.html">pyaurorax.location</a></code></dt>
+<dd>
+<div class="desc"><p>The Location module provides a class used throughout the PyAuroraX
+library to manage lat/lon positions of different things.</p></div>
+</dd>
+<dt><code class="name"><a title="pyaurorax.metadata" href="metadata/index.html">pyaurorax.metadata</a></code></dt>
 <dd>
 <div class="desc"><p>AuroraX metadata schemas describe the intended structure of metadata stored in
-ephemeris and data product records.</p></div>
+ephemeris and data product records. This module provides functions for
+…</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.models" href="models.html">pyaurorax.models</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.requests" href="requests/index.html">pyaurorax.requests</a></code></dt>
 <dd>
-<div class="desc"><p>This module contains the Location class.</p></div>
+<div class="desc"><p>The requests module contains helper methods for retrieving data from
+an AuroraX request …</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.requests" href="requests.html">pyaurorax.requests</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.sources" href="sources/index.html">pyaurorax.sources</a></code></dt>
 <dd>
-<div class="desc"><p>The requests module contains methods for retrieving data from an AuroraX request.</p></div>
+<div class="desc"><p>AuroraX data sources are unique instruments that produce ephemeris or
+data product records …</p></div>
 </dd>
-<dt><code class="name"><a title="pyaurorax.sources" href="sources.html">pyaurorax.sources</a></code></dt>
+<dt><code class="name"><a title="pyaurorax.util" href="util/index.html">pyaurorax.util</a></code></dt>
 <dd>
-<div class="desc"><p>AuroraX data sources are unique instruments that produce ephemeris or data product records.</p></div>
-</dd>
-<dt><code class="name"><a title="pyaurorax.util" href="util.html">pyaurorax.util</a></code></dt>
-<dd>
-<div class="desc"><p>Utility methods for converting geographic locations to North/South B trace coordinates.</p></div>
+<div class="desc"><p>The util module provides helper methods such as converting
+arbitrary geographic locations to North/South B-trace geographic
+locations …</p></div>
 </dd>
 </dl>
 </section>
@@ -216,17 +259,17 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
-<li><code><a title="pyaurorax.api" href="api.html">pyaurorax.api</a></code></li>
-<li><code><a title="pyaurorax.availability" href="availability.html">pyaurorax.availability</a></code></li>
-<li><code><a title="pyaurorax.conjunctions" href="conjunctions.html">pyaurorax.conjunctions</a></code></li>
-<li><code><a title="pyaurorax.data_products" href="data_products.html">pyaurorax.data_products</a></code></li>
-<li><code><a title="pyaurorax.ephemeris" href="ephemeris.html">pyaurorax.ephemeris</a></code></li>
+<li><code><a title="pyaurorax.api" href="api/index.html">pyaurorax.api</a></code></li>
+<li><code><a title="pyaurorax.availability" href="availability/index.html">pyaurorax.availability</a></code></li>
+<li><code><a title="pyaurorax.conjunctions" href="conjunctions/index.html">pyaurorax.conjunctions</a></code></li>
+<li><code><a title="pyaurorax.data_products" href="data_products/index.html">pyaurorax.data_products</a></code></li>
+<li><code><a title="pyaurorax.ephemeris" href="ephemeris/index.html">pyaurorax.ephemeris</a></code></li>
 <li><code><a title="pyaurorax.exceptions" href="exceptions.html">pyaurorax.exceptions</a></code></li>
-<li><code><a title="pyaurorax.metadata" href="metadata.html">pyaurorax.metadata</a></code></li>
-<li><code><a title="pyaurorax.models" href="models.html">pyaurorax.models</a></code></li>
-<li><code><a title="pyaurorax.requests" href="requests.html">pyaurorax.requests</a></code></li>
-<li><code><a title="pyaurorax.sources" href="sources.html">pyaurorax.sources</a></code></li>
-<li><code><a title="pyaurorax.util" href="util.html">pyaurorax.util</a></code></li>
+<li><code><a title="pyaurorax.location" href="location.html">pyaurorax.location</a></code></li>
+<li><code><a title="pyaurorax.metadata" href="metadata/index.html">pyaurorax.metadata</a></code></li>
+<li><code><a title="pyaurorax.requests" href="requests/index.html">pyaurorax.requests</a></code></li>
+<li><code><a title="pyaurorax.sources" href="sources/index.html">pyaurorax.sources</a></code></li>
+<li><code><a title="pyaurorax.util" href="util/index.html">pyaurorax.util</a></code></li>
 </ul>
 </li>
 </ul>

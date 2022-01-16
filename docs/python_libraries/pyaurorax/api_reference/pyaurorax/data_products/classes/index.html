@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>pyaurorax.models API documentation</title>
-<meta name="description" content="This module contains the Location class." />
+<title>pyaurorax.data_products.classes API documentation</title>
+<meta name="description" content="Separted classes and functions used by the data_products module …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,169 +19,44 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyaurorax.models</code></h1>
+<h1 class="title">Module <code>pyaurorax.data_products.classes</code></h1>
 </header>
 <section id="section-intro">
-<p>This module contains the Location class.</p>
+<p>Separted classes and functions used by the data_products module.</p>
+<p>Note that these classes and variables are all imported higher up at the
+top of the data_products module. They can be referenced from there instead
+of digging in deeper to these submodules.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-This module contains the Location class.
-&#34;&#34;&#34;
-from pydantic import BaseModel, validator
-from typing import Union
+Separted classes and functions used by the data_products module.
 
-
-class Location(BaseModel):
-    &#34;&#34;&#34;
-    Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
-    northern/southern magnetic footprints).
-
-    Attributes:
-        lat: latitude (degrees East).
-        lon: longitude (degrees North).
-
-    &#34;&#34;&#34;
-    lat: Union[float, None]
-    lon: Union[float, None]
-
-    @validator(&#34;lon&#34;)
-    def both_must_be_none_or_number(cls, v, values):
-        if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-            raise ValueError(
-                &#34;lat and lon must both be numbers or both be None&#34;)
-        return v
-
-    def __str__(self) -&gt; str:
-        &#34;&#34;&#34;
-        String method.
-
-        Returns:
-            String format of Location object.
-
-        &#34;&#34;&#34;
-        return str(self.__dict__)
-
-    def __repr__(self) -&gt; str:
-        &#34;&#34;&#34;
-        Object representation.
-
-        Returns:
-            Object representation of Location object.
-
-        &#34;&#34;&#34;
-        return &#34;%s(lat=%s, lon=%s)&#34; % (self.__class__.__name__, str(self.lat), str(self.lon))</code></pre>
+Note that these classes and variables are all imported higher up at the
+top of the data_products module. They can be referenced from there instead
+of digging in deeper to these submodules.
+&#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="pyaurorax.data_products.classes.data_product" href="data_product.html">pyaurorax.data_products.classes.data_product</a></code></dt>
+<dd>
+<div class="desc"><p>Class definition for a data product</p></div>
+</dd>
+<dt><code class="name"><a title="pyaurorax.data_products.classes.search" href="search.html">pyaurorax.data_products.classes.search</a></code></dt>
+<dd>
+<div class="desc"><p>Class definition for a data product search</p></div>
+</dd>
+</dl>
 </section>
 <section>
 </section>
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="pyaurorax.models.Location"><code class="flex name class">
-<span>class <span class="ident">Location</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
-northern/southern magnetic footprints).</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>lat</code></strong></dt>
-<dd>latitude (degrees East).</dd>
-<dt><strong><code>lon</code></strong></dt>
-<dd>longitude (degrees North).</dd>
-</dl>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Location(BaseModel):
-    &#34;&#34;&#34;
-    Class representing an AuroraX location (ie. geographic coordinates, GSM coordinates,
-    northern/southern magnetic footprints).
-
-    Attributes:
-        lat: latitude (degrees East).
-        lon: longitude (degrees North).
-
-    &#34;&#34;&#34;
-    lat: Union[float, None]
-    lon: Union[float, None]
-
-    @validator(&#34;lon&#34;)
-    def both_must_be_none_or_number(cls, v, values):
-        if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-            raise ValueError(
-                &#34;lat and lon must both be numbers or both be None&#34;)
-        return v
-
-    def __str__(self) -&gt; str:
-        &#34;&#34;&#34;
-        String method.
-
-        Returns:
-            String format of Location object.
-
-        &#34;&#34;&#34;
-        return str(self.__dict__)
-
-    def __repr__(self) -&gt; str:
-        &#34;&#34;&#34;
-        Object representation.
-
-        Returns:
-            Object representation of Location object.
-
-        &#34;&#34;&#34;
-        return &#34;%s(lat=%s, lon=%s)&#34; % (self.__class__.__name__, str(self.lat), str(self.lon))</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-<li>pydantic.utils.Representation</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="pyaurorax.models.Location.lat"><code class="name">var <span class="ident">lat</span> : Optional[float]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.models.Location.lon"><code class="name">var <span class="ident">lon</span> : Optional[float]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Static methods</h3>
-<dl>
-<dt id="pyaurorax.models.Location.both_must_be_none_or_number"><code class="name flex">
-<span>def <span class="ident">both_must_be_none_or_number</span></span>(<span>v, values)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@validator(&#34;lon&#34;)
-def both_must_be_none_or_number(cls, v, values):
-    if (v and not values[&#34;lat&#34;]) or (values[&#34;lat&#34;] and not v):
-        raise ValueError(
-            &#34;lat and lon must both be numbers or both be None&#34;)
-    return v</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
-</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -219,7 +94,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = '../doc-search.html#' + encodeURIComponent(query);
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -238,19 +113,13 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyaurorax" href="index.html">pyaurorax</a></code></li>
+<li><code><a title="pyaurorax.data_products" href="../index.html">pyaurorax.data_products</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-classes">Classes</a></h3>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
-<li>
-<h4><code><a title="pyaurorax.models.Location" href="#pyaurorax.models.Location">Location</a></code></h4>
-<ul class="">
-<li><code><a title="pyaurorax.models.Location.both_must_be_none_or_number" href="#pyaurorax.models.Location.both_must_be_none_or_number">both_must_be_none_or_number</a></code></li>
-<li><code><a title="pyaurorax.models.Location.lat" href="#pyaurorax.models.Location.lat">lat</a></code></li>
-<li><code><a title="pyaurorax.models.Location.lon" href="#pyaurorax.models.Location.lon">lon</a></code></li>
-</ul>
-</li>
+<li><code><a title="pyaurorax.data_products.classes.data_product" href="data_product.html">pyaurorax.data_products.classes.data_product</a></code></li>
+<li><code><a title="pyaurorax.data_products.classes.search" href="search.html">pyaurorax.data_products.classes.search</a></code></li>
 </ul>
 </li>
 </ul>
