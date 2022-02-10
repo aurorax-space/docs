@@ -3,15 +3,15 @@
 site_name: AuroraX Documentation
 site_url: https://docs.aurorax.space
 repo_url: https://github.com/aurorax-space
-edit_uri: "docs/edit/main/docs/"
+edit_uri: ""
 
 
 # theme settings
 # ------------------
 theme:
   name: material
-  logo: img/logo.svg
-  favicon: img/logo.svg
+  logo: _extras/img/logo.svg
+  favicon: _extras/img/logo.svg
   palette:
     - scheme: default
       primary: black
@@ -27,18 +27,31 @@ theme:
         name: Switch to light mode
   features:
     - navigation.instant
-    - navigation.tracking
     - navigation.top
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - content.tabs.link
     - search.suggest
     - search.highlight
 markdown_extensions:
   - meta
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
   - toc:
       permalink: true
       toc_depth: 3
+      title: On this page
   - markdown.extensions.codehilite:
       guess_lang: false
-  - pymdownx.superfences:
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true   
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 extra:
   analytics:
     provider: google
@@ -51,14 +64,25 @@ extra:
       link: https://github.com/aurorax-space
       name: Source code on Github
 extra_css:
-  - stylesheets/extra.css
+  - _extras/stylesheets/extra.css
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - _extras/javascripts/tablesort.js
 
 
 # navigation
 # ------------------
 nav:
   - Home: index.md
-  - About the Data: 
+  - Getting Started:
+    - Introduction: getting_started/1_intro.md
+    - A Brief Look at AuroraX Data: getting_started/2_aurorax_data.md
+    - What are Conjunctions?: getting_started/3_what_are_conjunctions.md
+    - Searching and Exploring Conjunctions: getting_started/4_searching_conjunctions.md
+    - Using Keogramist to Explore Keograms and Movies: getting_started/5_exploring_keograms.md
+    - Data Availability and Statistics: getting_started/6_data_availability.md
+    - Interacting with AuroraX Programmatically: getting_started/7_interacting_programmatically.md
+  - About the Data:
     - Overview: about_the_data/overview.md
     - What metadata is in the AuroraX database?: about_the_data/metadata_in_aurorax.md
     - Data Categories: about_the_data/categories.md
@@ -68,40 +92,31 @@ nav:
     - Data Availability: about_the_data/availability.md
     - Data Policy: about_the_data/policy.md
     - Recommended Standards: about_the_data/standards.md
-  - Conjunction Search: conjunction_search/overview.md
-  - Virtual Observatory: 
-    - Overview: virtual_observatory/overview.md
-    - Keogramist: virtual_observatory/keogramist.md
-    - Event Explorer: virtual_observatory/event_explorer.md
+  - Web Tools:
+    - Overview: web/overview.md
+    - Conjunction Search: web/conjunction_search.md
+    - Virtual Observatory: web/virtual_observatory.md
+    - Citizen Science: web/citizen_science.md
   - Machine Learning:
     - Overview: ml/overview.md
-    - Models:
-      - UCalgary Cloud: ml/models/ucalgary_cloud.md
-      - UCalgary APA: ml/models/ucalgary_apa.md
-      - Clausen OATH: ml/models/clausen_oath.md
-  - RESTful API:
-    - Overview: api/overview.md
-    - Basic Usage: api/basic_usage.md
-    - Advanced Usage: 
-      - Data Availability and Stats: api/advanced_usage/availability_and_stats.md
-    - Authentication Strategy: api/authentication_strategy.md
-  - Python:
-    - PyAuroraX:
-      - Overview: python_libraries/pyaurorax/overview.md
-      - Installation: python_libraries/pyaurorax/installation.md
-      - Basic Usage:
-        - Basics - Introduction: python_libraries/pyaurorax/basic_usage/basics_intro.md
-        - Data Sources: python_libraries/pyaurorax/basic_usage/data_sources.md
-        - Ephemeris: python_libraries/pyaurorax/basic_usage/ephemeris.md
-        - Data Products: python_libraries/pyaurorax/basic_usage/data_products.md
-        - Conjunctions: python_libraries/pyaurorax/basic_usage/conjunctions.md
-      - Advanced Usage:
-        - Authentication: python_libraries/pyaurorax/advanced_usage/authentication.md
-        - Advanced conjunction searches: python_libraries/pyaurorax/advanced_usage/advanced_conjunctions.md
-        - Asynchronous searches: python_libraries/pyaurorax/advanced_usage/asynchronous_search.md
-        - Searches with metadata filters: python_libraries/pyaurorax/advanced_usage/searches_with_metadata_filters.md
-        - Contributing and managing data: python_libraries/pyaurorax/advanced_usage/contributing_managing_data.md
-        - Data availability and stats: python_libraries/pyaurorax/advanced_usage/availability_and_stats.md
-      - API reference: python_libraries/pyaurorax/api_reference/pyaurorax/index.html
-  - IDL:
-      - Overview: idl_libraries/idl_aurorax/overview.md
+    - About UCalgary cloud model: ml/models/ucalgary_cloud.md
+    - About UCalgary APA model: ml/models/ucalgary_apa.md
+    - About Clausen OATH model: ml/models/clausen_oath.md
+  - Developer Zone:
+    - Overview: code/overview.md
+    - Installation: code/installation.md
+    - Basic Usage:
+      - Overview: code/basic_usage/overview.md
+      - Data Sources: code/basic_usage/data_sources.md
+      - Conjunctions: code/basic_usage/conjunctions.md
+      - Ephemeris: code/basic_usage/ephemeris.md
+      - Data Products: code/basic_usage/data_products.md
+    - Advanced Usage:
+      - Authentication: code/advanced_usage/authentication.md
+      - Advanced conjunction searches: code/advanced_usage/advanced_conjunctions.md
+      - Asynchronous searches: code/advanced_usage/asynchronous_search.md
+      - Searches with metadata filters: code/advanced_usage/searches_with_metadata_filters.md
+      - Contributing and managing data: code/advanced_usage/contributing_managing_data.md
+      - Data availability and stats: code/advanced_usage/availability_and_stats.md
+    - PyAuroraX API Reference: /code/pyaurorax_api_reference/pyaurorax
+    - RESTful API Reference: "https://api.aurorax.space"

@@ -5,6 +5,12 @@ hide:
 
 # What metadata is in the AuroraX database?
 
+The AuroraX database contains metadata from numerous ground-based and space-based system. Below we have a few tables that outline what we currently have metadata for.
+
+!!! note 
+
+    The "operational status" column is an indicator of the mission/project status, instead of an AuroraX-specific operational indicator.
+
 ## Ground-based
 
 | Project/Instrument Name | Type | Description | Operational Status | AuroraX usage |

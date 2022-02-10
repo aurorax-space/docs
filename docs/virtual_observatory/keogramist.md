@@ -1,3 +1,0 @@
-# Keogramist
-
-Documentation coming soon.

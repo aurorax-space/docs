@@ -1,26 +1,14 @@
----
-hide:
-  - navigation
-  - toc
----
+# Getting Started
 
-![Space weather](/_extras/img/nasa_space_weather.jpg){ align=right width="50%" }
+There are many different aspects to AuroraX and upon visiting the website for the first time, it can quickly become overwhelming with how deep down the rabbit hole you can go. This set of "Getting Started" topics is here to help you get a better grasp of what AuroraX is all about, and how you can interact with the system.
 
-# AuroraX Documentation
-
-This documentation website provides technical details about AuroraX and its key components such as the Conjunction Search, the API, PyAuroraX, and more.
-
-[Get Started&nbsp;&nbsp;:material-school-outline:](/getting_started/intro/){.md-button}
-[Developer Zone&nbsp;&nbsp;:material-console:](/code/overview){.md-button}
+We'll first discuss what data makes up AuroraX, since all tools available revolve around it. We'll then discuss the primary tool AuroraX has to offer - searching for Conjunctions and exploring them visually. Lastly, we'll outline how to interact with AuroraX programmatically using various methods such as PyAuroraX (the Python library).
 
 ## What is AuroraX?
 
 AuroraX aims to be the world's first and foremost data platform for auroral science. The primary objective of AuroraX is to enable mining and exploration of existing and future auroral data, enabling key science and enhancing the benefits of the world's investment in auroral instrumentation. This is being accomplished with the development of key systems/standards for uniform metadata generation and search, image content analysis, interfaces to leading international tools, and a community involvement that includes more than 80% of the world's data providers.
 
-AuroraX will significantly lower the barrier of entry to the global network of auroral data, and provide the foundation for efficiency and inter-operability of existing auroral instrument networks and data streams. Use of cutting-edge web frameworks, enhanced metadata, and discovery tools we aim to allow for rapid access and utilization of auroral data by the space physics and citizen science communities. Enabled by key international partnerships and Canada's leading role in auroral instrumentation, AuroraX hopes to fundamentally change the data landscape for auroral science.
-
-
-## AuroraX Components
+## Brief summary of what AuroraX has to offer
 
 The core components of AuroraX are its **metadata database and API**, with all webpages and supporting programmatic tools built on top of those. The primary tool that AuroraX offers is the [Conjunction Search](https://aurorax.space/conjunctionSearch/standard){:target="_blank"}; allowing users to search through the vast metadata database looking for times when ground-based instrumentation and satellites were in conjunction, based on the inputted search parameters (ie. distance, combinations of data sources). Using metadata filters in your search query can further enhance the Conjunction Search by reducing results down to times when certain characteristics about the data were true. For example, times when THEMIS spacecraft were in the plasma sheet, or when a machine learning algorithm determined that a THEMIS ground-based ASI had Amorphous Pulsating Aurora (APA) in its field of view.
 
@@ -36,4 +24,8 @@ Below are a list of the different components we have available as part of Aurora
 | PyAuroraX | Python library for using the AuroraX API programmatically | [:fontawesome-solid-external-link-alt:](https://github.com/aurorax-space/pyaurorax){:target="_blank"} |
 | AuroraX Data Availability | View what data is presently in the AuroraX database | [:fontawesome-solid-external-link-alt:](https://aurorax.space/data/availability){:target="_blank"} |
 
+## Next step
 
+Now that you have a brief idea of what AuroraX is, let's have a look at what kind of data is in AuroraX.
+
+[Next step&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/2_aurorax_data/){.md-button}
