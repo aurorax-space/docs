@@ -4,8 +4,9 @@ Each record in AuroraX is associated with a unique data source that produced it.
 
 Also see:
 
+* [Data source availability webpage :octicons-link-external-16:](https://aurorax.space/data/availability){:target="_blank"} 
 * [Data source statistics webpage :octicons-link-external-16:](https://aurorax.space/data/information){:target="_blank"} 
-* [Retrieving data source statistics](/code/advanced_usage/availability_and_stats/#data-source-statistics)
+* [Retrieving data source availability and statistics](/code/advanced_usage/availability_and_stats/#data-source-statistics)
 
 
 ## Retrieve data sources
