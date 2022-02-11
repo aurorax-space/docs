@@ -15,4 +15,4 @@ A differentiating factor of AuroraX "conjunction" searching from other systems a
 
 Next, we'll explore performing conjunction searches using AuroraX.
 
-[Next step&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/4_searching_conjunctions/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/4_searching_conjunctions/){.md-button}

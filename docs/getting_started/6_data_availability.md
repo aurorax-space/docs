@@ -20,4 +20,4 @@ You can view the page [here](https://aurorax.space/data/statistics){:target="_bl
 
 Lastly, we'll have a look into ways of interacting with AuroraX programmatically. Such as the API and the Python library called PyAuroraX.
 
-[Next step&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/7_interacting_programmatically/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/7_interacting_programmatically/){.md-button}

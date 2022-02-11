@@ -27,4 +27,4 @@ A differentiating factor of AuroraX "conjunction" searching from other systems a
 
 In the "Getting Started" section of this documentation website, we have a few pages devoted to helping users get a bit more familiar with the AuroraX Conjunction Search engine.
 
-[Get started with conjunction searching&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/searching_conjunctions){.md-button}
+[Get started with conjunction searching&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/searching_conjunctions){.md-button}

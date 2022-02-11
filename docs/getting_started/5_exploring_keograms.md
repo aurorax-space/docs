@@ -28,4 +28,4 @@ The "Snipping Tool" in Keogramist is something that we came up with out of the e
 
 Let's now move on to a little tool we have in AuroraX that lets us know quickly what data we have on the platform.
 
-[Next step&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/6_data_availability/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/6_data_availability/){.md-button}

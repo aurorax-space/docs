@@ -101,4 +101,4 @@ If you want to learn more about ephemeris and data product records, have a look 
 
 Now that you know what kind of data is in the AuroraX database, let's investigate one of the most powerful features: conjunctions.
 
-[Next step&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/3_what_are_conjunctions/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/3_what_are_conjunctions/){.md-button}

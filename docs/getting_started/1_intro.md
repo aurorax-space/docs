@@ -16,16 +16,16 @@ Below are a list of the different components we have available as part of Aurora
 
 | Component | Description | Open |
 | --------- | ----------- | ---- |
-| Conjunction Search | Search for conjunctions between ground-based auroral instrumentation and spacecrafts | [:fontawesome-solid-external-link-alt:](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} |
-| Keogramist | Browse ground-based auroral imager data using keograms and movies | [:fontawesome-solid-external-link-alt:](https://aurorax.space/keogramist){:target="_blank"} |
-| Event Explorer | Explore auroral data and spacecraft locations using an interactive globe | [:fontawesome-solid-external-link-alt:](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} |
-| Swarm-Aurora | Explore auroral and spacecraft summary data using web-based interfaces | [:fontawesome-solid-external-link-alt:](https://swarm-aurora.com){:target="_blank"} |
-| AuroraX RESTful API | Interact with AuroraX programmatically using an HTTPS-based RESTful API | [:fontawesome-solid-external-link-alt:](https://aurorax.space/data/apiLibraries){:target="_blank"} |
-| PyAuroraX | Python library for using the AuroraX API programmatically | [:fontawesome-solid-external-link-alt:](https://github.com/aurorax-space/pyaurorax){:target="_blank"} |
-| AuroraX Data Availability | View what data is presently in the AuroraX database | [:fontawesome-solid-external-link-alt:](https://aurorax.space/data/availability){:target="_blank"} |
+| Conjunction Search | Search for conjunctions between ground-based auroral instrumentation and spacecrafts | [:octicons-link-external-16:](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} |
+| Keogramist | Browse ground-based auroral imager data using keograms and movies | [:octicons-link-external-16:](https://aurorax.space/keogramist){:target="_blank"} |
+| Event Explorer | Explore auroral data and spacecraft locations using an interactive globe | [:octicons-link-external-16:](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} |
+| Swarm-Aurora | Explore auroral and spacecraft summary data using web-based interfaces | [:octicons-link-external-16:](https://swarm-aurora.com){:target="_blank"} |
+| AuroraX RESTful API | Interact with AuroraX programmatically using an HTTPS-based RESTful API | [:octicons-link-external-16:](https://aurorax.space/data/apiLibraries){:target="_blank"} |
+| PyAuroraX | Python library for using the AuroraX API programmatically | [:octicons-link-external-16:](https://github.com/aurorax-space/pyaurorax){:target="_blank"} |
+| AuroraX Data Availability | View what data is presently in the AuroraX database | [:octicons-link-external-16:](https://aurorax.space/data/availability){:target="_blank"} |
 
 ## Next step
 
 Now that you have a brief idea of what AuroraX is, let's have a look at what kind of data is in AuroraX.
 
-[Next step&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/2_aurorax_data/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/2_aurorax_data/){.md-button}

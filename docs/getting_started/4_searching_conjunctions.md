@@ -235,7 +235,7 @@ The metadata section of ephemeris records is what is used when evaluating metada
 
 As conjunction searches grow to have 2+ criteria blocks, this introduces the need to sometime specify the distances between each criteria block. For example, if you had one ground and two space criteria blocks, you may not care if the two spacecrafts are close to each other. You may only care that the two spacecrafts are close to the ground one.
 
-This flexibility in distances is where the "advanced distances" component comes into play. By clicking the :fontawesome-solid-cog: icon beside the distance input, you can explore this capability. When the distance is left empty for a matching, this means that the search algorithm shouldn't care about its distance when deriving conjunctions.
+This flexibility in distances is where the "advanced distances" component comes into play. By clicking the :material-cog: icon beside the distance input, you can explore this capability. When the distance is left empty for a matching, this means that the search algorithm shouldn't care about its distance when deriving conjunctions.
 
 Below is the advanced distanced modal for example 5 on the Conjunction Search webpage. In this example, we are searching for triple conjunctions between one ground and two space, where the maximum distance between the ground and each space is 900 km, and the distance between the two space is not a restriction.
 
@@ -251,4 +251,4 @@ You can easily do an ephemeris search to retrieve all 1-minute records for a set
 
 Now that we've dipped our toes into searching for conjunctions, we'll explore the the search engine's capabilities of retrieving ephemeris and data product records.
 
-[Next step&nbsp;&nbsp;:fontawesome-solid-long-arrow-alt-right:](/getting_started/5_exploring_keograms/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/5_exploring_keograms/){.md-button}
