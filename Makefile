@@ -20,7 +20,7 @@ docs-install:
 
 docs-generate: 
 	cd pyaurorax && \
-		poetry run python3 -m pdoc --html --force --output-dir ../docs/python_libraries/pyaurorax/api_reference pyaurorax --config "lunr_search={'fuzziness': 1}"
+		poetry run python3 -m pdoc --html --force --output-dir ../docs/code/pyaurorax_api_reference pyaurorax --config "lunr_search={'fuzziness': 1}"
 
 docs-build:
 	python3 -m mkdocs build

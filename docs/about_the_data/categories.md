@@ -9,7 +9,7 @@ AuroraX is powered by a database with two core types of data:
 
 ## Ephemeris
 
-Ephemeris data are 1-minute location records corresponding the times that a ground-based or space-based instrument was operating. One of the defining qualities of AuroraX is that data contained in the database consists of only times that instruments definitively collected data. This allows applications such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns) to return more useful query results; ones where theres definitely data that can be further evaluated by researchers.
+Ephemeris data are 1-minute location records corresponding the times that a ground-based or space-based instrument was operating. One of the defining qualities of AuroraX is that data contained in the database consists of only times that instruments definitively collected data. This allows applications such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns){:target="_blank"} to return more useful query results; ones where theres definitely data that can be further evaluated by researchers.
 
 ### Example record
 
@@ -73,7 +73,7 @@ All ephemeris records contain details regarding what data source it is associate
 
 ### B-Trace values
 
-AuroraX tools such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns) looks for times when spacecrafts are magnetically conjugate with ground-based instruments. This is done by using the North/South B-Trace values from [SSCWeb](https://sscweb.gsfc.nasa.gov/) and custom generated values for the ground-based instruments. To generate these values for a ground-based instrument, we use the geographic location do one of two different calculations on it:
+AuroraX tools such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns){:target="_blank"} looks for times when spacecrafts are magnetically conjugate with ground-based instruments. This is done by using the North/South B-Trace values from [SSCWeb](https://sscweb.gsfc.nasa.gov/){:target="_blank"} and custom generated values for the ground-based instruments. To generate these values for a ground-based instrument, we use the geographic location do one of two different calculations on it:
 
 ```python hl_lines="13-14"
 {
@@ -102,17 +102,17 @@ AuroraX tools such as the [Conjunction Search](https://aurorax.space/conjunction
 
 North B-Trace:
 
-1. If the geographic latitude is &ge; 0, the North B-Trace lat/lon equals the  geographic lat/lon (above is an example of this).
+1. If the geographic latitude is &ge; 0, the North B-Trace lat/lon equals the geographic lat/lon (above is an example of this).
 2. If the geographic latitude is &lt; 0, the geographic position is converted to magnetic coordinates, the latitude is set to be positive, and is converted back to geographic coordinates. These new geographic coordinates are used as the North B-Trace.
 
 South B-Trace:
 
 1. If the geographic latitude is &ge; 0, the geographic position is converted to magnetic coordinates, the latitude is set to be negative, and is converted back to geographic coordinates. These new geographic coordinates are used as the South B-Trace.
-2. If the geographic latitude is &lt; 0, the South B-Trace lat/lon equals the  geographic lat/lon.
+2. If the geographic latitude is &lt; 0, the South B-Trace lat/lon equals the geographic lat/lon.
 
 ### Metadata
 
-All ephemeris records also have an additional "metadata" field that can contain any further values specific to that 1-min timestamp. This structure is flexible and has no restrictions. Further, these fields can be marked as "searchable" or not using the metadata schema for the given data source. This "searchable" field is purely a flag for the Conjunction Search web UI to say whether it is visible to the user as a choosable filter. It is still technically searchable using the API and PyAuroraX. 
+All ephemeris records also have an additional "metadata" field that can contain any further values specific to that 1-min timestamp. This structure is flexible and has no restrictions. Further, these fields can be marked as "searchable" or not using the metadata schema for the given data source. This "searchable" field is purely a flag for the Conjunction Search web UI to say whether it is visible to the user as a metadata filter. It is still technically searchable using the API and PyAuroraX without this "searchable" flag.
 
 ```python hl_lines="15-21"
 {
@@ -181,7 +181,7 @@ Keograms are the most recognizable data product for ground-based ASIs; they are 
   <figcaption>THEMIS ASI hourly keogram from Gillam, MB, representing the hour 2008-09-04 UT07</figcaption>
 </figure>
 
-AuroraX contains data product records for an assortment of different keograms and are used by web applications such as [Keogramist](https://aurorax.space/keogramist). Below is an example of a daily keogram record in AuroraX:
+AuroraX contains data product records for an assortment of different keograms and are used by web applications such as [Keogramist](https://aurorax.space/keogramist){:target="_blank"}. Below is an example of a daily keogram record in AuroraX:
 
 ```python
 {
