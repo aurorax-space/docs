@@ -17,6 +17,5 @@ jobs:
         run: |
           make docs-install
       - name: Build docs
-        working-directory: ./pyaurorax
         run: |
           make docs-deploy
