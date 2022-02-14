@@ -15,7 +15,7 @@ There are four main ways of interacting with AuroraX programmatically:
 
 The easiest way to get started is to use the Python library [PyAuroraX](https://github.com/aurorax-space/pyaurorax){:target="_blank"}. You can also interact with the API directly, using HTTPS-based RESTful requests (GET, POST, etc.) in any programming language.
 
-[Getting Started Guide&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/interacting_programmatically/){.md-button}
+[Getting Started Guide&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/interacting_programmatically/){.md-button}&nbsp;&nbsp;
 [Install Software&nbsp;&nbsp;:material-console:](/code/installation/){.md-button}
 
 ## Links to resources
