@@ -10,7 +10,7 @@ Keogramist is a tool that helps quickly navigate auroral data in AuroraX using k
 
 Using keogramist you can browse through large amounts of keograms for different ASI networks. When you find a day that is interesting, you can click on it to expand the view. A movie player and the "Snipping Tool" will then be visible buttons, where you can watch the movie of the night of data with some nice playback tools to help investigate further.
 
-[Get started with Keogramist&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/exploring_keograms/){.md-button}
+[Get started with Keogramist&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/exploring_keograms/){.md-button}&nbsp;&nbsp;
 [Learn about keograms&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/exploring_keograms/){.md-button}
 
 ## Event Explorer
