@@ -1,4 +1,4 @@
-.PHONY: init-submodules update-submodules docs-install docs-generate docs-build docs-serve docs-deploy
+.PHONY: init-submodules update-submodules docs-install docs-generate docs-build docs-serve docs-deploy clean
 
 all:
 
@@ -30,3 +30,6 @@ docs-serve:
 
 docs-deploy:
 	python3 -m mkdocs gh-deploy --force
+
+clean:
+	rm -rf site
