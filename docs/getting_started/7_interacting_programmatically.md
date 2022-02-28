@@ -75,7 +75,7 @@ Identifier ↓   Display Name   Program   Platform   Instrument Type   Source Ty
 
 ## Writing IDL code with idl-aurorax
 
-We are working on another client libraries written for the IDL programming language, with plans to integrate it into other tools like SPEDAS.
+We are working on a client library written in the IDL programming language, with plans to integrate it into other tools like SPEDAS. We anticipate this will be available by June 2022.
 
 ## All done!
 
