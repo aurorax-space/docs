@@ -16,7 +16,7 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
 
     === "Python"
 
-        The [`conjunctions`](/code/pyaurorax_api_reference/pyaurorax/conjunctions/index.html){:target="_blank"} module provides a way to search for conjunctions between data sources. Specifically we'll be interested in using the `pyaurorax.conjunctions.search()` function.
+        The [`conjunctions`](/code/pyaurorax_api_reference/pyaurorax/conjunctions/index.html){:target="_blank"} module provides a way to search for conjunctions between data sources. Specifically we'll be interested in using the [`pyaurorax.conjunctions.search()`](/code/pyaurorax_api_reference/pyaurorax/conjunctions/index.html#pyaurorax.conjunctions.search){:target="_blank"} function.
 
         ```python
         # imports
@@ -79,7 +79,7 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
 
     === "IDL"
 
-        IDL-AuroraX provides the `aurorax_conjunction_search()` function to perform a conjunction search. Further, there are a couple helper functions to create the necessary objects as parameters to the search function.
+        IDL-AuroraX provides the [`aurorax_conjunction_search()`](/code/idlaurorax_api_reference/conjunctions/search/){:target="_blank"} function to perform a conjunction search. Further, there are a couple helper functions to create the necessary objects as parameters to the search function.
 
         ```idl
         ; define timeframe and distance parameters

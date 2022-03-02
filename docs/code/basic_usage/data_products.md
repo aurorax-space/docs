@@ -14,7 +14,7 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
 
     === "Python"
 
-        The [`data_products`](/code/pyaurorax_api_reference/pyaurorax/data_products/index.html){:target="_blank"} module provides a way to retrieve data product data from AuroraX. Specifically we'll be interested in using the `pyaurorax.data_products.search()` function.
+        The [`data_products`](/code/pyaurorax_api_reference/pyaurorax/data_products/index.html){:target="_blank"} module provides a way to retrieve data product data from AuroraX. Specifically we'll be interested in using the [`pyaurorax.data_products.search()`](/code/pyaurorax_api_reference/pyaurorax/data_products/index.html#pyaurorax.data_products.search){:target="_blank"} function.
 
         ```python
         # imports
@@ -80,7 +80,7 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
 
     === "IDL"
 
-        IDL-AuroraX provides the `aurorax_data_product_search()` function to perform a data product search.
+        IDL-AuroraX provides the [`aurorax_data_product_search()`](/code/idlaurorax_api_reference/data_products/search/){:target="_blank"} function to perform a data product search.
 
         ```idl
         IDL> data = aurorax_data_product_search('2020-01-01T00:00','2020-01-01T23:59',programs=['trex'],platforms=['fort smith'],instrument_types=['RGB ASI'])

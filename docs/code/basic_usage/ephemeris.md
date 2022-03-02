@@ -14,7 +14,7 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
 
     === "Python"
 
-        The [`ephemeris`](/code/pyaurorax_api_reference/pyaurorax/data_products/index.html){:target="_blank"} module provides a way to retrieve data product data from AuroraX. Specifically we'll be interested in using the `pyaurorax.data_products.search()` function.
+        The [`ephemeris`](/code/pyaurorax_api_reference/pyaurorax/data_products/index.html){:target="_blank"} module provides a way to retrieve data product data from AuroraX. Specifically we'll be interested in using the [`pyaurorax.data_products.search()`](/code/pyaurorax_api_reference/pyaurorax/ephemeris/index.html#pyaurorax.ephemeris.search){:target="_blank"} function.
 
         ```python
         # imports
@@ -83,7 +83,7 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
 
     === "IDL"
 
-        IDL-AuroraX provides the `aurorax_ephemeris_search()` function to perform an ephemeris search.
+        IDL-AuroraX provides the [`aurorax_ephemeris_search()`](/code/idlaurorax_api_reference/ephemeris/search/){:target="_blank"} function to perform an ephemeris search.
 
         ```idl
         IDL> data = aurorax_ephemeris_search('2019-01-01T06:00','2019-01-01T06:59',programs=['themis-asi'],platforms=['gillam'],instrument_types=['panchromatic ASI'])

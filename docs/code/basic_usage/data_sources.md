@@ -45,7 +45,7 @@ You can retrieve all data sources, or retrieve data sources matching a certain s
 
     === "IDL"
 
-        You can retrieve ALL data sources using the `aurorax_sources_list()` function with no parameters.
+        You can retrieve ALL data sources using the [`aurorax_sources_list()`](/code/idlaurorax_api_reference/sources/list/){:target="_blank"} function with no parameters.
 
         ```idl
         IDL> sources = aurorax_sources_list()
