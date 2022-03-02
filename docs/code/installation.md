@@ -1,6 +1,6 @@
 # Installation
 
-PyAuroraX and the soon-to-be idl-aurorax library requires developers to do a few steps to install the code. Below, we'll go over those steps. You can also find this information on the README pages for each respective code repository on Github.
+PyAuroraX and IDL-AuroraX libraries require developers to do a few steps to install the code. Below, we'll go over those steps. You can also find this information on the README pages for each respective code repository on Github.
 
 ## PyAuroraX
 
@@ -14,10 +14,23 @@ $ python
 
 More installation details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/pyaurorax){:target="_blank"}.
 
-## idl-aurorax
+## IDL-AuroraX
 
-Installation instructions coming soon once we finished developing the library.
+You can install IDL-AuroraX using the `ipm` IDL command, like so:
 
-!!! info "Just a heads up"
+```
+IDL> ipm,/install,'https://data.aurorax.space/data/software/idl-aurorax/latest.zip'
+```
 
-    This library is still under development and installation details will be available once we have a stable version released.
+Then, you'll need to include the following in your startup file:
+
+```
+.run aurorax_helpers
+.run aurorax_requests
+.run aurorax_metadata_filters
+.run aurorax_availability
+.run aurorax_conjunctions
+.run aurorax_data_products
+.run aurorax_ephemeris
+.run aurorax_sources
+```

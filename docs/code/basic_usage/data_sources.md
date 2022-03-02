@@ -43,6 +43,31 @@ You can retrieve all data sources, or retrieve data sources matching a certain s
         print(sources)
         ```
 
+    === "IDL"
+
+        You can retrieve ALL data sources using the `aurorax_sources_list()` function with no parameters.
+
+        ```idl
+        IDL> sources = aurorax_sources_list()
+        IDL> help,sources
+        ```
+
+        If you want to adjust the amount of information that is retrieved from AuroraX, you can specify a `format` keyword, like so:
+
+        ```idl
+        IDL> sources = aurorax_sources_list(/FORMAT_FULL_RECORD)
+        IDL> help,sources
+        IDL> sources = aurorax_sources_list(/FORMAT_IDENTIFIER_ONLY)
+        IDL> help,sources
+        ```
+
+        If you want to retrieve data sources that match certain filter criteria, say all "Swarm" data sources, you can use additional parameters.
+
+        ```python
+        IDL> sources = aurorax_sources_list(program='swarm')
+        IDL> help,sources
+        ```
+
     === "Command Line"
 
         You can retrieve ALL data sources using the "list" function with no parameters.

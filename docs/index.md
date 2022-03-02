@@ -34,6 +34,5 @@ Below are a list of the different components we have available as part of Aurora
 | Swarm-Aurora | Explore auroral and spacecraft summary data using web-based interfaces | [:octicons-link-external-16:](https://swarm-aurora.com){:target="_blank"} |
 | AuroraX RESTful API | Interact with AuroraX programmatically using an HTTPS-based RESTful API | [:octicons-link-external-16:](https://aurorax.space/data/apiLibraries){:target="_blank"} |
 | PyAuroraX | Python library for using the AuroraX API programmatically | [:octicons-link-external-16:](https://github.com/aurorax-space/pyaurorax){:target="_blank"} |
+| IDL-AuroraX | IDL library for using the AuroraX API programmatically | [:octicons-link-external-16:](https://github.com/aurorax-space/idl-aurorax){:target="_blank"} |
 | AuroraX Data Availability | View what data is presently in the AuroraX database | [:octicons-link-external-16:](https://aurorax.space/data/availability){:target="_blank"} |
-
-

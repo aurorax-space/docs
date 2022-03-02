@@ -78,6 +78,65 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
         ]
         ```
 
+    === "IDL"
+
+        IDL-AuroraX provides the `aurorax_data_product_search()` function to perform a data product search.
+
+        ```idl
+        IDL> data = aurorax_data_product_search('2020-01-01T00:00','2020-01-01T23:59',programs=['trex'],platforms=['fort smith'],instrument_types=['RGB ASI'])
+        ```
+
+        Example output from the search function (the output can be silenced using the `/QUIET` keyword):
+
+        ```
+        [Tue Mar 01 19:06:55 2022] Parsing start and end timestamps
+        [Tue Mar 01 19:06:55 2022] Creating request struct
+        [Tue Mar 01 19:06:55 2022] Sending search request ...
+        [Tue Mar 01 19:06:55 2022] Search request accepted
+        [Tue Mar 01 19:06:55 2022] Request ID: 04a174bf-ad0f-4827-97c0-b8550a460ce6
+        [Tue Mar 01 19:06:55 2022] Waiting for search to finish ...
+        [Tue Mar 01 19:06:56 2022] Data is now available
+        [Tue Mar 01 19:06:56 2022] Downloading 162.04 KB of data ...
+        [Tue Mar 01 19:06:56 2022] Data downloaded, search completed
+        [Tue Mar 01 19:06:56 2022] Post-processing data into IDL struct
+        [Tue Mar 01 19:06:56 2022] Search completed, found 66 records in 1.2 seconds
+        ```
+
+        Example output of a data product record returned by the function:
+
+        ```idl
+        IDL> help,data[0]
+        ** Structure <660aecc0>, 6 tags, length=200, data length=200, refs=2:
+          START_DT        STRING    '2020-01-01T00:00:00'
+          END_DT          STRING    '2020-01-01T23:59:00'
+          DATA_SOURCE     STRUCT    -> <Anonymous> Array[1]
+          URL             STRING    'https://data.phys.ucalgary.ca/sort_by_project/TREx/RGB/rt-fullres/movie_derived_daily_keograms/2020/01/01/20200101__fsmi_rgb-01_moviebased-keogram.jpg'
+          DATA_PRODUCT_TYPE
+                          STRING    'keogram'
+          METADATA        STRUCT    -> <Anonymous> Array[1]
+
+        IDL> data[0]
+        {
+            "START_DT": "2020-01-01T00:00:00",
+            "END_DT": "2020-01-01T23:59:00",
+            "DATA_SOURCE": {
+                "IDENTIFIER": 96,
+                "PROGRAM": "trex",
+                "PLATFORM": "fort smith",
+                "INSTRUMENT_TYPE": "RGB ASI",
+                "SOURCE_TYPE": "ground",
+                "DISPLAY_NAME": "TREx RGB FSMI"
+            },
+            "URL": "https://data.phys.ucalgary.ca/sort_by_project/TREx/RGB/rt-fullres/movie_derived_daily_keograms/2020/01/01/20200101__fsmi_rgb-01_moviebased-keogram.jpg",
+            "DATA_PRODUCT_TYPE": "keogram",
+            "METADATA": {
+                "KEOGRAM_TYPE": "daily_moviederived",
+                "IMAGING_END_TIME": "2020-01-01T14:38:00.000000",
+                "IMAGING_START_TIME": "2020-01-01T00:27:00.000000"
+            }
+        }
+        ```
+
     === "Command Line"
 
         Performing data product searches from the command line can be done using `aurorax-cli` and an input JSON file with the search parameters specified in it.

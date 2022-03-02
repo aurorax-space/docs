@@ -11,7 +11,7 @@ There are four main ways of interacting with AuroraX programmatically:
 1. Making raw HTTP/HTTPS requests to the RESTful APIs
 2. Writing Python code with [PyAuroraX](https://github.com/aurorax-space/pyaurorax){:target="_blank"}
 3. Using the command line with aurorax-cli (part of PyAuroraX)
-4. Writing IDL code with idl-aurorax library (we're working on it, coming soon)
+4. Writing IDL code with [IDL-AuroraX](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}
 
 Below, we'll introduce you to each and discuss the tools available.
 
@@ -41,7 +41,7 @@ $ python
 
 ??? abstract "Click to view the output of the above pyaurorax function call"
 
-    Below is the `sources` variable from the function `pyaurorax.sources.list` when the program is set to "swarm".
+    Below is the `sources` variable from the `pyaurorax.sources.list()` function when the program is set to "swarm".
 
     ```python
     >>> import pyaurorax
@@ -73,9 +73,56 @@ Identifier ↓   Display Name   Program   Platform   Instrument Type   Source Ty
 30             Swarm C        swarm     swarmc     footprint         leo        
 ```
 
-## Writing IDL code with idl-aurorax
+## Writing IDL code with IDL-AuroraX
 
-We are working on a client library written in the IDL programming language, with plans to integrate it into other tools like SPEDAS. We anticipate this will be available by June 2022.
+AuroraX provides an IDL library for retrieving data from the platform, and performing conjunction searches. The software can be found on Github, and the API reference documentation can be found on this documentation website.
+
+- [IDL-AuroraX code repository](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}
+- [IDL-AuroraX API reference documentation](/code/idlaurorax_api_reference/overview)
+
+You can install it and use it like so:
+
+```idl
+IDL> ipm,/install,'https://data.aurorax.space/data/software/idl-aurorax/latest.zip'
+[ add several .run commands to your startup file (see Github README) ]
+IDL> sources = aurorax_sources_list(program='swarm')
+```
+
+??? abstract "Click to view the output of the above idl-aurorax function call"
+
+    Below is the `sources` variable from the `aurorax_sources_list()` function when the program is set to "swarm".
+
+    ```idl
+    IDL> sources = aurorax_sources_list(program='swarm')
+    IDL> help,sources
+    SOURCES        LIST  <ID=2158  NELEMENTS=3>
+    IDL> help,sources[0]
+    ** Structure <69a1b2d0>, 6 tags, length=88, data length=88, refs=2:
+       IDENTIFIER      LONG64                         3
+       PROGRAM         STRING    'swarm'
+       PLATFORM        STRING    'swarma'
+       INSTRUMENT_TYPE STRING    'footprint'
+       SOURCE_TYPE     STRING    'leo'
+       DISPLAY_NAME    STRING    'Swarm A'
+    IDL> help,sources[1]
+    ** Structure <69a1b890>, 6 tags, length=88, data length=88, refs=2:
+       IDENTIFIER      LONG64                        29
+       PROGRAM         STRING    'swarm'
+       PLATFORM        STRING    'swarmb'
+       INSTRUMENT_TYPE STRING    'footprint'
+       SOURCE_TYPE     STRING    'leo'
+       DISPLAY_NAME    STRING    'Swarm B'
+    IDL> help,sources[2]
+    ** Structure <69a1cf90>, 6 tags, length=88, data length=88, refs=2:
+       IDENTIFIER      LONG64                        30
+       PROGRAM         STRING    'swarm'
+       PLATFORM        STRING    'swarmc'
+       INSTRUMENT_TYPE STRING    'footprint'
+       SOURCE_TYPE     STRING    'leo'
+       DISPLAY_NAME    STRING    'Swarm C'
+    ```
+
+More details on installation can be found [here](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}.
 
 ## All done!
 

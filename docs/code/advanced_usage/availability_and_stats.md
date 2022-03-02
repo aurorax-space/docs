@@ -130,7 +130,7 @@ AuroraX also has the ability to inform on the total number of ephemeris or data 
 
 Below, we'll have a look at an example of retrieving data source statistics information programmatically.
 
-!!! example "Example - get data availability information"
+!!! example "Example - get data statistics information"
 
     In this example, the data source statistics of the TREx RGB in Gillam are retrieved.
 

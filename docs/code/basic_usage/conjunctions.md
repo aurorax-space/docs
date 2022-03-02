@@ -77,6 +77,71 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
         ]
         ```
 
+    === "IDL"
+
+        IDL-AuroraX provides the `aurorax_conjunction_search()` function to perform a conjunction search. Further, there are a couple helper functions to create the necessary objects as parameters to the search function.
+
+        ```idl
+        ; define timeframe and distance parameters
+        distance = 500
+        start_dt = '2019-01-01T06:00:00'
+        end_dt = '2019-01-03T23:59:59'
+        
+        ; create ground criteria block
+        ground1 = aurorax_create_criteria_block(programs=['themis-asi'],platforms=['fort smith', 'gillam'],/GROUND)
+        ground = list(ground1)
+        
+        ; create space criteria block
+        space1 = aurorax_create_criteria_block(programs=['swarm'],hemisphere=['northern'],/SPACE)
+        space = list(space1)
+        
+        ; perform search
+        data = aurorax_conjunction_search(start_dt,end_dt,distance,ground=ground,space=space,/NBTRACE)
+        ```
+
+        Example output from the search function (the output can be silenced using the `/QUIET` keyword):
+
+        ```
+        [Tue Mar 01 19:14:17 2022] Parsing start and end timestamps
+        [Tue Mar 01 19:14:17 2022] Creating request struct
+        [Tue Mar 01 19:14:17 2022] Sending search request ...
+        [Tue Mar 01 19:14:17 2022] Search request accepted
+        [Tue Mar 01 19:14:17 2022] Request ID: f8a5c56d-a751-4a61-a5ae-1a04833be1fb
+        [Tue Mar 01 19:14:17 2022] Waiting for search to finish ...
+        [Tue Mar 01 19:14:18 2022] Waiting for search to finish ...
+        [Tue Mar 01 19:14:19 2022] Data is now available
+        [Tue Mar 01 19:14:19 2022] Downloading 77.62 KB of data ...
+        [Tue Mar 01 19:14:20 2022] Data downloaded, search completed
+        [Tue Mar 01 19:14:20 2022] Post-processing data into IDL struct
+        [Tue Mar 01 19:14:20 2022] Search completed, found 10 conjunctions in 2.3 seconds
+        ```
+
+        Example output of a conjunction returned by the function:
+
+        ```idl
+        IDL> help,data
+        ** Structure <65839f30>, 8 tags, length=88, data length=88, refs=2:
+          START_DT        STRING    '2019-01-02T09:17:00'
+          END_DT          STRING    '2019-01-02T09:17:00'
+          MIN_DISTANCE    DOUBLE           340.43350
+          MAX_DISTANCE    DOUBLE           340.43350
+          CLOSEST_EPOCH   STRING    '2019-01-02T09:17:00'
+          FARTHEST_EPOCH  STRING    '2019-01-02T09:17:00'
+          DATA_SOURCES    OBJREF    <ObjHeapVar4615(LIST)>
+          EVENTS          OBJREF    <ObjHeapVar4715(LIST)>
+        IDL> data[0]
+        {
+            "START_DT": "2019-01-02T09:17:00",
+            "END_DT": "2019-01-02T09:17:00",
+            "MIN_DISTANCE": 340.43349672633997,
+            "MAX_DISTANCE": 340.43349672633997,
+            "CLOSEST_EPOCH": "2019-01-02T09:17:00",
+            "FARTHEST_EPOCH": "2019-01-02T09:17:00",
+            "DATA_SOURCES": <ObjHeapVar4615(LIST)>,
+            "EVENTS": <ObjHeapVar4715(LIST)>
+        }
+        ```
+
     === "Command Line"
 
         Performing conjunction searches from the command line can be done using `aurorax-cli` and an input JSON file with the search parameters specified in it.

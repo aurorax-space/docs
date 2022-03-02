@@ -116,7 +116,25 @@ nav:
       - Advanced conjunction searches: code/advanced_usage/advanced_conjunctions.md
       - Asynchronous searches: code/advanced_usage/asynchronous_search.md
       - Searches with metadata filters: code/advanced_usage/searches_with_metadata_filters.md
-      - Contributing and managing data: code/advanced_usage/contributing_managing_data.md
+      - Contributing and managing data: code/advanced_usage/contributing_data.md
       - Data availability and statistics: code/advanced_usage/availability_and_stats.md
     - PyAuroraX API Reference: /code/pyaurorax_api_reference/pyaurorax
+    - IDL-AuroraX API Reference: 
+      - Overview: code/idlaurorax_api_reference/overview.md
+      - Availability:
+        - Ephemeris: code/idlaurorax_api_reference/availability/ephemeris.md
+        - Data Products: code/idlaurorax_api_reference/availability/data_products.md
+      - Data Sources:
+        - List: code/idlaurorax_api_reference/sources/list.md
+      - Conjunctions:
+        - Create Advanced Distances: code/idlaurorax_api_reference/conjunctions/create_advanced_distances.md
+        - Create Criteria Block: code/idlaurorax_api_reference/conjunctions/create_criteria_block.md
+        - Search: code/idlaurorax_api_reference/conjunctions/search.md
+      - Ephemeris:
+        - Search: code/idlaurorax_api_reference/ephemeris/search.md
+      - Data Products:
+        - Search: code/idlaurorax_api_reference/data_products/search.md
+      - Metadata Filters:
+        - Create Metadata Filter: code/idlaurorax_api_reference/metadata_filters/create_metadata_filter.md
+        - Create Expression: code/idlaurorax_api_reference/metadata_filters/create_expression.md
     - RESTful API Reference: "https://api.aurorax.space"

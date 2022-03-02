@@ -81,6 +81,79 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
         ]
         ```
 
+    === "IDL"
+
+        IDL-AuroraX provides the `aurorax_ephemeris_search()` function to perform an ephemeris search.
+
+        ```idl
+        IDL> data = aurorax_ephemeris_search('2019-01-01T06:00','2019-01-01T06:59',programs=['themis-asi'],platforms=['gillam'],instrument_types=['panchromatic ASI'])
+        ```
+
+        Example output from the search function (the output can be silenced using the `/QUIET` keyword):
+
+        ```
+        [Tue Mar 01 18:58:56 2022] Parsing start and end timestamps
+        [Tue Mar 01 18:58:56 2022] Creating request struct
+        [Tue Mar 01 18:58:56 2022] Sending search request ...
+        [Tue Mar 01 18:58:56 2022] Search request accepted
+        [Tue Mar 01 18:58:56 2022] Request ID: 815f36e9-80d5-4965-a4d1-1dba3810a337
+        [Tue Mar 01 18:58:57 2022] Waiting for search to finish ...
+        [Tue Mar 01 18:58:58 2022] Data is now available
+        [Tue Mar 01 18:58:58 2022] Downloading 198.77 KB of data ...
+        [Tue Mar 01 18:58:58 2022] Data downloaded, search completed
+        [Tue Mar 01 18:58:58 2022] Search completed, found 60 records in 2.7 seconds
+        ```
+
+        Example output of an ephemeris record returned by the function:
+
+        ```idl
+        IDL> help,data[0]
+        ** Structure <69a38590>, 7 tags, length=248, data length=248, refs=2:
+          DATA_SOURCE     STRUCT    -> <Anonymous> Array[1]
+          EPOCH           STRING    '2019-01-01T06:00:00'
+          LOCATION_GEO    STRUCT    -> <Anonymous> Array[1]
+          LOCATION_GSM    STRUCT    -> <Anonymous> Array[1]
+          NBTRACE         STRUCT    -> <Anonymous> Array[1]
+          SBTRACE         STRUCT    -> <Anonymous> Array[1]
+          METADATA        STRUCT    -> <Anonymous> Array[1]
+
+        IDL> data[0]
+        {
+            "DATA_SOURCE": {
+                "IDENTIFIER": 46,
+                "PROGRAM": "themis-asi",
+                "PLATFORM": "gillam",
+                "INSTRUMENT_TYPE": "panchromatic ASI",
+                "SOURCE_TYPE": "ground",
+                "DISPLAY_NAME": "THEMIS-ASI GILL"
+            },
+            "EPOCH": "2019-01-01T06:00:00",
+            "LOCATION_GEO": {
+                "LAT": 56.376722999999998,
+                "LON": -94.643664000000001
+            },
+            "LOCATION_GSM": {
+                "LAT": "!NULL",
+                "LON": "!NULL"
+            },
+            "NBTRACE": {
+                "LAT": 56.376722999999998,
+                "LON": -94.643664000000001
+            },
+            "SBTRACE": {
+                "LAT": -72.794974970070754,
+                "LON": -134.97438185364899
+            },
+            "METADATA": {
+                "CLAUSEN_ML_OATH": "classified as discrete",
+                "CALGARY_APA_ML_V1": "classified as not APA",
+                "CALGARY_CLOUD_ML_V1": "classified as not cloudy",
+                "CALGARY_APA_ML_V1_CONFIDENCE": 100.00000000000000,
+                "CALGARY_CLOUD_ML_V1_CONFIDENCE": 99.980000000000004
+            }
+        }
+        ```
+
     === "Command Line"
 
         Performing ephemeris searches from the command line can be done using `aurorax-cli` and an input JSON file with the search parameters specified in it.
