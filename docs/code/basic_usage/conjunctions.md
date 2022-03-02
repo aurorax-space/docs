@@ -119,7 +119,7 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
         Example output of a conjunction returned by the function:
 
         ```idl
-        IDL> help,data
+        IDL> help,data[0]
         ** Structure <65839f30>, 8 tags, length=88, data length=88, refs=2:
           START_DT        STRING    '2019-01-02T09:17:00'
           END_DT          STRING    '2019-01-02T09:17:00'

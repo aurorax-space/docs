@@ -40,11 +40,11 @@ In AuroraX, the number of data sources involved in a conjunction is determined b
 
         # perform the search
         s = pyaurorax.conjunctions.search(start=start,
-                                        end=end,
-                                        distance=distance,
-                                        ground=ground_params,
-                                        space=space_params,
-                                        verbose=True)
+                                          end=end,
+                                          distance=distance,
+                                          ground=ground_params,
+                                          space=space_params,
+                                          verbose=True)
 
         # view the results
         print(s.data)
@@ -53,28 +53,98 @@ In AuroraX, the number of data sources involved in a conjunction is determined b
         Example output from this search would be:
         
         ```
-        [2022-02-10 21:51:35.940036] Search object created
-        [2022-02-10 21:51:36.048155] Request submitted
-        [2022-02-10 21:51:36.048229] Request ID: af59c66f-ff36-4f35-a9a0-973a8026b8e2
-        [2022-02-10 21:51:36.048258] Request details available at: https://api.aurorax.space/api/v1/conjunctions/requests/af59c66f-ff36-4f35-a9a0-973a8026b8e2
-        [2022-02-10 21:51:36.048264] Waiting for data ...
-        [2022-02-10 21:51:38.442945] Checking for data ...
-        [2022-02-10 21:51:39.743267] Checking for data ...
-        [2022-02-10 21:51:40.845350] Checking for data ...
-        [2022-02-10 21:51:41.945969] Checking for data ...
-        [2022-02-10 21:51:43.311126] Checking for data ...
-        [2022-02-10 21:51:43.386510] Data is now available
-        [2022-02-10 21:51:43.386600] Retrieving data ...
-        [2022-02-10 21:51:43.508624] Retrieved 140.5 kB of data containing 12 records
+        [2022-03-02 19:58:42.910237] Search object created
+        [2022-03-02 19:58:43.109389] Request submitted
+        [2022-03-02 19:58:43.109494] Request ID: 701eecb6-b8cd-44f4-83c5-32f8b80e5ca8
+        [2022-03-02 19:58:43.109509] Request details available at: https://api.aurorax.space/api/v1/conjunctions/requests/701eecb6-b8cd-44f4-83c5-32f8b80e5ca8
+        [2022-03-02 19:58:43.109515] Waiting for data ...
+        [2022-03-02 19:58:44.201872] Checking for data ...
+        [2022-03-02 19:58:45.275906] Checking for data ...
+        [2022-03-02 19:58:45.349495] Data is now available
+        [2022-03-02 19:58:45.353346] Retrieving data ...
+        [2022-03-02 19:58:45.446223] Retrieved 93.6 kB of data containing 8 records
 
         [
             Conjunction(start=datetime.datetime(2020, 1, 3, 12, 33), end=datetime.datetime(2020, 1, 3, 12, 34), min_distance=257.47, max_distance=257.71, data_sources=[...], events=[...]),
             Conjunction(start=datetime.datetime(2020, 1, 3, 12, 33), end=datetime.datetime(2020, 1, 3, 12, 34), min_distance=257.47, max_distance=449.17, data_sources=[...], events=[...]),
-            Conjunction(start=datetime.datetime(2020, 1, 3, 12, 33), end=datetime.datetime(2020, 1, 3, 12, 34), min_distance=257.47, max_distance=449.17, data_sources=[...], events=[...]),
+            Conjunction(start=datetime.datetime(2020, 1, 3, 12, 33), end=datetime.datetime(2020, 1, 3, 12, 34), min_distance=257.47, max_distance=257.71, data_sources=[...], events=[...]),
             ...
             ...
             ...
         ]
+        ```
+
+    === "IDL"
+
+        In IDL-AuroraX, we use the "ground" and "space" parameters to define multiple criteria blocks in each.
+
+        ```idl
+        ; define timeframe and distance parameters
+        distance = 500
+        start_dt = '2020-01-01T00:00:00'
+        end_dt = '2020-01-04T23:59:59'
+
+        ; create ground criteria blocks
+        ground1 = aurorax_create_criteria_block(programs=['themis-asi'],/GROUND)
+        ground2 = aurorax_create_criteria_block(programs=['trex'],/GROUND)
+        ground = list(ground1, ground2)
+        
+        ; create space criteria blocks
+        space1 = aurorax_create_criteria_block(programs=['swarm'],hemisphere=['northern'],/SPACE)
+        space2 = aurorax_create_criteria_block(programs=['themis'],hemisphere=['northern'],/SPACE)
+        space = list(space1, space2)
+        
+        ; perform search
+        data = aurorax_conjunction_search(start_dt,end_dt,distance,ground=ground,space=space)
+        ```
+
+        Example output from the search function (the output can be silenced using the `/QUIET` keyword):
+
+        ```
+        [Wed Mar 02 12:41:27 2022] Parsing start and end timestamps
+        [Wed Mar 02 12:41:27 2022] Creating request struct
+        [Wed Mar 02 12:41:27 2022] Sending search request ...
+        [Wed Mar 02 12:41:27 2022] Search request accepted
+        [Wed Mar 02 12:41:27 2022] Request ID: a4f57af1-5e7a-4748-ad1c-16d7d9a6656f
+        [Wed Mar 02 12:41:27 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:28 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:29 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:30 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:31 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:32 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:33 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:34 2022] Waiting for search to finish ...
+        [Wed Mar 02 12:41:35 2022] Data is now available
+        [Wed Mar 02 12:41:35 2022] Downloading 94.63 KB of data ...
+        [Wed Mar 02 12:41:35 2022] Data downloaded, search completed
+        [Wed Mar 02 12:41:35 2022] Post-processing data into IDL struct
+        [Wed Mar 02 12:41:35 2022] Search completed, found 8 conjunctions in 8.7 seconds
+        ```
+
+        Example output of a conjunction returned by the function:
+
+        ```idl
+        IDL> help,data[0]
+        ** Structure <65836ab0>, 8 tags, length=88, data length=88, refs=2:
+           START_DT        STRING    '2020-01-03T12:33:00'
+           END_DT          STRING    '2020-01-03T12:34:00'
+           MIN_DISTANCE    DOUBLE           257.47343
+           MAX_DISTANCE    DOUBLE           257.71434
+           CLOSEST_EPOCH   STRING    '2020-01-03T12:34:00'
+           FARTHEST_EPOCH  STRING    '2020-01-03T12:33:00'
+           DATA_SOURCES    OBJREF    <ObjHeapVar2530(LIST)>
+           EVENTS          OBJREF    <ObjHeapVar2746(LIST)>
+        IDL> data[0]
+        {
+            "START_DT": "2020-01-03T12:33:00",
+            "END_DT": "2020-01-03T12:34:00",
+            "MIN_DISTANCE": 257.47343405047997,
+            "MAX_DISTANCE": 257.71433923582998,
+            "CLOSEST_EPOCH": "2020-01-03T12:34:00",
+            "FARTHEST_EPOCH": "2020-01-03T12:33:00",
+            "DATA_SOURCES": <ObjHeapVar2530(LIST)>,
+            "EVENTS": <ObjHeapVar2746(LIST)>
+        }
         ```
 
 ## Advanced distances
