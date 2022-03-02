@@ -12,6 +12,8 @@ In AuroraX, the number of data sources involved in a conjunction is determined b
 
     Please note, AuroraX imposes a limit of **10** criteria blocks in a search query.
 
+Below, we'll have a look at an example of a quadruple-conjunction search, using two ground and two space criteria blocks (4 total criteria blocks).
+
 !!! example "Example - search for quadruple-conjunctions"
 
     This example is a search to find quadruple-conjunctions (4 criteria blocks). 
@@ -149,135 +151,138 @@ In AuroraX, the number of data sources involved in a conjunction is determined b
 
 ## Advanced distances
 
-The `conjunctions` module's search functions use a default conjunction distance of 300 km, intended to facilitate fast access to data. Given that there are cases where a user may want to be more specific, however, the search functions also provide a way to explicitly set custom distances between criteria blocks. In the `conjunctions.search` and `conjunctions.search_async` functions, this option is provided by the `max_distances` argument. Combined with the `default_distance` argument, this provides a highly customizable search with full control over conjunction distances.
+Simple conjunction searches use a single integer input for the distance, however, you can also make more complex conjunction searches using "advanced distances". This alternative input for the `distance` parameter provides a way to explicitly set custom distances between criteria blocks.
 
-### Default distance
+The `distances` argument can be either a single integer, or a dictionary with a key and value for each criteria block pairing. 
 
-Under the hood, every conjunction search query sent to the API includes a parameter that indicates the maximum distance between each pair of criteria blocks. That parameter is a dictionary with the following form:
-```python
-{
-    "ground1-space1": 300,
-    "ground1-space2": 300,
-    "ground1-space3": 300,
-    "ground2-space1": 300,
-    ...
-    "space1-space2": 300,
-    "space1-space3": 300,
-    "space2-space3": 300
-}
-```
+!!! warning "Using none/nan values"
 
-As shown above, an entry is included for every ground-space instrument combination and for every space-space criteria combination. This setting indicates that, in order for an event to be returned as a conjunction, the distance between every pair of instruments must satisfy the maximum distances specified for their respective criteria blocks.
+    Please note, an advanced distance pair can be assigned a null value. Setting a pair to null tells the search engine to disregard the distance between those two criteria blocks. For example, setting null for `space1-space2` would mean that the search engine should not care about the distance between those two space criteria blocks.
 
-*Note that ground-ground pairs aren't included because their distances are fixed.*
+    Use the value `None` in Python, `!NULL` in IDL, or `null` in Javascript.
 
-The `default_distance` argument, when provided, is used to override every entry in this dictionary. Below is an example of how this would work for a query with two space criteria blocks and one ground criteria block:
-```python hl_lines="19 26"
-start = datetime.datetime(2019, 1, 1, 0, 0, 0)
-end = datetime.datetime(2019, 1, 9, 23, 59, 59)
-ground_params = [
-    {
-        "instrument_types": ["RGB ASI", "DSLR"]
-    }
-]
-space_params = [
-    {
-        "programs": ["swarm"],
-        "platforms": ["swarma", "swarmb"]
-    },
-    {
-        "programs": ["themis"]
-    }
-]
+Below is an example of a conjunction search using the advanced distances functionality. This will be a search between one ground and two space criteria blocks, where the distance for `space1-space2` is null.
 
-# specify a maximum conjunction distance between instruments
-distance = 1000
+!!! example "Example - advanced distances"
 
-# execute synchronous search
-s = pyaurorax.conjunctions.search(start=start,
-                                end=end,
-                                ground=ground_params,
-                                space=space_params,
-                                default_distance=distance)
-```
+    This example is a search using advanced distances.
 
-Behind the scenes, the search function will take the ```default_distance``` argument and construct this dictionary to send to the API:
-```python
-{
-    "ground1-space1": 1000,
-    "ground1-space2": 1000,
-    "space1-space2": 1000
-}
-```
+    === "Python"
 
-### Custom maximum distances
+        First, we'll set up our search with a default distance. Then, we'll modify the distances to be more complex.
 
-The `max_distances` argument is a dictionary with an entry for each space-space or ground-space criteria block pair in the conjunction search for which the user wishes to specify a custom distance. For example, in a search with two space criteria blocks and one ground criteria block, the dictionary might be set by the user to look like this:
-```python
-{
-    "ground1-space1": 400,
-    "space1-space2": 805
-}
-```
+        ```python
+        # imports
+        import pyaurorax
+        import datetime
 
-This setting indicates that, in order for an event to be returned as a conjunction, there must be:
+        # set search parameters
+        start = datetime.datetime(2019, 1, 1, 0, 0, 0)
+        end = datetime.datetime(2019, 1, 9, 23, 59, 59)
+        ground_params = [
+            {
+                "programs": ["themis-asi"]
+            },
+        ]
+        space_params = [
+            {
+                "programs": ["swarm"],
+            },
+            {
+                "programs": ["themis"]
+            }
+        ]
+        distance = 500
 
-1. maximum 400 km between ground instruments in criteria block 1 and space instruments in criteria block 1, and
-2. maximum 805 km between space instruments in criteria block 1 and space instruments in criteria block 2
+        # create search object
+        s = pyaurorax.conjunctions.Search(start=start,
+                                          end=end,
+                                          distance=distance,
+                                          ground=ground_params,
+                                          space=space_params)
+        ```
 
-The missing pair in this dictionary is `"ground1-space2"`. The search function will automatically fill in the entry for this pair using the default setting of 300 km, or using the `default_distance` argument if it is provided.
+        Now that we've created our search object, we can adjust the advanced distances to what we want.
 
-*A pair can also be assigned a value of `None` if the distance between those two data sources does not matter.*
+        ```python
+        # get the advanced distances pairings
+        advanced_distances = s.get_advanced_distances_combos()
+        print(advanced_distances)
 
-### Combining default and maximum distance
+        # make our changes
+        advanced_distances["ground1-space1"] = 500
+        advanced_distances["ground1-space2"] = 500
+        advanced_distances["space1-space2"] = None
+        print(advanced_distances)
 
-To override all distances in the query while also setting specific cases, the `default_distance` and `maximum_distances` arguments can be used together.
-```python hl_lines="22 25-28 35-36"
-start = datetime.datetime(2019, 1, 1, 0, 0, 0)
-end = datetime.datetime(2019, 1, 9, 23, 59, 59)
-ground_params = [
-    {
-        "instrument_types": ["RGB ASI", "DSLR"]
-    },
-    {
-        "program": ["themis-asi"]
-    }
-]
-space_params = [
-    {
-        "programs": ["swarm"],
-        "platforms": ["swarma", "swarmb"]
-    },
-    {
-        "programs": ["themis"]
-    }
-]
+        # update the search object with the new advanced distances
+        s.distance = advanced_distances
+        ```
 
-# specify a default maximum conjunction distance between criteria blocks
-distance = 400
+        ```
+        Output:
+        {'ground1-space1': None, 'ground1-space2': None, 'space1-space2': None}
+        {'ground1-space1': 500, 'ground1-space2': 500, 'space1-space2': None}
+        ```
 
-# override specific cases
-max_distances = {
-    "ground2-space2": None,
-    "space1-space2": 700
-}
+        Lastly, we perform the search:
 
-# execute synchronous search
-s = pyaurorax.conjunctions.search(start=start,
-                                end=end,
-                                ground=ground_params,
-                                space=space_params,
-                                default_distance=distance,
-                                maximum_distances=max_distances)
-```
+        ```python
+        # run the search
+        s.execute()
+        s.wait()
+        s.get_data()
+        print(len(s.data))
+        ```
 
-In this example, the distances that get used in the query are:
-```python
-{
-    "ground1-space1": 400,
-    "ground1-space2": 400,
-    "ground2-space1": 400,
-    "ground2-space2": None,
-    "space1-space2": 700
-}
-```
+        ```
+        Output:
+        46
+        ```
+    
+    === "IDL"
+
+        First, we'll create an advanced distances hash object and adjust it. Then we'll perform our search.
+
+        ```idl
+        ; create our advanced distances object and adjust for our query
+        advanced_distances = aurorax_create_advanced_distances_hash(500, ground=1, space=2)
+        advanced_distances['space1-space2'] = !NULL
+
+        ; define timeframe and distance parameters
+        distance = 500
+        start_dt = '2019-01-01T00:00:00'
+        end_dt = '2019-01-09T23:59:59'
+        
+        ; create ground criteria block
+        ground1 = aurorax_create_criteria_block(programs=['themis-asi'],/GROUND)
+        ground = list(ground1)
+        
+        ; create space criteria block
+        space1 = aurorax_create_criteria_block(programs=['swarm'],/SPACE)
+        space2 = aurorax_create_criteria_block(programs=['themis'],/SPACE)
+        space = list(space1, space2)
+        
+        ; perform search
+        data = aurorax_conjunction_search(start_dt,end_dt,advanced_distances,ground=ground,space=space,/NBTRACE)
+        ```
+
+        Example output from this search is:
+
+        ```
+        [Wed Mar 02 14:07:40 2022] Parsing start and end timestamps
+        [Wed Mar 02 14:07:40 2022] Creating request struct
+        [Wed Mar 02 14:07:40 2022] Sending search request ...
+        [Wed Mar 02 14:07:40 2022] Search request accepted
+        [Wed Mar 02 14:07:40 2022] Request ID: 551bf56e-6127-4035-8a09-a51d9c1f72dc
+        [Wed Mar 02 14:07:40 2022] Waiting for search to finish ...
+        [Wed Mar 02 14:07:41 2022] Waiting for search to finish ...
+        [Wed Mar 02 14:07:42 2022] Waiting for search to finish ...
+        [Wed Mar 02 14:07:43 2022] Waiting for search to finish ...
+        [Wed Mar 02 14:07:44 2022] Waiting for search to finish ...
+        [Wed Mar 02 14:07:45 2022] Data is now available
+        [Wed Mar 02 14:07:45 2022] Downloading 470.61 KB of data ...
+        [Wed Mar 02 14:07:46 2022] Data downloaded, search completed
+        [Wed Mar 02 14:07:46 2022] Post-processing data into IDL struct
+        [Wed Mar 02 14:07:46 2022] Search completed, found 46 conjunctions in 5.8 seconds
+        ```
