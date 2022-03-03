@@ -66,6 +66,39 @@ Below, we'll have a look at an example of retrieving data availability informati
         ]
         ```
 
+    === "IDL"
+
+        ```idl
+        data = aurorax_ephemeris_availability('20200101','20200105',program='swarm')
+        ```
+
+        Example output would look like:
+
+        ```
+        IDL> help,data[0]
+        ** Structure <5cab0610>, 2 tags, length=128, data length=128, refs=2:
+           DATA_SOURCE            STRUCT    -> <Anonymous> Array[1]
+           AVAILABLE_EPHEMERIS    STRUCT    -> <Anonymous> Array[1]
+        IDL> data[0]
+        {
+            "DATA_SOURCE": {
+                "IDENTIFIER": 3,
+                "PROGRAM": "swarm",
+                "PLATFORM": "swarma",
+                "INSTRUMENT_TYPE": "footprint",
+                "SOURCE_TYPE": "leo",
+                "DISPLAY_NAME": "Swarm A"
+            },
+            "AVAILABLE_EPHEMERIS": {
+                "_2020_01_01": 1440,
+                "_2020_01_02": 1440,
+                "_2020_01_03": 1440,
+                "_2020_01_04": 1440,
+                "_2020_01_05": 1440
+            }
+        }
+        ```
+
     === "Command Line"
 
         You can use the aurorax-cli tool to retrieve data availability information too.
