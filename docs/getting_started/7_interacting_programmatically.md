@@ -84,7 +84,7 @@ You can install it and use it like so:
 
 ```idl
 IDL> ipm,/install,'https://data.aurorax.space/data/software/idl-aurorax/latest.zip'
-[ add several .run commands to your startup file (see Github README) ]
+[ add ".run aurorax_startup" to your startup file (see Github README) ]
 IDL> sources = aurorax_sources_list(program='swarm')
 ```
 
