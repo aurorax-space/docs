@@ -121,14 +121,14 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
         ```idl
         IDL> help,data[0]
         ** Structure <65839f30>, 8 tags, length=88, data length=88, refs=2:
-          START_DT        STRING    '2019-01-02T09:17:00'
-          END_DT          STRING    '2019-01-02T09:17:00'
-          MIN_DISTANCE    DOUBLE           340.43350
-          MAX_DISTANCE    DOUBLE           340.43350
-          CLOSEST_EPOCH   STRING    '2019-01-02T09:17:00'
-          FARTHEST_EPOCH  STRING    '2019-01-02T09:17:00'
-          DATA_SOURCES    OBJREF    <ObjHeapVar4615(LIST)>
-          EVENTS          OBJREF    <ObjHeapVar4715(LIST)>
+           START_DT        STRING    '2019-01-02T09:17:00'
+           END_DT          STRING    '2019-01-02T09:17:00'
+           MIN_DISTANCE    DOUBLE           340.43350
+           MAX_DISTANCE    DOUBLE           340.43350
+           CLOSEST_EPOCH   STRING    '2019-01-02T09:17:00'
+           FARTHEST_EPOCH  STRING    '2019-01-02T09:17:00'
+           DATA_SOURCES    OBJREF    <ObjHeapVar4615(LIST)>
+           EVENTS          OBJREF    <ObjHeapVar4715(LIST)>
         IDL> data[0]
         {
             "START_DT": "2019-01-02T09:17:00",

@@ -107,13 +107,12 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
         ```idl
         IDL> help,data[0]
         ** Structure <660aecc0>, 6 tags, length=200, data length=200, refs=2:
-          START_DT        STRING    '2020-01-01T00:00:00'
-          END_DT          STRING    '2020-01-01T23:59:00'
-          DATA_SOURCE     STRUCT    -> <Anonymous> Array[1]
-          URL             STRING    'https://data.phys.ucalgary.ca/sort_by_project/TREx/RGB/rt-fullres/movie_derived_daily_keograms/2020/01/01/20200101__fsmi_rgb-01_moviebased-keogram.jpg'
-          DATA_PRODUCT_TYPE
-                          STRING    'keogram'
-          METADATA        STRUCT    -> <Anonymous> Array[1]
+           START_DT            STRING    '2020-01-01T00:00:00'
+           END_DT              STRING    '2020-01-01T23:59:00'
+           DATA_SOURCE         STRUCT    -> <Anonymous> Array[1]
+           URL                 STRING    'https://data.phys.ucalgary.ca/sort_by_project/TREx/RGB/rt-fullres/movie_derived_daily_keograms/2020/01/01/20200101__fsmi_rgb-01_moviebased-keogram.jpg'
+           DATA_PRODUCT_TYPE   STRING    'keogram'
+           METADATA            STRUCT    -> <Anonymous> Array[1]
 
         IDL> data[0]
         {

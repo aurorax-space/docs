@@ -109,13 +109,13 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
         ```idl
         IDL> help,data[0]
         ** Structure <69a38590>, 7 tags, length=248, data length=248, refs=2:
-          DATA_SOURCE     STRUCT    -> <Anonymous> Array[1]
-          EPOCH           STRING    '2019-01-01T06:00:00'
-          LOCATION_GEO    STRUCT    -> <Anonymous> Array[1]
-          LOCATION_GSM    STRUCT    -> <Anonymous> Array[1]
-          NBTRACE         STRUCT    -> <Anonymous> Array[1]
-          SBTRACE         STRUCT    -> <Anonymous> Array[1]
-          METADATA        STRUCT    -> <Anonymous> Array[1]
+           DATA_SOURCE     STRUCT    -> <Anonymous> Array[1]
+           EPOCH           STRING    '2019-01-01T06:00:00'
+           LOCATION_GEO    STRUCT    -> <Anonymous> Array[1]
+           LOCATION_GSM    STRUCT    -> <Anonymous> Array[1]
+           NBTRACE         STRUCT    -> <Anonymous> Array[1]
+           SBTRACE         STRUCT    -> <Anonymous> Array[1]
+           METADATA        STRUCT    -> <Anonymous> Array[1]
 
         IDL> data[0]
         {
