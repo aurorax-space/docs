@@ -68,8 +68,10 @@ Below, we'll have a look at an example of retrieving data availability informati
 
     === "IDL"
 
+        Use the [`aurorax_ephemeris_availability()`](/code/idlaurorax_api_reference/availability/ephemeris/){:target="_blank"} and [`aurorax_data_product_availability()`](/code/idlaurorax_api_reference/availability/data_products/){:target="_blank"} functions to retrieve data availability information from AuroraX in IDL.
+
         ```idl
-        data = aurorax_ephemeris_availability('20200101','20200105',program='swarm')
+        IDL> data = aurorax_ephemeris_availability('20200101','20200105',program='swarm')
         ```
 
         Example output would look like:
@@ -196,6 +198,24 @@ Below, we'll have a look at an example of retrieving data source statistics info
                              earliest_data_product_loaded=datetime.datetime(2019, 9, 27, 0, 0),
                              latest_data_product_loaded=datetime.datetime(2021, 10, 22, 23, 59),
                              data_product_count=28312)
+        ```
+
+    === "IDL"
+
+        Use the [`aurorax_sources_get_stats()`](/code/idlaurorax_api_reference/sources/stats/){:target="_blank"} function to retrieve additional information about a data source.
+
+        ```idl
+        IDL> source = aurorax_sources_list(program='swarm', platform='swarma')
+        IDL> stats = aurorax_sources_get_stats(source[0].identifier)
+        IDL> help,stats
+        ** Structure <69a75b30>, 7 tags, length=168, data length=168, refs=1:
+            DATA_SOURCE                   STRUCT    -> <Anonymous> Array[1]
+            EARLIEST_EPHEMERIS_LOADED     STRING    '2013-11-26T00:00:00'
+            LATEST_EPHEMERIS_LOADED       STRING    '2021-12-10T23:59:00'
+            EPHEMERIS_COUNT               LONG64    4229280
+            EARLIEST_DATA_PRODUCT_LOADED  STRING    '!NULL'
+            LATEST_DATA_PRODUCT_LOADED    STRING    '!NULL'
+            DATA_PRODUCT_COUNT            LONG64    0
         ```
 
     === "Command Line"

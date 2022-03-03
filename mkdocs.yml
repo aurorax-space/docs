@@ -124,7 +124,9 @@ nav:
       - Availability:
         - Ephemeris: code/idlaurorax_api_reference/availability/ephemeris.md
         - Data Products: code/idlaurorax_api_reference/availability/data_products.md
-      - List Data Sources: code/idlaurorax_api_reference/sources/list.md
+      - Data Sources: 
+        - List: code/idlaurorax_api_reference/sources/list.md
+        - Get stats: code/idlaurorax_api_reference/sources/stats.md
       - Conjunctions:
         - Create Advanced Distances: code/idlaurorax_api_reference/conjunctions/create_advanced_distances.md
         - Create Criteria Block: code/idlaurorax_api_reference/conjunctions/create_criteria_block.md
