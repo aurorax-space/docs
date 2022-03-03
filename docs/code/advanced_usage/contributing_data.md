@@ -1,4 +1,10 @@
-# Contributing and Managing Data
+# Uploading data to AuroraX
+
+!!! warning - only on PyAuroraX and REST API
+
+    Please note, uploading data to AuroraX is only supported on PyAuroraX and when using the RESTful API directly. The `idl-aurorax` library **does not** support this functionality.
+
+    Therefore, all following information on this page is specific to Python and PyAuroraX.
 
 PyAuroraX provides built-in functionality for data providers to upload and manage their organization's metadata and/or summary data to the AuroraX database. Please see the [AuroraX data policy](/about_the_data/policy/) page and review the [recommended standards](/about_the_data/standards/) before proceeding.
 
@@ -59,7 +65,11 @@ The [`DataSource`](/code/pyaurorax_api_reference/pyaurorax/sources/index.html#py
 
 In this example we add a data source using the required attributes along with the optional `metadata_schema_ephemeris` and `metadata_schema_data_products`.
 
-```python hl_lines="44-45"
+```python
+# imports
+import pyaurorax
+
+# set data source values
 program = "example-program"
 platform = "example-platform"
 instrument_type = "example-instrument"
@@ -102,7 +112,7 @@ data_source = pyaurorax.sources.DataSource(program=program,
                                            ephemeris_metadata_schema=metadata_schema_ephemeris,
                                            data_product_metadata_schema=metadata_schema_data_products)
 
-# send to API
+# add to AuroraX
 r = pyaurorax.sources.add(source)
 identifier = r.identifier
 ```
@@ -140,7 +150,7 @@ ds = pyaurorax.sources.get(program="example-program",
 ds.display_name = "New Display Name"
 ds.maintainers = ["maintainer@program.com"]
 
-# send to API
+# update on AuroraX
 updated_ds = pyaurorax.sources.update(ds)
 ```
 
@@ -239,6 +249,7 @@ ds = pyaurorax.sources.get(program="example-program",
 Next, we create two `DataProduct` objects one day apart.
 
 ```python
+# set data product values
 url = "example1.jpg"
 metadata = {
     "example_meta1": "example1",
@@ -250,11 +261,11 @@ end_dt = start_dt.replace(hour=23, minute=59, second=59)
 
 # create first DataProduct object
 dp1 = pyaurorax.data_products.DataProduct(data_source=ds,
-                                         data_product_type=data_product_type,
-                                         url=url,
-                                         start=start_dt,
-                                         end=end_dt,
-                                         metadata=metadata)
+                                          data_product_type=data_product_type,
+                                          url=url,
+                                          start=start_dt,
+                                          end=end_dt,
+                                          metadata=metadata)
 
 # create second DataProduct object
 start_dt2 = datetime.datetime(2020, 1, 2, 0, 0, 0)

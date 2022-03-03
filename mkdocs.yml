@@ -116,7 +116,7 @@ nav:
       - Advanced conjunction searches: code/advanced_usage/advanced_conjunctions.md
       - Asynchronous searches: code/advanced_usage/asynchronous_search.md
       - Searches with metadata filters: code/advanced_usage/searches_with_metadata_filters.md
-      - Contributing and managing data: code/advanced_usage/contributing_data.md
+      - Uploading data to AuroraX: code/advanced_usage/contributing_data.md
       - Data availability and statistics: code/advanced_usage/availability_and_stats.md
     - PyAuroraX API Reference: /code/pyaurorax_api_reference/pyaurorax
     - IDL-AuroraX API Reference: 

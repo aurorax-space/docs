@@ -6,7 +6,7 @@
     
     The `idl-aurorax` library **does not** support this functionality. Searches are already done asynchronously under-the-hood with no control over this for users currently.
 
-    Therefore, all following documentation is specific to Python and PyAuroraX.
+    Therefore, all following information on this page is specific to Python and PyAuroraX.
 
 Search times for data products, ephemeris, and conjunctions can vary widely depending on the length of time, number of data sources involved, and metadata filters used. The basic search functions in the [`data_products`](/code/pyaurorax_api_reference/pyaurorax/data_products/index.html#pyaurorax.data_products.search){:target="_blank"}, [`ephemeris`](/code/pyaurorax_api_reference/pyaurorax/ephemeris/index.html#pyaurorax.ephemeris.search){:target="_blank"}, and [`conjunctions`](/code/pyaurorax_api_reference/pyaurorax/conjunctions/index.html#pyaurorax.conjunctions.search){:target="_blank"} modules will block and wait until results are returned, and may return more than a gigabyte of data. The blocked time waiting for the query results to be returned can be anywhere from several seconds to many minutes. To avoid idle time during this blocking time, or to take advantage of the possibility to run multiple search queries in parallel, consider using an **asynchronous search**.
 
