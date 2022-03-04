@@ -5,7 +5,7 @@ PyAuroraX and IDL-AuroraX libraries require developers to do a few steps to inst
 ## PyAuroraX
 
 You can install PyAuroraX using pip, and import it like so:
-
+loca
 ```
 $ pip install pyaurorax
 $ python
@@ -16,14 +16,23 @@ More installation details can be found on the readme of the code repository [on 
 
 ## IDL-AuroraX
 
-You can install IDL-AuroraX using the `ipm` IDL command, like so:
+Since IDL 8.7.1, there exists an IDL package manager called [ipm](https://www.l3harrisgeospatial.com/docs/ipm.html#INSTALL){:target="_blank"}. We can use this to install the IDL-AuroraX library with a single command. 
 
-```
-IDL> ipm,/install,'https://data.aurorax.space/data/software/idl-aurorax/latest.zip'
-```
+This is the recommended way of installing the IDL-AuroraX library, but, refer to the [Github repository README file](https://github.com/aurorax-space/idl-aurorax){:target="_blank"} for additional installation methods.
 
-Then, you'll need to include the following in your startup file:
+1. From the IDL command prompt, run the following:
 
-```
-.run aurorax_startup
-```
+    ```idl
+    IDL> ipm,/install,'https://data.aurorax.space/data/software/idl-aurorax/latest.zip'
+    ```
+
+2. Add the following to your startup file, or run the command manually using the IDL command prompt:
+
+    ```
+    [ open your startup.pro file and put the following in it ]
+    .run aurorax_startup
+    ```
+
+3. Reset your IDL session by either clicking the Reset button in the IDL editor or by typing `.reset` into the IDL command prompt.
+
+For further information, you can view what packages are installed using `ipm,/list`. You can also view the package details using `ipm,/query,'idl-aurorax'`.
