@@ -86,7 +86,7 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
         IDL-AuroraX provides the [`aurorax_ephemeris_search()`](/code/idlaurorax_api_reference/ephemeris/search/){:target="_blank"} function to perform an ephemeris search.
 
         ```idl
-        IDL> data = aurorax_ephemeris_search('2019-01-01T06:00','2019-01-01T06:59',programs=['themis-asi'],platforms=['gillam'],instrument_types=['panchromatic ASI'])
+        IDL> response = aurorax_ephemeris_search('2019-01-01T06:00','2019-01-01T06:59',programs=['themis-asi'],platforms=['gillam'],instrument_types=['panchromatic ASI'])
         ```
 
         Example output from the search function (the output can be silenced using the `/QUIET` keyword):
@@ -107,7 +107,12 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
         Example output of an ephemeris record returned by the function:
 
         ```idl
-        IDL> help,data[0]
+        IDL> help,response
+        ** Structure <3cc9ec70>, 3 tags, length=40, data length=36, refs=1:
+           REQUEST_TYPE    STRING    'ephemeris'
+           REQUEST_ID      STRING    'd7fe07f5-24b0-453d-8947-29b3493dbeff'
+           DATA            OBJREF    <ObjHeapVar2361(LIST)>
+        IDL> help,response.data[0]
         ** Structure <69a38590>, 7 tags, length=248, data length=248, refs=2:
            DATA_SOURCE     STRUCT    -> <Anonymous> Array[1]
            EPOCH           STRING    '2019-01-01T06:00:00'
@@ -117,7 +122,7 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
            SBTRACE         STRUCT    -> <Anonymous> Array[1]
            METADATA        STRUCT    -> <Anonymous> Array[1]
 
-        IDL> data[0]
+        IDL> response.data[0]
         {
             "DATA_SOURCE": {
                 "IDENTIFIER": 46,

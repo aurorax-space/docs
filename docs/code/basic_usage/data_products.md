@@ -83,7 +83,7 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
         IDL-AuroraX provides the [`aurorax_data_product_search()`](/code/idlaurorax_api_reference/data_products/search/){:target="_blank"} function to perform a data product search.
 
         ```idl
-        IDL> data = aurorax_data_product_search('2020-01-01T00:00','2020-01-01T23:59',programs=['trex'],platforms=['fort smith'],instrument_types=['RGB ASI'])
+        IDL> response = aurorax_data_product_search('2020-01-01T00:00','2020-01-01T23:59',programs=['trex'],platforms=['fort smith'],instrument_types=['RGB ASI'])
         ```
 
         Example output from the search function (the output can be silenced using the `/QUIET` keyword):
@@ -105,7 +105,12 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
         Example output of a data product record returned by the function:
 
         ```idl
-        IDL> help,data[0]
+        IDL> help,response
+        ** Structure <6014ead0>, 3 tags, length=40, data length=36, refs=1:
+           REQUEST_TYPE    STRING    'data_products'
+           REQUEST_ID      STRING    'e261544d-a1b2-4333-a1f5-cb80f8495ee4'
+           DATA            OBJREF    <ObjHeapVar2233(LIST)>
+        IDL> help,response.data[0]
         ** Structure <660aecc0>, 6 tags, length=200, data length=200, refs=2:
            START_DT            STRING    '2020-01-01T00:00:00'
            END_DT              STRING    '2020-01-01T23:59:00'
@@ -114,7 +119,7 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
            DATA_PRODUCT_TYPE   STRING    'keogram'
            METADATA            STRUCT    -> <Anonymous> Array[1]
 
-        IDL> data[0]
+        IDL> response.data[0]
         {
             "START_DT": "2020-01-01T00:00:00",
             "END_DT": "2020-01-01T23:59:00",

@@ -1,6 +1,6 @@
 # Asynchronous Searches
 
-!!! warning - only on PyAuroraX and REST API
+!!! warning "Only on PyAuroraX and REST API"
 
     Please note, performing asynchronous search requests is only supported on PyAuroraX and when using the RESTful API directly. 
     

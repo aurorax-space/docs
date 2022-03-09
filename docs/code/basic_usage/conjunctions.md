@@ -84,7 +84,7 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
         ```idl
         ; define timeframe and distance parameters
         distance = 500
-        start_dt = '2019-01-01T06:00:00'
+        start_dt = '2019-01-01T00:00:00'
         end_dt = '2019-01-03T23:59:59'
         
         ; create ground criteria block
@@ -96,50 +96,62 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
         space = list(space1)
         
         ; perform search
-        data = aurorax_conjunction_search(start_dt,end_dt,distance,ground=ground,space=space,/NBTRACE)
+        response = aurorax_conjunction_search(start_dt,end_dt,distance,ground=ground,space=space,/NBTRACE)
         ```
 
         Example output from the search function (the output can be silenced using the `/QUIET` keyword):
 
         ```
-        [Tue Mar 01 19:14:17 2022] Parsing start and end timestamps
-        [Tue Mar 01 19:14:17 2022] Creating request struct
-        [Tue Mar 01 19:14:17 2022] Sending search request ...
-        [Tue Mar 01 19:14:17 2022] Search request accepted
-        [Tue Mar 01 19:14:17 2022] Request ID: f8a5c56d-a751-4a61-a5ae-1a04833be1fb
-        [Tue Mar 01 19:14:17 2022] Waiting for search to finish ...
-        [Tue Mar 01 19:14:18 2022] Waiting for search to finish ...
-        [Tue Mar 01 19:14:19 2022] Data is now available
-        [Tue Mar 01 19:14:19 2022] Downloading 77.62 KB of data ...
-        [Tue Mar 01 19:14:20 2022] Data downloaded, search completed
-        [Tue Mar 01 19:14:20 2022] Post-processing data into IDL struct
-        [Tue Mar 01 19:14:20 2022] Search completed, found 10 conjunctions in 2.3 seconds
+        [Tue Mar 08 19:42:42 2022] Parsing start and end timestamps
+        [Tue Mar 08 19:42:42 2022] Creating request struct
+        [Tue Mar 08 19:42:42 2022] Sending search request ...
+        [Tue Mar 08 19:42:42 2022] Search request accepted
+        [Tue Mar 08 19:42:42 2022] Request ID: 4b0b6845-7b54-4a47-ab70-96d338f47167
+        [Tue Mar 08 19:42:42 2022] Waiting for search to finish ...
+        [Tue Mar 08 19:42:43 2022] Waiting for search to finish ...
+        [Tue Mar 08 19:42:44 2022] Waiting for search to finish ...
+        [Tue Mar 08 19:42:45 2022] Data is now available
+        [Tue Mar 08 19:42:45 2022] Downloading 85.39 KB of data ...
+        [Tue Mar 08 19:42:45 2022] Data downloaded, search completed
+        [Tue Mar 08 19:42:45 2022] Post-processing data into IDL struct
+        [Tue Mar 08 19:42:45 2022] Search completed, found 11 conjunctions in 3.6 seconds
         ```
 
         Example output of a conjunction returned by the function:
 
         ```idl
-        IDL> help,data[0]
+        IDL> help,response
+        ** Structure <3cb2f360>, 3 tags, length=40, data length=36, refs=1:
+           REQUEST_TYPE    STRING    'conjunctions'
+           REQUEST_ID      STRING    '4b0b6845-7b54-4a47-ab70-96d338f47167'
+           DATA            OBJREF    <ObjHeapVar2121(LIST)>
+        IDL> help,response.data[0]
         ** Structure <65839f30>, 8 tags, length=88, data length=88, refs=2:
-           START_DT        STRING    '2019-01-02T09:17:00'
-           END_DT          STRING    '2019-01-02T09:17:00'
-           MIN_DISTANCE    DOUBLE           340.43350
-           MAX_DISTANCE    DOUBLE           340.43350
-           CLOSEST_EPOCH   STRING    '2019-01-02T09:17:00'
-           FARTHEST_EPOCH  STRING    '2019-01-02T09:17:00'
-           DATA_SOURCES    OBJREF    <ObjHeapVar4615(LIST)>
-           EVENTS          OBJREF    <ObjHeapVar4715(LIST)>
-        IDL> data[0]
+           START_DT        STRING    '2019-01-03T08:37:00'
+           END_DT          STRING    '2019-01-03T08:38:00'
+           MIN_DISTANCE    DOUBLE           237.91423
+           MAX_DISTANCE    DOUBLE           315.11637
+           CLOSEST_EPOCH   STRING    '2019-01-03T08:37:00'
+           FARTHEST_EPOCH  STRING    '2019-01-03T08:38:00'
+           DATA_SOURCES    OBJREF    <ObjHeapVar3252(LIST)>
+           EVENTS          OBJREF    <ObjHeapVar3362(LIST)>
+        IDL> response.data[0]
         {
-            "START_DT": "2019-01-02T09:17:00",
-            "END_DT": "2019-01-02T09:17:00",
-            "MIN_DISTANCE": 340.43349672633997,
-            "MAX_DISTANCE": 340.43349672633997,
-            "CLOSEST_EPOCH": "2019-01-02T09:17:00",
-            "FARTHEST_EPOCH": "2019-01-02T09:17:00",
-            "DATA_SOURCES": <ObjHeapVar4615(LIST)>,
-            "EVENTS": <ObjHeapVar4715(LIST)>
+            "START_DT": "2019-01-03T08:37:00",
+            "END_DT": "2019-01-03T08:38:00",
+            "MIN_DISTANCE": 237.91422828781000,
+            "MAX_DISTANCE": 315.11636987259999,
+            "CLOSEST_EPOCH": "2019-01-03T08:37:00",
+            "FARTHEST_EPOCH": "2019-01-03T08:38:00",
+            "DATA_SOURCES": <ObjHeapVar3252(LIST)>,
+            "EVENTS": <ObjHeapVar3362(LIST)>
         }
+        ```
+
+        Lastly, you can visualize this conjunction search in the Swarm-Aurora Conjunction Browser using a handy procedure called [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora/){:target="_blank"}:
+
+        ```idl
+        IDL> aurorax_open_conjunctions_in_swarmaurora,response.request_id
         ```
 
     === "Command Line"

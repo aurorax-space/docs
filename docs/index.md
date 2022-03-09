@@ -11,7 +11,7 @@ hide:
 This documentation website provides technical details about AuroraX and its key components such as the Conjunction Search, the API, PyAuroraX, and more.
 
 [Get Started&nbsp;&nbsp;:material-school-outline:](/getting_started/1_intro/){.md-button}&nbsp;
-[Developer Zone&nbsp;&nbsp;:material-console:](/code/overview){.md-button}&nbsp;
+[Developer Zone&nbsp;&nbsp;:material-console:](/code/overview/){.md-button}&nbsp;
 [Go to AuroraX&nbsp;&nbsp;:octicons-link-external-16:](https://aurorax.space){.md-button}
 
 ## What is AuroraX?
