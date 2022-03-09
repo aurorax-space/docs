@@ -5,7 +5,7 @@ PyAuroraX and IDL-AuroraX libraries require developers to do a few steps to inst
 ## PyAuroraX
 
 You can install PyAuroraX using pip, and import it like so:
-loca
+
 ```
 $ pip install pyaurorax
 $ python

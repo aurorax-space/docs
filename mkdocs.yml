@@ -105,6 +105,7 @@ nav:
   - Developer Zone:
     - Overview: code/overview.md
     - Installation: code/installation.md
+    - Upgrading: code/upgrading.md
     - Basic Usage:
       - Overview: code/basic_usage/overview.md
       - Data Sources: code/basic_usage/data_sources.md
