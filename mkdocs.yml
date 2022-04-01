@@ -129,6 +129,7 @@ nav:
       - Conjunctions:
         - Create Advanced Distances: code/idlaurorax_api_reference/conjunctions/create_advanced_distances.md
         - Create Criteria Block: code/idlaurorax_api_reference/conjunctions/create_criteria_block.md
+        - Open in AuroraX: code/idlaurorax_api_reference/conjunctions/open_in_aurorax.md
         - Open in Swarm-Aurora: code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora.md
         - Save Swarm-Aurora Custom Import File: code/idlaurorax_api_reference/conjunctions/save_swarmaurora_import_file.md
         - Search: code/idlaurorax_api_reference/conjunctions/search.md

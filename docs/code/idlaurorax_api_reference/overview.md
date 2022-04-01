@@ -10,6 +10,7 @@ IDL-AuroraX is an IDL library for interacting with the AuroraX platform. It can 
 The below pages provide the documentation for each function. Examples can be found in the over-arching "Basic Usage" and "Advanced Usage" sections.
 
 - [`aurorax_conjunction_search`](/code/idlaurorax_api_reference/conjunctions/search/)
+- [`aurorax_open_conjunctions_in_aurorax`](/code/idlaurorax_api_reference/conjunctions/open_in_aurorax/)
 - [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora/)
 - [`aurorax_save_swarmaurora_custom_import_file`](/code/idlaurorax_api_reference/conjunctions/save_swarmaurora_import_file/)
 - [`aurorax_create_advanced_distances_hash`](/code/idlaurorax_api_reference/conjunctions/create_advanced_distances/)
