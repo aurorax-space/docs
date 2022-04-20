@@ -30,7 +30,7 @@ Below are a list of the different components we have available as part of Aurora
 | --------- | ----------- | ---- |
 | Conjunction Search | Search for conjunctions between ground-based auroral instrumentation and spacecrafts | [:octicons-link-external-16:](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} |
 | Keogramist | Browse ground-based auroral imager data using keograms and movies | [:octicons-link-external-16:](https://aurorax.space/keogramist){:target="_blank"} |
-| Event Explorer | Explore auroral data and spacecraft locations using an interactive globe | [:octicons-link-external-16:](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} |
+| Event Explorer | Explore auroral data and spacecraft locations using an interactive globe | [:octicons-link-external-16:](https://aurorax.space/eventExplorer){:target="_blank"} |
 | Swarm-Aurora | Explore auroral and spacecraft summary data using web-based interfaces | [:octicons-link-external-16:](https://swarm-aurora.com){:target="_blank"} |
 | AuroraX RESTful API | Interact with AuroraX programmatically using an HTTPS-based RESTful API | [:octicons-link-external-16:](https://aurorax.space/data/apiLibraries){:target="_blank"} |
 | PyAuroraX | Python library for using the AuroraX API programmatically | [:octicons-link-external-16:](https://github.com/aurorax-space/pyaurorax){:target="_blank"} |
