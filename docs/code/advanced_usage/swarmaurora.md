@@ -10,6 +10,10 @@ Swarm-Aurora can be a very helpful tool for exploring conjunction searches and e
 
 Using the [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora/){:target="_blank"} procedure, you can open a conjunction search in Swarm-Aurora using a single IDL command. This procedure uses IDL's `widget_browser()` function to render a window that is a functional browser, with Swarm-Aurora loaded in it.
 
+!!! danger "Bug in IDL 8.8.1 and earlier"
+
+    Please note, there exists a bug in IDL versions 8.8.1 and lower for computers using a UHD or 4K screens (resolution larger than 1920x1080). When using the command `aurorax_open_conjunctions_in_swarmaurora` to open a browser window, the window that launches doesn't work quite right. IDL version 8.8.2 has resolved this bug.
+
 !!! example "Example - open conjunction search in Swarm-Aurora"
 
     This is an example of a simple conjunction search and different ways of opening it in Swarm-Aurora.
