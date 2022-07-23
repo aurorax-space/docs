@@ -93,7 +93,7 @@ AuroraX contains data product records for an assortment of different projects an
 
 If you want to learn more about ephemeris and data product records, have a look at:
 
-- [Data Categories](/about_the_data/data_categories)
+- [Data Categories](/about_the_data/categories)
 - [Instrument Descriptions: Ground-based](/about_the_data/instruments/ground)
 - [Instrument Descriptions: Space-based](/about_the_data/instruments/space)
 
