@@ -174,7 +174,7 @@ Please note that GSM data is only available for space-based instruments. This is
 
 In addition to ephemeris metadata, AuroraX also contains metadata representing data products. There are several different types currently: keogram, montage, average, movie, summary_plot, data_availability, and gridded_data.
 
-Keograms are the most recognizable data product for ground-based ASIs; they are images that represent a period of time for imaging. More information about them can be found [here](/about_the_data/instruments/ground/asis/#keograms).
+Keograms are the most recognizable data product for ground-based ASIs; they are images that represent a period of time for imaging. More information about them can be found [here](/about_the_data/instruments/ground/#keograms).
 
 <figure>
   <img src="https://data.swarm-aurora.com/data/summary_data/2008/20080904/themis-asi/20080904_07_gill_themis19_full-keogram.pgm.jpg" />
