@@ -1,4 +1,4 @@
-.PHONY: init-submodules update-submodules docs-install docs-generate docs-build docs-serve docs-deploy clean
+.PHONY: init-submodules update-submodules docs-install docs-update-deps docs-generate docs-build docs-serve docs-deploy clean
 
 all:
 
@@ -17,6 +17,9 @@ update-submodules:
 
 docs-install:
 	python3 -m pip install -r requirements.txt
+
+docs-updates-deps:
+	python3 -m pip install --upgrade -r requirements.txt
 
 docs-generate: 
 	cd pyaurorax && \
