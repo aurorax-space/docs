@@ -199,9 +199,9 @@ options, refer to <a href="https://docs.python.org/3/library/webbrowser.html#web
         w.open_new_tab(url)
     except Exception as e:
         if (&#34;could not locate runnable browser&#34; in str(e)):
-            raise AuroraXException(&#34;Error: selected browser &#39;%s&#39; not found, please try &#34; +
-                                   &#34;another. For the list of options, refer to &#34; +
-                                   &#34;https://docs.python.org/3/library/webbrowser.html#webbrowser.get&#34; % (browser))</code></pre>
+            raise AuroraXException((&#34;Error: selected browser &#39;%s&#39; not found, please try &#34;
+                                   &#34;another. For the list of options, refer to &#34;
+                                    &#34;https://docs.python.org/3/library/webbrowser.html#webbrowser.get&#34;) % (browser))</code></pre>
 </details>
 </dd>
 </dl>
