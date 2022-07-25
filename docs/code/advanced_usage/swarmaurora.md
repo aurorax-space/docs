@@ -2,29 +2,81 @@
 
 Swarm-Aurora can be a very helpful tool for exploring conjunction searches and evaluating data to see if it's of scientific interest. To help visualize conjunction searches performed using IDL-AuroraX, you can use several procedures to interact with Swarm-Aurora. Below, we'll have a closer look at what's possible.
 
-!!! warning "Currently only using IDL-AuroraX"
-
-    Currently, interacting with Swarm-Aurora can only be done with IDL-AuroraX. We are working on features in PyAuroraX and will be part of the [v0.10.0 release](https://github.com/aurorax-space/pyaurorax/milestone/3){:target="_blank"}.
-
 ## Open Conjunction Search in Swarm-Aurora
-
-Using the [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora/){:target="_blank"} procedure, you can open a conjunction search in Swarm-Aurora using a single IDL command. This procedure uses IDL's `widget_browser()` function to render a window that is a functional browser, with Swarm-Aurora loaded in it.
-
-!!! danger "Bug in IDL 8.8.1 and earlier"
-
-    Please note, there exists a bug in IDL versions 8.8.1 and lower for computers using a UHD or 4K screens (resolution larger than 1920x1080). When using the command `aurorax_open_conjunctions_in_swarmaurora` to open a browser window, the window that launches doesn't work quite right. IDL version 8.8.2 has resolved this bug.
 
 !!! example "Example - open conjunction search in Swarm-Aurora"
 
     This is an example of a simple conjunction search and different ways of opening it in Swarm-Aurora.
 
+    === "Python"
+
+        Using the [`conjunctions.swarmaurora`](/code/pyaurorax_api_reference/pyaurorax/conjunctions/swarmaurora/){:target="_blank"} submodule, you can open a conjunction search in Swarm-Aurora using a single line of Python code. This procedure uses Python's built-in [`webbrowser`](https://docs.python.org/3/library/webbrowser.html){:target="_blank"} module to launch a browser tab, with Swarm-Aurora loaded in it.
+
+        PyAuroraX supports two ways of opening conjunction searches in Swarm-Aurora:
+
+        1. Automatically opening in a browser
+        2. By providing a URL for you to copy into your preferred browser manually
+
+        To start, we'll do a simple conjunction search and then explore each of the three options.
+
+        ```python
+        # imports
+        import pyaurorax
+        import datetime
+
+        # define search parameters
+        start = datetime.datetime(2019, 1, 1, 0, 0, 0)
+        end = datetime.datetime(2019, 1, 3, 23, 59, 59)
+        ground_params = [
+            {
+                "programs": ["themis-asi"],
+                "platforms": ["fort smith", "gillam"],
+            }
+        ]
+        space_params = [
+            {
+                "programs": ["swarm"],
+                "hemisphere": ["northern"],
+            }
+        ]
+        distance = 500
+
+
+        # run conjunction search request
+        s = pyaurorax.conjunctions.search(start=start,
+                                          end=end,
+                                          distance=distance,
+                                          ground=ground_params,
+                                          space=space_params,
+                                          verbose=True)
+        ```
+
+        With the search now done and saved to the `s` variable, we can either open the results automatically in a browser:
+
+        ```python
+        pyaurorax.conjunctions.swarmaurora.open_in_browser(s)
+        ```
+
+        Or, output the URL so you can copy and paste it into your preferred browser manually.
+
+        ```python
+        print(pyaurorax.conjunctions.swarmaurora.get_url(s))
+        ```
+
+        If you run into issues with the default browser, or just want to use a different one, you can set the `browser` parameter to one of the supported browsers from the Python library. To view all browser options, refer to the table [here](https://docs.python.org/3/library/webbrowser.html#webbrowser.get). For example `pyaurorax.conjunctions.swarmaurora.open_in_browser(s, browser='google-chrome')`.
+
     === "IDL"
+        Using the [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora/){:target="_blank"} procedure, you can open a conjunction search in Swarm-Aurora using a single IDL command. This procedure uses IDL's `widget_browser()` function to render a window that is a functional browser, with Swarm-Aurora loaded in it.
 
-        IDL supports three ways of opening conjunction searches in Swarm-Aurora:
+        !!! danger "Bug in IDL 8.8.1 and earlier"
 
-        1. In an IDL-based browser window
-        2. By providing a URL for you to copy into your preferred browser
-        3. By copying a URL to your clipboard that can be then pasted into your preferred browser
+            Please note, there exists a bug in IDL versions 8.8.1 and lower for computers using a UHD or 4K screens (resolution larger than 1920x1080). When using the command `aurorax_open_conjunctions_in_swarmaurora` to open a browser window, the window that launches doesn't work quite right. IDL version 8.8.2 has resolved this bug.
+
+        IDL-AuroraX supports three ways of opening conjunction searches in Swarm-Aurora:
+
+        1. Automatically opening in an IDL-based browser window
+        2. By providing a URL for you to copy into your preferred browser manually
+        3. By copying a URL to your clipboard that can be then pasted into your preferred browser manually
 
         To start, we'll do a simple conjunction search and then explore each of the three options.
 
@@ -39,7 +91,7 @@ Using the [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_refe
         response = aurorax_conjunction_search(start_dt,end_dt,distance,ground=ground,space=space,/NBTRACE)
         ```
 
-        First off, we can open and IDL-based browser window using a single command.
+        First off, we can open an IDL-based browser window using a single command.
 
         ```idl
         IDL> aurorax_open_conjunctions_in_swarmaurora,response.request_id
@@ -55,6 +107,58 @@ Using the [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_refe
 
         ```idl
         IDL> aurorax_open_conjunctions_in_swarmaurora,response.request.id,/clipboard
+        ```
+
+    === "Command Line"
+
+        Using the `--swarmaurora-open-in-browser` and `--swarmaurora-show-url` parameters, you can also interact with Swarm-Aurora using the command line.
+
+        First, we'll set up our search in a separate JSON file, then run the `aurorax-cli` command with a few parameters.
+
+        Filename: **conjunction_search.json**
+        ```json
+        {
+          "start": "2019-01-01T00:00:00",
+          "end": "2019-01-03T23:59:59",
+          "conjunction_types": ["nbtrace"],
+          "ground": [
+            {
+              "programs": ["themis-asi"],
+              "platforms": ["fort smith", "gillam"],
+              "instrument_types": ["panchromatic ASI"],
+              "ephemeris_metadata_filters": {}
+            }
+          ],
+          "space": [
+            {
+              "programs": ["swarm"],
+              "platforms": [],
+              "instrument_types": ["footprint"],
+              "ephemeris_metadata_filters": {},
+              "hemisphere": ["northern"]
+            }
+          ],
+          "events": [],
+          "max_distances": {"ground1-space1": 500}
+        }
+        ```
+
+        Now, you can use the command line to run the search and interact with Swarm-Aurora in a few different ways.
+
+        ```console
+        $ aurorax-cli conjunctions search conjunction_search.json --swarmaurora-open-browser
+        ```
+
+        If you want to open it in a different browser from your system's default, you can use the `--swarmaurora-browser-type` parameter to specify it.
+
+        ```console
+        $ aurorax-cli conjunctions search conjunction_search.json --swarmaurora-open-browser --swarmaurora-browser-type=firefox`
+        ```
+
+        Alternatively you can only output the URL for Swarm-Aurora and the run conjunction search, so that you can manually copy and paste it into your preferred browser:
+
+        ```console
+        $ aurorax-cli conjunctions search conjunction_search.json --swarmaurora-show-url
         ```
 
 ## Download Swarm-Aurora custom import file

@@ -98,7 +98,8 @@ from .data_products import (search,
                             upload,
                             delete_urls,
                             delete,
-                            describe)
+                            describe,
+                            get_request_url)
 from .classes.data_product import DataProduct
 from .classes.search import Search
 
@@ -121,6 +122,7 @@ __all__ = [
     &#34;delete_urls&#34;,
     &#34;delete&#34;,
     &#34;describe&#34;,
+    &#34;get_request_url&#34;,
     &#34;DataProduct&#34;,
     &#34;Search&#34;,
 ]</code></pre>
@@ -393,6 +395,44 @@ identifier, program, platform, and instrument_type are required)</dd>
 
     # return
     return res.data</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.data_products.get_request_url"><code class="name flex">
+<span>def <span class="ident">get_request_url</span></span>(<span>request_id: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the data product search request URL for a given
+request ID. This URL can be used for subsequent
+pyaurorax.requests function calls. Primarily this method
+facilitates delving into details about a set of already-submitted
+data product searches.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request_id</code></strong></dt>
+<dd>the request identifier</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>the request URL</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_request_url(request_id: str) -&gt; str:
+    &#34;&#34;&#34;
+    Get the data product search request URL for a given
+    request ID. This URL can be used for subsequent
+    pyaurorax.requests function calls. Primarily this method
+    facilitates delving into details about a set of already-submitted
+    data product searches.
+
+    Args:
+        request_id: the request identifier
+
+    Returns:
+        the request URL
+    &#34;&#34;&#34;
+    url = api_urls.data_products_request_url.format(request_id)
+    return url</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.data_products.search"><code class="name flex">
@@ -1633,6 +1673,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyaurorax.data_products.delete" href="#pyaurorax.data_products.delete">delete</a></code></li>
 <li><code><a title="pyaurorax.data_products.delete_urls" href="#pyaurorax.data_products.delete_urls">delete_urls</a></code></li>
 <li><code><a title="pyaurorax.data_products.describe" href="#pyaurorax.data_products.describe">describe</a></code></li>
+<li><code><a title="pyaurorax.data_products.get_request_url" href="#pyaurorax.data_products.get_request_url">get_request_url</a></code></li>
 <li><code><a title="pyaurorax.data_products.search" href="#pyaurorax.data_products.search">search</a></code></li>
 <li><code><a title="pyaurorax.data_products.search_async" href="#pyaurorax.data_products.search_async">search_async</a></code></li>
 <li><code><a title="pyaurorax.data_products.upload" href="#pyaurorax.data_products.upload">upload</a></code></li>

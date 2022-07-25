@@ -46,7 +46,8 @@ from .ephemeris import (search_async,
                         search,
                         upload,
                         delete,
-                        describe)
+                        describe,
+                        get_request_url)
 from .classes.ephemeris import Ephemeris
 from .classes.search import Search
 
@@ -63,6 +64,7 @@ __all__ = [
     &#34;upload&#34;,
     &#34;delete&#34;,
     &#34;describe&#34;,
+    &#34;get_request_url&#34;,
     &#34;Ephemeris&#34;,
     &#34;Search&#34;,
 ]</code></pre>
@@ -213,6 +215,44 @@ identifier, program, platform, and instrument_type are required)</dd>
 
     # return
     return res.data</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.ephemeris.get_request_url"><code class="name flex">
+<span>def <span class="ident">get_request_url</span></span>(<span>request_id: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the ephemeris search request URL for a given
+request ID. This URL can be used for subsequent
+pyaurorax.requests function calls. Primarily this method
+facilitates delving into details about a set of already-submitted
+ephemeris searches.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request_id</code></strong></dt>
+<dd>the request identifier</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>the request URL</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_request_url(request_id: str) -&gt; str:
+    &#34;&#34;&#34;
+    Get the ephemeris search request URL for a given
+    request ID. This URL can be used for subsequent
+    pyaurorax.requests function calls. Primarily this method
+    facilitates delving into details about a set of already-submitted
+    ephemeris searches.
+
+    Args:
+        request_id: the request identifier
+
+    Returns:
+        the request URL
+    &#34;&#34;&#34;
+    url = urls.ephemeris_request_url.format(request_id)
+    return url</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.ephemeris.search"><code class="name flex">
@@ -860,7 +900,7 @@ to "AND"</dd>
 <dt><strong><code>data</code></strong></dt>
 <dd>the ephemeris records found</dd>
 <dt><strong><code>logs</code></strong></dt>
-<dd>all log messages outputed by the AuroraX API for this request</dd>
+<dd>all log messages outputted by the AuroraX API for this request</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -902,7 +942,7 @@ to "AND"</dd>
         query: the query for this request as JSON
         status: the status of the query
         data: the ephemeris records found
-        logs: all log messages outputed by the AuroraX API for this request
+        logs: all log messages outputted by the AuroraX API for this request
     &#34;&#34;&#34;
 
     def __init__(self,
@@ -1468,9 +1508,10 @@ setTimeout(() => input.focus(), 100);
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="pyaurorax.ephemeris.delete" href="#pyaurorax.ephemeris.delete">delete</a></code></li>
 <li><code><a title="pyaurorax.ephemeris.describe" href="#pyaurorax.ephemeris.describe">describe</a></code></li>
+<li><code><a title="pyaurorax.ephemeris.get_request_url" href="#pyaurorax.ephemeris.get_request_url">get_request_url</a></code></li>
 <li><code><a title="pyaurorax.ephemeris.search" href="#pyaurorax.ephemeris.search">search</a></code></li>
 <li><code><a title="pyaurorax.ephemeris.search_async" href="#pyaurorax.ephemeris.search_async">search_async</a></code></li>
 <li><code><a title="pyaurorax.ephemeris.upload" href="#pyaurorax.ephemeris.upload">upload</a></code></li>
