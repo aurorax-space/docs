@@ -35,3 +35,7 @@ thead {
 h1 {
     margin-bottom: 25px !important;
 }
+
+.add-bottom-space {
+    margin-bottom: 5px;
+}
