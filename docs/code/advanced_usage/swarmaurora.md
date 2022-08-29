@@ -41,7 +41,6 @@ Swarm-Aurora can be a very helpful tool for exploring conjunction searches and e
         ]
         distance = 500
 
-
         # run conjunction search request
         s = pyaurorax.conjunctions.search(start=start,
                                           end=end,
@@ -163,13 +162,71 @@ Swarm-Aurora can be a very helpful tool for exploring conjunction searches and e
 
 ## Download Swarm-Aurora custom import file
 
-Using the [`aurorax_save_swarmaurora_custom_import_file`](/code/idlaurorax_api_reference/conjunctions/save_swarmaurora_import_file/){:target="_blank"} procedure, you can download a Swarm-Aurora "custom import" JSON file. This file can be then shared with others or manually loaded into Swarm-Aurora.
-
 !!! example "Example - download Swarm-Aurora custom import file"
 
     This is an example of a simple conjunction search and then downloading the corresponding Swarm-Aurora custom import file.
 
+    === "Python"
+
+        Using the [`conjunctions.swarmaurora`](/code/pyaurorax_api_reference/pyaurorax/conjunctions/swarmaurora/){:target="_blank"} submodule, you can download the Swarm-Aurora custom import file in a single line of Python code. This file can then be shared easily with others, and imported to the Swarm-Aurora Conjunction Finder interface.
+
+        To start, we'll do a simple conjunction search and then explore each of the three options.
+
+        ```python
+        # imports
+        import pyaurorax
+        import datetime
+
+        # define search parameters
+        start = datetime.datetime(2019, 1, 1, 0, 0, 0)
+        end = datetime.datetime(2019, 1, 3, 23, 59, 59)
+        ground_params = [
+            {
+                "programs": ["themis-asi"],
+                "platforms": ["fort smith", "gillam"],
+            }
+        ]
+        space_params = [
+            {
+                "programs": ["swarm"],
+                "hemisphere": ["northern"],
+            }
+        ]
+        distance = 500
+
+        # run conjunction search request
+        s = pyaurorax.conjunctions.search(start=start,
+                                          end=end,
+                                          distance=distance,
+                                          ground=ground_params,
+                                          space=space_params,
+                                          verbose=True)
+        ```
+
+        With the search now done and saved to the `s` variable, we can save the search as a Swarm-Aurora custom import file:
+
+        ```python
+        filename = pyaurorax.conjunctions.swarmaurora.create_custom_import_file(s)
+        print(filename)
+        ```
+
+        This saves the file to a default output file. Alternatively, you can specify the output filename yourself.
+
+        ```python
+        filename = pyaurorax.conjunctions.swarmaurora.create_custom_import_file(s, filename="/tmp/swarmaurora_custom_import.json")
+        print(filename)
+        ```
+
+        Lastly, instead of saving to a file, you can get the custom import file contents and store it into a dictionary variable. Use the `returnDict` parameter to do this, like so:
+
+        ```
+        custom_import_dict = pyaurorax.conjunctions.swarmaurora.create_custom_import_file(s, returnDict=True)
+        print(custom_import_dict)
+        ```
+
     === "IDL"
+
+        Using the [`aurorax_save_swarmaurora_custom_import_file`](/code/idlaurorax_api_reference/conjunctions/save_swarmaurora_import_file/){:target="_blank"} procedure, you can download a Swarm-Aurora "custom import" JSON file. This file can be then shared with others or manually loaded into Swarm-Aurora.
 
         To start, we'll do a simple conjunction search.
 
@@ -202,4 +259,44 @@ Using the [`aurorax_save_swarmaurora_custom_import_file`](/code/idlaurorax_api_r
 
         ```idl
         IDL> aurorax_save_swarmaurora_custom_import_file,response.request_id,filename='C:\my_swarmaurora_custom_import_file.json'
+        ```
+
+    === "Command Line"
+
+        Using the `--swarmaurora-save-custom-import-file` parameter, you can perform a conjunction search and save the Swarm-Aurora custom import file too.
+
+        First, we'll set up our search in a separate JSON file, then run the `aurorax-cli` command with a few parameters.
+
+        Filename: **conjunction_search.json**
+        ```json
+        {
+          "start": "2019-01-01T00:00:00",
+          "end": "2019-01-03T23:59:59",
+          "conjunction_types": ["nbtrace"],
+          "ground": [
+            {
+              "programs": ["themis-asi"],
+              "platforms": ["fort smith", "gillam"],
+              "instrument_types": ["panchromatic ASI"],
+              "ephemeris_metadata_filters": {}
+            }
+          ],
+          "space": [
+            {
+              "programs": ["swarm"],
+              "platforms": [],
+              "instrument_types": ["footprint"],
+              "ephemeris_metadata_filters": {},
+              "hemisphere": ["northern"]
+            }
+          ],
+          "events": [],
+          "max_distances": {"ground1-space1": 500}
+        }
+        ```
+
+        Now, you can use the command line to run the search and interact with Swarm-Aurora in a few different ways.
+
+        ```console
+        $ aurorax-cli conjunctions search conjunction_search.json --swarmaurora-save-custom-import-file
         ```
