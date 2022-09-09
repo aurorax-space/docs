@@ -2,7 +2,7 @@
 
 With the goal of being widely accessible, the AuroraX API makes many of its features available to use anonymously and without the need to create an AuroraX account. Features such as conjunction, ephemeris, and data product searches, retrieving data source availability/statistics all don't require authentication.
 
-Some features of the API, such as managing your organization's data sources and ephemeris/data products data, **does** require an AuroraX account and some form of authentication.
+Some features of the API, such as managing your organization's data sources and ephemeris/data products data, **does** [require an AuroraX account](/code/advanced_usage/creating_an_account) and some form of authentication.
 
 AuroraX's main authentication method is the use of an API key, which can be provided in the header of the request.
 

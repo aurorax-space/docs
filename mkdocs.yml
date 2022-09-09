@@ -113,6 +113,7 @@ nav:
       - Ephemeris: code/basic_usage/ephemeris.md
       - Data Products: code/basic_usage/data_products.md
     - Advanced Usage:
+      - Create account: code/advanced_usage/creating_an_account.md
       - Authentication: code/advanced_usage/authentication.md
       - Advanced conjunction searches: code/advanced_usage/advanced_conjunctions.md
       - Asynchronous searches: code/advanced_usage/asynchronous_search.md
