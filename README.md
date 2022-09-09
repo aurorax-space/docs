@@ -46,7 +46,7 @@ $ python3 -m pip install -r requirements.txt
 
 ```
 $ cd pyaurorax
-$ poetry run python3 -m pdoc --html --force --output-dir ../docs/python_libraries/pyaurorax/api_reference pyaurorax/pyaurorax --config "lunr_search={'fuzziness': 1}"
+$ poetry run python3 -m pdoc --html --force --output-dir ../docs/python_libraries/pyaurorax/api_reference pyaurorax --config "lunr_search={'fuzziness': 1}"
 ```
 
 6. Build and serve the website locally.
