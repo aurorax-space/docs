@@ -19,5 +19,5 @@ Accounts are required for maintaining data sources and ephemeris/data products d
     ```
     Issue a POST request to `https://api.aurorax.space/api/v1/accounts`. For example, using curl:
     ```
-    curl -X 'POST' 'https://api.aurorax.space/api/v1/accounts' -H 'accept: application/json' -H 'Content-Type: application/json' -d payload.json
+    curl -X 'POST' 'https://api.aurorax.space/api/v1/accounts' -H 'accept: application/json' -H 'Content-Type: application/json' -d @payload.json
     ```
