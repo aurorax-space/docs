@@ -11,6 +11,3 @@ site/
 
 # Site directory
 /site
-
-# Generated files
-python_libraries/

@@ -20,7 +20,6 @@ AuroraX's main authentication method is the use of an API key, which can be prov
 
 Below we'll show an example of how to use your API key for interacting with secure functions.
 
-
 !!! example "Example - get data sources"
 
     === "Python"
