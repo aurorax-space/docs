@@ -25,13 +25,13 @@ There are four account types in AuroraX:
 | - | :-: | :-: | :-: | :-: |
 | Create data source | <font color="red"><font color="red">&#10007;</font></font> | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
 | Update data source | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
-| Delete data source | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> |
+| Delete data source | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
 | Create ephemeris record | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
 | Update ephemeris record **| <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
-| Delete ephemeris record | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> |
+| Delete ephemeris record | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
 | Create data product record | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
 | Update data product record **| <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
-| Delete data product record | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> |
+| Delete data product record | <font color="red">&#10007;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> | <font color="green">&#10004;</font> |
 
 \* Maintainers must be assigned to a data source by the Owner of the data source
 
