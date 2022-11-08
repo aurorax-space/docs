@@ -37,6 +37,7 @@ from ...sources import (FORMAT_BASIC_INFO,
                         FORMAT_BASIC_INFO_WITH_METADATA,
                         FORMAT_IDENTIFIER_ONLY,
                         FORMAT_FULL_RECORD)
+from .data_source_stats import DataSourceStatistics
 
 # pdoc init
 __pdoc__: Dict = {}
@@ -81,6 +82,7 @@ class DataSource(BaseModel):
     ephemeris_metadata_schema: Optional[List[Dict]] = None
     data_product_metadata_schema: Optional[List[Dict]] = None
     format: Optional[str] = FORMAT_FULL_RECORD
+    stats: Optional[DataSourceStatistics] = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
@@ -110,6 +112,7 @@ class DataSource(BaseModel):
         attr_maintainers = &#34;None&#34; if self.maintainers is None else f&#34;{self.maintainers}&#34;
         attr_eph_schema = &#34;None&#34; if self.ephemeris_metadata_schema is None else f&#34;{self.ephemeris_metadata_schema}&#34;
         attr_dp_schema = &#34;None&#34; if self.data_product_metadata_schema is None else f&#34;{self.data_product_metadata_schema}&#34;
+        attr_stats = &#34;None&#34; if self.stats is None else f&#34;{self.stats}&#34;
 
         # shorten strings
         max_len = 20
@@ -125,37 +128,41 @@ class DataSource(BaseModel):
             r = &#34;DataSource(identifier=%s)&#34; % (attr_identifier)
         elif (self.format == FORMAT_BASIC_INFO):
             r = &#34;DataSource(identifier=%s, program=%s, platform=%s, &#34; \
-                &#34;instrument_type=%s, source_type=%s, display_name=%s)&#34; % (attr_identifier,
-                                                                          attr_program,
-                                                                          attr_platform,
-                                                                          attr_instrument_type,
-                                                                          attr_source_type,
-                                                                          attr_display_name)
+                &#34;instrument_type=%s, source_type=%s, display_name=%s, &#34; \
+                &#34;stats=%s)&#34; % (attr_identifier,
+                               attr_program,
+                               attr_platform,
+                               attr_instrument_type,
+                               attr_source_type,
+                               attr_display_name,
+                               attr_stats)
         elif (self.format == FORMAT_BASIC_INFO_WITH_METADATA):
             r = &#34;DataSource(identifier=%s, program=%s, platform=%s, &#34; \
                 &#34;instrument_type=%s, source_type=%s, display_name=%s, &#34; \
-                &#34;metadata=%s)&#34; % (attr_identifier,
-                                  attr_program,
-                                  attr_platform,
-                                  attr_instrument_type,
-                                  attr_source_type,
-                                  attr_display_name,
-                                  attr_metadata)
+                &#34;metadata=%s, stats=%s)&#34; % (attr_identifier,
+                                            attr_program,
+                                            attr_platform,
+                                            attr_instrument_type,
+                                            attr_source_type,
+                                            attr_display_name,
+                                            attr_metadata,
+                                            attr_stats)
         elif (self.format == FORMAT_FULL_RECORD):
             r = &#34;DataSource(identifier=%s, program=%s, platform=%s, &#34; \
                 &#34;instrument_type=%s, source_type=%s, display_name=%s, &#34; \
                 &#34;metadata=%s, owner=%s, maintainers=%s, ephemeris_metadata_schema=%s, &#34; \
-                &#34;data_product_metadata_schema=%s)&#34; % (attr_identifier,
-                                                      attr_program,
-                                                      attr_platform,
-                                                      attr_instrument_type,
-                                                      attr_source_type,
-                                                      attr_display_name,
-                                                      attr_metadata,
-                                                      attr_owner,
-                                                      attr_maintainers,
-                                                      attr_eph_schema,
-                                                      attr_dp_schema)
+                &#34;data_product_metadata_schema=%s, stats=%s)&#34; % (attr_identifier,
+                                                                attr_program,
+                                                                attr_platform,
+                                                                attr_instrument_type,
+                                                                attr_source_type,
+                                                                attr_display_name,
+                                                                attr_metadata,
+                                                                attr_owner,
+                                                                attr_maintainers,
+                                                                attr_eph_schema,
+                                                                attr_dp_schema,
+                                                                attr_stats)
 
         # return constructed repr
         return r</code></pre>
@@ -257,6 +264,7 @@ at the top level using the pyaurorax.FORMAT_* variables.</dd>
     ephemeris_metadata_schema: Optional[List[Dict]] = None
     data_product_metadata_schema: Optional[List[Dict]] = None
     format: Optional[str] = FORMAT_FULL_RECORD
+    stats: Optional[DataSourceStatistics] = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;
@@ -286,6 +294,7 @@ at the top level using the pyaurorax.FORMAT_* variables.</dd>
         attr_maintainers = &#34;None&#34; if self.maintainers is None else f&#34;{self.maintainers}&#34;
         attr_eph_schema = &#34;None&#34; if self.ephemeris_metadata_schema is None else f&#34;{self.ephemeris_metadata_schema}&#34;
         attr_dp_schema = &#34;None&#34; if self.data_product_metadata_schema is None else f&#34;{self.data_product_metadata_schema}&#34;
+        attr_stats = &#34;None&#34; if self.stats is None else f&#34;{self.stats}&#34;
 
         # shorten strings
         max_len = 20
@@ -301,37 +310,41 @@ at the top level using the pyaurorax.FORMAT_* variables.</dd>
             r = &#34;DataSource(identifier=%s)&#34; % (attr_identifier)
         elif (self.format == FORMAT_BASIC_INFO):
             r = &#34;DataSource(identifier=%s, program=%s, platform=%s, &#34; \
-                &#34;instrument_type=%s, source_type=%s, display_name=%s)&#34; % (attr_identifier,
-                                                                          attr_program,
-                                                                          attr_platform,
-                                                                          attr_instrument_type,
-                                                                          attr_source_type,
-                                                                          attr_display_name)
+                &#34;instrument_type=%s, source_type=%s, display_name=%s, &#34; \
+                &#34;stats=%s)&#34; % (attr_identifier,
+                               attr_program,
+                               attr_platform,
+                               attr_instrument_type,
+                               attr_source_type,
+                               attr_display_name,
+                               attr_stats)
         elif (self.format == FORMAT_BASIC_INFO_WITH_METADATA):
             r = &#34;DataSource(identifier=%s, program=%s, platform=%s, &#34; \
                 &#34;instrument_type=%s, source_type=%s, display_name=%s, &#34; \
-                &#34;metadata=%s)&#34; % (attr_identifier,
-                                  attr_program,
-                                  attr_platform,
-                                  attr_instrument_type,
-                                  attr_source_type,
-                                  attr_display_name,
-                                  attr_metadata)
+                &#34;metadata=%s, stats=%s)&#34; % (attr_identifier,
+                                            attr_program,
+                                            attr_platform,
+                                            attr_instrument_type,
+                                            attr_source_type,
+                                            attr_display_name,
+                                            attr_metadata,
+                                            attr_stats)
         elif (self.format == FORMAT_FULL_RECORD):
             r = &#34;DataSource(identifier=%s, program=%s, platform=%s, &#34; \
                 &#34;instrument_type=%s, source_type=%s, display_name=%s, &#34; \
                 &#34;metadata=%s, owner=%s, maintainers=%s, ephemeris_metadata_schema=%s, &#34; \
-                &#34;data_product_metadata_schema=%s)&#34; % (attr_identifier,
-                                                      attr_program,
-                                                      attr_platform,
-                                                      attr_instrument_type,
-                                                      attr_source_type,
-                                                      attr_display_name,
-                                                      attr_metadata,
-                                                      attr_owner,
-                                                      attr_maintainers,
-                                                      attr_eph_schema,
-                                                      attr_dp_schema)
+                &#34;data_product_metadata_schema=%s, stats=%s)&#34; % (attr_identifier,
+                                                                attr_program,
+                                                                attr_platform,
+                                                                attr_instrument_type,
+                                                                attr_source_type,
+                                                                attr_display_name,
+                                                                attr_metadata,
+                                                                attr_owner,
+                                                                attr_maintainers,
+                                                                attr_eph_schema,
+                                                                attr_dp_schema,
+                                                                attr_stats)
 
         # return constructed repr
         return r</code></pre>
@@ -388,6 +401,10 @@ at the top level using the pyaurorax.FORMAT_* variables.</dd>
 <div class="desc"></div>
 </dd>
 <dt id="pyaurorax.sources.classes.data_source.DataSource.source_type"><code class="name">var <span class="ident">source_type</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyaurorax.sources.classes.data_source.DataSource.stats"><code class="name">var <span class="ident">stats</span> : Optional[<a title="pyaurorax.sources.classes.data_source_stats.DataSourceStatistics" href="data_source_stats.html#pyaurorax.sources.classes.data_source_stats.DataSourceStatistics">DataSourceStatistics</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -470,6 +487,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyaurorax.sources.classes.data_source.DataSource.platform" href="#pyaurorax.sources.classes.data_source.DataSource.platform">platform</a></code></li>
 <li><code><a title="pyaurorax.sources.classes.data_source.DataSource.program" href="#pyaurorax.sources.classes.data_source.DataSource.program">program</a></code></li>
 <li><code><a title="pyaurorax.sources.classes.data_source.DataSource.source_type" href="#pyaurorax.sources.classes.data_source.DataSource.source_type">source_type</a></code></li>
+<li><code><a title="pyaurorax.sources.classes.data_source.DataSource.stats" href="#pyaurorax.sources.classes.data_source.DataSource.stats">stats</a></code></li>
 </ul>
 </li>
 </ul>

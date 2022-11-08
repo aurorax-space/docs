@@ -60,6 +60,8 @@ class URLs:
     __DEFAULT_URL_DESCRIBE_CONJUNCTION_QUERY = &#34;/api/v1/utils/describe/query/conjunction&#34;
     __DEFAULT_URL_DESCRIBE_DATA_PRODUCTS_QUERY = &#34;/api/v1/utils/describe/query/data_products&#34;
     __DEFAULT_URL_DESCRIBE_EPHEMERIS_QUERY = &#34;/api/v1/utils/describe/query/ephemeris&#34;
+    __DEFAULT_URL_LIST_REQUESTS = &#34;/api/v1/utils/admin/search_requests&#34;
+    __DEFAULT_URL_DELETE_REQUESTS = &#34;/api/v1/utils/admin/search_requests/{}&#34;
 
     def __init__(self, base_url: str = DEFAULT_BASE_URL) -&gt; None:
         self.__base = base_url
@@ -75,9 +77,11 @@ class URLs:
         self.__data_products_request = self.__DEFAULT_URL_DATA_PRODUCTS_REQUEST
         self.__conjunction_search = self.__DEFAULT_URL_CONJUNCTION_SEARCH
         self.__conjunction_request = self.__DEFAULT_URL_CONJUNCTION_REQUEST
-        self.__describe_conjunction_query = self.__DEFAULT_URL_DESCRIBE_CONJUNCTION_QUERY
-        self.__describe_data_products_query = self.__DEFAULT_URL_DESCRIBE_DATA_PRODUCTS_QUERY
-        self.__describe_ephemeris_query = self.__DEFAULT_URL_DESCRIBE_EPHEMERIS_QUERY
+        self.__describe_conjunction_query_url = self.__DEFAULT_URL_DESCRIBE_CONJUNCTION_QUERY
+        self.__describe_data_products_query_url = self.__DEFAULT_URL_DESCRIBE_DATA_PRODUCTS_QUERY
+        self.__describe_ephemeris_query_url = self.__DEFAULT_URL_DESCRIBE_EPHEMERIS_QUERY
+        self.__list_requests_url = self.__DEFAULT_URL_LIST_REQUESTS
+        self.__delete_requests_url = self.__DEFAULT_URL_DELETE_REQUESTS
 
     @property
     def base_url(self) -&gt; str:
@@ -148,16 +152,26 @@ class URLs:
     # describe
     # -------------------
     @property
-    def describe_conjunction_query(self) -&gt; str:
-        return f&#34;{self.__base}{self.__describe_conjunction_query}&#34;
+    def describe_conjunction_query_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__describe_conjunction_query_url}&#34;
 
     @property
-    def describe_data_products_query(self) -&gt; str:
-        return f&#34;{self.__base}{self.__describe_data_products_query}&#34;
+    def describe_data_products_query_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__describe_data_products_query_url}&#34;
 
     @property
-    def describe_ephemeris_query(self) -&gt; str:
-        return f&#34;{self.__base}{self.__describe_ephemeris_query}&#34;</code></pre>
+    def describe_ephemeris_query_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__describe_ephemeris_query_url}&#34;
+
+    # admin
+    # -------------------
+    @property
+    def list_requests_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__list_requests_url}&#34;
+
+    @property
+    def delete_requests_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__delete_requests_url}&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -195,6 +209,8 @@ class URLs:
     __DEFAULT_URL_DESCRIBE_CONJUNCTION_QUERY = &#34;/api/v1/utils/describe/query/conjunction&#34;
     __DEFAULT_URL_DESCRIBE_DATA_PRODUCTS_QUERY = &#34;/api/v1/utils/describe/query/data_products&#34;
     __DEFAULT_URL_DESCRIBE_EPHEMERIS_QUERY = &#34;/api/v1/utils/describe/query/ephemeris&#34;
+    __DEFAULT_URL_LIST_REQUESTS = &#34;/api/v1/utils/admin/search_requests&#34;
+    __DEFAULT_URL_DELETE_REQUESTS = &#34;/api/v1/utils/admin/search_requests/{}&#34;
 
     def __init__(self, base_url: str = DEFAULT_BASE_URL) -&gt; None:
         self.__base = base_url
@@ -210,9 +226,11 @@ class URLs:
         self.__data_products_request = self.__DEFAULT_URL_DATA_PRODUCTS_REQUEST
         self.__conjunction_search = self.__DEFAULT_URL_CONJUNCTION_SEARCH
         self.__conjunction_request = self.__DEFAULT_URL_CONJUNCTION_REQUEST
-        self.__describe_conjunction_query = self.__DEFAULT_URL_DESCRIBE_CONJUNCTION_QUERY
-        self.__describe_data_products_query = self.__DEFAULT_URL_DESCRIBE_DATA_PRODUCTS_QUERY
-        self.__describe_ephemeris_query = self.__DEFAULT_URL_DESCRIBE_EPHEMERIS_QUERY
+        self.__describe_conjunction_query_url = self.__DEFAULT_URL_DESCRIBE_CONJUNCTION_QUERY
+        self.__describe_data_products_query_url = self.__DEFAULT_URL_DESCRIBE_DATA_PRODUCTS_QUERY
+        self.__describe_ephemeris_query_url = self.__DEFAULT_URL_DESCRIBE_EPHEMERIS_QUERY
+        self.__list_requests_url = self.__DEFAULT_URL_LIST_REQUESTS
+        self.__delete_requests_url = self.__DEFAULT_URL_DELETE_REQUESTS
 
     @property
     def base_url(self) -&gt; str:
@@ -283,16 +301,26 @@ class URLs:
     # describe
     # -------------------
     @property
-    def describe_conjunction_query(self) -&gt; str:
-        return f&#34;{self.__base}{self.__describe_conjunction_query}&#34;
+    def describe_conjunction_query_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__describe_conjunction_query_url}&#34;
 
     @property
-    def describe_data_products_query(self) -&gt; str:
-        return f&#34;{self.__base}{self.__describe_data_products_query}&#34;
+    def describe_data_products_query_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__describe_data_products_query_url}&#34;
 
     @property
-    def describe_ephemeris_query(self) -&gt; str:
-        return f&#34;{self.__base}{self.__describe_ephemeris_query}&#34;</code></pre>
+    def describe_ephemeris_query_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__describe_ephemeris_query_url}&#34;
+
+    # admin
+    # -------------------
+    @property
+    def list_requests_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__list_requests_url}&#34;
+
+    @property
+    def delete_requests_url(self) -&gt; str:
+        return f&#34;{self.__base}{self.__delete_requests_url}&#34;</code></pre>
 </details>
 <h3>Instance variables</h3>
 <dl>
@@ -404,7 +432,7 @@ def data_sources_url(self) -&gt; str:
     return f&#34;{self.__base}{self.__data_sources}&#34;</code></pre>
 </details>
 </dd>
-<dt id="pyaurorax.api.classes.urls.URLs.describe_conjunction_query"><code class="name">var <span class="ident">describe_conjunction_query</span> : str</code></dt>
+<dt id="pyaurorax.api.classes.urls.URLs.delete_requests_url"><code class="name">var <span class="ident">delete_requests_url</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -412,11 +440,11 @@ def data_sources_url(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def describe_conjunction_query(self) -&gt; str:
-    return f&#34;{self.__base}{self.__describe_conjunction_query}&#34;</code></pre>
+def delete_requests_url(self) -&gt; str:
+    return f&#34;{self.__base}{self.__delete_requests_url}&#34;</code></pre>
 </details>
 </dd>
-<dt id="pyaurorax.api.classes.urls.URLs.describe_data_products_query"><code class="name">var <span class="ident">describe_data_products_query</span> : str</code></dt>
+<dt id="pyaurorax.api.classes.urls.URLs.describe_conjunction_query_url"><code class="name">var <span class="ident">describe_conjunction_query_url</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -424,11 +452,11 @@ def describe_conjunction_query(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def describe_data_products_query(self) -&gt; str:
-    return f&#34;{self.__base}{self.__describe_data_products_query}&#34;</code></pre>
+def describe_conjunction_query_url(self) -&gt; str:
+    return f&#34;{self.__base}{self.__describe_conjunction_query_url}&#34;</code></pre>
 </details>
 </dd>
-<dt id="pyaurorax.api.classes.urls.URLs.describe_ephemeris_query"><code class="name">var <span class="ident">describe_ephemeris_query</span> : str</code></dt>
+<dt id="pyaurorax.api.classes.urls.URLs.describe_data_products_query_url"><code class="name">var <span class="ident">describe_data_products_query_url</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -436,8 +464,20 @@ def describe_data_products_query(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def describe_ephemeris_query(self) -&gt; str:
-    return f&#34;{self.__base}{self.__describe_ephemeris_query}&#34;</code></pre>
+def describe_data_products_query_url(self) -&gt; str:
+    return f&#34;{self.__base}{self.__describe_data_products_query_url}&#34;</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.api.classes.urls.URLs.describe_ephemeris_query_url"><code class="name">var <span class="ident">describe_ephemeris_query_url</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def describe_ephemeris_query_url(self) -&gt; str:
+    return f&#34;{self.__base}{self.__describe_ephemeris_query_url}&#34;</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.api.classes.urls.URLs.ephemeris_availability_url"><code class="name">var <span class="ident">ephemeris_availability_url</span> : str</code></dt>
@@ -486,6 +526,18 @@ def ephemeris_search_url(self) -&gt; str:
 <pre><code class="python">@property
 def ephemeris_upload_url(self) -&gt; str:
     return f&#34;{self.__base}{self.__ephemeris_upload}&#34;</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.api.classes.urls.URLs.list_requests_url"><code class="name">var <span class="ident">list_requests_url</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def list_requests_url(self) -&gt; str:
+    return f&#34;{self.__base}{self.__list_requests_url}&#34;</code></pre>
 </details>
 </dd>
 </dl>
@@ -564,13 +616,15 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyaurorax.api.classes.urls.URLs.data_products_upload_url" href="#pyaurorax.api.classes.urls.URLs.data_products_upload_url">data_products_upload_url</a></code></li>
 <li><code><a title="pyaurorax.api.classes.urls.URLs.data_sources_search_url" href="#pyaurorax.api.classes.urls.URLs.data_sources_search_url">data_sources_search_url</a></code></li>
 <li><code><a title="pyaurorax.api.classes.urls.URLs.data_sources_url" href="#pyaurorax.api.classes.urls.URLs.data_sources_url">data_sources_url</a></code></li>
-<li><code><a title="pyaurorax.api.classes.urls.URLs.describe_conjunction_query" href="#pyaurorax.api.classes.urls.URLs.describe_conjunction_query">describe_conjunction_query</a></code></li>
-<li><code><a title="pyaurorax.api.classes.urls.URLs.describe_data_products_query" href="#pyaurorax.api.classes.urls.URLs.describe_data_products_query">describe_data_products_query</a></code></li>
-<li><code><a title="pyaurorax.api.classes.urls.URLs.describe_ephemeris_query" href="#pyaurorax.api.classes.urls.URLs.describe_ephemeris_query">describe_ephemeris_query</a></code></li>
+<li><code><a title="pyaurorax.api.classes.urls.URLs.delete_requests_url" href="#pyaurorax.api.classes.urls.URLs.delete_requests_url">delete_requests_url</a></code></li>
+<li><code><a title="pyaurorax.api.classes.urls.URLs.describe_conjunction_query_url" href="#pyaurorax.api.classes.urls.URLs.describe_conjunction_query_url">describe_conjunction_query_url</a></code></li>
+<li><code><a title="pyaurorax.api.classes.urls.URLs.describe_data_products_query_url" href="#pyaurorax.api.classes.urls.URLs.describe_data_products_query_url">describe_data_products_query_url</a></code></li>
+<li><code><a title="pyaurorax.api.classes.urls.URLs.describe_ephemeris_query_url" href="#pyaurorax.api.classes.urls.URLs.describe_ephemeris_query_url">describe_ephemeris_query_url</a></code></li>
 <li><code><a title="pyaurorax.api.classes.urls.URLs.ephemeris_availability_url" href="#pyaurorax.api.classes.urls.URLs.ephemeris_availability_url">ephemeris_availability_url</a></code></li>
 <li><code><a title="pyaurorax.api.classes.urls.URLs.ephemeris_request_url" href="#pyaurorax.api.classes.urls.URLs.ephemeris_request_url">ephemeris_request_url</a></code></li>
 <li><code><a title="pyaurorax.api.classes.urls.URLs.ephemeris_search_url" href="#pyaurorax.api.classes.urls.URLs.ephemeris_search_url">ephemeris_search_url</a></code></li>
 <li><code><a title="pyaurorax.api.classes.urls.URLs.ephemeris_upload_url" href="#pyaurorax.api.classes.urls.URLs.ephemeris_upload_url">ephemeris_upload_url</a></code></li>
+<li><code><a title="pyaurorax.api.classes.urls.URLs.list_requests_url" href="#pyaurorax.api.classes.urls.URLs.list_requests_url">list_requests_url</a></code></li>
 </ul>
 </li>
 </ul>

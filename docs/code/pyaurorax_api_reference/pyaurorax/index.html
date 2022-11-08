@@ -78,7 +78,7 @@ Basic usage:
 &#34;&#34;&#34;
 
 # versioning info
-__version__ = &#34;0.10.0&#34;
+__version__ = &#34;0.13.0&#34;
 
 # documentation excludes
 __pdoc__ = {&#34;cli&#34;: False}
@@ -117,7 +117,8 @@ from .exceptions import (AuroraXException,
                          AuroraXConflictException,
                          AuroraXUploadException,
                          AuroraXUnexpectedEmptyResponse,
-                         AuroraXDataRetrievalError)
+                         AuroraXDataRetrievalException,
+                         AuroraXTimeoutException)
 
 # pull in models
 from .location import Location

@@ -32,10 +32,10 @@ Functions for interacting with data sources
 &#34;&#34;&#34;
 
 import warnings
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 from .classes.data_source import DataSource
 from .classes.data_source_stats import DataSourceStatistics
-from ..sources import FORMAT_FULL_RECORD
+from ..sources import FORMAT_FULL_RECORD, SOURCE_TYPE_NOT_APPLICABLE
 from ..api import AuroraXRequest, urls
 from ..exceptions import (AuroraXNotFoundException,
                           AuroraXDuplicateException,
@@ -53,7 +53,9 @@ def list(program: Optional[str] = None,
          source_type: Optional[str] = None,
          owner: Optional[str] = None,
          format: Optional[str] = FORMAT_FULL_RECORD,
-         order: Optional[str] = &#34;identifier&#34;) -&gt; List[DataSource]:
+         order: Optional[str] = &#34;identifier&#34;,
+         include_stats: Optional[bool] = False,
+         include_na: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Retrieve all data source records (using params to filter as desired)
 
@@ -70,6 +72,10 @@ def list(program: Optional[str] = None,
             using the pyaurorax.FORMAT_* variables.
         order: the value to order results by (identifier, program, platform,
             instrument_type, display_name, owner), defaults to &#34;identifier&#34;
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
+        include_na: include &#34;not_applicable&#34; special data sources (ie. adhoc sources)
 
     Returns:
         any data sources matching the requested parameters
@@ -95,18 +101,37 @@ def list(program: Optional[str] = None,
     # order results
     res.data = sorted(res.data, key=lambda x: x[order])
 
-    # return
+    # cast
     if len(res.data):
-        return [DataSource(**ds, format=format) for ds in res.data]
+        sources = [DataSource(**ds, format=format) for ds in res.data]
     else:
         return []
+
+    # remove not_applicable sources
+    sources_pruned = []
+    if (include_na is False):
+        for source in sources:
+            if (source.source_type != SOURCE_TYPE_NOT_APPLICABLE):
+                sources_pruned.append(source)
+    else:
+        sources_pruned = sources
+
+    # get stats if requested
+    if (include_stats is True):
+        for i in range(0, len(sources_pruned)):
+            source_with_stats = get_stats(sources_pruned[i].identifier)
+            sources_pruned[i].stats = source_with_stats.stats
+
+    # return
+    return sources_pruned
 
 
 def search(programs: Optional[List[str]] = [],
            platforms: Optional[List[str]] = [],
            instrument_types: Optional[List[str]] = [],
            format: Optional[str] = FORMAT_FULL_RECORD,
-           order: Optional[str] = &#34;identifier&#34;) -&gt; List[DataSource]:
+           order: Optional[str] = &#34;identifier&#34;,
+           include_stats: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Search for data source records (using params to filter as desired)
 
@@ -123,6 +148,9 @@ def search(programs: Optional[List[str]] = [],
             using the pyaurorax.FORMAT_* variables.
         order: the value to order results by (identifier, program, platform,
             instrument_type, display_name), defaults to &#34;identifier&#34;
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
 
     Returns:
         any data sources matching the requested parameters
@@ -149,17 +177,27 @@ def search(programs: Optional[List[str]] = [],
     # order results
     res.data = sorted(res.data, key=lambda x: x[order])
 
-    # return
+    # cast
     if len(res.data):
-        return [DataSource(**ds, format=format) for ds in res.data]
+        data_sources = [DataSource(**ds, format=format) for ds in res.data]
     else:
         return []
+
+    # get stats if requested
+    if (include_stats is True):
+        for i in range(0, len(data_sources)):
+            data_source_with_stats = get_stats(data_sources[i].identifier)
+            data_sources[i].stats = data_source_with_stats.stats
+
+    # return
+    return data_sources
 
 
 def get(program: str,
         platform: str,
         instrument_type: str,
-        format: Optional[str] = FORMAT_FULL_RECORD) -&gt; DataSource:
+        format: Optional[str] = FORMAT_FULL_RECORD,
+        include_stats: Optional[bool] = False) -&gt; DataSource:
     &#34;&#34;&#34;
     Retrieve a specific data source record
 
@@ -170,6 +208,9 @@ def get(program: str,
         format: the format of the data sources returned, defaults to &#34;full_record&#34;.
             Other options are in the pyaurorax.sources module, or at the top level
             using the pyaurorax.FORMAT_* variables.
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
 
     Returns:
         the data source matching the requested parameters
@@ -183,7 +224,8 @@ def get(program: str,
     data_sources = list(program=program,
                         platform=platform,
                         instrument_type=instrument_type,
-                        format=format)
+                        format=format,
+                        include_stats=include_stats)
 
     # set results to the first thing found
     if (len(data_sources) == 1):
@@ -202,7 +244,9 @@ def get_using_filters(program: Optional[str] = None,
                       source_type: Optional[str] = None,
                       owner: Optional[str] = None,
                       format: Optional[str] = FORMAT_FULL_RECORD,
-                      order: Optional[str] = &#34;identifier&#34;) -&gt; List[DataSource]:
+                      order: Optional[str] = &#34;identifier&#34;,
+                      include_stats: Optional[bool] = False,
+                      include_na: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Retrieve all data source records matching a filter
 
@@ -219,6 +263,10 @@ def get_using_filters(program: Optional[str] = None,
             using the pyaurorax.FORMAT_* variables.
         order: the value to order results by (identifier, program, platform,
             instrument_type, display_name, owner), defaults to &#34;identifier&#34;
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
+        include_na: include &#34;not_applicable&#34; special data sources (ie. adhoc sources)
 
     Returns:
         any data sources matching the requested parameters
@@ -234,14 +282,17 @@ def get_using_filters(program: Optional[str] = None,
                         source_type=source_type,
                         owner=owner,
                         format=format,
-                        order=order)
+                        order=order,
+                        include_stats=include_stats,
+                        include_na=include_na)
 
     # return
     return data_sources
 
 
 def get_using_identifier(identifier: int,
-                         format: Optional[str] = FORMAT_FULL_RECORD) -&gt; DataSource:
+                         format: Optional[str] = FORMAT_FULL_RECORD,
+                         include_stats: Optional[bool] = False) -&gt; DataSource:
     &#34;&#34;&#34;
     Retrieve data source record matching an identifier
 
@@ -250,6 +301,9 @@ def get_using_identifier(identifier: int,
         format: the format of the data sources returned, defaults to &#34;full_record&#34;.
             Other options are in the pyaurorax.sources module, or at the top level
             using the pyaurorax.FORMAT_* variables.
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
 
     Returns:
         the data source matching the identifier
@@ -266,13 +320,20 @@ def get_using_identifier(identifier: int,
     req = AuroraXRequest(method=&#34;get&#34;, url=url, params=params)
     res = req.execute()
 
+    # cast
+    data_source = DataSource(**res.data, format=format)
+
+    # get stats if requested
+    if (include_stats is True):
+        data_source = get_stats(data_source.identifier)
+
     # return
-    return DataSource(**res.data, format=format)
+    return data_source
 
 
 def get_stats(identifier: int,
               format: Optional[str] = FORMAT_FULL_RECORD,
-              slow: Optional[bool] = False) -&gt; DataSourceStatistics:
+              slow: Optional[bool] = False) -&gt; DataSource:
     &#34;&#34;&#34;
     Retrieve statistics for a data source
 
@@ -284,7 +345,7 @@ def get_stats(identifier: int,
         slow: retrieve the stats using a slower, but more accurate method, defaults to False
 
     Returns:
-        information about the data source
+        the data source including additional stats information about it
 
     Raises:
         pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error
@@ -301,11 +362,12 @@ def get_stats(identifier: int,
     res = req.execute()
 
     # cast data source record
+    stats = DataSourceStatistics(**res.data)
     ds = DataSource(**res.data[&#34;data_source&#34;], format=format)
-    res.data[&#34;data_source&#34;] = ds
+    ds.stats = stats
 
     # return
-    return DataSourceStatistics(**res.data)
+    return ds
 
 
 def add(data_source: DataSource) -&gt; DataSource:
@@ -334,7 +396,7 @@ def add(data_source: DataSource) -&gt; DataSource:
         &#34;ephemeris_metadata_schema&#34;: data_source.ephemeris_metadata_schema,
         &#34;data_product_metadata_schema&#34;: data_source.data_product_metadata_schema,
         &#34;metadata&#34;: data_source.metadata
-    }
+    }  # type: Dict[str, Any]
     if (data_source.identifier is not None):
         request_data[&#34;identifier&#34;] = data_source.identifier
 
@@ -364,7 +426,7 @@ def delete(identifier: int) -&gt; int:
         identifier: the AuroraX unique ID for the data source
 
     Returns:
-        1 on success, raises error if an issue was encountered
+        0 on success, raises error if an issue was encountered
 
     Raises:
         pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error
@@ -388,7 +450,7 @@ def delete(identifier: int) -&gt; int:
                                                     res.data[&#34;error_message&#34;]))
 
     # return
-    return 1
+    return 0
 
 
 def update(data_source: DataSource) -&gt; DataSource:
@@ -428,6 +490,7 @@ def update(data_source: DataSource) -&gt; DataSource:
 
     # make request to update the data source passed in
     req_data = data_source.__dict__
+    del req_data[&#34;stats&#34;]
     del req_data[&#34;format&#34;]
     req = AuroraXRequest(method=&#34;put&#34;, url=url, body=req_data)
     req.execute()
@@ -499,6 +562,7 @@ def update_partial(identifier: int,
     # set URL and request data
     url = f&#34;{urls.data_sources_url}/{ds.identifier}&#34;
     req_data = ds.__dict__
+    del req_data[&#34;stats&#34;]
     del req_data[&#34;format&#34;]
 
     # make request
@@ -509,35 +573,7 @@ def update_partial(identifier: int,
     try:
         return get_using_identifier(ds.identifier, format=FORMAT_FULL_RECORD)
     except Exception:
-        raise AuroraXException(&#34;Could not update data source&#34;)
-
-
-@DeprecationWarning
-def partial_update(identifier: int,
-                   program: Optional[str] = None,
-                   platform: Optional[str] = None,
-                   instrument_type: Optional[str] = None,
-                   source_type: Optional[str] = None,
-                   display_name: Optional[str] = None,
-                   metadata: Optional[Dict] = None,
-                   owner: Optional[str] = None,
-                   maintainers: Optional[List[str]] = None,
-                   ephemeris_metadata_schema: Optional[List[Dict]] = None,
-                   data_product_metadata_schema: Optional[List[Dict]] = None) -&gt; DataSource:
-    warnings.warn(&#34;The &#39;partial_update&#39; function has been deprecated as of 0.9.0, and will &#34;
-                  &#34;be removed in a future release. Please use the &#39;update_partial&#39; function &#34;
-                  &#34;instead.&#34;, DeprecationWarning, stacklevel=2)
-    return update_partial(identifier,
-                          program=program,
-                          platform=platform,
-                          instrument_type=instrument_type,
-                          source_type=source_type,
-                          display_name=display_name,
-                          metadata=metadata,
-                          owner=owner,
-                          maintainers=maintainers,
-                          ephemeris_metadata_schema=ephemeris_metadata_schema,
-                          data_product_metadata_schema=data_product_metadata_schema)</code></pre>
+        raise AuroraXException(&#34;Could not update data source&#34;)</code></pre>
 </details>
 </section>
 <section>
@@ -599,7 +635,7 @@ DataSource object)</dd>
         &#34;ephemeris_metadata_schema&#34;: data_source.ephemeris_metadata_schema,
         &#34;data_product_metadata_schema&#34;: data_source.data_product_metadata_schema,
         &#34;metadata&#34;: data_source.metadata
-    }
+    }  # type: Dict[str, Any]
     if (data_source.identifier is not None):
         request_data[&#34;identifier&#34;] = data_source.identifier
 
@@ -632,7 +668,7 @@ DataSource object)</dd>
 <dd>the AuroraX unique ID for the data source</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>1 on success, raises error if an issue was encountered</p>
+<p>0 on success, raises error if an issue was encountered</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="../exceptions.html#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
@@ -656,7 +692,7 @@ DataSource object)</dd>
         identifier: the AuroraX unique ID for the data source
 
     Returns:
-        1 on success, raises error if an issue was encountered
+        0 on success, raises error if an issue was encountered
 
     Raises:
         pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error
@@ -680,11 +716,11 @@ DataSource object)</dd>
                                                     res.data[&#34;error_message&#34;]))
 
     # return
-    return 1</code></pre>
+    return 0</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.sources.sources.get"><code class="name flex">
-<span>def <span class="ident">get</span></span>(<span>program: str, platform: str, instrument_type: str, format: Optional[str] = 'full_record') ‑> <a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a></span>
+<span>def <span class="ident">get</span></span>(<span>program: str, platform: str, instrument_type: str, format: Optional[str] = 'full_record', include_stats: Optional[bool] = False) ‑> <a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve a specific data source record</p>
@@ -700,6 +736,10 @@ DataSource object)</dd>
 <dd>the format of the data sources returned, defaults to "full_record".
 Other options are in the pyaurorax.sources module, or at the top level
 using the pyaurorax.FORMAT_* variables.</dd>
+<dt><strong><code>include_stats</code></strong></dt>
+<dd>include additional stats information about the data source (note:
+slower response time since an additional request must be done for each
+data source), defaults to False</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>the data source matching the requested parameters</p>
@@ -719,7 +759,8 @@ using the pyaurorax.FORMAT_* variables.</dd>
 <pre><code class="python">def get(program: str,
         platform: str,
         instrument_type: str,
-        format: Optional[str] = FORMAT_FULL_RECORD) -&gt; DataSource:
+        format: Optional[str] = FORMAT_FULL_RECORD,
+        include_stats: Optional[bool] = False) -&gt; DataSource:
     &#34;&#34;&#34;
     Retrieve a specific data source record
 
@@ -730,6 +771,9 @@ using the pyaurorax.FORMAT_* variables.</dd>
         format: the format of the data sources returned, defaults to &#34;full_record&#34;.
             Other options are in the pyaurorax.sources module, or at the top level
             using the pyaurorax.FORMAT_* variables.
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
 
     Returns:
         the data source matching the requested parameters
@@ -743,7 +787,8 @@ using the pyaurorax.FORMAT_* variables.</dd>
     data_sources = list(program=program,
                         platform=platform,
                         instrument_type=instrument_type,
-                        format=format)
+                        format=format,
+                        include_stats=include_stats)
 
     # set results to the first thing found
     if (len(data_sources) == 1):
@@ -757,7 +802,7 @@ using the pyaurorax.FORMAT_* variables.</dd>
 </details>
 </dd>
 <dt id="pyaurorax.sources.sources.get_stats"><code class="name flex">
-<span>def <span class="ident">get_stats</span></span>(<span>identifier: int, format: Optional[str] = 'full_record', slow: Optional[bool] = False) ‑> <a title="pyaurorax.sources.classes.data_source_stats.DataSourceStatistics" href="classes/data_source_stats.html#pyaurorax.sources.classes.data_source_stats.DataSourceStatistics">DataSourceStatistics</a></span>
+<span>def <span class="ident">get_stats</span></span>(<span>identifier: int, format: Optional[str] = 'full_record', slow: Optional[bool] = False) ‑> <a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve statistics for a data source</p>
@@ -773,7 +818,7 @@ using the pyaurorax.FORMAT_* variables.</dd>
 <dd>retrieve the stats using a slower, but more accurate method, defaults to False</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>information about the data source</p>
+<p>the data source including additional stats information about it</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="../exceptions.html#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></dt>
@@ -789,7 +834,7 @@ using the pyaurorax.FORMAT_* variables.</dd>
 </summary>
 <pre><code class="python">def get_stats(identifier: int,
               format: Optional[str] = FORMAT_FULL_RECORD,
-              slow: Optional[bool] = False) -&gt; DataSourceStatistics:
+              slow: Optional[bool] = False) -&gt; DataSource:
     &#34;&#34;&#34;
     Retrieve statistics for a data source
 
@@ -801,7 +846,7 @@ using the pyaurorax.FORMAT_* variables.</dd>
         slow: retrieve the stats using a slower, but more accurate method, defaults to False
 
     Returns:
-        information about the data source
+        the data source including additional stats information about it
 
     Raises:
         pyaurorax.exceptions.AuroraXMaxRetriesException: max retry error
@@ -818,15 +863,16 @@ using the pyaurorax.FORMAT_* variables.</dd>
     res = req.execute()
 
     # cast data source record
+    stats = DataSourceStatistics(**res.data)
     ds = DataSource(**res.data[&#34;data_source&#34;], format=format)
-    res.data[&#34;data_source&#34;] = ds
+    ds.stats = stats
 
     # return
-    return DataSourceStatistics(**res.data)</code></pre>
+    return ds</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.sources.sources.get_using_filters"><code class="name flex">
-<span>def <span class="ident">get_using_filters</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier') ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
+<span>def <span class="ident">get_using_filters</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier', include_stats: Optional[bool] = False, include_na: Optional[bool] = False) ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve all data source records matching a filter</p>
@@ -851,6 +897,12 @@ using the pyaurorax.FORMAT_* variables.</dd>
 <dt><strong><code>order</code></strong></dt>
 <dd>the value to order results by (identifier, program, platform,
 instrument_type, display_name, owner), defaults to "identifier"</dd>
+<dt><strong><code>include_stats</code></strong></dt>
+<dd>include additional stats information about the data source (note:
+slower response time since an additional request must be done for each
+data source), defaults to False</dd>
+<dt><strong><code>include_na</code></strong></dt>
+<dd>include "not_applicable" special data sources (ie. adhoc sources)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>any data sources matching the requested parameters</p>
@@ -871,7 +923,9 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
                       source_type: Optional[str] = None,
                       owner: Optional[str] = None,
                       format: Optional[str] = FORMAT_FULL_RECORD,
-                      order: Optional[str] = &#34;identifier&#34;) -&gt; List[DataSource]:
+                      order: Optional[str] = &#34;identifier&#34;,
+                      include_stats: Optional[bool] = False,
+                      include_na: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Retrieve all data source records matching a filter
 
@@ -888,6 +942,10 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
             using the pyaurorax.FORMAT_* variables.
         order: the value to order results by (identifier, program, platform,
             instrument_type, display_name, owner), defaults to &#34;identifier&#34;
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
+        include_na: include &#34;not_applicable&#34; special data sources (ie. adhoc sources)
 
     Returns:
         any data sources matching the requested parameters
@@ -903,14 +961,16 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
                         source_type=source_type,
                         owner=owner,
                         format=format,
-                        order=order)
+                        order=order,
+                        include_stats=include_stats,
+                        include_na=include_na)
 
     # return
     return data_sources</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.sources.sources.get_using_identifier"><code class="name flex">
-<span>def <span class="ident">get_using_identifier</span></span>(<span>identifier: int, format: Optional[str] = 'full_record') ‑> <a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a></span>
+<span>def <span class="ident">get_using_identifier</span></span>(<span>identifier: int, format: Optional[str] = 'full_record', include_stats: Optional[bool] = False) ‑> <a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve data source record matching an identifier</p>
@@ -922,6 +982,10 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 <dd>the format of the data sources returned, defaults to "full_record".
 Other options are in the pyaurorax.sources module, or at the top level
 using the pyaurorax.FORMAT_* variables.</dd>
+<dt><strong><code>include_stats</code></strong></dt>
+<dd>include additional stats information about the data source (note:
+slower response time since an additional request must be done for each
+data source), defaults to False</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>the data source matching the identifier</p>
@@ -937,7 +1001,8 @@ using the pyaurorax.FORMAT_* variables.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_using_identifier(identifier: int,
-                         format: Optional[str] = FORMAT_FULL_RECORD) -&gt; DataSource:
+                         format: Optional[str] = FORMAT_FULL_RECORD,
+                         include_stats: Optional[bool] = False) -&gt; DataSource:
     &#34;&#34;&#34;
     Retrieve data source record matching an identifier
 
@@ -946,6 +1011,9 @@ using the pyaurorax.FORMAT_* variables.</dd>
         format: the format of the data sources returned, defaults to &#34;full_record&#34;.
             Other options are in the pyaurorax.sources module, or at the top level
             using the pyaurorax.FORMAT_* variables.
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
 
     Returns:
         the data source matching the identifier
@@ -962,12 +1030,19 @@ using the pyaurorax.FORMAT_* variables.</dd>
     req = AuroraXRequest(method=&#34;get&#34;, url=url, params=params)
     res = req.execute()
 
+    # cast
+    data_source = DataSource(**res.data, format=format)
+
+    # get stats if requested
+    if (include_stats is True):
+        data_source = get_stats(data_source.identifier)
+
     # return
-    return DataSource(**res.data, format=format)</code></pre>
+    return data_source</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.sources.sources.list"><code class="name flex">
-<span>def <span class="ident">list</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier') ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
+<span>def <span class="ident">list</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier', include_stats: Optional[bool] = False, include_na: Optional[bool] = False) ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve all data source records (using params to filter as desired)</p>
@@ -992,6 +1067,12 @@ using the pyaurorax.FORMAT_* variables.</dd>
 <dt><strong><code>order</code></strong></dt>
 <dd>the value to order results by (identifier, program, platform,
 instrument_type, display_name, owner), defaults to "identifier"</dd>
+<dt><strong><code>include_stats</code></strong></dt>
+<dd>include additional stats information about the data source (note:
+slower response time since an additional request must be done for each
+data source), defaults to False</dd>
+<dt><strong><code>include_na</code></strong></dt>
+<dd>include "not_applicable" special data sources (ie. adhoc sources)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>any data sources matching the requested parameters</p>
@@ -1012,7 +1093,9 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
          source_type: Optional[str] = None,
          owner: Optional[str] = None,
          format: Optional[str] = FORMAT_FULL_RECORD,
-         order: Optional[str] = &#34;identifier&#34;) -&gt; List[DataSource]:
+         order: Optional[str] = &#34;identifier&#34;,
+         include_stats: Optional[bool] = False,
+         include_na: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Retrieve all data source records (using params to filter as desired)
 
@@ -1029,6 +1112,10 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
             using the pyaurorax.FORMAT_* variables.
         order: the value to order results by (identifier, program, platform,
             instrument_type, display_name, owner), defaults to &#34;identifier&#34;
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
+        include_na: include &#34;not_applicable&#34; special data sources (ie. adhoc sources)
 
     Returns:
         any data sources matching the requested parameters
@@ -1054,15 +1141,33 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
     # order results
     res.data = sorted(res.data, key=lambda x: x[order])
 
-    # return
+    # cast
     if len(res.data):
-        return [DataSource(**ds, format=format) for ds in res.data]
+        sources = [DataSource(**ds, format=format) for ds in res.data]
     else:
-        return []</code></pre>
+        return []
+
+    # remove not_applicable sources
+    sources_pruned = []
+    if (include_na is False):
+        for source in sources:
+            if (source.source_type != SOURCE_TYPE_NOT_APPLICABLE):
+                sources_pruned.append(source)
+    else:
+        sources_pruned = sources
+
+    # get stats if requested
+    if (include_stats is True):
+        for i in range(0, len(sources_pruned)):
+            source_with_stats = get_stats(sources_pruned[i].identifier)
+            sources_pruned[i].stats = source_with_stats.stats
+
+    # return
+    return sources_pruned</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.sources.sources.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>programs: Optional[List[str]] = [], platforms: Optional[List[str]] = [], instrument_types: Optional[List[str]] = [], format: Optional[str] = 'full_record', order: Optional[str] = 'identifier') ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
+<span>def <span class="ident">search</span></span>(<span>programs: Optional[List[str]] = [], platforms: Optional[List[str]] = [], instrument_types: Optional[List[str]] = [], format: Optional[str] = 'full_record', order: Optional[str] = 'identifier', include_stats: Optional[bool] = False) ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Search for data source records (using params to filter as desired)</p>
@@ -1084,6 +1189,10 @@ using the pyaurorax.FORMAT_* variables.</dd>
 <dt><strong><code>order</code></strong></dt>
 <dd>the value to order results by (identifier, program, platform,
 instrument_type, display_name), defaults to "identifier"</dd>
+<dt><strong><code>include_stats</code></strong></dt>
+<dd>include additional stats information about the data source (note:
+slower response time since an additional request must be done for each
+data source), defaults to False</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>any data sources matching the requested parameters</p>
@@ -1102,7 +1211,8 @@ instrument_type, display_name), defaults to "identifier"</dd>
            platforms: Optional[List[str]] = [],
            instrument_types: Optional[List[str]] = [],
            format: Optional[str] = FORMAT_FULL_RECORD,
-           order: Optional[str] = &#34;identifier&#34;) -&gt; List[DataSource]:
+           order: Optional[str] = &#34;identifier&#34;,
+           include_stats: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Search for data source records (using params to filter as desired)
 
@@ -1119,6 +1229,9 @@ instrument_type, display_name), defaults to "identifier"</dd>
             using the pyaurorax.FORMAT_* variables.
         order: the value to order results by (identifier, program, platform,
             instrument_type, display_name), defaults to &#34;identifier&#34;
+        include_stats: include additional stats information about the data source (note:
+            slower response time since an additional request must be done for each
+            data source), defaults to False
 
     Returns:
         any data sources matching the requested parameters
@@ -1145,11 +1258,20 @@ instrument_type, display_name), defaults to "identifier"</dd>
     # order results
     res.data = sorted(res.data, key=lambda x: x[order])
 
-    # return
+    # cast
     if len(res.data):
-        return [DataSource(**ds, format=format) for ds in res.data]
+        data_sources = [DataSource(**ds, format=format) for ds in res.data]
     else:
-        return []</code></pre>
+        return []
+
+    # get stats if requested
+    if (include_stats is True):
+        for i in range(0, len(data_sources)):
+            data_source_with_stats = get_stats(data_sources[i].identifier)
+            data_sources[i].stats = data_source_with_stats.stats
+
+    # return
+    return data_sources</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.sources.sources.update"><code class="name flex">
@@ -1224,6 +1346,7 @@ update it to)</dd>
 
     # make request to update the data source passed in
     req_data = data_source.__dict__
+    del req_data[&#34;stats&#34;]
     del req_data[&#34;format&#34;]
     req = AuroraXRequest(method=&#34;put&#34;, url=url, body=req_data)
     req.execute()
@@ -1346,6 +1469,7 @@ the data source, defaults to None</dd>
     # set URL and request data
     url = f&#34;{urls.data_sources_url}/{ds.identifier}&#34;
     req_data = ds.__dict__
+    del req_data[&#34;stats&#34;]
     del req_data[&#34;format&#34;]
 
     # make request

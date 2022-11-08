@@ -33,9 +33,14 @@ Functions for interacting with AuroraX requests
 
 import datetime
 import time
-from typing import Dict, List, Optional
+import warnings
+from typing import Dict, List, Optional, Any
 from ..api.classes.request import AuroraXRequest
-from ..exceptions import AuroraXDataRetrievalError
+from ..api import urls
+from ..exceptions import (
+    AuroraXDataRetrievalException,
+    AuroraXException,
+    AuroraXUnauthorizedException)
 from ..location import Location
 
 # pdoc init
@@ -47,6 +52,9 @@ FIRST_FOLLOWUP_SLEEP_TIME: float = 0.050  # 50ms
 
 STANDARD_POLLING_SLEEP_TIME: float = 1.0  # 1s
 &#34;&#34;&#34; Polling sleep time when waiting for data (after the initial sleep time) &#34;&#34;&#34;
+
+ALLOWED_SEARCH_LISTING_TYPES = [&#34;conjunction&#34;, &#34;data_product&#34;, &#34;ephemeris&#34;]
+&#34;&#34;&#34; Allowed types when listing search requests &#34;&#34;&#34;
 
 
 def get_status(request_url: str) -&gt; Dict:
@@ -80,7 +88,7 @@ def get_data(data_url: str,
         skip_serializing: skip any object serializing, defaults to False
 
     Raises:
-        pyaurorax.exceptions.AuroraXDataRetrievalError: error retrieving data
+        pyaurorax.exceptions.AuroraXDataRetrievalException: error retrieving data
 
     Returns:
         the data for this request
@@ -96,8 +104,8 @@ def get_data(data_url: str,
 
     # check for error message
     if (&#34;error&#34; in res.data):
-        raise AuroraXDataRetrievalError(&#34;%s: %s&#34; % (res.data[&#34;error&#34;][&#34;error_code&#34;],
-                                                    res.data[&#34;error&#34;][&#34;error_message&#34;]))
+        raise AuroraXDataRetrievalException(&#34;%s: %s&#34; % (res.data[&#34;error&#34;][&#34;error_code&#34;],
+                                                        res.data[&#34;error&#34;][&#34;error_message&#34;]))
 
     # set data var
     data_result = res.data[&#34;result&#34;]
@@ -198,7 +206,7 @@ def cancel(request_url: str,
             progress, defaults to False
 
     Returns:
-        1 on success
+        0 on success
 
     Raises:
         pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
@@ -212,7 +220,7 @@ def cancel(request_url: str,
 
     # return immediately if we don&#39;t want to wait
     if (wait is False):
-        return 1
+        return 0
 
     # get status
     status = get_status(request_url)
@@ -227,7 +235,112 @@ def cancel(request_url: str,
     # return
     if (verbose is True):
         print(&#34;[%s] The request has been cancelled&#34; % (datetime.datetime.now()))
-    return 1</code></pre>
+    return 0
+
+
+def list(search_type: Optional[str] = None,
+         active: Optional[bool] = None,
+         start: Optional[datetime.datetime] = None,
+         end: Optional[datetime.datetime] = None,
+         file_size: Optional[int] = None,
+         result_count: Optional[int] = None,
+         query_duration: Optional[int] = None,
+         error_condition: Optional[bool] = None) -&gt; List:
+    &#34;&#34;&#34;
+    Retrieve a list of search requests matching certain criteria.  Administrators only.
+
+    Args:
+        search_type: the type of search request, valid values are &#39;conjunction&#39;,
+            &#39;ephemeris&#39;, or &#39;data_product&#39;. Exclusion of value will return all
+            search requests of any type, defaults to None
+        active: return searches that are currently active or not, exclude for
+            both, defaults to None
+        start: start timestamp for narrowing down search timeframes, defaults to None
+        end: end timestamp for narrowing down search timeframes, defaults to None
+        file_size: filter by result file size, measured in KB, defaults to None
+        result_count: filter by result count, defaults to None
+        query_duration: filter by query duration, measured in milliseconds, defaults
+            to None
+        error_condition: filter by if an error occurred or not, exclude for both,
+            defaults to None
+
+    Returns:
+        list of matching search requests
+
+    Raises:
+        pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+    &#34;&#34;&#34;
+    # check the search request type
+    if (search_type is not None and search_type not in ALLOWED_SEARCH_LISTING_TYPES):
+        warnings.warn(&#34;The search type value &#39;%s&#39; is not one that &#34;
+                      &#34;PyAuroraX knows about. Supported values are: &#34;
+                      &#34;%s. Aborting request.&#34; % (search_type,
+                                                 &#39;, &#39;.join(ALLOWED_SEARCH_LISTING_TYPES)))
+        return []
+
+    # set params
+    params: Dict[str, Any] = {}
+    if (search_type is not None):
+        params[&#34;search_type&#34;] = search_type
+    if (active is not None):
+        params[&#34;active&#34;] = active
+    if (start is not None):
+        params[&#34;start&#34;] = start.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;)
+    if (end is not None):
+        params[&#34;end&#34;] = end.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;)
+    if (file_size is not None):
+        params[&#34;file_size&#34;] = file_size
+    if (result_count is not None):
+        params[&#34;result_count&#34;] = result_count
+    if (query_duration is not None):
+        params[&#34;query_duration&#34;] = query_duration
+    if (error_condition is not None):
+        params[&#34;query_duration&#34;] = query_duration
+
+    # do request
+    url = urls.list_requests_url
+    req = AuroraXRequest(method=&#34;get&#34;,
+                         url=url,
+                         params=params)
+    res = req.execute()
+
+    # check responses
+    if (res.status_code == 401):
+        raise AuroraXUnauthorizedException(&#34;API key not detected, please authenticate first.&#34;)
+    if (res.status_code == 403):
+        raise AuroraXUnauthorizedException(&#34;Administrator account required. API key not valid &#34;
+                                           &#34;for this level of access&#34;)
+
+    # return
+    return res.data
+
+
+def delete(request_id: str) -&gt; int:
+    &#34;&#34;&#34;
+    Entirely remove a search request from the AuroraX
+    database. Administrators only.
+
+    Args:
+        request_id: search request UUID
+
+    Returns:
+        0 on success, raises error on failure
+
+    Raises:
+        pyaurorax.exceptions.AuroraXNotFoundException: data source not found
+    &#34;&#34;&#34;
+    # do request
+    url = urls.delete_requests_url.format(request_id)
+    req = AuroraXRequest(method=&#34;delete&#34;,
+                         url=url,
+                         null_response=True)
+    res = req.execute()
+
+    # check response and return
+    if (res.status_code != 200):
+        raise AuroraXException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;],
+                                            res.data[&#34;error_message&#34;]))
+    return 0</code></pre>
 </details>
 </section>
 <section>
@@ -235,6 +348,10 @@ def cancel(request_url: str,
 <section>
 <h2 class="section-title" id="header-variables">Global variables</h2>
 <dl>
+<dt id="pyaurorax.requests.requests.ALLOWED_SEARCH_LISTING_TYPES"><code class="name">var <span class="ident">ALLOWED_SEARCH_LISTING_TYPES</span></code></dt>
+<dd>
+<div class="desc"><p>Allowed types when listing search requests</p></div>
+</dd>
 <dt id="pyaurorax.requests.requests.FIRST_FOLLOWUP_SLEEP_TIME"><code class="name">var <span class="ident">FIRST_FOLLOWUP_SLEEP_TIME</span> : float</code></dt>
 <dd>
 <div class="desc"><p>Initial sleep time when waiting for data</p></div>
@@ -272,7 +389,7 @@ calls, defaults to STANDARD_POLLING_SLEEP_TIME.</dd>
 progress, defaults to False</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>1 on success</p>
+<p>0 on success</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="../exceptions.html#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></dt>
@@ -306,7 +423,7 @@ progress, defaults to False</dd>
             progress, defaults to False
 
     Returns:
-        1 on success
+        0 on success
 
     Raises:
         pyaurorax.exceptions.AuroraXUnexpectedContentTypeException: unexpected error
@@ -320,7 +437,7 @@ progress, defaults to False</dd>
 
     # return immediately if we don&#39;t want to wait
     if (wait is False):
-        return 1
+        return 0
 
     # get status
     status = get_status(request_url)
@@ -335,7 +452,57 @@ progress, defaults to False</dd>
     # return
     if (verbose is True):
         print(&#34;[%s] The request has been cancelled&#34; % (datetime.datetime.now()))
-    return 1</code></pre>
+    return 0</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.requests.requests.delete"><code class="name flex">
+<span>def <span class="ident">delete</span></span>(<span>request_id: str) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Entirely remove a search request from the AuroraX
+database. Administrators only.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request_id</code></strong></dt>
+<dd>search request UUID</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>0 on success, raises error on failure</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyaurorax.exceptions.AuroraXNotFoundException" href="../exceptions.html#pyaurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></dt>
+<dd>data source not found</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete(request_id: str) -&gt; int:
+    &#34;&#34;&#34;
+    Entirely remove a search request from the AuroraX
+    database. Administrators only.
+
+    Args:
+        request_id: search request UUID
+
+    Returns:
+        0 on success, raises error on failure
+
+    Raises:
+        pyaurorax.exceptions.AuroraXNotFoundException: data source not found
+    &#34;&#34;&#34;
+    # do request
+    url = urls.delete_requests_url.format(request_id)
+    req = AuroraXRequest(method=&#34;delete&#34;,
+                         url=url,
+                         null_response=True)
+    res = req.execute()
+
+    # check response and return
+    if (res.status_code != 200):
+        raise AuroraXException(&#34;%s - %s&#34; % (res.data[&#34;error_code&#34;],
+                                            res.data[&#34;error_message&#34;]))
+    return 0</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.requests.requests.get_data"><code class="name flex">
@@ -355,7 +522,7 @@ to None</dd>
 </dl>
 <h2 id="raises">Raises</h2>
 <dl>
-<dt><code><a title="pyaurorax.exceptions.AuroraXDataRetrievalError" href="../exceptions.html#pyaurorax.exceptions.AuroraXDataRetrievalError">AuroraXDataRetrievalError</a></code></dt>
+<dt><code><a title="pyaurorax.exceptions.AuroraXDataRetrievalException" href="../exceptions.html#pyaurorax.exceptions.AuroraXDataRetrievalException">AuroraXDataRetrievalException</a></code></dt>
 <dd>error retrieving data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
@@ -377,7 +544,7 @@ to None</dd>
         skip_serializing: skip any object serializing, defaults to False
 
     Raises:
-        pyaurorax.exceptions.AuroraXDataRetrievalError: error retrieving data
+        pyaurorax.exceptions.AuroraXDataRetrievalException: error retrieving data
 
     Returns:
         the data for this request
@@ -393,8 +560,8 @@ to None</dd>
 
     # check for error message
     if (&#34;error&#34; in res.data):
-        raise AuroraXDataRetrievalError(&#34;%s: %s&#34; % (res.data[&#34;error&#34;][&#34;error_code&#34;],
-                                                    res.data[&#34;error&#34;][&#34;error_message&#34;]))
+        raise AuroraXDataRetrievalException(&#34;%s: %s&#34; % (res.data[&#34;error&#34;][&#34;error_code&#34;],
+                                                        res.data[&#34;error&#34;][&#34;error_message&#34;]))
 
     # set data var
     data_result = res.data[&#34;result&#34;]
@@ -487,6 +654,124 @@ to None</dd>
     # do request
     req = AuroraXRequest(method=&#34;get&#34;, url=request_url)
     res = req.execute()
+
+    # return
+    return res.data</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.requests.requests.list"><code class="name flex">
+<span>def <span class="ident">list</span></span>(<span>search_type: Optional[str] = None, active: Optional[bool] = None, start: Optional[datetime.datetime] = None, end: Optional[datetime.datetime] = None, file_size: Optional[int] = None, result_count: Optional[int] = None, query_duration: Optional[int] = None, error_condition: Optional[bool] = None) ‑> List[~T]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve a list of search requests matching certain criteria.
+Administrators only.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>search_type</code></strong></dt>
+<dd>the type of search request, valid values are 'conjunction',
+'ephemeris', or 'data_product'. Exclusion of value will return all
+search requests of any type, defaults to None</dd>
+<dt><strong><code>active</code></strong></dt>
+<dd>return searches that are currently active or not, exclude for
+both, defaults to None</dd>
+<dt><strong><code>start</code></strong></dt>
+<dd>start timestamp for narrowing down search timeframes, defaults to None</dd>
+<dt><strong><code>end</code></strong></dt>
+<dd>end timestamp for narrowing down search timeframes, defaults to None</dd>
+<dt><strong><code>file_size</code></strong></dt>
+<dd>filter by result file size, measured in KB, defaults to None</dd>
+<dt><strong><code>result_count</code></strong></dt>
+<dd>filter by result count, defaults to None</dd>
+<dt><strong><code>query_duration</code></strong></dt>
+<dd>filter by query duration, measured in milliseconds, defaults
+to None</dd>
+<dt><strong><code>error_condition</code></strong></dt>
+<dd>filter by if an error occurred or not, exclude for both,
+defaults to None</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>list of matching search requests</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="../exceptions.html#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></dt>
+<dd>invalid API key for this operation</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list(search_type: Optional[str] = None,
+         active: Optional[bool] = None,
+         start: Optional[datetime.datetime] = None,
+         end: Optional[datetime.datetime] = None,
+         file_size: Optional[int] = None,
+         result_count: Optional[int] = None,
+         query_duration: Optional[int] = None,
+         error_condition: Optional[bool] = None) -&gt; List:
+    &#34;&#34;&#34;
+    Retrieve a list of search requests matching certain criteria.  Administrators only.
+
+    Args:
+        search_type: the type of search request, valid values are &#39;conjunction&#39;,
+            &#39;ephemeris&#39;, or &#39;data_product&#39;. Exclusion of value will return all
+            search requests of any type, defaults to None
+        active: return searches that are currently active or not, exclude for
+            both, defaults to None
+        start: start timestamp for narrowing down search timeframes, defaults to None
+        end: end timestamp for narrowing down search timeframes, defaults to None
+        file_size: filter by result file size, measured in KB, defaults to None
+        result_count: filter by result count, defaults to None
+        query_duration: filter by query duration, measured in milliseconds, defaults
+            to None
+        error_condition: filter by if an error occurred or not, exclude for both,
+            defaults to None
+
+    Returns:
+        list of matching search requests
+
+    Raises:
+        pyaurorax.exceptions.AuroraXUnauthorizedException: invalid API key for this operation
+    &#34;&#34;&#34;
+    # check the search request type
+    if (search_type is not None and search_type not in ALLOWED_SEARCH_LISTING_TYPES):
+        warnings.warn(&#34;The search type value &#39;%s&#39; is not one that &#34;
+                      &#34;PyAuroraX knows about. Supported values are: &#34;
+                      &#34;%s. Aborting request.&#34; % (search_type,
+                                                 &#39;, &#39;.join(ALLOWED_SEARCH_LISTING_TYPES)))
+        return []
+
+    # set params
+    params: Dict[str, Any] = {}
+    if (search_type is not None):
+        params[&#34;search_type&#34;] = search_type
+    if (active is not None):
+        params[&#34;active&#34;] = active
+    if (start is not None):
+        params[&#34;start&#34;] = start.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;)
+    if (end is not None):
+        params[&#34;end&#34;] = end.strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;)
+    if (file_size is not None):
+        params[&#34;file_size&#34;] = file_size
+    if (result_count is not None):
+        params[&#34;result_count&#34;] = result_count
+    if (query_duration is not None):
+        params[&#34;query_duration&#34;] = query_duration
+    if (error_condition is not None):
+        params[&#34;query_duration&#34;] = query_duration
+
+    # do request
+    url = urls.list_requests_url
+    req = AuroraXRequest(method=&#34;get&#34;,
+                         url=url,
+                         params=params)
+    res = req.execute()
+
+    # check responses
+    if (res.status_code == 401):
+        raise AuroraXUnauthorizedException(&#34;API key not detected, please authenticate first.&#34;)
+    if (res.status_code == 403):
+        raise AuroraXUnauthorizedException(&#34;Administrator account required. API key not valid &#34;
+                                           &#34;for this level of access&#34;)
 
     # return
     return res.data</code></pre>
@@ -608,16 +893,19 @@ setTimeout(() => input.focus(), 100);
 </li>
 <li><h3><a href="#header-variables">Global variables</a></h3>
 <ul class="">
+<li><code><a title="pyaurorax.requests.requests.ALLOWED_SEARCH_LISTING_TYPES" href="#pyaurorax.requests.requests.ALLOWED_SEARCH_LISTING_TYPES">ALLOWED_SEARCH_LISTING_TYPES</a></code></li>
 <li><code><a title="pyaurorax.requests.requests.FIRST_FOLLOWUP_SLEEP_TIME" href="#pyaurorax.requests.requests.FIRST_FOLLOWUP_SLEEP_TIME">FIRST_FOLLOWUP_SLEEP_TIME</a></code></li>
 <li><code><a title="pyaurorax.requests.requests.STANDARD_POLLING_SLEEP_TIME" href="#pyaurorax.requests.requests.STANDARD_POLLING_SLEEP_TIME">STANDARD_POLLING_SLEEP_TIME</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="pyaurorax.requests.requests.cancel" href="#pyaurorax.requests.requests.cancel">cancel</a></code></li>
+<li><code><a title="pyaurorax.requests.requests.delete" href="#pyaurorax.requests.requests.delete">delete</a></code></li>
 <li><code><a title="pyaurorax.requests.requests.get_data" href="#pyaurorax.requests.requests.get_data">get_data</a></code></li>
 <li><code><a title="pyaurorax.requests.requests.get_logs" href="#pyaurorax.requests.requests.get_logs">get_logs</a></code></li>
 <li><code><a title="pyaurorax.requests.requests.get_status" href="#pyaurorax.requests.requests.get_status">get_status</a></code></li>
+<li><code><a title="pyaurorax.requests.requests.list" href="#pyaurorax.requests.requests.list">list</a></code></li>
 <li><code><a title="pyaurorax.requests.requests.wait_for_data" href="#pyaurorax.requests.requests.wait_for_data">wait_for_data</a></code></li>
 </ul>
 </li>

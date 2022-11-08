@@ -113,9 +113,23 @@ class AuroraXUnexpectedEmptyResponse(AuroraXException):
     pass
 
 
-class AuroraXDataRetrievalError(AuroraXException):
+class AuroraXDataRetrievalException(AuroraXException):
     &#34;&#34;&#34;
     Error occurred while retrieving search data
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXTimeoutException(AuroraXException):
+    &#34;&#34;&#34;
+    A timeout was reached while communicating with the AuroraX API
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXSearchException(AuroraXException):
+    &#34;&#34;&#34;
+    An error occured in the API while performing a search
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
@@ -175,8 +189,8 @@ class AuroraXDataRetrievalError(AuroraXException):
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXDataRetrievalError"><code class="flex name class">
-<span>class <span class="ident">AuroraXDataRetrievalError</span></span>
+<dt id="pyaurorax.exceptions.AuroraXDataRetrievalException"><code class="flex name class">
+<span>class <span class="ident">AuroraXDataRetrievalException</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -185,7 +199,7 @@ class AuroraXDataRetrievalError(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXDataRetrievalError(AuroraXException):
+<pre><code class="python">class AuroraXDataRetrievalException(AuroraXException):
     &#34;&#34;&#34;
     Error occurred while retrieving search data
     &#34;&#34;&#34;
@@ -250,10 +264,12 @@ class AuroraXDataRetrievalError(AuroraXException):
 <ul class="hlist">
 <li><a title="pyaurorax.exceptions.AuroraXBadParametersException" href="#pyaurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></li>
 <li><a title="pyaurorax.exceptions.AuroraXConflictException" href="#pyaurorax.exceptions.AuroraXConflictException">AuroraXConflictException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXDataRetrievalError" href="#pyaurorax.exceptions.AuroraXDataRetrievalError">AuroraXDataRetrievalError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXDataRetrievalException" href="#pyaurorax.exceptions.AuroraXDataRetrievalException">AuroraXDataRetrievalException</a></li>
 <li><a title="pyaurorax.exceptions.AuroraXDuplicateException" href="#pyaurorax.exceptions.AuroraXDuplicateException">AuroraXDuplicateException</a></li>
 <li><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></li>
 <li><a title="pyaurorax.exceptions.AuroraXNotFoundException" href="#pyaurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXSearchException" href="#pyaurorax.exceptions.AuroraXSearchException">AuroraXSearchException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXTimeoutException" href="#pyaurorax.exceptions.AuroraXTimeoutException">AuroraXTimeoutException</a></li>
 <li><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></li>
 <li><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></li>
 <li><a title="pyaurorax.exceptions.AuroraXUnexpectedEmptyResponse" href="#pyaurorax.exceptions.AuroraXUnexpectedEmptyResponse">AuroraXUnexpectedEmptyResponse</a></li>
@@ -297,6 +313,52 @@ class AuroraXDataRetrievalError(AuroraXException):
 <pre><code class="python">class AuroraXNotFoundException(AuroraXException):
     &#34;&#34;&#34;
     The AuroraX record was not found
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="pyaurorax.exceptions.AuroraXSearchException"><code class="flex name class">
+<span>class <span class="ident">AuroraXSearchException</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An error occured in the API while performing a search</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AuroraXSearchException(AuroraXException):
+    &#34;&#34;&#34;
+    An error occured in the API while performing a search
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="pyaurorax.exceptions.AuroraXTimeoutException"><code class="flex name class">
+<span>class <span class="ident">AuroraXTimeoutException</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A timeout was reached while communicating with the AuroraX API</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AuroraXTimeoutException(AuroraXException):
+    &#34;&#34;&#34;
+    A timeout was reached while communicating with the AuroraX API
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
@@ -491,7 +553,7 @@ setTimeout(() => input.focus(), 100);
 <h4><code><a title="pyaurorax.exceptions.AuroraXConflictException" href="#pyaurorax.exceptions.AuroraXConflictException">AuroraXConflictException</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXDataRetrievalError" href="#pyaurorax.exceptions.AuroraXDataRetrievalError">AuroraXDataRetrievalError</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXDataRetrievalException" href="#pyaurorax.exceptions.AuroraXDataRetrievalException">AuroraXDataRetrievalException</a></code></h4>
 </li>
 <li>
 <h4><code><a title="pyaurorax.exceptions.AuroraXDuplicateException" href="#pyaurorax.exceptions.AuroraXDuplicateException">AuroraXDuplicateException</a></code></h4>
@@ -504,6 +566,12 @@ setTimeout(() => input.focus(), 100);
 </li>
 <li>
 <h4><code><a title="pyaurorax.exceptions.AuroraXNotFoundException" href="#pyaurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pyaurorax.exceptions.AuroraXSearchException" href="#pyaurorax.exceptions.AuroraXSearchException">AuroraXSearchException</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pyaurorax.exceptions.AuroraXTimeoutException" href="#pyaurorax.exceptions.AuroraXTimeoutException">AuroraXTimeoutException</a></code></h4>
 </li>
 <li>
 <h4><code><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></h4>
