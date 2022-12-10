@@ -120,7 +120,7 @@ To include a metadata filter in a conjunction search, place it within the criter
         [2022-03-02 23:00:30.348727] Retrieved 32.8 kB of data containing 5 records
         ```
 
-        And example conjunctions would be:
+        And the resulting conjunctions would be:
 
         ```
         [
