@@ -40,7 +40,7 @@ To include a metadata filter in a conjunction search, place it within the criter
 
 !!! info "Improvement on its way for PyAuroraX"
 
-    Please note - an improvement to the structure of conjunction searches is coming soon to PyAuroraX, as part of release v0.10.0. See the milestone [here](https://github.com/aurorax-space/pyaurorax/milestone/3){:target="_blank"} and the specific issue tickets for the improvements are [!28](https://github.com/aurorax-space/pyaurorax/issues/28){:target="_blank"}, [!51](https://github.com/aurorax-space/pyaurorax/issues/51){:target="_blank"}, and [!54](https://github.com/aurorax-space/pyaurorax/issues/54){:target="_blank"}.
+    Please note - an improvement to the structure of conjunction searches is coming soon to PyAuroraX. The specific issue tickets for these improvements are [!28](https://github.com/aurorax-space/pyaurorax/issues/28){:target="_blank"}, [!51](https://github.com/aurorax-space/pyaurorax/issues/51){:target="_blank"}, and [!54](https://github.com/aurorax-space/pyaurorax/issues/54){:target="_blank"}.
 
 !!! example "Conjunction search with metadata filters"
 
