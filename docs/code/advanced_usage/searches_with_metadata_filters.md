@@ -95,11 +95,11 @@ To include a metadata filter in a conjunction search, place it within the criter
 
         # perform the search
         s = pyaurorax.conjunctions.search(start=start,
-                                        end=end,
-                                        distance=distance,
-                                        ground=ground_params,
-                                        space=space_params,
-                                        verbose=True)
+                                          end=end,
+                                          distance=distance,
+                                          ground=ground_params,
+                                          space=space_params,
+                                          verbose=True)
 
         # output data
         print(s.data)
