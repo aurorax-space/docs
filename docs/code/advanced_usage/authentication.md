@@ -42,16 +42,16 @@ Below we'll show an example of how to use your API key for interacting with secu
 
     === "Command Line"
 
-        Using the `aurorax-cli` tool, you can perform commands that need an API key using the `--api-key` parameter. Note that this parameter **MUST** right after the first command string.
+        Using the `aurorax-cli` tool, you can perform commands that need an API key using the `--api-key` parameter. Note that this parameter **MUST** be right after the first command string.
 
         ```console
         $ aurorax-cli --api-key=$AURORAX_API_KEY sources add --help 
         ```
 
-        The above command assumes that your API key is in an environment variable called `AURORAX_API_KEY`.
+        The above command assumes that your API key is in an environment variable called `AURORAX_API_KEY`. This is not required for the `--api-key` parameter to work. You can enter your API key directly in the command line, or from a different environemnt variable.
 
     === "Direct HTTPS-based API requests"
 
-        When sending a raw HTTP query directly to the API, you must provide an additional header with your API key.
+        When sending a raw HTTP query directly to the API, to use your API key with a restricted endpoint you must provide an additional header.
 
         Include the header `x-aurorax-api-key` with your API key as the value.
