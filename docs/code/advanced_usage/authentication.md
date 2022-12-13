@@ -48,7 +48,7 @@ Below we'll show an example of how to use your API key for interacting with secu
         $ aurorax-cli --api-key=$AURORAX_API_KEY sources add --help 
         ```
 
-        The above command assumes that your API key is in an environment variable called `AURORAX_API_KEY`. This is not required for the `--api-key` parameter to work. You can enter your API key directly in the command line, or from a different environemnt variable.
+        The above command assumes that your API key is in an environment variable called `AURORAX_API_KEY`. You can alternatively enter your API key directly in the command line, or use a different environment variable.
 
     === "Direct HTTPS-based API requests"
 
