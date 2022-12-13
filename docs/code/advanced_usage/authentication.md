@@ -36,7 +36,7 @@ Below we'll show an example of how to use your API key for interacting with secu
         ```python
         import pyaurorax
         pyaurorax.authenticate("API_KEY_HERE")
-        api_key = pyaurorax.api.get_api_key() # key = ANOTHER_API_KEY
+        api_key = pyaurorax.api.get_api_key()
         print(api_key)
         ```
 
