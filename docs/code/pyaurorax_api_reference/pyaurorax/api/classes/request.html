@@ -258,7 +258,7 @@ class AuroraXRequest(BaseModel):
 <dd>
 <div class="desc"><p>Number of retry attempts when requesting data from the API</p></div>
 </dd>
-<dt id="pyaurorax.api.classes.request.REQUEST_HEADERS"><code class="name">var <span class="ident">REQUEST_HEADERS</span> : Dict[~KT, ~VT]</code></dt>
+<dt id="pyaurorax.api.classes.request.REQUEST_HEADERS"><code class="name">var <span class="ident">REQUEST_HEADERS</span> : Dict</code></dt>
 <dd>
 <div class="desc"><p>The default headers sent as part of a request to the AuroraX API</p></div>
 </dd>
@@ -485,11 +485,11 @@ body/data in it (ie. requests to upload data that respond with just a
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="pyaurorax.api.classes.request.AuroraXRequest.body"><code class="name">var <span class="ident">body</span> : Union[Dict[~KT, ~VT], None, List[~T]]</code></dt>
+<dt id="pyaurorax.api.classes.request.AuroraXRequest.body"><code class="name">var <span class="ident">body</span> : Union[Dict, ForwardRef(None), List]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.api.classes.request.AuroraXRequest.headers"><code class="name">var <span class="ident">headers</span> : Optional[Dict[~KT, ~VT]]</code></dt>
+<dt id="pyaurorax.api.classes.request.AuroraXRequest.headers"><code class="name">var <span class="ident">headers</span> : Optional[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -501,7 +501,7 @@ body/data in it (ie. requests to upload data that respond with just a
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.api.classes.request.AuroraXRequest.params"><code class="name">var <span class="ident">params</span> : Optional[Dict[~KT, ~VT]]</code></dt>
+<dt id="pyaurorax.api.classes.request.AuroraXRequest.params"><code class="name">var <span class="ident">params</span> : Optional[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>

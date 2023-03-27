@@ -254,7 +254,7 @@ ephemeris searches.</p>
 </details>
 </dd>
 <dt id="pyaurorax.ephemeris.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: Optional[List[str]] = None, platforms: Optional[List[str]] = None, instrument_types: Optional[List[str]] = None, metadata_filters: Optional[List[Dict[~KT, ~VT]]] = None, metadata_filters_logical_operator: Optional[str] = None, response_format: Optional[Dict[~KT, ~VT]] = None, poll_interval: Optional[float] = 1.0, return_immediately: Optional[bool] = False, verbose: Optional[bool] = False) ‑> <a title="pyaurorax.ephemeris.classes.search.Search" href="classes/search.html#pyaurorax.ephemeris.classes.search.Search">Search</a></span>
+<span>def <span class="ident">search</span></span>(<span>start: datetime.datetime, end: datetime.datetime, programs: Optional[List[str]] = None, platforms: Optional[List[str]] = None, instrument_types: Optional[List[str]] = None, metadata_filters: Optional[List[Dict]] = None, metadata_filters_logical_operator: Optional[str] = None, response_format: Optional[Dict] = None, poll_interval: Optional[float] = 1.0, return_immediately: Optional[bool] = False, verbose: Optional[bool] = False) ‑> <a title="pyaurorax.ephemeris.classes.search.Search" href="classes/search.html#pyaurorax.ephemeris.classes.search.Search">Search</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Search for ephemeris records</p>
@@ -623,7 +623,7 @@ empty for data sources with a type of 'ground')</dd>
         # return formatted representation
         return f&#34;Ephemeris(data_source={repr(self.data_source)}, epoch={repr(self.epoch)}, &#34; \
             f&#34;location_geo={repr(self.location_geo)}, location_gsm={repr(self.location_gsm)}, &#34; \
-            f&#34;nbtrace={repr(self.nbtrace)}, nbtrace={repr(self.nbtrace)}, &#34; \
+            f&#34;nbtrace={repr(self.nbtrace)}, sbtrace={repr(self.sbtrace)}, &#34; \
             f&#34;metadata={attr_metadata})&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -649,7 +649,7 @@ empty for data sources with a type of 'ground')</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.ephemeris.Ephemeris.metadata"><code class="name">var <span class="ident">metadata</span> : Optional[Dict[~KT, ~VT]]</code></dt>
+<dt id="pyaurorax.ephemeris.Ephemeris.metadata"><code class="name">var <span class="ident">metadata</span> : Optional[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -665,7 +665,7 @@ empty for data sources with a type of 'ground')</dd>
 <h3>Methods</h3>
 <dl>
 <dt id="pyaurorax.ephemeris.Ephemeris.to_json_serializable"><code class="name flex">
-<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict[~KT, ~VT]</span>
+<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert object to a JSON-serializable object (ie. translate
@@ -723,7 +723,7 @@ datetime objects to strings)</p>
 </dd>
 <dt id="pyaurorax.ephemeris.Search"><code class="flex name class">
 <span>class <span class="ident">Search</span></span>
-<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: Optional[List[str]] = None, platforms: Optional[List[str]] = None, instrument_types: Optional[List[str]] = None, metadata_filters: Optional[List[Dict[~KT, ~VT]]] = None, metadata_filters_logical_operator: Optional[str] = 'AND', response_format: Optional[Dict[~KT, ~VT]] = None)</span>
+<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: Optional[List[str]] = None, platforms: Optional[List[str]] = None, instrument_types: Optional[List[str]] = None, metadata_filters: Optional[List[Dict]] = None, metadata_filters_logical_operator: Optional[str] = 'AND', response_format: Optional[Dict] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class representing an ephemeris search</p>
@@ -1242,7 +1242,7 @@ request</p></div>
 </details>
 </dd>
 <dt id="pyaurorax.ephemeris.Search.update_status"><code class="name flex">
-<span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict[~KT, ~VT]] = None) ‑> None</span>
+<span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict] = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update the status of this ephemeris search request</p>

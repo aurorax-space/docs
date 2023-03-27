@@ -311,7 +311,7 @@ class Search():
 <dl>
 <dt id="pyaurorax.ephemeris.classes.search.Search"><code class="flex name class">
 <span>class <span class="ident">Search</span></span>
-<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: Optional[List[str]] = None, platforms: Optional[List[str]] = None, instrument_types: Optional[List[str]] = None, metadata_filters: Optional[List[Dict[~KT, ~VT]]] = None, metadata_filters_logical_operator: Optional[str] = 'AND', response_format: Optional[Dict[~KT, ~VT]] = None)</span>
+<span>(</span><span>start: datetime.datetime, end: datetime.datetime, programs: Optional[List[str]] = None, platforms: Optional[List[str]] = None, instrument_types: Optional[List[str]] = None, metadata_filters: Optional[List[Dict]] = None, metadata_filters_logical_operator: Optional[str] = 'AND', response_format: Optional[Dict] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Class representing an ephemeris search</p>
@@ -830,7 +830,7 @@ request</p></div>
 </details>
 </dd>
 <dt id="pyaurorax.ephemeris.classes.search.Search.update_status"><code class="name flex">
-<span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict[~KT, ~VT]] = None) ‑> None</span>
+<span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict] = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update the status of this ephemeris search request</p>

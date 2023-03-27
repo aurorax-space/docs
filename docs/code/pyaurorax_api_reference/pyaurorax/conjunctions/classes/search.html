@@ -106,7 +106,6 @@ class Search():
 
                 [{
                     &#34;programs&#34;: [ &#34;events&#34; ],
-                    &#34;platforms&#34;: [ &#34;toshi&#34; ],
                     &#34;instrument_types&#34;: [ &#34;substorm onsets&#34; ]
                 }]
         conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]. Options are
@@ -494,7 +493,6 @@ modified from the output of the "get_advanced_distances_combos()" function.</dd>
 <p>Example:</p>
 <pre><code>[{
     "programs": [ "events" ],
-    "platforms": [ "toshi" ],
     "instrument_types": [ "substorm onsets" ]
 }]
 </code></pre>
@@ -593,7 +591,6 @@ a pyaurorax.conjunctions.Search object</p></div>
 
                 [{
                     &#34;programs&#34;: [ &#34;events&#34; ],
-                    &#34;platforms&#34;: [ &#34;toshi&#34; ],
                     &#34;instrument_types&#34;: [ &#34;substorm onsets&#34; ]
                 }]
         conjunction_types: list of conjunction types, defaults to [&#34;nbtrace&#34;]. Options are
@@ -926,7 +923,7 @@ def distance(self) -&gt; Union[int, float, Dict[str, Union[int, float]]]:
     return self._distance</code></pre>
 </details>
 </dd>
-<dt id="pyaurorax.conjunctions.classes.search.Search.query"><code class="name">var <span class="ident">query</span> : Dict[~KT, ~VT]</code></dt>
+<dt id="pyaurorax.conjunctions.classes.search.Search.query"><code class="name">var <span class="ident">query</span> : Dict</code></dt>
 <dd>
 <div class="desc"><p>Property for the query value</p>
 <h2 id="returns">Returns</h2>
@@ -1125,7 +1122,7 @@ search request</p>
 </details>
 </dd>
 <dt id="pyaurorax.conjunctions.classes.search.Search.get_advanced_distances_combos"><code class="name flex">
-<span>def <span class="ident">get_advanced_distances_combos</span></span>(<span>self, default_distance: Union[int, float] = None) ‑> Dict[~KT, ~VT]</span>
+<span>def <span class="ident">get_advanced_distances_combos</span></span>(<span>self, default_distance: Union[int, float] = None) ‑> Dict</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the advanced distances combinations for this search</p>
@@ -1204,7 +1201,7 @@ search request</p>
 </details>
 </dd>
 <dt id="pyaurorax.conjunctions.classes.search.Search.update_status"><code class="name flex">
-<span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict[~KT, ~VT]] = None) ‑> None</span>
+<span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict] = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update the status of this conjunction search request</p>

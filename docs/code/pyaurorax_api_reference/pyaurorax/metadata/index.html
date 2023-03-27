@@ -74,7 +74,7 @@ __all__ = [
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pyaurorax.metadata.get_data_products_schema"><code class="name flex">
-<span>def <span class="ident">get_data_products_schema</span></span>(<span>identifier: int) ‑> List[Dict[~KT, ~VT]]</span>
+<span>def <span class="ident">get_data_products_schema</span></span>(<span>identifier: int) ‑> List[Dict]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve the data products metadata schema for a data source</p>
@@ -110,7 +110,7 @@ __all__ = [
 </details>
 </dd>
 <dt id="pyaurorax.metadata.get_ephemeris_schema"><code class="name flex">
-<span>def <span class="ident">get_ephemeris_schema</span></span>(<span>identifier: int) ‑> List[Dict[~KT, ~VT]]</span>
+<span>def <span class="ident">get_ephemeris_schema</span></span>(<span>identifier: int) ‑> List[Dict]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve the ephemeris metadata schema for a data source</p>
@@ -146,7 +146,7 @@ __all__ = [
 </details>
 </dd>
 <dt id="pyaurorax.metadata.validate"><code class="name flex">
-<span>def <span class="ident">validate</span></span>(<span>schema: List[Dict[~KT, ~VT]], record: Dict[~KT, ~VT], quiet: Optional[bool] = False) ‑> bool</span>
+<span>def <span class="ident">validate</span></span>(<span>schema: List[Dict], record: Dict, quiet: Optional[bool] = False) ‑> bool</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Validate a metadata record against a schema. This checks that the

@@ -517,7 +517,7 @@ using the pyaurorax.FORMAT_* variables.</dd>
 </details>
 </dd>
 <dt id="pyaurorax.sources.get_using_filters"><code class="name flex">
-<span>def <span class="ident">get_using_filters</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier', include_stats: Optional[bool] = False, include_na: Optional[bool] = False) ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
+<span>def <span class="ident">get_using_filters</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier', include_stats: Optional[bool] = False) ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve all data source records matching a filter</p>
@@ -546,8 +546,6 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 <dd>include additional stats information about the data source (note:
 slower response time since an additional request must be done for each
 data source), defaults to False</dd>
-<dt><strong><code>include_na</code></strong></dt>
-<dd>include "not_applicable" special data sources (ie. adhoc sources)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>any data sources matching the requested parameters</p>
@@ -569,8 +567,7 @@ data source), defaults to False</dd>
                       owner: Optional[str] = None,
                       format: Optional[str] = FORMAT_FULL_RECORD,
                       order: Optional[str] = &#34;identifier&#34;,
-                      include_stats: Optional[bool] = False,
-                      include_na: Optional[bool] = False) -&gt; List[DataSource]:
+                      include_stats: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Retrieve all data source records matching a filter
 
@@ -590,7 +587,6 @@ data source), defaults to False</dd>
         include_stats: include additional stats information about the data source (note:
             slower response time since an additional request must be done for each
             data source), defaults to False
-        include_na: include &#34;not_applicable&#34; special data sources (ie. adhoc sources)
 
     Returns:
         any data sources matching the requested parameters
@@ -607,8 +603,7 @@ data source), defaults to False</dd>
                         owner=owner,
                         format=format,
                         order=order,
-                        include_stats=include_stats,
-                        include_na=include_na)
+                        include_stats=include_stats)
 
     # return
     return data_sources</code></pre>
@@ -687,7 +682,7 @@ data source), defaults to False</dd>
 </details>
 </dd>
 <dt id="pyaurorax.sources.list"><code class="name flex">
-<span>def <span class="ident">list</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier', include_stats: Optional[bool] = False, include_na: Optional[bool] = False) ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
+<span>def <span class="ident">list</span></span>(<span>program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, owner: Optional[str] = None, format: Optional[str] = 'full_record', order: Optional[str] = 'identifier', include_stats: Optional[bool] = False) ‑> List[<a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve all data source records (using params to filter as desired)</p>
@@ -716,8 +711,6 @@ instrument_type, display_name, owner), defaults to "identifier"</dd>
 <dd>include additional stats information about the data source (note:
 slower response time since an additional request must be done for each
 data source), defaults to False</dd>
-<dt><strong><code>include_na</code></strong></dt>
-<dd>include "not_applicable" special data sources (ie. adhoc sources)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>any data sources matching the requested parameters</p>
@@ -739,8 +732,7 @@ data source), defaults to False</dd>
          owner: Optional[str] = None,
          format: Optional[str] = FORMAT_FULL_RECORD,
          order: Optional[str] = &#34;identifier&#34;,
-         include_stats: Optional[bool] = False,
-         include_na: Optional[bool] = False) -&gt; List[DataSource]:
+         include_stats: Optional[bool] = False) -&gt; List[DataSource]:
     &#34;&#34;&#34;
     Retrieve all data source records (using params to filter as desired)
 
@@ -760,7 +752,6 @@ data source), defaults to False</dd>
         include_stats: include additional stats information about the data source (note:
             slower response time since an additional request must be done for each
             data source), defaults to False
-        include_na: include &#34;not_applicable&#34; special data sources (ie. adhoc sources)
 
     Returns:
         any data sources matching the requested parameters
@@ -794,12 +785,10 @@ data source), defaults to False</dd>
 
     # remove not_applicable sources
     sources_pruned = []
-    if (include_na is False):
-        for source in sources:
-            if (source.source_type != SOURCE_TYPE_NOT_APPLICABLE):
-                sources_pruned.append(source)
-    else:
-        sources_pruned = sources
+    for source in sources:
+        if (source.identifier &gt;= 0):
+            # exclude under-the-hood adhoc data sources
+            sources_pruned.append(source)
 
     # get stats if requested
     if (include_stats is True):
@@ -1007,7 +996,7 @@ update it to)</dd>
 </details>
 </dd>
 <dt id="pyaurorax.sources.update_partial"><code class="name flex">
-<span>def <span class="ident">update_partial</span></span>(<span>identifier: int, program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, display_name: Optional[str] = None, metadata: Optional[Dict[~KT, ~VT]] = None, owner: Optional[str] = None, maintainers: Optional[List[str]] = None, ephemeris_metadata_schema: Optional[List[Dict[~KT, ~VT]]] = None, data_product_metadata_schema: Optional[List[Dict[~KT, ~VT]]] = None) ‑> <a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a></span>
+<span>def <span class="ident">update_partial</span></span>(<span>identifier: int, program: Optional[str] = None, platform: Optional[str] = None, instrument_type: Optional[str] = None, source_type: Optional[str] = None, display_name: Optional[str] = None, metadata: Optional[Dict] = None, owner: Optional[str] = None, maintainers: Optional[List[str]] = None, ephemeris_metadata_schema: Optional[List[Dict]] = None, data_product_metadata_schema: Optional[List[Dict]] = None) ‑> <a title="pyaurorax.sources.classes.data_source.DataSource" href="classes/data_source.html#pyaurorax.sources.classes.data_source.DataSource">DataSource</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Partially update a data source in AuroraX (omitted fields are ignored)</p>
@@ -1312,7 +1301,7 @@ at the top level using the pyaurorax.FORMAT_* variables.</dd>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="pyaurorax.sources.DataSource.data_product_metadata_schema"><code class="name">var <span class="ident">data_product_metadata_schema</span> : Optional[List[Dict[~KT, ~VT]]]</code></dt>
+<dt id="pyaurorax.sources.DataSource.data_product_metadata_schema"><code class="name">var <span class="ident">data_product_metadata_schema</span> : Optional[List[Dict]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1320,7 +1309,7 @@ at the top level using the pyaurorax.FORMAT_* variables.</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.sources.DataSource.ephemeris_metadata_schema"><code class="name">var <span class="ident">ephemeris_metadata_schema</span> : Optional[List[Dict[~KT, ~VT]]]</code></dt>
+<dt id="pyaurorax.sources.DataSource.ephemeris_metadata_schema"><code class="name">var <span class="ident">ephemeris_metadata_schema</span> : Optional[List[Dict]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1340,7 +1329,7 @@ at the top level using the pyaurorax.FORMAT_* variables.</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.sources.DataSource.metadata"><code class="name">var <span class="ident">metadata</span> : Optional[Dict[~KT, ~VT]]</code></dt>
+<dt id="pyaurorax.sources.DataSource.metadata"><code class="name">var <span class="ident">metadata</span> : Optional[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>

@@ -130,7 +130,7 @@ class Ephemeris(BaseModel):
         # return formatted representation
         return f&#34;Ephemeris(data_source={repr(self.data_source)}, epoch={repr(self.epoch)}, &#34; \
             f&#34;location_geo={repr(self.location_geo)}, location_gsm={repr(self.location_gsm)}, &#34; \
-            f&#34;nbtrace={repr(self.nbtrace)}, nbtrace={repr(self.nbtrace)}, &#34; \
+            f&#34;nbtrace={repr(self.nbtrace)}, sbtrace={repr(self.sbtrace)}, &#34; \
             f&#34;metadata={attr_metadata})&#34;</code></pre>
 </details>
 </section>
@@ -262,7 +262,7 @@ empty for data sources with a type of 'ground')</dd>
         # return formatted representation
         return f&#34;Ephemeris(data_source={repr(self.data_source)}, epoch={repr(self.epoch)}, &#34; \
             f&#34;location_geo={repr(self.location_geo)}, location_gsm={repr(self.location_gsm)}, &#34; \
-            f&#34;nbtrace={repr(self.nbtrace)}, nbtrace={repr(self.nbtrace)}, &#34; \
+            f&#34;nbtrace={repr(self.nbtrace)}, sbtrace={repr(self.sbtrace)}, &#34; \
             f&#34;metadata={attr_metadata})&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -288,7 +288,7 @@ empty for data sources with a type of 'ground')</dd>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.ephemeris.classes.ephemeris.Ephemeris.metadata"><code class="name">var <span class="ident">metadata</span> : Optional[Dict[~KT, ~VT]]</code></dt>
+<dt id="pyaurorax.ephemeris.classes.ephemeris.Ephemeris.metadata"><code class="name">var <span class="ident">metadata</span> : Optional[Dict]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -304,7 +304,7 @@ empty for data sources with a type of 'ground')</dd>
 <h3>Methods</h3>
 <dl>
 <dt id="pyaurorax.ephemeris.classes.ephemeris.Ephemeris.to_json_serializable"><code class="name flex">
-<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict[~KT, ~VT]</span>
+<span>def <span class="ident">to_json_serializable</span></span>(<span>self) ‑> Dict</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert object to a JSON-serializable object (ie. translate
