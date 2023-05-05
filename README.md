@@ -2,6 +2,12 @@
 
 This repository contains the documentation website for AuroraX, found at https://docs.aurorax.space. The site has information about AuroraX and its data, the API, client libraries for Python and IDL, and more.
 
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [How deployment works](#how-deployment-works)
+- [Editing pages](#editing-pages)
+- [Additional Resources](#additional-resources)
+
 ## Requirements
 
 - Python 3.8+
@@ -71,7 +77,7 @@ Markdown files used to generate the documentation are located in the ```docs``` 
 
 The navigation menu is generated from the structure provided in the ```mkdocs.yml``` file. To modify the navigation menu, modify this file and rebuild the docs.
 
-## Resources
+## Additional Resources
 
 - [MkDocs documentation](https://www.mkdocs.org/)
 - [pdoc3](https://pdoc3.github.io/pdoc/doc/pdoc/)
