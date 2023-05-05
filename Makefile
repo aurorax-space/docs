@@ -18,7 +18,7 @@ update-submodules:
 docs-install:
 	python3 -m pip install -r requirements.txt
 
-docs-update-deps:
+docs-update docs-update-deps:
 	python3 -m pip install --upgrade -r requirements.txt
 
 docs-generate: 
