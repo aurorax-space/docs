@@ -4,7 +4,7 @@ This repository contains the documentation website for AuroraX, found at https:/
 
 ## Requirements
 
-- Python 3.6+
+- Python 3.8+
 
 ## Installation
 
