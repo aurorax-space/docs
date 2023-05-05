@@ -22,7 +22,7 @@ docs-update-deps:
 	python3 -m pip install --upgrade -r requirements.txt
 
 docs-generate: 
-	cd pyaurorax && poetry run python3 -m pdoc --output-directory ../docs/code/pyaurorax_api_reference pyaurorax --search
+	cd pyaurorax && poetry run python3 -m pdoc --html --force --output-dir ../docs/code/pyaurorax_api_reference pyaurorax --config "lunr_search={'fuzziness': 1}"
 
 docs-build:
 	python3 -m mkdocs build
