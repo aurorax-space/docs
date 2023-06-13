@@ -55,7 +55,7 @@ markdown_extensions:
 extra:
   analytics:
     provider: google
-    property: G-284760515
+    property: G-CTBLCFZ6EP
   social:
     - icon: fontawesome/solid/globe
       link: https://aurorax.space
