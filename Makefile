@@ -8,7 +8,6 @@ init-submodules:
 		git checkout main && \
 		git pull && \
 		pip install poetry && \
-		poetry add pdoc3 && \
 		poetry install
 	cd ..
 
@@ -16,22 +15,23 @@ update-submodules:
 	git submodule foreach git pull
 
 docs-install:
-	python3 -m pip install -r requirements.txt
+	pip install -r requirements.txt
 
 docs-update docs-update-deps:
-	python3 -m pip install --upgrade -r requirements.txt
+	pip install --upgrade -r requirements.txt
 
 docs-generate: 
+	rm -rf docs/code/pyaurorax_api_reference/*
 	cd pyaurorax && poetry run python3 -m pdoc --html --force --output-dir ../docs/code/pyaurorax_api_reference pyaurorax --config "lunr_search={'fuzziness': 1}"
 
 docs-build:
-	python3 -m mkdocs build
+	python -m mkdocs build
 
 docs-serve:
-	python3 -m mkdocs serve
+	python -m mkdocs serve
 
 docs-deploy:
-	python3 -m mkdocs gh-deploy --force
+	python -m mkdocs gh-deploy --force
 
 clean:
 	rm -rf site

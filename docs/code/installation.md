@@ -10,6 +10,7 @@ You can install PyAuroraX using pip, and import it like so:
 $ pip install pyaurorax
 $ python
 >>> import pyaurorax
+>>> aurorax = pyaurorax.PyAuroraX()
 ```
 
 More installation details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/pyaurorax){:target="_blank"}.

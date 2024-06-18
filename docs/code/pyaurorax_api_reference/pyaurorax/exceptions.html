@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>pyaurorax.exceptions API documentation</title>
-<meta name="description" content="The exceptions module contains exceptions unique to the PyAuroraX library" />
+<meta name="description" content="Unique exception classes utilized by PyAuroraX. These exceptions can be used to help trap specific
+errors raised by this library …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,114 +23,135 @@
 <h1 class="title">Module <code>pyaurorax.exceptions</code></h1>
 </header>
 <section id="section-intro">
-<p>The exceptions module contains exceptions unique to the PyAuroraX library</p>
+<p>Unique exception classes utilized by PyAuroraX. These exceptions can be used to help trap specific
+errors raised by this library.</p>
+<p>Note that all exceptions are imported at the root level of the library. They
+can be referenced using <a href="exceptions.html#pyaurorax.exceptions.AuroraXError"><code>pyaurorax.AuroraXError</code></a>
+or <code><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></code>.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-The exceptions module contains exceptions unique to the PyAuroraX library
+<pre><code class="python"># Copyright 2024 University of Calgary
+#
+# Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+&#34;&#34;&#34;
+Unique exception classes utilized by PyAuroraX. These exceptions can be used to help trap specific 
+errors raised by this library.
+
+Note that all exceptions are imported at the root level of the library. They
+can be referenced using [`pyaurorax.AuroraXError`](exceptions.html#pyaurorax.exceptions.AuroraXError) 
+or `pyaurorax.exceptions.AuroraXError`.
 &#34;&#34;&#34;
 
 
-class AuroraXException(Exception):
+class AuroraXError(Exception):
 
     def __init__(self, *args, **kwargs):
-        response = kwargs.pop(&#34;response&#34;, None)
-        self.response = response
-        self.request = kwargs.pop(&#34;request&#34;, None)
-        if (response is not None and not self.request and hasattr(response, &#34;request&#34;)):
-            self.request = self.response.request
-        super(AuroraXException, self).__init__(*args, **kwargs)
+        super(AuroraXError, self).__init__(*args, **kwargs)  # pragma: no cover
 
 
-class AuroraXNotFoundException(AuroraXException):
+class AuroraXInitializationError(AuroraXError):
+    &#34;&#34;&#34;
+    Error occurred during library initialization
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXPurgeError(AuroraXError):
+    &#34;&#34;&#34;
+    Error occurred during purging of download or tar extraction working directory
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXAPIError(AuroraXError):
+    &#34;&#34;&#34;
+    Error occurred during an API call
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXNotFoundError(AuroraXError):
     &#34;&#34;&#34;
     The AuroraX record was not found
     &#34;&#34;&#34;
     pass
 
 
-class AuroraXDuplicateException(AuroraXException):
+class AuroraXDuplicateError(AuroraXError):
     &#34;&#34;&#34;
     A duplicate record already exists
     &#34;&#34;&#34;
     pass
 
 
-class AuroraXValidationException(AuroraXException):
-    &#34;&#34;&#34;
-    Validation of data failed
-    &#34;&#34;&#34;
-    pass
-
-
-class AuroraXUnexpectedContentTypeException(AuroraXException):
-    &#34;&#34;&#34;
-    The API responded with an unexpected content type
-    &#34;&#34;&#34;
-    pass
-
-
-class AuroraXMaxRetriesException(AuroraXException):
-    &#34;&#34;&#34;
-    The maximum number of retries for the request has been reached
-    &#34;&#34;&#34;
-    pass
-
-
-class AuroraXBadParametersException(AuroraXException):
-    &#34;&#34;&#34;
-    Bad parameters were given in the request
-    &#34;&#34;&#34;
-    pass
-
-
-class AuroraXUnauthorizedException(AuroraXException):
+class AuroraXUnauthorizedError(AuroraXError):
     &#34;&#34;&#34;
     A privileged operation was attempted without authorization
     &#34;&#34;&#34;
     pass
 
 
-class AuroraXConflictException(AuroraXException):
+class AuroraXConflictError(AuroraXError):
     &#34;&#34;&#34;
     A conflict occurred while modifying records
     &#34;&#34;&#34;
     pass
 
 
-class AuroraXUploadException(AuroraXException):
-    &#34;&#34;&#34;
-    Error occurred during upload operation
-    &#34;&#34;&#34;
-    pass
-
-
-class AuroraXUnexpectedEmptyResponse(AuroraXException):
-    &#34;&#34;&#34;
-    An empty response was received when it wasn&#39;t expected
-    &#34;&#34;&#34;
-    pass
-
-
-class AuroraXDataRetrievalException(AuroraXException):
+class AuroraXDataRetrievalError(AuroraXError):
     &#34;&#34;&#34;
     Error occurred while retrieving search data
     &#34;&#34;&#34;
     pass
 
 
-class AuroraXTimeoutException(AuroraXException):
+class AuroraXSearchError(AuroraXError):
     &#34;&#34;&#34;
-    A timeout was reached while communicating with the AuroraX API
+    An error occurred in the API while performing a search
     &#34;&#34;&#34;
     pass
 
 
-class AuroraXSearchException(AuroraXException):
+class AuroraXUploadError(AuroraXError):
     &#34;&#34;&#34;
-    An error occured in the API while performing a search
+    Error occurred during upload operation
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXMaintenanceError(AuroraXError):
+    &#34;&#34;&#34;
+    AuroraX API is in maintenance mode, read-only tasks are only possible
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXUnsupportedReadError(AuroraXError):
+    &#34;&#34;&#34;
+    Unsupported dataset for read function
+
+    NOTE: this is primarily a PyUCalgarySRS error
+    &#34;&#34;&#34;
+    pass
+
+
+class AuroraXDownloadError(AuroraXError):
+    &#34;&#34;&#34;
+    Error occurred during downloading of data
+
+    NOTE: this is primarily a PyUCalgarySRS error
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
@@ -143,31 +165,31 @@ class AuroraXSearchException(AuroraXException):
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyaurorax.exceptions.AuroraXBadParametersException"><code class="flex name class">
-<span>class <span class="ident">AuroraXBadParametersException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXAPIError"><code class="flex name class">
+<span>class <span class="ident">AuroraXAPIError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Bad parameters were given in the request</p></div>
+<div class="desc"><p>Error occurred during an API call</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXBadParametersException(AuroraXException):
+<pre><code class="python">class AuroraXAPIError(AuroraXError):
     &#34;&#34;&#34;
-    Bad parameters were given in the request
+    Error occurred during an API call
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXConflictException"><code class="flex name class">
-<span>class <span class="ident">AuroraXConflictException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXConflictError"><code class="flex name class">
+<span>class <span class="ident">AuroraXConflictError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -176,7 +198,7 @@ class AuroraXSearchException(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXConflictException(AuroraXException):
+<pre><code class="python">class AuroraXConflictError(AuroraXError):
     &#34;&#34;&#34;
     A conflict occurred while modifying records
     &#34;&#34;&#34;
@@ -184,13 +206,13 @@ class AuroraXSearchException(AuroraXException):
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXDataRetrievalException"><code class="flex name class">
-<span>class <span class="ident">AuroraXDataRetrievalException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXDataRetrievalError"><code class="flex name class">
+<span>class <span class="ident">AuroraXDataRetrievalError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -199,7 +221,7 @@ class AuroraXSearchException(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXDataRetrievalException(AuroraXException):
+<pre><code class="python">class AuroraXDataRetrievalError(AuroraXError):
     &#34;&#34;&#34;
     Error occurred while retrieving search data
     &#34;&#34;&#34;
@@ -207,13 +229,39 @@ class AuroraXSearchException(AuroraXException):
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXDuplicateException"><code class="flex name class">
-<span>class <span class="ident">AuroraXDuplicateException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXDownloadError"><code class="flex name class">
+<span>class <span class="ident">AuroraXDownloadError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Error occurred during downloading of data</p>
+<p>NOTE: this is primarily a PyUCalgarySRS error</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AuroraXDownloadError(AuroraXError):
+    &#34;&#34;&#34;
+    Error occurred during downloading of data
+
+    NOTE: this is primarily a PyUCalgarySRS error
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="pyaurorax.exceptions.AuroraXDuplicateError"><code class="flex name class">
+<span>class <span class="ident">AuroraXDuplicateError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -222,7 +270,7 @@ class AuroraXSearchException(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXDuplicateException(AuroraXException):
+<pre><code class="python">class AuroraXDuplicateError(AuroraXError):
     &#34;&#34;&#34;
     A duplicate record already exists
     &#34;&#34;&#34;
@@ -230,13 +278,13 @@ class AuroraXSearchException(AuroraXException):
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXException"><code class="flex name class">
-<span>class <span class="ident">AuroraXException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXError"><code class="flex name class">
+<span>class <span class="ident">AuroraXError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -245,15 +293,10 @@ class AuroraXSearchException(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXException(Exception):
+<pre><code class="python">class AuroraXError(Exception):
 
     def __init__(self, *args, **kwargs):
-        response = kwargs.pop(&#34;response&#34;, None)
-        self.response = response
-        self.request = kwargs.pop(&#34;request&#34;, None)
-        if (response is not None and not self.request and hasattr(response, &#34;request&#34;)):
-            self.request = self.response.request
-        super(AuroraXException, self).__init__(*args, **kwargs)</code></pre>
+        super(AuroraXError, self).__init__(*args, **kwargs)  # pragma: no cover</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -262,46 +305,69 @@ class AuroraXSearchException(AuroraXException):
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXBadParametersException" href="#pyaurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXConflictException" href="#pyaurorax.exceptions.AuroraXConflictException">AuroraXConflictException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXDataRetrievalException" href="#pyaurorax.exceptions.AuroraXDataRetrievalException">AuroraXDataRetrievalException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXDuplicateException" href="#pyaurorax.exceptions.AuroraXDuplicateException">AuroraXDuplicateException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXNotFoundException" href="#pyaurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXSearchException" href="#pyaurorax.exceptions.AuroraXSearchException">AuroraXSearchException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXTimeoutException" href="#pyaurorax.exceptions.AuroraXTimeoutException">AuroraXTimeoutException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXUnexpectedEmptyResponse" href="#pyaurorax.exceptions.AuroraXUnexpectedEmptyResponse">AuroraXUnexpectedEmptyResponse</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXUploadException" href="#pyaurorax.exceptions.AuroraXUploadException">AuroraXUploadException</a></li>
-<li><a title="pyaurorax.exceptions.AuroraXValidationException" href="#pyaurorax.exceptions.AuroraXValidationException">AuroraXValidationException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXAPIError" href="#pyaurorax.exceptions.AuroraXAPIError">AuroraXAPIError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXConflictError" href="#pyaurorax.exceptions.AuroraXConflictError">AuroraXConflictError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXDataRetrievalError" href="#pyaurorax.exceptions.AuroraXDataRetrievalError">AuroraXDataRetrievalError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXDownloadError" href="#pyaurorax.exceptions.AuroraXDownloadError">AuroraXDownloadError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXDuplicateError" href="#pyaurorax.exceptions.AuroraXDuplicateError">AuroraXDuplicateError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXInitializationError" href="#pyaurorax.exceptions.AuroraXInitializationError">AuroraXInitializationError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXMaintenanceError" href="#pyaurorax.exceptions.AuroraXMaintenanceError">AuroraXMaintenanceError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXNotFoundError" href="#pyaurorax.exceptions.AuroraXNotFoundError">AuroraXNotFoundError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXPurgeError" href="#pyaurorax.exceptions.AuroraXPurgeError">AuroraXPurgeError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXSearchError" href="#pyaurorax.exceptions.AuroraXSearchError">AuroraXSearchError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXUnauthorizedError" href="#pyaurorax.exceptions.AuroraXUnauthorizedError">AuroraXUnauthorizedError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXUnsupportedReadError" href="#pyaurorax.exceptions.AuroraXUnsupportedReadError">AuroraXUnsupportedReadError</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXUploadError" href="#pyaurorax.exceptions.AuroraXUploadError">AuroraXUploadError</a></li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXMaxRetriesException"><code class="flex name class">
-<span>class <span class="ident">AuroraXMaxRetriesException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXInitializationError"><code class="flex name class">
+<span>class <span class="ident">AuroraXInitializationError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The maximum number of retries for the request has been reached</p></div>
+<div class="desc"><p>Error occurred during library initialization</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXMaxRetriesException(AuroraXException):
+<pre><code class="python">class AuroraXInitializationError(AuroraXError):
     &#34;&#34;&#34;
-    The maximum number of retries for the request has been reached
+    Error occurred during library initialization
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXNotFoundException"><code class="flex name class">
-<span>class <span class="ident">AuroraXNotFoundException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXMaintenanceError"><code class="flex name class">
+<span>class <span class="ident">AuroraXMaintenanceError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>AuroraX API is in maintenance mode, read-only tasks are only possible</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AuroraXMaintenanceError(AuroraXError):
+    &#34;&#34;&#34;
+    AuroraX API is in maintenance mode, read-only tasks are only possible
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="pyaurorax.exceptions.AuroraXNotFoundError"><code class="flex name class">
+<span>class <span class="ident">AuroraXNotFoundError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -310,7 +376,7 @@ class AuroraXSearchException(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXNotFoundException(AuroraXException):
+<pre><code class="python">class AuroraXNotFoundError(AuroraXError):
     &#34;&#34;&#34;
     The AuroraX record was not found
     &#34;&#34;&#34;
@@ -318,59 +384,59 @@ class AuroraXSearchException(AuroraXException):
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXSearchException"><code class="flex name class">
-<span>class <span class="ident">AuroraXSearchException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXPurgeError"><code class="flex name class">
+<span>class <span class="ident">AuroraXPurgeError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>An error occured in the API while performing a search</p></div>
+<div class="desc"><p>Error occurred during purging of download or tar extraction working directory</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXSearchException(AuroraXException):
+<pre><code class="python">class AuroraXPurgeError(AuroraXError):
     &#34;&#34;&#34;
-    An error occured in the API while performing a search
+    Error occurred during purging of download or tar extraction working directory
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXTimeoutException"><code class="flex name class">
-<span>class <span class="ident">AuroraXTimeoutException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXSearchError"><code class="flex name class">
+<span>class <span class="ident">AuroraXSearchError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>A timeout was reached while communicating with the AuroraX API</p></div>
+<div class="desc"><p>An error occurred in the API while performing a search</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXTimeoutException(AuroraXException):
+<pre><code class="python">class AuroraXSearchError(AuroraXError):
     &#34;&#34;&#34;
-    A timeout was reached while communicating with the AuroraX API
+    An error occurred in the API while performing a search
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXUnauthorizedException"><code class="flex name class">
-<span>class <span class="ident">AuroraXUnauthorizedException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXUnauthorizedError"><code class="flex name class">
+<span>class <span class="ident">AuroraXUnauthorizedError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -379,7 +445,7 @@ class AuroraXSearchException(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXUnauthorizedException(AuroraXException):
+<pre><code class="python">class AuroraXUnauthorizedError(AuroraXError):
     &#34;&#34;&#34;
     A privileged operation was attempted without authorization
     &#34;&#34;&#34;
@@ -387,59 +453,39 @@ class AuroraXSearchException(AuroraXException):
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException"><code class="flex name class">
-<span>class <span class="ident">AuroraXUnexpectedContentTypeException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXUnsupportedReadError"><code class="flex name class">
+<span>class <span class="ident">AuroraXUnsupportedReadError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The API responded with an unexpected content type</p></div>
+<div class="desc"><p>Unsupported dataset for read function</p>
+<p>NOTE: this is primarily a PyUCalgarySRS error</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXUnexpectedContentTypeException(AuroraXException):
+<pre><code class="python">class AuroraXUnsupportedReadError(AuroraXError):
     &#34;&#34;&#34;
-    The API responded with an unexpected content type
+    Unsupported dataset for read function
+
+    NOTE: this is primarily a PyUCalgarySRS error
     &#34;&#34;&#34;
     pass</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
 </dd>
-<dt id="pyaurorax.exceptions.AuroraXUnexpectedEmptyResponse"><code class="flex name class">
-<span>class <span class="ident">AuroraXUnexpectedEmptyResponse</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>An empty response was received when it wasn't expected</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class AuroraXUnexpectedEmptyResponse(AuroraXException):
-    &#34;&#34;&#34;
-    An empty response was received when it wasn&#39;t expected
-    &#34;&#34;&#34;
-    pass</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
-</dd>
-<dt id="pyaurorax.exceptions.AuroraXUploadException"><code class="flex name class">
-<span>class <span class="ident">AuroraXUploadException</span></span>
+<dt id="pyaurorax.exceptions.AuroraXUploadError"><code class="flex name class">
+<span>class <span class="ident">AuroraXUploadError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
@@ -448,7 +494,7 @@ class AuroraXSearchException(AuroraXException):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class AuroraXUploadException(AuroraXException):
+<pre><code class="python">class AuroraXUploadError(AuroraXError):
     &#34;&#34;&#34;
     Error occurred during upload operation
     &#34;&#34;&#34;
@@ -456,30 +502,7 @@ class AuroraXSearchException(AuroraXException):
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
-</dd>
-<dt id="pyaurorax.exceptions.AuroraXValidationException"><code class="flex name class">
-<span>class <span class="ident">AuroraXValidationException</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Validation of data failed</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class AuroraXValidationException(AuroraXException):
-    &#34;&#34;&#34;
-    Validation of data failed
-    &#34;&#34;&#34;
-    pass</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></li>
+<li><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></li>
 <li>builtins.Exception</li>
 <li>builtins.BaseException</li>
 </ul>
@@ -547,46 +570,46 @@ setTimeout(() => input.focus(), 100);
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXBadParametersException" href="#pyaurorax.exceptions.AuroraXBadParametersException">AuroraXBadParametersException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXAPIError" href="#pyaurorax.exceptions.AuroraXAPIError">AuroraXAPIError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXConflictException" href="#pyaurorax.exceptions.AuroraXConflictException">AuroraXConflictException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXConflictError" href="#pyaurorax.exceptions.AuroraXConflictError">AuroraXConflictError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXDataRetrievalException" href="#pyaurorax.exceptions.AuroraXDataRetrievalException">AuroraXDataRetrievalException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXDataRetrievalError" href="#pyaurorax.exceptions.AuroraXDataRetrievalError">AuroraXDataRetrievalError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXDuplicateException" href="#pyaurorax.exceptions.AuroraXDuplicateException">AuroraXDuplicateException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXDownloadError" href="#pyaurorax.exceptions.AuroraXDownloadError">AuroraXDownloadError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXException" href="#pyaurorax.exceptions.AuroraXException">AuroraXException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXDuplicateError" href="#pyaurorax.exceptions.AuroraXDuplicateError">AuroraXDuplicateError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXMaxRetriesException" href="#pyaurorax.exceptions.AuroraXMaxRetriesException">AuroraXMaxRetriesException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXError" href="#pyaurorax.exceptions.AuroraXError">AuroraXError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXNotFoundException" href="#pyaurorax.exceptions.AuroraXNotFoundException">AuroraXNotFoundException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXInitializationError" href="#pyaurorax.exceptions.AuroraXInitializationError">AuroraXInitializationError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXSearchException" href="#pyaurorax.exceptions.AuroraXSearchException">AuroraXSearchException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXMaintenanceError" href="#pyaurorax.exceptions.AuroraXMaintenanceError">AuroraXMaintenanceError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXTimeoutException" href="#pyaurorax.exceptions.AuroraXTimeoutException">AuroraXTimeoutException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXNotFoundError" href="#pyaurorax.exceptions.AuroraXNotFoundError">AuroraXNotFoundError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXUnauthorizedException" href="#pyaurorax.exceptions.AuroraXUnauthorizedException">AuroraXUnauthorizedException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXPurgeError" href="#pyaurorax.exceptions.AuroraXPurgeError">AuroraXPurgeError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXUnexpectedContentTypeException" href="#pyaurorax.exceptions.AuroraXUnexpectedContentTypeException">AuroraXUnexpectedContentTypeException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXSearchError" href="#pyaurorax.exceptions.AuroraXSearchError">AuroraXSearchError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXUnexpectedEmptyResponse" href="#pyaurorax.exceptions.AuroraXUnexpectedEmptyResponse">AuroraXUnexpectedEmptyResponse</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXUnauthorizedError" href="#pyaurorax.exceptions.AuroraXUnauthorizedError">AuroraXUnauthorizedError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXUploadException" href="#pyaurorax.exceptions.AuroraXUploadException">AuroraXUploadException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXUnsupportedReadError" href="#pyaurorax.exceptions.AuroraXUnsupportedReadError">AuroraXUnsupportedReadError</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyaurorax.exceptions.AuroraXValidationException" href="#pyaurorax.exceptions.AuroraXValidationException">AuroraXValidationException</a></code></h4>
+<h4><code><a title="pyaurorax.exceptions.AuroraXUploadError" href="#pyaurorax.exceptions.AuroraXUploadError">AuroraXUploadError</a></code></h4>
 </li>
 </ul>
 </li>
