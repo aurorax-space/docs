@@ -67,7 +67,7 @@ __all__ = [
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pyaurorax.tools.bounding_box.extract_metric.azimuth"><code class="name flex">
-<span>def <span class="ident">azimuth</span></span>(<span>images: numpy.ndarray, skymap: pyucalgarysrs.data.classes.Skymap, azimuth_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None) ‑> numpy.ndarray</span>
+<span>def <span class="ident">azimuth</span></span>(<span>images: numpy.ndarray, skymap: pyucalgarysrs.data.classes.Skymap, azimuth_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None, show_preview: bool = False) ‑> numpy.ndarray</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Compute a metric of image data within an azimuthal boundary.</p>
@@ -91,6 +91,8 @@ Anticipated order is [az_min, az_max].</p>
 <dd>By default, function will assume the type of data passed as input - this argument can be used
 to manually specify the number of channels contained in image data.</dd>
 </dl>
+<p>show_preview (bool):
+Plot a preview of the bounded area.</p>
 <h2 id="returns">Returns</h2>
 <p>A numpy.ndarray containing the metrics computed within azimuth range, for all image frames.</p>
 <h2 id="raises">Raises</h2>
@@ -106,7 +108,8 @@ to manually specify the number of channels contained in image data.</dd>
             skymap: Skymap,
             azimuth_bounds: Sequence[Union[int, float]],
             metric: Literal[&#34;mean&#34;, &#34;median&#34;, &#34;sum&#34;] = &#34;median&#34;,
-            n_channels: Optional[int] = None) -&gt; np.ndarray:
+            n_channels: Optional[int] = None,
+            show_preview: bool = False) -&gt; np.ndarray:
     &#34;&#34;&#34;
     Compute a metric of image data within an azimuthal boundary.
 
@@ -131,6 +134,9 @@ to manually specify the number of channels contained in image data.</dd>
             By default, function will assume the type of data passed as input - this argument can be used
             to manually specify the number of channels contained in image data.
 
+        show_preview (bool):
+            Plot a preview of the bounded area.
+
     Returns:
         A numpy.ndarray containing the metrics computed within azimuth range, for all image frames.
 
@@ -138,7 +144,7 @@ to manually specify the number of channels contained in image data.</dd>
         ValueError: issue encountered with value supplied in parameter
     &#34;&#34;&#34;
 
-    # Select individual elevations from list
+    # Select individual azimuths from list
     az_0 = azimuth_bounds[0]
     az_1 = azimuth_bounds[1]
 
@@ -157,9 +163,9 @@ to manually specify the number of channels contained in image data.</dd>
 
     # Ensure that coordinates are valid
     if az_0 &gt; 360 or az_0 &lt; 0:
-        raise ValueError(&#34;Invalid Elevation: &#34; + str(az_0))
+        raise ValueError(&#34;Invalid Azimuth: &#34; + str(az_0))
     elif az_1 &gt; 360 or az_1 &lt; 0:
-        raise ValueError(&#34;Invalid Elevation: &#34; + str(az_1))
+        raise ValueError(&#34;Invalid Azimuth: &#34; + str(az_1))
 
     # Ensure that azimuths are properly ordered
     if az_0 &gt; az_1:
@@ -167,9 +173,9 @@ to manually specify the number of channels contained in image data.</dd>
 
     # Ensure that this is a valid polygon
     if (az_0 == az_1):
-        raise ValueError(&#34;Elevation bounds defined with zero area.&#34;)
+        raise ValueError(&#34;Azimuth bounds defined with zero area.&#34;)
 
-    # Obtain elevation array from skymap
+    # Obtain azimuth array from skymap
     az = np.squeeze(skymap.full_azimuth)
 
     # Obtain indices into skymap within azimuth range
@@ -177,13 +183,30 @@ to manually specify the number of channels contained in image data.</dd>
 
     # If boundaries contain no data, raise error
     if len(bound_idx[0]) == 0 or len(bound_idx[1]) == 0:
-        raise ValueError(&#34;No data within desired bounds.&#34;)
+        raise ValueError(&#34;No data within desired bounds. Try a larger area.&#34;)
 
-    # Slice out the bounded data
+    # Slice out the bounded data, and plot preview if requested
     if n_channels == 1:
         bound_data = images[bound_idx[0], bound_idx[1], :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1]] = 255
+            plt.figure()
+            plt.imshow(preview_img, cmap=&#34;grey&#34;, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     elif n_channels == 3:
         bound_data = images[bound_idx[0], bound_idx[1], :, :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1], 0] = 255
+            preview_img[bound_idx[0], bound_idx[1], 1:] = 0
+            plt.figure()
+            plt.imshow(preview_img, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     else:
         raise ValueError(&#34;Unrecognized image format with shape: &#34; + str(images.shape))
 
@@ -201,7 +224,7 @@ to manually specify the number of channels contained in image data.</dd>
 </details>
 </dd>
 <dt id="pyaurorax.tools.bounding_box.extract_metric.ccd"><code class="name flex">
-<span>def <span class="ident">ccd</span></span>(<span>images: numpy.ndarray, ccd_bounds: Sequence[int], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None) ‑> numpy.ndarray</span>
+<span>def <span class="ident">ccd</span></span>(<span>images: numpy.ndarray, ccd_bounds: Sequence[int], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None, show_preview: bool = False) ‑> numpy.ndarray</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Compute a metric of image data within a CCD boundary.</p>
@@ -213,7 +236,7 @@ be any arbitrary set of images. It is anticipated that the order of axes is [row
 or [row, cols, channels, num_images].</dd>
 <dt><strong><code>ccd_bounds</code></strong> :&ensp;<code>List[int]</code></dt>
 <dd>A 4-element sequence specifying the (inclusive) CCD bounds from which to extract the metric.
-Anticipated order is [y_0, y_1, x_0, x_1].</dd>
+Anticipated order is [x_0, x_1, y_0, y_1].</dd>
 <dt><strong><code>metric</code></strong> :&ensp;<code>str</code></dt>
 <dd>The name of the metric that is to be computed for the bounded area. Valid metrics are <code>mean</code>,
 <code>median</code>, <code>sum</code>. Defaults to <code>median</code>.</dd>
@@ -221,6 +244,8 @@ Anticipated order is [y_0, y_1, x_0, x_1].</dd>
 <dd>By default, function will assume the type of data passed as input - this argument can be used
 to manually specify the number of channels contained in image data.</dd>
 </dl>
+<p>show_preview (bool):
+Plot a preview of the bounded area.</p>
 <h2 id="returns">Returns</h2>
 <p>A numpy.ndarray containing the metrics computed within CCD bounds, for all image frames.</p>
 <h2 id="raises">Raises</h2>
@@ -235,7 +260,8 @@ to manually specify the number of channels contained in image data.</dd>
 <pre><code class="python">def ccd(images: np.ndarray,
         ccd_bounds: Sequence[int],
         metric: Literal[&#34;mean&#34;, &#34;median&#34;, &#34;sum&#34;] = &#34;median&#34;,
-        n_channels: Optional[int] = None) -&gt; np.ndarray:
+        n_channels: Optional[int] = None,
+        show_preview: bool = False) -&gt; np.ndarray:
     &#34;&#34;&#34;
     Compute a metric of image data within a CCD boundary.
 
@@ -247,7 +273,7 @@ to manually specify the number of channels contained in image data.</dd>
         
         ccd_bounds (List[int]): 
             A 4-element sequence specifying the (inclusive) CCD bounds from which to extract the metric. 
-            Anticipated order is [y_0, y_1, x_0, x_1].
+            Anticipated order is [x_0, x_1, y_0, y_1].
 
         metric (str): 
             The name of the metric that is to be computed for the bounded area. Valid metrics are `mean`,
@@ -256,6 +282,9 @@ to manually specify the number of channels contained in image data.</dd>
         n_channels (int): 
             By default, function will assume the type of data passed as input - this argument can be used
             to manually specify the number of channels contained in image data.
+        
+        show_preview (bool):
+            Plot a preview of the bounded area.
 
     Returns:
         A numpy.ndarray containing the metrics computed within CCD bounds, for all image frames.
@@ -309,8 +338,25 @@ to manually specify the number of channels contained in image data.</dd>
     # Slice out the bounded data
     if n_channels == 1:
         bound_data = images[y_0:y_1, x_0:x_1, :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, 0], top=230)
+            preview_img[y_0:y_1, x_0:x_1] = 255
+            plt.figure()
+            plt.imshow(preview_img, cmap=&#34;grey&#34;, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     elif n_channels == 3:
         bound_data = images[y_0:y_1, x_0:x_1, :, :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, :, 0], top=230)
+            preview_img[y_0:y_1, x_0:x_1, 0] = 255
+            preview_img[y_0:y_1, x_0:x_1, 1:] = 0
+            plt.figure()
+            plt.imshow(preview_img, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     else:
         raise ValueError(&#34;Unrecognized image format with shape: &#34; + str(images.shape))
 
@@ -328,7 +374,7 @@ to manually specify the number of channels contained in image data.</dd>
 </details>
 </dd>
 <dt id="pyaurorax.tools.bounding_box.extract_metric.elevation"><code class="name flex">
-<span>def <span class="ident">elevation</span></span>(<span>images: numpy.ndarray, skymap: pyucalgarysrs.data.classes.Skymap, elevation_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None) ‑> numpy.ndarray</span>
+<span>def <span class="ident">elevation</span></span>(<span>images: numpy.ndarray, skymap: pyucalgarysrs.data.classes.Skymap, elevation_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None, show_preview: bool = False) ‑> numpy.ndarray</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Compute a metric of image data within an elevation boundary.</p>
@@ -350,6 +396,8 @@ Anticipated order is [el_min, el_max].</dd>
 <dd>By default, function will assume the type of data passed as input - this argument can be used
 to manually specify the number of channels contained in image data.</dd>
 </dl>
+<p>show_preview (bool):
+Plot a preview of the bounded area.</p>
 <h2 id="returns">Returns</h2>
 <p>A numpy.ndarray containing the metrics computed within elevation range, for all image frames.</p>
 <h2 id="raises">Raises</h2>
@@ -365,7 +413,8 @@ to manually specify the number of channels contained in image data.</dd>
               skymap: Skymap,
               elevation_bounds: Sequence[Union[int, float]],
               metric: Literal[&#34;mean&#34;, &#34;median&#34;, &#34;sum&#34;] = &#34;median&#34;,
-              n_channels: Optional[int] = None) -&gt; np.ndarray:
+              n_channels: Optional[int] = None,
+              show_preview: bool = False) -&gt; np.ndarray:
     &#34;&#34;&#34;
     Compute a metric of image data within an elevation boundary.
 
@@ -389,6 +438,10 @@ to manually specify the number of channels contained in image data.</dd>
         n_channels (int): 
             By default, function will assume the type of data passed as input - this argument can be used
             to manually specify the number of channels contained in image data.
+        
+        show_preview (bool):
+            Plot a preview of the bounded area.
+
 
     Returns:
         A numpy.ndarray containing the metrics computed within elevation range, for all image frames.
@@ -432,17 +485,34 @@ to manually specify the number of channels contained in image data.</dd>
     elev = np.squeeze(skymap.full_elevation)
 
     # Obtain indices into skymap within elevation range
-    bound_idx = np.where(np.logical_and(elev &gt; float(elev_0), elev &lt; float(elev_1)))
+    bound_idx = np.where(np.logical_and(elev &gt;= float(elev_0), elev &lt;= float(elev_1)))
 
     # If boundaries contain no data, raise error
     if len(bound_idx[0]) == 0 or len(bound_idx[1]) == 0:
-        raise ValueError(&#34;No data within desired bounds.&#34;)
+        raise ValueError(&#34;No data within desired bounds. Try a larger area.&#34;)
 
     # Slice out the bounded data
     if n_channels == 1:
         bound_data = images[bound_idx[0], bound_idx[1], :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1]] = 255
+            plt.figure()
+            plt.imshow(preview_img, cmap=&#34;grey&#34;, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     elif n_channels == 3:
         bound_data = images[bound_idx[0], bound_idx[1], :, :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1], 0] = 255
+            preview_img[bound_idx[0], bound_idx[1], 1:] = 0
+            plt.figure()
+            plt.imshow(preview_img, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     else:
         raise ValueError(&#34;Unrecognized image format with shape: &#34; + str(images.shape))
 
@@ -460,7 +530,7 @@ to manually specify the number of channels contained in image data.</dd>
 </details>
 </dd>
 <dt id="pyaurorax.tools.bounding_box.extract_metric.geo"><code class="name flex">
-<span>def <span class="ident">geo</span></span>(<span>images: numpy.ndarray, skymap: pyucalgarysrs.data.classes.Skymap, altitude_km: Union[float, int], lonlat_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None) ‑> numpy.ndarray</span>
+<span>def <span class="ident">geo</span></span>(<span>images: numpy.ndarray, skymap: pyucalgarysrs.data.classes.Skymap, altitude_km: Union[float, int], lonlat_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None, show_preview: bool = False) ‑> numpy.ndarray</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Compute a metric of image data within a geographic lat/lon boundary.</p>
@@ -484,6 +554,8 @@ Anticipated order is [lon_0, lon_1, lat_0, lat_1].</dd>
 <dd>By default, function will assume the type of data passed as input - this argument can be used
 to manually specify the number of channels contained in image data.</dd>
 </dl>
+<p>show_preview (bool):
+Plot a preview of the bounded area.</p>
 <h2 id="returns">Returns</h2>
 <p>A numpy.ndarray containing the metrics computed within elevation range, for all image frames.</p>
 <h2 id="raises">Raises</h2>
@@ -500,7 +572,8 @@ to manually specify the number of channels contained in image data.</dd>
         altitude_km: Union[int, float],
         lonlat_bounds: Sequence[Union[int, float]],
         metric: Literal[&#34;mean&#34;, &#34;median&#34;, &#34;sum&#34;] = &#34;median&#34;,
-        n_channels: Optional[int] = None) -&gt; np.ndarray:
+        n_channels: Optional[int] = None,
+        show_preview: bool = False) -&gt; np.ndarray:
     &#34;&#34;&#34;
     Compute a metric of image data within a geographic lat/lon boundary.
 
@@ -527,6 +600,9 @@ to manually specify the number of channels contained in image data.</dd>
         n_channels (int): 
             By default, function will assume the type of data passed as input - this argument can be used
             to manually specify the number of channels contained in image data.
+        
+        show_preview (bool):
+            Plot a preview of the bounded area.
 
     Returns:
         A numpy.ndarray containing the metrics computed within elevation range, for all image frames.
@@ -581,8 +657,9 @@ to manually specify the number of channels contained in image data.</dd>
         raise ValueError(&#34;Polygon defined with zero area.&#34;)
 
     # Obtain lat/lon arrays from skymap
-    if (altitude_km * 1000.0 in skymap.full_map_altitude):
-        altitude_idx = np.where(altitude_km * 1000.0 == skymap.full_map_altitude)
+    interp_alts = skymap.full_map_altitude / 1000.0
+    if (altitude_km in interp_alts):
+        altitude_idx = np.where(altitude_km == interp_alts)
 
         lats = np.squeeze(skymap.full_map_latitude[altitude_idx, :, :])
         lons = np.squeeze(skymap.full_map_longitude[altitude_idx, :, :])
@@ -590,28 +667,41 @@ to manually specify the number of channels contained in image data.</dd>
 
     else:
         # Make sure altitude is in range that can be interpolated
-        if (altitude_km * 1000.0 &lt; skymap.full_map_altitude[0]) or (altitude_km * 1000.0 &gt; skymap.full_map_altitude[2]):
-            raise ValueError(&#34;Altitude &#34; + str(altitude_km) + &#34; outside valid range of &#34; +
-                             str((skymap.full_map_altitude[0] / 1000.0, skymap.full_map_altitude[2] / 1000.0)))
+        if (altitude_km &lt; interp_alts[0]) or (altitude_km &gt; interp_alts[2]):
+            raise ValueError(&#34;Altitude &#34; + str(altitude_km) + &#34; outside valid range of &#34; + str((interp_alts[0], interp_alts[2])))
 
         # Initialze empty lat/lon arrays
         lats = np.full(np.squeeze(skymap.full_map_latitude[0, :, :]).shape, np.nan, dtype=skymap.full_map_latitude[0, :, :].dtype)
-        lons = lats.copy()
+        lons = np.full(np.squeeze(skymap.full_map_latitude[0, :, :]).shape, np.nan, dtype=skymap.full_map_latitude[0, :, :].dtype)
 
         # Interpolate lats and lons at desired altitude
         for i in range(skymap.full_map_latitude.shape[1]):
             for j in range(skymap.full_map_latitude.shape[2]):
-                lats[i, j] = np.interp(altitude_km * 1000.0, skymap.full_map_altitude, skymap.full_map_latitude[:, i, j])
-                lons[i, j] = np.interp(altitude_km * 1000.0, skymap.full_map_altitude, skymap.full_map_longitude[:, i, j])
+                pixel_lats = skymap.full_map_latitude[:, i, j]
+                pixel_lons = skymap.full_map_longitude[:, i, j]
+                if np.isnan(pixel_lats).any() or np.isnan(pixel_lons).any():
+                    continue
+                lats[i, j] = np.interp(altitude_km, interp_alts, pixel_lats)
+                lons[i, j] = np.interp(altitude_km, interp_alts, pixel_lons)
 
         lons[np.where(lons &gt; 180)] -= 360.0  # Fix skymap to be in (-180,180) format
 
+    # Check that lat/lon range is reasonable
+    min_skymap_lat = np.nanmin(lats)
+    max_skymap_lat = np.nanmax(lats)
+    min_skymap_lon = np.nanmin(lons)
+    max_skymap_lon = np.nanmax(lons)
+    if (lat_0 &lt;= min_skymap_lat) or (lat_1 &gt;= max_skymap_lat):
+        raise ValueError(f&#34;Latitude range supplied is outside the valid range for this skymap {(min_skymap_lat,max_skymap_lat)}.&#34;)
+    if (lon_0 &lt;= min_skymap_lon) or (lon_1 &gt;= max_skymap_lon):
+        raise ValueError(f&#34;Longitude range supplied is outside the valid range for this skymap {(min_skymap_lon,max_skymap_lon)}.&#34;)
+
     # Obtain indices into skymap within lat/lon range
-    bound_idx = np.where(np.logical_and.reduce((lats &gt; float(lat_0), lats &lt; float(lat_1), lons &gt; float(lon_0), lons &lt; float(lon_1))))
+    bound_idx = np.where(np.logical_and.reduce((lats &gt;= float(lat_0), lats &lt;= float(lat_1), lons &gt;= float(lon_0), lons &lt;= float(lon_1))))
 
     # If boundaries contain no data, raise error
     if len(bound_idx[0]) == 0 or len(bound_idx[1]) == 0:
-        raise ValueError(&#34;No data within desired bounds.&#34;)
+        raise ValueError(&#34;No data within desired bounds. Try a larger area.&#34;)
 
     # Convert from skymap coords to image coords
     bound_idx = tuple(i - 1 for i in bound_idx)
@@ -620,8 +710,25 @@ to manually specify the number of channels contained in image data.</dd>
     # Slice out the bounded data
     if n_channels == 1:
         bound_data = images[bound_idx[0], bound_idx[1], :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1]] = 255
+            plt.figure()
+            plt.imshow(preview_img, cmap=&#34;grey&#34;, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     elif n_channels == 3:
         bound_data = images[bound_idx[0], bound_idx[1], :, :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1], 0] = 255
+            preview_img[bound_idx[0], bound_idx[1], 1:] = 0
+            plt.figure()
+            plt.imshow(preview_img, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     else:
         raise ValueError(&#34;Unrecognized image format with shape: &#34; + str(images.shape))
 
@@ -639,7 +746,7 @@ to manually specify the number of channels contained in image data.</dd>
 </details>
 </dd>
 <dt id="pyaurorax.tools.bounding_box.extract_metric.mag"><code class="name flex">
-<span>def <span class="ident">mag</span></span>(<span>images: numpy.ndarray, timestamp: datetime.datetime, skymap: pyucalgarysrs.data.classes.Skymap, altitude_km: Union[float, int], lonlat_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None) ‑> numpy.ndarray</span>
+<span>def <span class="ident">mag</span></span>(<span>images: numpy.ndarray, timestamp: datetime.datetime, skymap: pyucalgarysrs.data.classes.Skymap, altitude_km: Union[float, int], lonlat_bounds: Sequence[Union[float, int]], metric: Literal['mean', 'median', 'sum'] = 'median', n_channels: Optional[int] = None, show_preview: bool = False) ‑> numpy.ndarray</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Compute a metric of image data within a magnetic lat/lon boundary.</p>
@@ -663,6 +770,8 @@ Anticipated order is [lon_0, lon_1, lat_0, lat_1].</dd>
 <dd>By default, function will assume the type of data passed as input - this argument can be used
 to manually specify the number of channels contained in image data.</dd>
 </dl>
+<p>show_preview (bool):
+Plot a preview of the bounded area.</p>
 <h2 id="returns">Returns</h2>
 <p>A numpy.ndarray containing the metrics computed within elevation range, for all image frames.</p>
 <h2 id="raises">Raises</h2>
@@ -680,7 +789,8 @@ to manually specify the number of channels contained in image data.</dd>
         altitude_km: Union[int, float],
         lonlat_bounds: Sequence[Union[int, float]],
         metric: Literal[&#34;mean&#34;, &#34;median&#34;, &#34;sum&#34;] = &#34;median&#34;,
-        n_channels: Optional[int] = None) -&gt; np.ndarray:
+        n_channels: Optional[int] = None,
+        show_preview: bool = False) -&gt; np.ndarray:
     &#34;&#34;&#34;
     Compute a metric of image data within a magnetic lat/lon boundary.
 
@@ -708,6 +818,9 @@ to manually specify the number of channels contained in image data.</dd>
             By default, function will assume the type of data passed as input - this argument can be used
             to manually specify the number of channels contained in image data.
 
+        show_preview (bool):
+            Plot a preview of the bounded area.
+
     Returns:
         A numpy.ndarray containing the metrics computed within elevation range, for all image frames.
 
@@ -761,28 +874,32 @@ to manually specify the number of channels contained in image data.</dd>
         raise ValueError(&#34;Polygon defined with zero area.&#34;)
 
     # Obtain lat/lon arrays from skymap
-    if (altitude_km * 1000.0 in skymap.full_map_altitude):
-        altitude_idx = np.where(altitude_km * 1000.0 == skymap.full_map_altitude)
+    interp_alts = skymap.full_map_altitude / 1000.0
+    if (altitude_km in interp_alts):
+        altitude_idx = np.where(altitude_km == interp_alts)
 
         lats = np.squeeze(skymap.full_map_latitude[altitude_idx, :, :])
         lons = np.squeeze(skymap.full_map_longitude[altitude_idx, :, :])
-        lons[np.where(lons &gt; 180)] -= 360.0
+        lons[np.where(lons &gt; 180)] -= 360.0  # Fix skymap to be in (-180,180) format
 
     else:
         # Make sure altitude is in range that can be interpolated
-        if (altitude_km * 1000.0 &lt; skymap.full_map_altitude[0]) or (altitude_km * 1000.0 &gt; skymap.full_map_altitude[2]):
-            raise ValueError(&#34;Altitude &#34; + str(altitude_km) + &#34; outside valid range of &#34; +
-                             str((skymap.full_map_altitude[0] / 1000.0, skymap.full_map_altitude[2] / 1000.0)))
+        if (altitude_km &lt; interp_alts[0]) or (altitude_km &gt; interp_alts[2]):
+            raise ValueError(&#34;Altitude &#34; + str(altitude_km) + &#34; outside valid range of &#34; + str((interp_alts[0], interp_alts[2])))
 
         # Initialze empty lat/lon arrays
         lats = np.full(np.squeeze(skymap.full_map_latitude[0, :, :]).shape, np.nan, dtype=skymap.full_map_latitude[0, :, :].dtype)
-        lons = lats.copy()
+        lons = np.full(np.squeeze(skymap.full_map_latitude[0, :, :]).shape, np.nan, dtype=skymap.full_map_latitude[0, :, :].dtype)
 
         # Interpolate lats and lons at desired altitude
         for i in range(skymap.full_map_latitude.shape[1]):
             for j in range(skymap.full_map_latitude.shape[2]):
-                lats[i, j] = np.interp(altitude_km * 1000.0, skymap.full_map_altitude, skymap.full_map_latitude[:, i, j])
-                lons[i, j] = np.interp(altitude_km * 1000.0, skymap.full_map_altitude, skymap.full_map_longitude[:, i, j])
+                pixel_lats = skymap.full_map_latitude[:, i, j]
+                pixel_lons = skymap.full_map_longitude[:, i, j]
+                if np.isnan(pixel_lats).any() or np.isnan(pixel_lons).any():
+                    continue
+                lats[i, j] = np.interp(altitude_km, interp_alts, pixel_lats)
+                lons[i, j] = np.interp(altitude_km, interp_alts, pixel_lons)
 
         lons[np.where(lons &gt; 180)] -= 360.0  # Fix skymap to be in (-180,180) format
 
@@ -791,12 +908,28 @@ to manually specify the number of channels contained in image data.</dd>
     mag_lats = np.reshape(mag_lats, lats.shape)
     mag_lons = np.reshape(mag_lons, lons.shape)
 
+    # Check that lat/lon range is reasonable
+    min_skymap_lat = np.nanmin(mag_lats)
+    max_skymap_lat = np.nanmax(mag_lats)
+    min_skymap_lon = np.nanmin(mag_lons)
+    max_skymap_lon = np.nanmax(mag_lons)
+    if (lat_0 &lt;= min_skymap_lat) or (lat_1 &gt;= max_skymap_lat):
+        raise ValueError(f&#34;Latitude range supplied is outside the valid range for this skymap {(min_skymap_lat,max_skymap_lat)}.&#34;)
+    if (lon_0 &lt;= min_skymap_lon) or (lon_1 &gt;= max_skymap_lon):
+        raise ValueError(f&#34;Latitude range supplied is outside the valid range for this skymap {(min_skymap_lon,max_skymap_lon)}.&#34;)
+
     # Obtain indices into skymap within lat/lon range
-    bound_idx = np.where(np.logical_and.reduce((mag_lats &gt; float(lat_0), mag_lats &lt; float(lat_1), mag_lons &gt; float(lon_0), mag_lons &lt; float(lon_1))))
+    bound_idx = np.where(
+        np.logical_and.reduce((
+            mag_lats &gt;= float(lat_0),
+            mag_lats &lt;= float(lat_1),
+            mag_lons &gt;= float(lon_0),
+            mag_lons &lt;= float(lon_1),
+        )))
 
     # If boundaries contain no data, raise error
     if len(bound_idx[0]) == 0 or len(bound_idx[1]) == 0:
-        raise ValueError(&#34;No data within desired bounds.&#34;)
+        raise ValueError(&#34;No data within desired bounds. Try a larger area.&#34;)
 
     # Convert from skymap coords to image coords
     bound_idx = tuple(i - 1 for i in bound_idx)
@@ -805,8 +938,25 @@ to manually specify the number of channels contained in image data.</dd>
     # Slice out the bounded data
     if n_channels == 1:
         bound_data = images[bound_idx[0], bound_idx[1], :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1]] = 255
+            plt.figure()
+            plt.imshow(preview_img, cmap=&#34;grey&#34;, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     elif n_channels == 3:
         bound_data = images[bound_idx[0], bound_idx[1], :, :]
+        if show_preview:
+            preview_img = scale_intensity(images[:, :, :, 0], top=230)
+            preview_img[bound_idx[0], bound_idx[1], 0] = 255
+            preview_img[bound_idx[0], bound_idx[1], 1:] = 0
+            plt.figure()
+            plt.imshow(preview_img, origin=&#34;lower&#34;)
+            plt.title(&#34;Bounded Area Preview&#34;)
+            plt.axis(&#34;off&#34;)
+            plt.show()
     else:
         raise ValueError(&#34;Unrecognized image format with shape: &#34; + str(images.shape))
 
