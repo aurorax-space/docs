@@ -9,7 +9,7 @@ IDL-AuroraX is an IDL library for interacting with the AuroraX platform. It can 
 
 The below pages provide the documentation for each function. Examples can be found in the over-arching "Basic Usage" and "Advanced Usage" sections.
 
-## Data Download and Reading
+## Data Access
 
 - [`aurorax_list_datasets`](/code/idlaurorax_api_reference/data/aurorax_list_datasets/)
 - [`aurorax_list_observatories`](/code/idlaurorax_api_reference/data/aurorax_list_observatories/)

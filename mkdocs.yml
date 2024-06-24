@@ -123,22 +123,22 @@ nav:
     - PyAuroraX API Reference: /code/pyaurorax_api_reference/pyaurorax
     - IDL-AuroraX API Reference: 
       - Overview: code/idlaurorax_api_reference/overview.md
-      - Availability:
-        - Data Products: code/idlaurorax_api_reference/availability/data_products.md
-        - Ephemeris: code/idlaurorax_api_reference/availability/ephemeris.md
-      - Conjunctions:
-        - Create Advanced Distances: code/idlaurorax_api_reference/conjunctions/create_advanced_distances.md
-        - Create Criteria Block: code/idlaurorax_api_reference/conjunctions/create_criteria_block.md
-        - Open in AuroraX: code/idlaurorax_api_reference/conjunctions/open_in_aurorax.md
-        - Open in Swarm-Aurora: code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora.md
-        - Save Swarm-Aurora Custom Import File: code/idlaurorax_api_reference/conjunctions/save_swarmaurora_import_file.md
-        - Search: code/idlaurorax_api_reference/conjunctions/search.md
-      - Data Sources: 
-        - Get stats: code/idlaurorax_api_reference/sources/stats.md
-        - List: code/idlaurorax_api_reference/sources/list.md
-      - Data Product Search: code/idlaurorax_api_reference/data_products/search.md
-      - Ephemeris Search: code/idlaurorax_api_reference/ephemeris/search.md
-      - Metadata Filters:
-        - Create Expression: code/idlaurorax_api_reference/metadata_filters/create_expression.md
-        - Create Metadata Filter: code/idlaurorax_api_reference/metadata_filters/create_metadata_filter.md
-    - RESTful API Reference: "https://api.aurorax.space"
+      - AuroraX Search Engine:
+        - Availability:
+          - Data Products: code/idlaurorax_api_reference/search/availability/data_products.md
+          - Ephemeris: code/idlaurorax_api_reference/search/availability/ephemeris.md
+        - Conjunctions:
+          - Create Advanced Distances: code/idlaurorax_api_reference/search/conjunctions/create_advanced_distances.md
+          - Create Criteria Block: code/idlaurorax_api_reference/search/conjunctions/create_criteria_block.md
+          - Open in AuroraX: code/idlaurorax_api_reference/search/conjunctions/open_in_aurorax.md
+          - Open in Swarm-Aurora: code/idlaurorax_api_reference/search/conjunctions/open_in_swarmaurora.md
+          - Save Swarm-Aurora Custom Import File: code/idlaurorax_api_reference/search/conjunctions/save_swarmaurora_import_file.md
+          - Search: code/idlaurorax_api_reference/search/conjunctions/search.md
+        - Data Sources: 
+          - Get stats: code/idlaurorax_api_reference/search/sources/stats.md
+          - List: code/idlaurorax_api_reference/search/sources/list.md
+        - Data Product Search: code/idlaurorax_api_reference/search/data_products/search.md
+        - Ephemeris Search: code/idlaurorax_api_reference/search/ephemeris/search.md
+        - Metadata Filters:
+          - Create Expression: code/idlaurorax_api_reference/search/metadata_filters/create_expression.md
+          - Create Metadata Filter: code/idlaurorax_api_reference/search/metadata_filters/create_metadata_filter.md
