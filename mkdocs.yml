@@ -108,37 +108,56 @@ nav:
     - Upgrading: code/upgrading.md
     - Basic Usage:
       - Overview: code/basic_usage/overview.md
-      - Data Sources: code/basic_usage/data_sources.md
-      - Conjunctions: code/basic_usage/conjunctions.md
-      - Ephemeris: code/basic_usage/ephemeris.md
-      - Data Products: code/basic_usage/data_products.md
+      - AuroraX Search Engine:
+        - Data Sources: code/basic_usage/data_sources.md
+        - Conjunctions: code/basic_usage/conjunctions.md
+        - Ephemeris: code/basic_usage/ephemeris.md
+        - Data Products: code/basic_usage/data_products.md
     - Advanced Usage:
-      - Authentication: code/advanced_usage/authentication.md
-      - Advanced conjunction searches: code/advanced_usage/advanced_conjunctions.md
-      - Asynchronous searches: code/advanced_usage/asynchronous_search.md
-      - Searches with metadata filters: code/advanced_usage/searches_with_metadata_filters.md
-      - Uploading data to AuroraX: code/advanced_usage/contributing_data.md
-      - Data availability and statistics: code/advanced_usage/availability_and_stats.md
-      - Interact with Swarm-Aurora: code/advanced_usage/swarmaurora.md
+      - AuroraX Search Engine:
+        - Authentication: code/advanced_usage/authentication.md
+        - Advanced conjunction searches: code/advanced_usage/advanced_conjunctions.md
+        - Asynchronous searches: code/advanced_usage/asynchronous_search.md
+        - Searches with metadata filters: code/advanced_usage/searches_with_metadata_filters.md
+        - Uploading data to AuroraX: code/advanced_usage/contributing_data.md
+        - Data availability and statistics: code/advanced_usage/availability_and_stats.md
+        - Interact with Swarm-Aurora: code/advanced_usage/swarmaurora.md
     - PyAuroraX API Reference: /code/pyaurorax_api_reference/pyaurorax
     - IDL-AuroraX API Reference: 
       - Overview: code/idlaurorax_api_reference/overview.md
+      - Data Access:
+        - aurorax_list_datasets: /code/idlaurorax_api_reference/data/aurorax_list_datasets/
+        - aurorax_list_observatories: /code/idlaurorax_api_reference/data/aurorax_list_observatories/
+        - aurorax_ucalgary_get_urls: /code/idlaurorax_api_reference/data/aurorax_ucalgary_get_urls/
+        - aurorax_ucalgary_download: /code/idlaurorax_api_reference/data/aurorax_ucalgary_download/
+        - aurorax_ucalgary_download_best_skymap: /code/idlaurorax_api_reference/data/aurorax_ucalgary_download_best_skymap/
+        - aurorax_ucalgary_read: /code/idlaurorax_api_reference/data/aurorax_ucalgary_read/
+        - aurorax_ucalgary_is_read_supported: /code/idlaurorax_api_reference/data/aurorax_ucalgary_is_read_supported/
+      - Analyis Support Software:
+        - aurorax_bounding_box_extract_metric: /code/idlaurorax_api_reference/tools/aurorax_bounding_box_extract_metric/
+        - aurorax_calibrate_rego: /code/idlaurorax_api_reference/tools/aurorax_calibrate_rego/
+        - aurorax_calibrate_trex_nir: /code/idlaurorax_api_reference/tools/aurorax_calibrate_trex_nir/
+        - aurorax_keogram_add_axis: /code/idlaurorax_api_reference/tools/aurorax_keogram_add_axis/
+        - aurorax_keogram_create_custom: /code/idlaurorax_api_reference/tools/aurorax_keogram_create_custom/
+        - aurorax_keogram_create: /code/idlaurorax_api_reference/tools/aurorax_keogram_create/
+        - aurorax_keogram_plot: /code/idlaurorax_api_reference/tools/aurorax_keogram_plot/
+        - aurorax_mosaic_plot: /code/idlaurorax_api_reference/tools/aurorax_mosaic_plot/
+        - aurorax_mosaic_oplot: /code/idlaurorax_api_reference/tools/aurorax_mosaic_oplot/
+        - aurorax_mosaic_prep_images: /code/idlaurorax_api_reference/tools/aurorax_mosaic_prep_images/
+        - aurorax_mosaic_prep_skymap: /code/idlaurorax_api_reference/tools/aurorax_mosaic_prep_skymap/
+        - aurorax_get_decomposed_color: /code/idlaurorax_api_reference/tools/aurorax_get_decomposed_color/
+        - aurorax_movie: /code/idlaurorax_api_reference/tools/aurorax_movie/
       - AuroraX Search Engine:
-        - Availability:
-          - Data Products: code/idlaurorax_api_reference/search/availability/data_products.md
-          - Ephemeris: code/idlaurorax_api_reference/search/availability/ephemeris.md
-        - Conjunctions:
-          - Create Advanced Distances: code/idlaurorax_api_reference/search/conjunctions/create_advanced_distances.md
-          - Create Criteria Block: code/idlaurorax_api_reference/search/conjunctions/create_criteria_block.md
-          - Open in AuroraX: code/idlaurorax_api_reference/search/conjunctions/open_in_aurorax.md
-          - Open in Swarm-Aurora: code/idlaurorax_api_reference/search/conjunctions/open_in_swarmaurora.md
-          - Save Swarm-Aurora Custom Import File: code/idlaurorax_api_reference/search/conjunctions/save_swarmaurora_import_file.md
-          - Search: code/idlaurorax_api_reference/search/conjunctions/search.md
-        - Data Sources: 
-          - Get stats: code/idlaurorax_api_reference/search/sources/stats.md
-          - List: code/idlaurorax_api_reference/search/sources/list.md
-        - Data Product Search: code/idlaurorax_api_reference/search/data_products/search.md
-        - Ephemeris Search: code/idlaurorax_api_reference/search/ephemeris/search.md
-        - Metadata Filters:
-          - Create Expression: code/idlaurorax_api_reference/search/metadata_filters/create_expression.md
-          - Create Metadata Filter: code/idlaurorax_api_reference/search/metadata_filters/create_metadata_filter.md
+        - aurorax_conjunction_search: /code/idlaurorax_api_reference/search/conjunctions/search/
+        - aurorax_open_conjunctions_in_aurorax: /code/idlaurorax_api_reference/search/conjunctions/open_in_aurorax/
+        - aurorax_open_conjunctions_in_swarmaurora: /code/idlaurorax_api_reference/search/conjunctions/open_in_swarmaurora/
+        - aurorax_save_swarmaurora_custom_import_file: /code/idlaurorax_api_reference/search/conjunctions/save_swarmaurora_import_file/
+        - aurorax_create_advanced_distances_hash: /code/idlaurorax_api_reference/search/conjunctions/create_advanced_distances/
+        - aurorax_create_criteria_block: /code/idlaurorax_api_reference/search/conjunctions/create_criteria_block/
+        - aurorax_create_metadata_filter: /code/idlaurorax_api_reference/search/metadata_filters/create_metadata_filter/
+        - aurorax_create_metadata_filter_expression: /code/idlaurorax_api_reference/search/metadata_filters/create_expression/
+        - aurorax_data_products_availability: /code/idlaurorax_api_reference/search/availability/data_products/
+        - aurorax_data_product_search: /code/idlaurorax_api_reference/search/data_products/search/
+        - aurorax_ephemeris_availability: /code/idlaurorax_api_reference/search/availability/ephemeris/
+        - aurorax_ephemeris_search: /code/idlaurorax_api_reference/search/ephemeris/search/
+        - aurorax_sources_list: /code/idlaurorax_api_reference/search/sources/list/
