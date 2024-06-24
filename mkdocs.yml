@@ -161,4 +161,4 @@ nav:
         - aurorax_data_product_search: code/idlaurorax_api_reference/search/data_products/search.md
         - aurorax_ephemeris_availability: code/idlaurorax_api_reference/search/availability/ephemeris.md
         - aurorax_ephemeris_search: code/idlaurorax_api_reference/search/ephemeris/search.md
-        - aurorax_sources_list: code/idlaurorax_api_reference/search/sources/list.md
+        - aurorax_list_sources: code/idlaurorax_api_reference/search/sources/list.md

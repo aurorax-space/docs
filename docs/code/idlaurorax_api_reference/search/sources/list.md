@@ -3,23 +3,24 @@ hide:
   - toc
 ---
 
-# aurorax_sources_list
+# aurorax_list_sources
 
 ```
 ;-------------------------------------------------------------
 ;+
 ; NAME:
-;       AURORAX_SOURCES_LIST
+;       AURORAX_LIST_SOURCES
 ;
 ; PURPOSE:
-;       Retrieve AuroraX data sources
+;       Retrieve AuroraX Search Engine data sources
 ;
 ; EXPLANATION:
-;       Retrieve a list of data sources from the AuroraX platform, with optional
-;       parameters used to filter unwanted data sources out.
+;       Retrieve a list of data sources available in the AuroraX Search
+;       Engine, with optional parameters used to filter for certain data
+;       sources.
 ;
 ; CALLING SEQUENCE:
-;       aurorax_sources_list()
+;       aurorax_list_sources()
 ;
 ; PARAMETERS:
 ;       program           program to filter on, string, optional
@@ -33,6 +34,7 @@ hide:
 ;                                 about them
 ;       /FORMAT_IDENTIFIER_ONLY   data sources returned have minimal information about
 ;                                 them, just the identifier
+;       /INCLUDE_STATS            include stats information
 ;
 ; OUTPUT:
 ;       the found data sources
@@ -41,10 +43,11 @@ hide:
 ;       a list of structs
 ;
 ; EXAMPLES:
-;       data = aurorax_sources_list()
-;       data = aurorax_sources_list(program='swarm',/FORMAT_FULL_RECORD)
-;       data = aurorax_sources_list(platform='gillam')
-;       data = aurorax_sources_list(program='trex', platform='fort smith')
+;       data = aurorax_list_sources()
+;       data = aurorax_list_sources(program='swarm',/FORMAT_FULL_RECORD)
+;       data = aurorax_list_sources(platform='gillam')
+;       data = aurorax_list_sources(program='trex', platform='fort smith')
+;       data = aurorax_list_sources(program='trex', /INCLUDE_STATS)
 ;+
 ;-------------------------------------------------------------
 ```

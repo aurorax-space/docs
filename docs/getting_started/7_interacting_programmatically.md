@@ -85,15 +85,15 @@ You can install it and use it like so:
 ```idl
 IDL> ipm,/install,'https://data.aurorax.space/data/software/idl-aurorax/latest.zip'
 [ add ".run aurorax_startup" to your startup file (see Github README) ]
-IDL> sources = aurorax_sources_list(program='swarm')
+IDL> sources = aurorax_list_sources(program='swarm')
 ```
 
 ??? abstract "Click to view the output of the above idl-aurorax function call"
 
-    Below is the `sources` variable from the `aurorax_sources_list()` function when the program is set to "swarm".
+    Below is the `sources` variable from the `aurorax_list_sources()` function when the program is set to "swarm".
 
     ```idl
-    IDL> sources = aurorax_sources_list(program='swarm')
+    IDL> sources = aurorax_list_sources(program='swarm')
     IDL> help,sources
     SOURCES        LIST  <ID=2158  NELEMENTS=3>
     IDL> help,sources[0]

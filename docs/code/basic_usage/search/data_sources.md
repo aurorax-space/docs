@@ -48,26 +48,26 @@ You can retrieve all data sources, or retrieve data sources matching a certain s
 
     === "IDL"
 
-        You can retrieve ALL data sources using the [`aurorax_sources_list()`](/code/idlaurorax_api_reference/search/sources/list/){:target="_blank"} function with no parameters.
+        You can retrieve ALL data sources using the [`aurorax_list_sources()`](/code/idlaurorax_api_reference/search/sources/list/){:target="_blank"} function with no parameters.
 
         ```idl
-        IDL> sources = aurorax_sources_list()
+        IDL> sources = aurorax_list_sources()
         IDL> help,sources
         ```
 
         If you want to adjust the amount of information that is retrieved from AuroraX, you can specify a `format` keyword, like so:
 
         ```idl
-        IDL> sources = aurorax_sources_list(/FORMAT_FULL_RECORD)
+        IDL> sources = aurorax_list_sources(/FORMAT_FULL_RECORD)
         IDL> help,sources
-        IDL> sources = aurorax_sources_list(/FORMAT_IDENTIFIER_ONLY)
+        IDL> sources = aurorax_list_sources(/FORMAT_IDENTIFIER_ONLY)
         IDL> help,sources
         ```
 
         If you want to retrieve data sources that match certain filter criteria, say all "Swarm" data sources, you can use additional parameters.
 
         ```python
-        IDL> sources = aurorax_sources_list(program='swarm')
+        IDL> sources = aurorax_list_sources(program='swarm')
         IDL> help,sources
         ```
 

@@ -53,4 +53,4 @@ The below pages provide the documentation for each function. Examples can be fou
 - [`aurorax_data_product_search`](/code/idlaurorax_api_reference/search/data_products/search/)
 - [`aurorax_ephemeris_availability`](/code/idlaurorax_api_reference/search/availability/ephemeris/)
 - [`aurorax_ephemeris_search`](/code/idlaurorax_api_reference/search/ephemeris/search/)
-- [`aurorax_sources_list`](/code/idlaurorax_api_reference/search/sources/list/)
+- [`aurorax_list_sources`](/code/idlaurorax_api_reference/search/sources/list/)
