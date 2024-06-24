@@ -18,8 +18,9 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # define search params
         start = datetime.datetime(2019, 1, 1, 6, 0, 0)
@@ -29,12 +30,12 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
         instrument_types = ["panchromatic ASI"]
 
         # perform the ephemeris search
-        s = pyaurorax.ephemeris.search(start,
-                                       end,
-                                       programs=programs,
-                                       platforms=platforms,
-                                       instrument_types=instrument_types,
-                                       verbose=True)
+        s = aurorax.search.ephemeris.search(start,
+                                            end,
+                                            programs=programs,
+                                            platforms=platforms,
+                                            instrument_types=instrument_types,
+                                            verbose=True)
 
         # have a look at our results
         print(s.data)
@@ -83,7 +84,7 @@ Let's say we want to retrieve all the ephemeris data for the THEMIS ASI in Gilla
 
     === "IDL"
 
-        IDL-AuroraX provides the [`aurorax_ephemeris_search()`](/code/idlaurorax_api_reference/ephemeris/search/){:target="_blank"} function to perform an ephemeris search.
+        IDL-AuroraX provides the [`aurorax_ephemeris_search()`](/code/idlaurorax_api_reference/search/ephemeris/search/){:target="_blank"} function to perform an ephemeris search.
 
         ```idl
         IDL> response = aurorax_ephemeris_search('2019-01-01T06:00','2019-01-01T06:59',programs=['themis-asi'],platforms=['gillam'],instrument_types=['panchromatic ASI'])

@@ -1,6 +1,6 @@
 # Advanced conjunction searches
 
-AuroraX's search engine provides an interface for running powerful and highly customizable conjunction search requests. While the [basic usage](/code/basic_usage/conjunctions/) section covers the quickest way to get started with conjunction searches, there are additional options for more advanced uses. This section will provide examples for some common complex searches.
+AuroraX's search engine provides an interface for running powerful and highly customizable conjunction search requests. While the [basic usage](/code/basic_usage/search/conjunctions/) section covers the quickest way to get started with conjunction searches, there are additional options for more advanced uses. This section will provide examples for some common complex searches.
 
 ## Multi-conjunction searches
 
@@ -24,8 +24,9 @@ Below, we'll have a look at an example of a quadruple-conjunction search, using 
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # set query parameters
         start = datetime.datetime(2020, 1, 1, 0, 0, 0)
@@ -41,12 +42,12 @@ Below, we'll have a look at an example of a quadruple-conjunction search, using 
         distance = 500
 
         # perform the search
-        s = pyaurorax.conjunctions.search(start=start,
-                                          end=end,
-                                          distance=distance,
-                                          ground=ground_params,
-                                          space=space_params,
-                                          verbose=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=distance,
+                                               ground=ground_params,
+                                               space=space_params,
+                                               verbose=True)
 
         # view the results
         print(s.data)
@@ -173,8 +174,9 @@ Below is an example of a conjunction search using the advanced distances functio
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # set search parameters
         start = datetime.datetime(2019, 1, 1, 0, 0, 0)
@@ -195,11 +197,12 @@ Below is an example of a conjunction search using the advanced distances functio
         distance = 500
 
         # create search object
-        s = pyaurorax.conjunctions.Search(start=start,
-                                          end=end,
-                                          distance=distance,
-                                          ground=ground_params,
-                                          space=space_params)
+        s = pyaurorax.search.ConjunctionSearch(aurorax_obj=aurorax,
+                                               start=start,
+                                               end=end,
+                                               distance=distance,
+                                               ground=ground_params,
+                                               space=space_params)
         ```
 
         Now that we've created our search object, we can adjust the advanced distances to what we want.

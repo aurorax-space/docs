@@ -28,6 +28,7 @@ The below pages provide the documentation for each function. Examples can be fou
 - [`aurorax_keogram_create_custom`](/code/idlaurorax_api_reference/tools/aurorax_keogram_create_custom/)
 - [`aurorax_keogram_create`](/code/idlaurorax_api_reference/tools/aurorax_keogram_create/)
 - [`aurorax_keogram_plot`](/code/idlaurorax_api_reference/tools/aurorax_keogram_plot/)
+- [`aurorax_montage_create`](/code/idlaurorax_api_reference/tools/aurorax_montage_create/)
 - [`aurorax_mosaic_plot`](/code/idlaurorax_api_reference/tools/aurorax_mosaic_plot/)
 - [`aurorax_mosaic_oplot`](/code/idlaurorax_api_reference/tools/aurorax_mosaic_oplot/)
 - [`aurorax_mosaic_prep_images`](/code/idlaurorax_api_reference/tools/aurorax_mosaic_prep_images/)

@@ -18,8 +18,9 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # define search params
         start = datetime.datetime(2020, 1, 1, 0, 0, 0)
@@ -29,12 +30,12 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
         instrument_types = ["RGB ASI"]
 
         # perform the data product search
-        s = pyaurorax.data_products.search(start,
-                                           end,
-                                           programs=programs,
-                                           platforms=platforms,
-                                           instrument_types=instrument_types,
-                                           verbose=True)
+        s = aurorax.search.data_products.search(start,
+                                                end,
+                                                programs=programs,
+                                                platforms=platforms,
+                                                instrument_types=instrument_types,
+                                                verbose=True)
 
         # have a look at our results
         print(s.data)
@@ -80,7 +81,7 @@ Let's say we want to retrieve all the data product records the TREx RGB in Fort 
 
     === "IDL"
 
-        IDL-AuroraX provides the [`aurorax_data_product_search()`](/code/idlaurorax_api_reference/data_products/search/){:target="_blank"} function to perform a data product search.
+        IDL-AuroraX provides the [`aurorax_data_product_search()`](/code/idlaurorax_api_reference/search/data_products/search/){:target="_blank"} function to perform a data product search.
 
         ```idl
         IDL> response = aurorax_data_product_search('2020-01-01T00:00','2020-01-01T23:59',programs=['trex'],platforms=['fort smith'],instrument_types=['RGB ASI'])

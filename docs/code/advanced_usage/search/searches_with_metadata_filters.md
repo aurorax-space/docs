@@ -50,8 +50,9 @@ To include a metadata filter in a conjunction search, place it within the criter
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # set up search parameters
         start = datetime.datetime(2019, 1, 1, 0, 0, 0)
@@ -94,12 +95,12 @@ To include a metadata filter in a conjunction search, place it within the criter
         distance = 500
 
         # perform the search
-        s = pyaurorax.conjunctions.search(start=start,
-                                          end=end,
-                                          distance=distance,
-                                          ground=ground_params,
-                                          space=space_params,
-                                          verbose=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=distance,
+                                               ground=ground_params,
+                                               space=space_params,
+                                               verbose=True)
 
         # output data
         print(s.data)
@@ -210,22 +211,19 @@ To include a metadata filter in a conjunction search, place it within the criter
 
 To include a metadata filter in an ephemeris search, supply it as an addition argument to the search function.
 
-!!! info "Improvement on its way for PyAuroraX"
-
-    Please note - an improvement to the structure of metadata filters is coming soon to PyAuroraX, as part of release v0.10.0. See the milestone [here](https://github.com/aurorax-space/pyaurorax/milestone/3){:target="_blank"} and the specific issue ticket for the improvement is [!28](https://github.com/aurorax-space/pyaurorax/issues/28){:target="_blank"}.
-
 !!! example "Ephemeris search with metadata filters"
 
     In the following example, we are searching for ephemeris records over one day for the "swarm" program and "swarma" platform, where the metadata filter for "nbtrace_region" is either "north polar cap" or "north auroral oval".
 
     === "Python"
 
-        We use the [`pyaurorax.ephemeris.search()`](/code/pyaurorax_api_reference/pyaurorax/ephemeris/index.html#pyaurorax.ephemeris.search){:target="_blank"} function with the `metadata_filters_logical_operator` and `metadata_filters` parameters supplied.
+        We use the [`aurorax.search.ephemeris.search()`](/code/pyaurorax_api_reference/pyaurorax/search/ephemeris/index.html#pyaurorax.ephemeris.search){:target="_blank"} function with the `metadata_filters_logical_operator` and `metadata_filters` parameters supplied.
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # set up search parameters
         start = datetime.datetime(2019, 1, 1, 0, 0, 0)
@@ -245,13 +243,13 @@ To include a metadata filter in an ephemeris search, supply it as an addition ar
         ]
 
         # perform the search
-        s = pyaurorax.ephemeris.search(start=start,
-                                       end=end,
-                                       programs=programs,
-                                       platforms=platforms,
-                                       metadata_filters_logical_operator=metadata_filters_logical_operator,
-                                       metadata_filters=metadata_filters,
-                                       verbose=True)
+        s = aurorax.search.ephemeris.search(start=start,
+                                            end=end,
+                                            programs=programs,
+                                            platforms=platforms,
+                                            metadata_filters_logical_operator=metadata_filters_logical_operator,
+                                            metadata_filters=metadata_filters,
+                                            verbose=True)
 
         # output data
         print(s.data)
@@ -378,22 +376,19 @@ To include a metadata filter in an ephemeris search, supply it as an addition ar
 
 To include a metadata filter in a data product search, supply it as an addition argument to the search function.
 
-!!! info "Improvement on its way for PyAuroraX"
-
-    Please note - an improvement to the structure of metadata filters is coming soon to PyAuroraX, as part of release v0.10.0. See the milestone [here](https://github.com/aurorax-space/pyaurorax/milestone/3){:target="_blank"} and the specific issue ticket for the improvement is [!28](https://github.com/aurorax-space/pyaurorax/issues/28){:target="_blank"}.
-
 !!! example "Data product search with metadata filters"
 
     In the following example, we are searching for data product records over one day for the one of the TREx RGB instruments (Gillam), where the metadata filter for "keogram_type" is either "daily" or "hourly".
 
     === "Python"
 
-        We use the [`pyaurorax.data_products.search()`](/code/pyaurorax_api_reference/pyaurorax/data_products/index.html#pyaurorax.data_products.search){:target="_blank"} function with the `metadata_filters_logical_operator` and `metadata_filters` parameters supplied.
+        We use the [`aurorax.search.data_products.search()`](/code/pyaurorax_api_reference/pyaurorax/search/data_products/index.html#pyaurorax.data_products.search){:target="_blank"} function with the `metadata_filters_logical_operator` and `metadata_filters` parameters supplied.
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # set up search parameters
         start = datetime.datetime(2020, 1, 1, 0, 0, 0)
@@ -414,14 +409,14 @@ To include a metadata filter in a data product search, supply it as an addition 
         ]
 
         # perform the search
-        s = pyaurorax.data_products.search(start=start,
-                                           end=end,
-                                           programs=programs,
-                                           platforms=platforms,
-                                           instrument_types=instrument_types,
-                                           metadata_filters_logical_operator=metadata_filters_logical_operator,
-                                           metadata_filters=metadata_filters,
-                                           verbose=True)
+        s = aurorax.search.data_products.search(start=start,
+                                                end=end,
+                                                programs=programs,
+                                                platforms=platforms,
+                                                instrument_types=instrument_types,
+                                                metadata_filters_logical_operator=metadata_filters_logical_operator,
+                                                metadata_filters=metadata_filters,
+                                                verbose=True)
 
         # output data
         print(s.data)

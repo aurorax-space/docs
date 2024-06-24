@@ -23,7 +23,8 @@ You can retrieve all data sources, or retrieve data sources matching a certain s
 
         ```python
         import pyaurorax
-        sources = pyaurorax.sources.list()
+        aurorax = pyaurorax.PyAuroraX()
+        sources = aurorax.search.sources.list()
         print(sources)
         ```
 
@@ -31,7 +32,8 @@ You can retrieve all data sources, or retrieve data sources matching a certain s
 
         ```python
         import pyaurorax
-        sources = pyaurorax.sources.list(format=pyaurorax.FORMAT_BASIC_INFO)
+        aurorax = pyaurorax.PyAuroraX()
+        sources = aurorax.search.sources.list(format=pyaurorax.FORMAT_BASIC_INFO)
         print(sources)
         ```
 
@@ -39,13 +41,14 @@ You can retrieve all data sources, or retrieve data sources matching a certain s
 
         ```python
         import pyaurorax
-        sources = pyaurorax.sources.list(program="swarm")
+        aurorax = pyaurorax.PyAuroraX()
+        sources = aurorax.search.sources.list(program="swarm")
         print(sources)
         ```
 
     === "IDL"
 
-        You can retrieve ALL data sources using the [`aurorax_sources_list()`](/code/idlaurorax_api_reference/sources/list/){:target="_blank"} function with no parameters.
+        You can retrieve ALL data sources using the [`aurorax_sources_list()`](/code/idlaurorax_api_reference/search/sources/list/){:target="_blank"} function with no parameters.
 
         ```idl
         IDL> sources = aurorax_sources_list()

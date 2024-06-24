@@ -1,8 +1,6 @@
-# Data Availability and Statistics
+# Data Availability
 
-Since the AuroraX platform is built around metadata in a database, we lose a bit of visibility regarding what data is in the system at any given time. To help with this, we have two functions that can quickly provide data availability and statistics information to users. Below, we'll have a closer look at each of these functions and how they can be used.
-
-## Data availability
+Since the AuroraX platform is built around metadata in a database, we lose a bit of visibility regarding what data is in the system at any given time. To help with this, we have a function that provides data availability information to users.
 
 Data availability information from AuroraX consists of the number of ephemeris or data product records for a given day and a given data source. We visualize it using the [Data Availability webpage](https://aurorax.space/data/availability){:target="_blank"}.
 
@@ -14,12 +12,13 @@ Below, we'll have a look at an example of retrieving data availability informati
 
     === "Python"
 
-        The [`availability`](/code/pyaurorax_api_reference/pyaurorax/availability/index.html){:target="_blank"} module has functions for retrieving the availability of ephemeris and data product records. These functions return a list of [`AvailabilityResult`](/code/pyaurorax_api_reference/pyaurorax/availability/index.html#pyaurorax.availability.AvailabilityResult){:target="_blank"} objects for every data source that matches the filter criteria provided to the function.
+        The [`search.availability`](/code/pyaurorax_api_reference/pyaurorax/search/availability/index.html){:target="_blank"} module has functions for retrieving the availability of ephemeris and data product records. These functions return a list of [`AvailabilityResult`](/code/pyaurorax_api_reference/pyaurorax/search/availability/index.html#pyaurorax.search.AvailabilityResult){:target="_blank"} objects for every data source that matches the filter criteria provided to the function.
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # set up availability params
         start = datetime.date(2019, 1, 1)
@@ -27,9 +26,9 @@ Below, we'll have a look at an example of retrieving data availability informati
         program = "swarm"
 
         # get availability information
-        availability = pyaurorax.availability.ephemeris(start, 
-                                                        end,
-                                                        program=program)
+        availability = aurorax.search.availability.ephemeris(start, 
+                                                             end,
+                                                             program=program)
 
         # have a look at the availability data
         print(availability)
@@ -68,7 +67,7 @@ Below, we'll have a look at an example of retrieving data availability informati
 
     === "IDL"
 
-        Use the [`aurorax_ephemeris_availability()`](/code/idlaurorax_api_reference/availability/ephemeris/){:target="_blank"} and [`aurorax_data_product_availability()`](/code/idlaurorax_api_reference/availability/data_products/){:target="_blank"} functions to retrieve data availability information from AuroraX in IDL.
+        Use the [`aurorax_ephemeris_availability()`](/code/idlaurorax_api_reference/search/availability/ephemeris/){:target="_blank"} and [`aurorax_data_product_availability()`](/code/idlaurorax_api_reference/search/availability/data_products/){:target="_blank"} functions to retrieve data availability information from AuroraX in IDL.
 
         ```idl
         IDL> data = aurorax_ephemeris_availability('20200101','20200105',program='swarm')
@@ -157,112 +156,4 @@ Below, we'll have a look at an example of retrieving data availability informati
 
         ```
         https://api.aurorax.space/api/v1/availability/ephemeris?start=2020-01-01&end=2020-01-31&program=swarm
-        ```
-
-## Data statistics
-
-AuroraX also has the ability to inform on the total number of ephemeris or data product records there exists for each data source, along with the earliest/latest timestamp values. This information is part of the "stats" API endpoints, and visualized on the [Data Statistics webpage](https://aurorax.space/data/statistics){:target="_blank"}.
-
-Below, we'll have a look at an example of retrieving data source statistics information programmatically.
-
-!!! example "Example - get data statistics information"
-
-    In this example, the data source statistics of the TREx RGB in Gillam are retrieved.
-
-    === "Python"
-
-        The [`sources`](/code/pyaurorax_api_reference/pyaurorax/sources/index.html){:target="_blank"} module has a function for retrieving statistics of a data source. The information retrieved includes the earliest and latest dates for ephemeris and data product records associated with the data source. A [`DataStatisticsResult`](/code/pyaurorax_api_reference/pyaurorax/sources/index.html#pyaurorax.sources.DataStatisticsResult){:target="_blank"} object is returned by this function.
-
-        ```python
-        # imports
-        import pyaurorax
-        import datetime
-
-        # get identifier for the TREx RGB in Gillam
-        data_source = pyaurorax.sources.list(program="trex", platform="gillam", instrument_type="RGB ASI")
-        
-        # retrieve stats for this data source
-        stats = pyaurorax.sources.get_stats(data_source[0].identifier, format=pyaurorax.FORMAT_IDENTIFIER_ONLY)
-
-        # have a look at the stats info we retrieved
-        print(stats)
-        ```
-
-        Example output would look like:
-
-        ```
-        DataSourceStatistics(data_source=DataSource(identifier=103), 
-                             earliest_ephemeris_loaded=datetime.datetime(2019, 9, 27, 1, 25),
-                             latest_ephemeris_loaded=datetime.datetime(2020, 11, 30, 23, 59),
-                             ephemeris_count=222573, 
-                             earliest_data_product_loaded=datetime.datetime(2019, 9, 27, 0, 0),
-                             latest_data_product_loaded=datetime.datetime(2021, 10, 22, 23, 59),
-                             data_product_count=28312)
-        ```
-
-    === "IDL"
-
-        Use the [`aurorax_sources_get_stats()`](/code/idlaurorax_api_reference/sources/stats/){:target="_blank"} function to retrieve additional information about a data source.
-
-        ```idl
-        IDL> source = aurorax_sources_list(program='swarm', platform='swarma')
-        IDL> stats = aurorax_sources_get_stats(source[0].identifier)
-        IDL> help,stats
-        ** Structure <69a75b30>, 7 tags, length=168, data length=168, refs=1:
-            DATA_SOURCE                   STRUCT    -> <Anonymous> Array[1]
-            EARLIEST_EPHEMERIS_LOADED     STRING    '2013-11-26T00:00:00'
-            LATEST_EPHEMERIS_LOADED       STRING    '2021-12-10T23:59:00'
-            EPHEMERIS_COUNT               LONG64    4229280
-            EARLIEST_DATA_PRODUCT_LOADED  STRING    '!NULL'
-            LATEST_DATA_PRODUCT_LOADED    STRING    '!NULL'
-            DATA_PRODUCT_COUNT            LONG64    0
-        ```
-
-    === "Command Line"
-
-        You can use the aurorax-cli tool to retrieve data source statistics information too.
-
-        ```console
-        $ aurorax-cli sources get_stats 103
-        ```
-
-        Example output would be:
-
-        ```
-        Data source:                    DataSource(identifier=103, program='trex', platform='gillam', instrument_type='RGB ASI', source_type='ground', display_name='TREx RGB GILL')
-        Ephemeris count:                222,573
-        Earliest ephemeris loaded:      2019-09-27 01:25:00
-        Latest ephemeris loaded:        2020-11-30 23:59:00
-        Data product count:	            28,312
-        Earliest data product loaded:	2019-09-27 00:00:00
-        Latest data product loaded:	    2021-10-22 23:59:00
-        ```
-
-        !!! warning "Input is identifier number of data source"
-        
-            This command requires the input be the identifier number of a data source, so before the below command we used the "list" command to find that TREx RGB in Gillam is identifier `103`.
-
-        For more usage details, you can look at the aurorax-cli help too.
-
-        ```console
-        $ aurorax-cli sources get_stats --help 
-        ```
-
-    === "Javascript"
-
-        There are many different ways in Javascript to send a GET request, so we'll show it using a basic HTTP request. You can do this with AJAX, JQuery, Node, React, etc.
-
-        ```javascript
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://api.aurorax.space/api/v1/data_sources/103");
-        xhr.send();
-        console.log(xhr.responseText)
-        ```
-
-    === "Browser"
-
-        You can also just make the request right from your browser. Copy the following URL and paste it in your browser URL bar.
-
-        ```
-        https://api.aurorax.space/api/v1/data_sources/103
         ```

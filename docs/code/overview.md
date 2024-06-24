@@ -1,19 +1,10 @@
 # Developer Zone
 
-AuroraX tools are built on top of a set of APIs, so using the platform programmatically is very easily supported. We have several tools available for this purpose, with more in development. 
-
-## Programmatic methods
-
-There are four main ways of interacting with AuroraX programmatically:
-
-1. Making raw HTTP/HTTPS requests to the RESTful APIs
-2. Writing Python code with [PyAuroraX](https://github.com/aurorax-space/pyaurorax){:target="_blank"}
-3. Using the command line with aurorax-cli (part of PyAuroraX)
-4. Writing IDL code with [IDL-AuroraX](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}
+AuroraX has several tools available for writing software. The PyAuroraX and IDL-AuroraX libraries are available to use for data analysis support of All-Sky Imager (ASI) data, and for interacting with with the AuroraX Search Engine (e.g., performing conjunction searches, ephemeris searches, uploading data, etc.).
 
 ## Getting started
 
-The easiest way to get started is to use the Python library [PyAuroraX](https://github.com/aurorax-space/pyaurorax){:target="_blank"}, or the IDL library [IDL-AuroraX](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}. You can also interact with the API directly, using HTTPS-based RESTful requests (GET, POST, etc.) in any programming language.
+The easiest way to get started is to delve into the Python library [PyAuroraX](https://github.com/aurorax-space/pyaurorax){:target="_blank"}, or the IDL library [IDL-AuroraX](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}.
 
 [Install Software&nbsp;&nbsp;:material-console:](/code/installation/){.md-button .add-bottom-space}&nbsp;&nbsp;
 [Getting Started Guide&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/7_interacting_programmatically/){.md-button .add-bottom-space}&nbsp;&nbsp;

@@ -20,8 +20,9 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # define search parameters
         start = datetime.datetime(2019, 1, 1, 0, 0, 0)
@@ -42,12 +43,12 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
 
 
         # run conjunction search request
-        s = pyaurorax.conjunctions.search(start=start,
-                                          end=end,
-                                          distance=distance,
-                                          ground=ground_params,
-                                          space=space_params,
-                                          verbose=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=distance,
+                                               ground=ground_params,
+                                               space=space_params,
+                                               verbose=True)
 
         # have a look at our results
         print(s.data)
@@ -79,7 +80,7 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
 
     === "IDL"
 
-        IDL-AuroraX provides the [`aurorax_conjunction_search()`](/code/idlaurorax_api_reference/conjunctions/search/){:target="_blank"} function to perform a conjunction search. Further, there are a couple helper functions to create the necessary objects as parameters to the search function.
+        IDL-AuroraX provides the [`aurorax_conjunction_search()`](/code/idlaurorax_api_reference/search/conjunctions/search/){:target="_blank"} function to perform a conjunction search. Further, there are a couple helper functions to create the necessary objects as parameters to the search function.
 
         ```idl
         ; define timeframe and distance parameters
@@ -148,7 +149,7 @@ Below, we'll have a look at how to run "Example 1" on the Conjunction Search web
         }
         ```
 
-        Lastly, you can visualize this conjunction search in the Swarm-Aurora Conjunction Browser using a handy procedure called [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_reference/conjunctions/open_in_swarmaurora/){:target="_blank"}:
+        Lastly, you can visualize this conjunction search in the Swarm-Aurora Conjunction Browser using a handy procedure called [`aurorax_open_conjunctions_in_swarmaurora`](/code/idlaurorax_api_reference/search/conjunctions/open_in_swarmaurora/){:target="_blank"}:
 
         ```idl
         IDL> aurorax_open_conjunctions_in_swarmaurora,response.request_id

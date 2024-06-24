@@ -1,8 +1,3 @@
----
-hide:
-  - toc
----
-
 # aurorax_data_products_availability
 
 ```

@@ -28,16 +28,15 @@ Below we'll show an example of how to use your API key for interacting with secu
 
         ```python
         import pyaurorax
-        pyaurorax.authenticate("API_KEY_HERE")
+        aurorax = pyaurorax.PyAuroraX(api_key="API_KEY_HERE")
         ```
         
         If needed, you can get the currently-set API key for your application:
 
         ```python
         import pyaurorax
-        pyaurorax.authenticate("API_KEY_HERE")
-        api_key = pyaurorax.api.get_api_key()
-        print(api_key)
+        aurorax = pyaurorax.PyAuroraX(api_key="API_KEY_HERE")
+        print(aurorax.api_key)
         ```
 
     === "Command Line"

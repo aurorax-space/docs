@@ -32,8 +32,9 @@ This example will go through the steps of executing an asynchronous conjunction 
 
         ```python
         # imports
-        import pyaurorax
         import datetime
+        import pyaurorax
+        aurorax = pyaurorax.PyAuroraX()
 
         # set up search parameters
         start = datetime.datetime(2019, 1, 1, 0, 0, 0)
@@ -64,12 +65,12 @@ This example will go through the steps of executing an asynchronous conjunction 
         }]
 
         # initiate search
-        s = pyaurorax.conjunctions.search(start=start,
-                                          end=end,
-                                          distance=500,
-                                          ground=ground_params,
-                                          space=space_params
-                                          return_immediately=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=500,
+                                               ground=ground_params,
+                                               space=space_params
+                                               return_immediately=True)
 
         # do other useful things while waiting for results...
         foo()
@@ -100,12 +101,12 @@ Asynchronous searches are set up and executed the same as regular searches. The 
 
         ```python hl_lines="0-7"
         # initiate search
-        s = pyaurorax.conjunctions.search(start=start,
-                                          end=end,
-                                          distance=500,
-                                          ground=ground_params,
-                                          space=space_params
-                                          return_immediately=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=500,
+                                               ground=ground_params,
+                                               space=space_params
+                                               return_immediately=True)
 
         # do other useful things while waiting for results...
         foo()
@@ -134,12 +135,12 @@ Our working example illustrates this using a simple loop that checks for data ev
 
         ```python hl_lines="13-15"
         # initiate search
-        s = pyaurorax.conjunctions.search(start=start,
-                                          end=end,
-                                          distance=500,
-                                          ground=ground_params,
-                                          space=space_params
-                                          return_immediately=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=500,
+                                               ground=ground_params,
+                                               space=space_params
+                                               return_immediately=True)
 
         # do other useful things while waiting for results...
         foo()
@@ -166,12 +167,12 @@ When the [`check_for_data()`](/code/pyaurorax_api_reference/pyaurorax/conjunctio
 
         ```python hl_lines="17-18"
         # initiate search
-        s = pyaurorax.conjunctions.search(start=start,
-                                          end=end,
-                                          distance=500,
-                                          ground=ground_params,
-                                          space=space_params
-                                          return_immediately=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=500,
+                                               ground=ground_params,
+                                               space=space_params
+                                               return_immediately=True)
 
         # do other useful things while waiting for results...
         foo()
@@ -198,12 +199,12 @@ Included with every Search object is a [`wait()`](/code/pyaurorax_api_reference/
 
         ```python hl_lines="13-14"
         # initiate search
-        s = pyaurorax.conjunctions.search(start=start,
-                                         end=end,
-                                         distance=500,
-                                         ground=ground_params,
-                                         space=space_params
-                                         return_immediately=True)
+        s = aurorax.search.conjunctions.search(start=start,
+                                               end=end,
+                                               distance=500,
+                                               ground=ground_params,
+                                               space=space_params
+                                               return_immediately=True)
 
         # do other useful things while waiting for results...
         foo()
