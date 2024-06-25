@@ -218,6 +218,7 @@ class ATMManager:
                 output: ATMInverseOutputFlags,
                 precipitation_flux_spectral_type: Literal[&#34;gaussian&#34;, &#34;maxwellian&#34;] = ATM_DEFAULT_PRECIPITATION_SPECTRAL_FLUX_TYPE,
                 nrlmsis_model_version: Literal[&#34;00&#34;, &#34;2.0&#34;] = ATM_DEFAULT_NRLMSIS_MODEL_VERSION,
+                atmospheric_attenuation_correction: bool = False,
                 atm_model_version: Literal[&#34;1.0&#34;] = ATM_DEFAULT_MODEL_VERSION,
                 no_cache: bool = False,
                 timeout: Optional[int] = None) -&gt; ATMInverseResult:
@@ -268,6 +269,9 @@ class ATMManager:
                 optional. More details about this empirical model can be found [here](https://ccmc.gsfc.nasa.gov/models/NRLMSIS~00/),
                 and [here](https://ccmc.gsfc.nasa.gov/models/NRLMSIS~2.0/).
 
+            atmospheric_attenuation_correction (bool): 
+                Apply an atmospheric attenuation correction factor. Default is `False`.
+
             atm_model_version (str): 
                 ATM model version number. Possible values are only &#39;1.0&#39; at this time, but will have
                 additional possible values in the future. This parameter is optional.
@@ -304,6 +308,7 @@ class ATMManager:
                 precipitation_flux_spectral_type=precipitation_flux_spectral_type,
                 nrlmsis_model_version=nrlmsis_model_version,
                 atm_model_version=atm_model_version,
+                atmospheric_attenuation_correction=atmospheric_attenuation_correction,
                 no_cache=no_cache,
                 timeout=timeout,
             )
@@ -479,6 +484,7 @@ the submodules and carry over configuration information in the super class.</p><
                 output: ATMInverseOutputFlags,
                 precipitation_flux_spectral_type: Literal[&#34;gaussian&#34;, &#34;maxwellian&#34;] = ATM_DEFAULT_PRECIPITATION_SPECTRAL_FLUX_TYPE,
                 nrlmsis_model_version: Literal[&#34;00&#34;, &#34;2.0&#34;] = ATM_DEFAULT_NRLMSIS_MODEL_VERSION,
+                atmospheric_attenuation_correction: bool = False,
                 atm_model_version: Literal[&#34;1.0&#34;] = ATM_DEFAULT_MODEL_VERSION,
                 no_cache: bool = False,
                 timeout: Optional[int] = None) -&gt; ATMInverseResult:
@@ -529,6 +535,9 @@ the submodules and carry over configuration information in the super class.</p><
                 optional. More details about this empirical model can be found [here](https://ccmc.gsfc.nasa.gov/models/NRLMSIS~00/),
                 and [here](https://ccmc.gsfc.nasa.gov/models/NRLMSIS~2.0/).
 
+            atmospheric_attenuation_correction (bool): 
+                Apply an atmospheric attenuation correction factor. Default is `False`.
+
             atm_model_version (str): 
                 ATM model version number. Possible values are only &#39;1.0&#39; at this time, but will have
                 additional possible values in the future. This parameter is optional.
@@ -565,6 +574,7 @@ the submodules and carry over configuration information in the super class.</p><
                 precipitation_flux_spectral_type=precipitation_flux_spectral_type,
                 nrlmsis_model_version=nrlmsis_model_version,
                 atm_model_version=atm_model_version,
+                atmospheric_attenuation_correction=atmospheric_attenuation_correction,
                 no_cache=no_cache,
                 timeout=timeout,
             )
@@ -782,7 +792,7 @@ object containing the requested output data, among other values.</p>
 </details>
 </dd>
 <dt id="pyaurorax.models.atm.ATMManager.inverse"><code class="name flex">
-<span>def <span class="ident">inverse</span></span>(<span>self, timestamp: datetime.datetime, geodetic_latitude: float, geodetic_longitude: float, intensity_4278: float, intensity_5577: float, intensity_6300: float, intensity_8446: float, output: pyucalgarysrs.models.atm.classes_inverse.ATMInverseOutputFlags, precipitation_flux_spectral_type: Literal['gaussian', 'maxwellian'] = 'gaussian', nrlmsis_model_version: Literal['00', '2.0'] = '2.0', atm_model_version: Literal['1.0'] = '1.0', no_cache: bool = False, timeout: Optional[int] = None) ‑> pyucalgarysrs.models.atm.classes_inverse.ATMInverseResult</span>
+<span>def <span class="ident">inverse</span></span>(<span>self, timestamp: datetime.datetime, geodetic_latitude: float, geodetic_longitude: float, intensity_4278: float, intensity_5577: float, intensity_6300: float, intensity_8446: float, output: pyucalgarysrs.models.atm.classes_inverse.ATMInverseOutputFlags, precipitation_flux_spectral_type: Literal['gaussian', 'maxwellian'] = 'gaussian', nrlmsis_model_version: Literal['00', '2.0'] = '2.0', atmospheric_attenuation_correction: bool = False, atm_model_version: Literal['1.0'] = '1.0', no_cache: bool = False, timeout: Optional[int] = None) ‑> pyucalgarysrs.models.atm.classes_inverse.ATMInverseResult</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Perform an inverse calculation using the TREx Auroral Transport Model and the supplied input
@@ -825,6 +835,8 @@ default is <code>gaussian</code>. This parameter is optional.</dd>
 <dd>NRLMSIS version number. Possible values are <code>00</code> or <code>2.0</code>. Default is <code>2.0</code>. This parameter is
 optional. More details about this empirical model can be found <a href="https://ccmc.gsfc.nasa.gov/models/NRLMSIS~00/">here</a>,
 and <a href="https://ccmc.gsfc.nasa.gov/models/NRLMSIS~2.0/">here</a>.</dd>
+<dt><strong><code>atmospheric_attenuation_correction</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Apply an atmospheric attenuation correction factor. Default is <code>False</code>.</dd>
 <dt><strong><code>atm_model_version</code></strong> :&ensp;<code>str</code></dt>
 <dd>ATM model version number. Possible values are only '1.0' at this time, but will have
 additional possible values in the future. This parameter is optional.</dd>
@@ -862,6 +874,7 @@ object containing the requested output data, among other values.</p>
             output: ATMInverseOutputFlags,
             precipitation_flux_spectral_type: Literal[&#34;gaussian&#34;, &#34;maxwellian&#34;] = ATM_DEFAULT_PRECIPITATION_SPECTRAL_FLUX_TYPE,
             nrlmsis_model_version: Literal[&#34;00&#34;, &#34;2.0&#34;] = ATM_DEFAULT_NRLMSIS_MODEL_VERSION,
+            atmospheric_attenuation_correction: bool = False,
             atm_model_version: Literal[&#34;1.0&#34;] = ATM_DEFAULT_MODEL_VERSION,
             no_cache: bool = False,
             timeout: Optional[int] = None) -&gt; ATMInverseResult:
@@ -912,6 +925,9 @@ object containing the requested output data, among other values.</p>
             optional. More details about this empirical model can be found [here](https://ccmc.gsfc.nasa.gov/models/NRLMSIS~00/),
             and [here](https://ccmc.gsfc.nasa.gov/models/NRLMSIS~2.0/).
 
+        atmospheric_attenuation_correction (bool): 
+            Apply an atmospheric attenuation correction factor. Default is `False`.
+
         atm_model_version (str): 
             ATM model version number. Possible values are only &#39;1.0&#39; at this time, but will have
             additional possible values in the future. This parameter is optional.
@@ -948,6 +964,7 @@ object containing the requested output data, among other values.</p>
             precipitation_flux_spectral_type=precipitation_flux_spectral_type,
             nrlmsis_model_version=nrlmsis_model_version,
             atm_model_version=atm_model_version,
+            atmospheric_attenuation_correction=atmospheric_attenuation_correction,
             no_cache=no_cache,
             timeout=timeout,
         )
