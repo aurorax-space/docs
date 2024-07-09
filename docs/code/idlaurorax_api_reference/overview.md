@@ -38,7 +38,10 @@ The below pages provide the documentation for each function. Examples can be fou
 
 ## TREx Auroral Transport Model (ATM)
 
-- Coming soon!
+- [`aurorax_atm_forward`](/code/idlaurorax_api_reference/models/atm/aurorax_atm_forward/)
+- [`aurorax_atm_forward_get_output_flags`](/code/idlaurorax_api_reference/models/atm/aurorax_atm_forward_get_output_flags/)
+- [`aurorax_atm_inverse`](/code/idlaurorax_api_reference/models/atm/aurorax_atm_inverse/)
+- [`aurorax_atm_inverse_get_output_flags`](/code/idlaurorax_api_reference/models/atm/aurorax_atm_inverse_get_output_flags/)
 
 ## AuroraX Search Engine
 - [`aurorax_conjunction_search`](/code/idlaurorax_api_reference/search/conjunctions/search/)

@@ -148,6 +148,11 @@ nav:
         - aurorax_mosaic_prep_skymap: code/idlaurorax_api_reference/tools/aurorax_mosaic_prep_skymap.md
         - aurorax_get_decomposed_color: code/idlaurorax_api_reference/tools/aurorax_get_decomposed_color.md
         - aurorax_movie: code/idlaurorax_api_reference/tools/aurorax_movie.md
+      - TREx Auroral Transport Model (ATM):
+        - aurorax_atm_forward: code/idlaurorax_api_reference/models/atm/aurorax_atm_forward.md
+        - aurorax_atm_forward_get_output_flags: code/idlaurorax_api_reference/models/atm/aurorax_atm_forward_get_output_flags.md
+        - aurorax_atm_inverse: code/idlaurorax_api_reference/models/atm/aurorax_atm_inverse.md
+        - aurorax_atm_inverse_get_output_flags: code/idlaurorax_api_reference/models/atm/aurorax_atm_inverse_get_output_flags.md
       - AuroraX Search Engine:
         - aurorax_conjunction_search: code/idlaurorax_api_reference/search/conjunctions/search.md
         - aurorax_open_conjunctions_in_aurorax: code/idlaurorax_api_reference/search/conjunctions/open_in_aurorax.md
