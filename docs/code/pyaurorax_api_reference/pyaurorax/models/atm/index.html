@@ -102,6 +102,14 @@ class ATMManager:
         parameters. Note that this function utilizes the UCalgary Space Remote Sensing API to perform 
         the calculation.
 
+        The ATM model is 1D and time-independent. However, the optional parameters `timescale_auroral` 
+        and `timescale_transport` provide limited support for time-dependent and transport process. The
+        `timescale_auroral` parameter (T0) is the duration of the precipitation. The `timescale_transport` 
+        parameter is defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the 
+        cross-structure drift speed. The model quasi-analytically solves the continuity equation under a 
+        square input (with time duration T0 and spatial width L) input of precipitation. The initial/boundary 
+        conditions are given by IRI. The output yields the mean density/VER over [0-L] at time T0.
+
         Args:
             timestamp (datetime.datetime): 
                 Timestamp for the calculation. This value is expected to be in UTC, and is valid for 
@@ -150,10 +158,11 @@ class ATMManager:
                 is optional.
 
             timescale_auroral (int): 
-                Auroral timescale in seconds. Default is 600 (10 minutes). This parameter is optional.
+                The duration of the precipitation, in seconds. Default is 600 (10 minutes). This parameter is optional.
 
             timescale_transport (int): 
-                Transport timescale in seconds. Default is 300 (5 minutes). This parameter is optional.
+                Defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the cross-structure drift 
+                speed. Represented in seconds. Default is 600 (10 minutes). This parameter is optional.
 
             atm_model_version (str): 
                 ATM model version number. Possible values are only &#39;1.0&#39; at this time, but will have
@@ -176,7 +185,7 @@ class ATMManager:
                 Represents how many seconds to wait for the API to send data before giving up. The 
                 default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyaurorax.PyAuroraX`
                 object. This parameter is optional.
-        
+
         Returns:
             An [`ATMForwardResult`](https://docs-pyucalgarysrs.phys.ucalgary.ca/models/atm/classes_forward.html#pyucalgarysrs.models.atm.classes_forward.ATMForwardResult)
             object containing the requested output data, among other values.
@@ -368,6 +377,14 @@ the submodules and carry over configuration information in the super class.</p><
         parameters. Note that this function utilizes the UCalgary Space Remote Sensing API to perform 
         the calculation.
 
+        The ATM model is 1D and time-independent. However, the optional parameters `timescale_auroral` 
+        and `timescale_transport` provide limited support for time-dependent and transport process. The
+        `timescale_auroral` parameter (T0) is the duration of the precipitation. The `timescale_transport` 
+        parameter is defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the 
+        cross-structure drift speed. The model quasi-analytically solves the continuity equation under a 
+        square input (with time duration T0 and spatial width L) input of precipitation. The initial/boundary 
+        conditions are given by IRI. The output yields the mean density/VER over [0-L] at time T0.
+
         Args:
             timestamp (datetime.datetime): 
                 Timestamp for the calculation. This value is expected to be in UTC, and is valid for 
@@ -416,10 +433,11 @@ the submodules and carry over configuration information in the super class.</p><
                 is optional.
 
             timescale_auroral (int): 
-                Auroral timescale in seconds. Default is 600 (10 minutes). This parameter is optional.
+                The duration of the precipitation, in seconds. Default is 600 (10 minutes). This parameter is optional.
 
             timescale_transport (int): 
-                Transport timescale in seconds. Default is 300 (5 minutes). This parameter is optional.
+                Defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the cross-structure drift 
+                speed. Represented in seconds. Default is 600 (10 minutes). This parameter is optional.
 
             atm_model_version (str): 
                 ATM model version number. Possible values are only &#39;1.0&#39; at this time, but will have
@@ -442,7 +460,7 @@ the submodules and carry over configuration information in the super class.</p><
                 Represents how many seconds to wait for the API to send data before giving up. The 
                 default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyaurorax.PyAuroraX`
                 object. This parameter is optional.
-        
+
         Returns:
             An [`ATMForwardResult`](https://docs-pyucalgarysrs.phys.ucalgary.ca/models/atm/classes_forward.html#pyucalgarysrs.models.atm.classes_forward.ATMForwardResult)
             object containing the requested output data, among other values.
@@ -584,12 +602,19 @@ the submodules and carry over configuration information in the super class.</p><
 <h3>Methods</h3>
 <dl>
 <dt id="pyaurorax.models.atm.ATMManager.forward"><code class="name flex">
-<span>def <span class="ident">forward</span></span>(<span>self, timestamp: datetime.datetime, geodetic_latitude: float, geodetic_longitude: float, output: pyucalgarysrs.models.atm.classes_forward.ATMForwardOutputFlags, maxwellian_energy_flux: float = 10.0, gaussian_energy_flux: float = 0.0, maxwellian_characteristic_energy: float = 5000.0, gaussian_peak_energy: float = 1000.0, gaussian_spectral_width: float = 100.0, nrlmsis_model_version: Literal['00', '2.0'] = '2.0', oxygen_correction_factor: float = 1.0, timescale_auroral: int = 600, timescale_transport: int = 300, atm_model_version: Literal['1.0'] = '1.0', custom_spectrum: Optional[numpy.ndarray] = None, no_cache: bool = False, timeout: Optional[int] = None) ‑> pyucalgarysrs.models.atm.classes_forward.ATMForwardResult</span>
+<span>def <span class="ident">forward</span></span>(<span>self, timestamp: datetime.datetime, geodetic_latitude: float, geodetic_longitude: float, output: pyucalgarysrs.models.atm.classes_forward.ATMForwardOutputFlags, maxwellian_energy_flux: float = 10.0, gaussian_energy_flux: float = 0.0, maxwellian_characteristic_energy: float = 5000.0, gaussian_peak_energy: float = 1000.0, gaussian_spectral_width: float = 100.0, nrlmsis_model_version: Literal['00', '2.0'] = '2.0', oxygen_correction_factor: float = 1.0, timescale_auroral: int = 600, timescale_transport: int = 600, atm_model_version: Literal['1.0'] = '1.0', custom_spectrum: Optional[numpy.ndarray] = None, no_cache: bool = False, timeout: Optional[int] = None) ‑> pyucalgarysrs.models.atm.classes_forward.ATMForwardResult</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Perform a forward calculation using the TREx Auroral Transport Model and the supplied input
 parameters. Note that this function utilizes the UCalgary Space Remote Sensing API to perform
 the calculation.</p>
+<p>The ATM model is 1D and time-independent. However, the optional parameters <code>timescale_auroral</code>
+and <code>timescale_transport</code> provide limited support for time-dependent and transport process. The
+<code>timescale_auroral</code> parameter (T0) is the duration of the precipitation. The <code>timescale_transport</code>
+parameter is defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the
+cross-structure drift speed. The model quasi-analytically solves the continuity equation under a
+square input (with time duration T0 and spatial width L) input of precipitation. The initial/boundary
+conditions are given by IRI. The output yields the mean density/VER over [0-L] at time T0.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>timestamp</code></strong> :&ensp;<code>datetime.datetime</code></dt>
@@ -628,9 +653,10 @@ and <a href="https://ccmc.gsfc.nasa.gov/models/NRLMSIS~2.0/">here</a>.</dd>
 <dd>Oxygen correction factor used to multiply by in the empirical model. Default is 1. This parameter
 is optional.</dd>
 <dt><strong><code>timescale_auroral</code></strong> :&ensp;<code>int</code></dt>
-<dd>Auroral timescale in seconds. Default is 600 (10 minutes). This parameter is optional.</dd>
+<dd>The duration of the precipitation, in seconds. Default is 600 (10 minutes). This parameter is optional.</dd>
 <dt><strong><code>timescale_transport</code></strong> :&ensp;<code>int</code></dt>
-<dd>Transport timescale in seconds. Default is 300 (5 minutes). This parameter is optional.</dd>
+<dd>Defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the cross-structure drift
+speed. Represented in seconds. Default is 600 (10 minutes). This parameter is optional.</dd>
 <dt><strong><code>atm_model_version</code></strong> :&ensp;<code>str</code></dt>
 <dd>ATM model version number. Possible values are only '1.0' at this time, but will have
 additional possible values in the future. This parameter is optional.</dd>
@@ -685,6 +711,14 @@ object containing the requested output data, among other values.</p>
     parameters. Note that this function utilizes the UCalgary Space Remote Sensing API to perform 
     the calculation.
 
+    The ATM model is 1D and time-independent. However, the optional parameters `timescale_auroral` 
+    and `timescale_transport` provide limited support for time-dependent and transport process. The
+    `timescale_auroral` parameter (T0) is the duration of the precipitation. The `timescale_transport` 
+    parameter is defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the 
+    cross-structure drift speed. The model quasi-analytically solves the continuity equation under a 
+    square input (with time duration T0 and spatial width L) input of precipitation. The initial/boundary 
+    conditions are given by IRI. The output yields the mean density/VER over [0-L] at time T0.
+
     Args:
         timestamp (datetime.datetime): 
             Timestamp for the calculation. This value is expected to be in UTC, and is valid for 
@@ -733,10 +767,11 @@ object containing the requested output data, among other values.</p>
             is optional.
 
         timescale_auroral (int): 
-            Auroral timescale in seconds. Default is 600 (10 minutes). This parameter is optional.
+            The duration of the precipitation, in seconds. Default is 600 (10 minutes). This parameter is optional.
 
         timescale_transport (int): 
-            Transport timescale in seconds. Default is 300 (5 minutes). This parameter is optional.
+            Defined by L/v0, in which L is the dimension of the auroral structure, and v0 is the cross-structure drift 
+            speed. Represented in seconds. Default is 600 (10 minutes). This parameter is optional.
 
         atm_model_version (str): 
             ATM model version number. Possible values are only &#39;1.0&#39; at this time, but will have
@@ -759,7 +794,7 @@ object containing the requested output data, among other values.</p>
             Represents how many seconds to wait for the API to send data before giving up. The 
             default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyaurorax.PyAuroraX`
             object. This parameter is optional.
-    
+
     Returns:
         An [`ATMForwardResult`](https://docs-pyucalgarysrs.phys.ucalgary.ca/models/atm/classes_forward.html#pyucalgarysrs.models.atm.classes_forward.ATMForwardResult)
         object containing the requested output data, among other values.

@@ -788,7 +788,7 @@ development and still considered "alpha".</dd>
         # update request status by checking if data URI is set
         if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
             self.completed = True
-            self.data_url = &#34;%s/%s&#34; % (self.aurorax_obj.api_base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+            self.data_url = &#34;%s/data&#34; % (self.request_url)
 
         # set class variable &#34;status&#34; and &#34;logs&#34;
         self.status = status
@@ -1237,7 +1237,7 @@ to avoid requesting it from the API again), defaults to None</dd>
     # update request status by checking if data URI is set
     if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
         self.completed = True
-        self.data_url = &#34;%s/%s&#34; % (self.aurorax_obj.api_base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+        self.data_url = &#34;%s/data&#34; % (self.request_url)
 
     # set class variable &#34;status&#34; and &#34;logs&#34;
     self.status = status
@@ -1656,7 +1656,7 @@ to "AND"</dd>
         # update request status by checking if data URI is set
         if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
             self.completed = True
-            self.data_url = &#34;%s/%s&#34; % (self.aurorax_obj.api_base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+            self.data_url = &#34;%s/data&#34; % (self.request_url)
 
         # set class variable &#34;status&#34; and &#34;logs&#34;
         self.status = status
@@ -1956,7 +1956,7 @@ to avoid requesting it from the API again), defaults to None</dd>
     # update request status by checking if data URI is set
     if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
         self.completed = True
-        self.data_url = &#34;%s/%s&#34; % (self.aurorax_obj.api_base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+        self.data_url = &#34;%s/data&#34; % (self.request_url)
 
     # set class variable &#34;status&#34; and &#34;logs&#34;
     self.status = status
@@ -2532,7 +2532,7 @@ to "AND"</dd>
         # update request status by checking if data URI is set
         if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
             self.completed = True
-            self.data_url = &#34;%s/%s&#34; % (self.aurorax_obj.api_base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+            self.data_url = &#34;%s/data&#34; % (self.request_url)
 
         # set class variable &#34;status&#34; and &#34;logs&#34;
         self.status = status
@@ -2843,7 +2843,7 @@ to avoid requesting it from the API again), defaults to None</dd>
     # update request status by checking if data URI is set
     if (status[&#34;search_result&#34;][&#34;data_uri&#34;] is not None):
         self.completed = True
-        self.data_url = &#34;%s/%s&#34; % (self.aurorax_obj.api_base_url, status[&#34;search_result&#34;][&#34;data_uri&#34;])
+        self.data_url = &#34;%s/data&#34; % (self.request_url)
 
     # set class variable &#34;status&#34; and &#34;logs&#34;
     self.status = status
