@@ -119,7 +119,11 @@ class UCalgaryManager:
             pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
         &#34;&#34;&#34;
         try:
-            return self.__aurorax_obj.srs_obj.data.list_datasets(name=name, timeout=timeout)
+            return self.__aurorax_obj.srs_obj.data.list_datasets(
+                name=name,
+                timeout=timeout,
+                supported_library=&#34;pyaurorax&#34;,
+            )
         except SRSAPIError as e:
             raise AuroraXAPIError(e) from e
 
@@ -1966,7 +1970,11 @@ the submodules and carry over configuration information in the super class.</p><
             pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
         &#34;&#34;&#34;
         try:
-            return self.__aurorax_obj.srs_obj.data.list_datasets(name=name, timeout=timeout)
+            return self.__aurorax_obj.srs_obj.data.list_datasets(
+                name=name,
+                timeout=timeout,
+                supported_library=&#34;pyaurorax&#34;,
+            )
         except SRSAPIError as e:
             raise AuroraXAPIError(e) from e
 
@@ -3602,7 +3610,11 @@ objects.</p>
         pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
     &#34;&#34;&#34;
     try:
-        return self.__aurorax_obj.srs_obj.data.list_datasets(name=name, timeout=timeout)
+        return self.__aurorax_obj.srs_obj.data.list_datasets(
+            name=name,
+            timeout=timeout,
+            supported_library=&#34;pyaurorax&#34;,
+        )
     except SRSAPIError as e:
         raise AuroraXAPIError(e) from e</code></pre>
 </details>
