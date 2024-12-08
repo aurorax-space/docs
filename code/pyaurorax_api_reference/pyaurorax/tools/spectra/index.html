@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pyaurorax.tools.spectra API documentation</title>
+<meta name="description" content="Work with spectrograph data." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyaurorax.tools.spectra</code></h1>
+</header>
+<section id="section-intro">
+<p>Work with spectrograph data.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Copyright 2024 University of Calgary
+#
+# Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+&#34;&#34;&#34;
+Work with spectrograph data.
+&#34;&#34;&#34;
+
+from ._plot import plot
+# from ._get_intensity import get_intensity
+# from ._get_spectra import get_spectra
+
+__all__ = [
+    &#34;plot&#34;,
+    # &#34;get_intensity&#34;,
+    # &#34;get_spectra&#34;,
+]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pyaurorax.tools.spectra.plot"><code class="name flex">
+<span>def <span class="ident">plot</span></span>(<span>spect_data: pyucalgarysrs.data.classes.Data, timestamp: Union[datetime.datetime, List[datetime.datetime]], spect_loc: Union[int, List[int]], title: Optional[str] = None, figsize: Optional[Tuple[int, int]] = None, color: Optional[str] = None, ylog: bool = False, xlabel: str = 'Wavelength (nm)', ylabel: str = 'Intensity (R/nm)', ylim: Optional[Tuple[int, int]] = None, xlim: Optional[Tuple[int, int]] = None, plot_line: Union[float, List[float], ForwardRef(None)] = None, plot_line_color: Union[str, List[str], ForwardRef(None)] = None, returnfig: bool = False, savefig: bool = False, savefig_filename: Optional[str] = None, savefig_quality: Optional[int] = None) ‑> Any</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a plot of one or more spectra from spectrograph data. </p>
+<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
+return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
+<h2 id="args">Args</h2>
+<p>spect_data (pyaurorax.data.ucalgary.Data):
+The data object containing spectrograph data.</p>
+<p>timestamp (datetime.datetime):
+A timestamp or list of timestamps for which to plot spectra from.</p>
+<p>spect_loc (int):
+An int or list of ints giving the spectrograph spatial bin indices to plot.</p>
+<dl>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>The title to display above the plotted spectra.</dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
+</dl>
+<p>color (str):
+A string or list of strings giving the matplotlib color names to use for plotting spectra.</p>
+<dl>
+<dt><strong><code>xlabel</code></strong> :&ensp;<code>str</code></dt>
+<dd>The x-axis label to use. Default is <code>Wavelength (nm)</code>.</dd>
+<dt><strong><code>ylabel</code></strong> :&ensp;<code>str</code></dt>
+<dd>The y-axis label to use. Default is 'Intensity (Rayleighs)'.</dd>
+</dl>
+<p>ylim (Tuple[int]):
+The min and max values to display on the y-axis, in units of Rayleighs/nm.</p>
+<p>xlim (Tuple[int]):
+The min and max values to display on the x-axis, in units of nm.</p>
+<p>plot_line (float):
+A float, or list of floats, giving wavelengths at which to plot a vertical line, useful for comparing
+to known emission wavelengths (e.g. 557.7).</p>
+<p>plot_line_color (str):
+A string or list of strings giving the colors to use for plotting lines specified by 'plot_lines'.</p>
+<dl>
+<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
+manipulation, for example, adding labels or a title in a different location than the default. </p>
+<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
+with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
+<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
+</dd>
+<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
+this parameter is set to True. Defaults to <code>False</code>.</dd>
+<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
+<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
+<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The displayed spectra, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
+set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>Issues with the y-axis choice.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot(spect_data: Data,
+         timestamp: Union[datetime.datetime, List[
+             datetime.datetime,
+         ]],
+         spect_loc: Union[int, List[int]],
+         title: Optional[str] = None,
+         figsize: Optional[Tuple[int, int]] = None,
+         color: Optional[str] = None,
+         ylog: bool = False,
+         xlabel: str = &#34;Wavelength (nm)&#34;,
+         ylabel: str = &#34;Intensity (R/nm)&#34;,
+         ylim: Optional[Tuple[int, int]] = None,
+         xlim: Optional[Tuple[int, int]] = None,
+         plot_line: Optional[Union[float, List[float]]] = None,
+         plot_line_color: Optional[Union[str, List[str]]] = None,
+         returnfig: bool = False,
+         savefig: bool = False,
+         savefig_filename: Optional[str] = None,
+         savefig_quality: Optional[int] = None) -&gt; Any:
+    &#34;&#34;&#34;
+        Generate a plot of one or more spectra from spectrograph data. 
+        
+        Either display it (default behaviour), save it to disk (using the `savefig` parameter), or 
+        return the matplotlib plot object for further usage (using the `returnfig` parameter).
+
+        Args:
+            spect_data (pyaurorax.data.ucalgary.Data):
+                The data object containing spectrograph data.
+
+            timestamp (datetime.datetime):
+                A timestamp or list of timestamps for which to plot spectra from.
+
+            spect_loc (int):
+                An int or list of ints giving the spectrograph spatial bin indices to plot.
+
+            title (str): 
+                The title to display above the plotted spectra.
+
+            figsize (tuple): 
+                The matplotlib figure size to use when plotting. For example `figsize=(14,4)`.
+
+            color (str):
+                A string or list of strings giving the matplotlib color names to use for plotting spectra.
+
+            xlabel (str): 
+                The x-axis label to use. Default is `Wavelength (nm)`.
+
+            ylabel (str): 
+                The y-axis label to use. Default is &#39;Intensity (Rayleighs)&#39;.
+
+            ylim (Tuple[int]):
+                The min and max values to display on the y-axis, in units of Rayleighs/nm.
+
+            xlim (Tuple[int]):
+                The min and max values to display on the x-axis, in units of nm.
+
+            plot_line (float):
+                A float, or list of floats, giving wavelengths at which to plot a vertical line, useful for comparing
+                to known emission wavelengths (e.g. 557.7).
+
+            plot_line_color (str):
+                A string or list of strings giving the colors to use for plotting lines specified by &#39;plot_lines&#39;.
+
+            returnfig (bool): 
+                Instead of displaying the image, return the matplotlib figure object. This allows for further plot 
+                manipulation, for example, adding labels or a title in a different location than the default. 
+                
+                Remember - if this parameter is supplied, be sure that you close your plot after finishing work 
+                with it. This can be achieved by doing `plt.close(fig)`. 
+                
+                Note that this method cannot be used in combination with `savefig`.
+
+            savefig (bool): 
+                Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if 
+                this parameter is set to True. Defaults to `False`.
+
+            savefig_filename (str): 
+                Filename to save the image to. Must be specified if the savefig parameter is set to True.
+
+            savefig_quality (int): 
+                Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+                is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow&#39;s default of 75%.
+
+        Returns:
+            The displayed spectra, by default. If `savefig` is set to True, nothing will be returned. If `returnfig` is 
+            set to True, the plotting variables `(fig, ax)` will be returned.
+
+        Raises:
+            ValueError: Issues with the y-axis choice.
+        &#34;&#34;&#34;
+    # check return mode
+    if (returnfig is True and savefig is True):
+        raise ValueError(&#34;Only one of returnfig or savefig can be set to True&#34;)
+    if (returnfig is True and (savefig_filename is not None or savefig_quality is not None)):
+        warnings.warn(&#34;The figure will be returned, but a savefig option parameter was supplied. Consider &#34; +
+                      &#34;removing the savefig option parameter(s) as they will be ignored.&#34;,
+                      stacklevel=1)
+    elif (savefig is False and (savefig_filename is not None or savefig_quality is not None)):
+        warnings.warn(&#34;A savefig option parameter was supplied, but the savefig parameter is False. The &#34; +
+                      &#34;savefig option parameters will be ignored.&#34;,
+                      stacklevel=1)
+
+    # init figure
+    fig = plt.figure(figsize=figsize)
+    ax = fig.add_axes((0, 0, 1, 1))
+
+    # Convert plot lines to list if required
+    if plot_line is not None:
+        if not isinstance(plot_line, list):
+            plot_line = [plot_line]
+
+    # Convert plot line colors to list if required
+    if plot_line_color is not None:
+        if not isinstance(plot_line_color, list):
+            plot_line_color = [plot_line_color]
+    else:
+        # default plot lines to gray
+        plot_line_color = []
+        if plot_line is not None:
+            for _i in range(len(plot_line)):
+                plot_line_color = &#39;gray&#39;
+
+    # Plot the requested lines if any
+    if plot_line is not None:
+        for i, line in enumerate(plot_line):
+            ax.plot([line, line], [-5000.0, 5000000.0], color=plot_line_color[i], linestyle=&#39;--&#39;)
+
+    # Set up color cycle
+    color_cycle = itertools.cycle(color) if isinstance(color, list) else itertools.cycle([color])
+
+    # Convert input timestamps to list if required
+    if not isinstance(timestamp, list):
+        timestamp = [timestamp]
+
+    # Convert input spatial bins to list if required
+    if not isinstance(spect_loc, list):
+        spect_loc = [spect_loc]
+
+    # Automatically generate a default title, as
+    # well as default legend labels to use
+    auto_title = (f&#34;{spect_data.metadata[0][&#39;site_uid&#39;].decode(&#39;utf-8&#39;).upper()} - &#34;
+                  f&#34;{timestamp[0].strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)} UTC (Spatial Bin {spect_loc[0]})&#34;)
+    auto_legend = [None]
+    if len(timestamp) != len(spect_loc):
+        if (len(timestamp) != 1) and (len(spect_loc) != 1):
+            raise ValueError(&#34;Inputs &#39;timestamp&#39; and &#39;spect_loc&#39; must have the same number of elements (or one must be of length 1).&#34;)
+
+        elif (len(timestamp) &gt; 1):
+            single_spect_loc = spect_loc[0]
+            spect_loc = []
+            for _i in range(len(timestamp)):
+                spect_loc.append(single_spect_loc)
+            auto_title = f&#34;{spect_data.metadata[0][&#39;site_uid&#39;].decode(&#39;utf-8&#39;).upper()} - Spatial Bin {spect_loc[0]}&#34;
+            auto_legend = []
+            for i in range(len(timestamp)):
+                auto_legend.append(f&#34;{timestamp[i].strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)} UTC&#34;)
+
+        elif (len(spect_loc) &gt; 1):
+            single_timestamp = timestamp[0]
+            timestamp = []
+            for _i in range(len(spect_loc)):
+                timestamp.append(single_timestamp)
+            auto_title = f&#34;{spect_data.metadata[0][&#39;site_uid&#39;].decode(&#39;utf-8&#39;).upper()} - {timestamp[0].strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)} UTC&#34;
+            auto_legend = []
+            for i in range(len(timestamp)):
+                auto_legend.append(f&#34;spatial bin {spect_loc[i]}&#34;)
+
+        else:
+            auto_title = f&#34;{spect_data.metadata[0][&#39;site_uid&#39;].decode(&#39;utf-8&#39;).upper()} Spectrograph&#34;
+            auto_legend = []
+            for _i in range(len(timestamp)):
+                auto_legend.append(f&#34;{timestamp[0].strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)} UTC (spatial bin {spect_loc[0]})&#34;)
+
+    # Extract spectrograph data from Data object
+    spectra = spect_data.data
+    spect_data_timestamps = np.array(spect_data.timestamp)
+    metadata = spect_data.metadata
+    wavelength = spect_data.metadata[0][&#39;wavelength&#39;]
+
+    # Initialize max intensity to zero. This will be used
+    # to dynamically determine plotting range
+    max_intensity = 0.0
+
+    # Iterate through all requested spectra
+    for i in range(len(timestamp)):
+
+        spectra_color = next(color_cycle)
+
+        # Get the spect spatial bin index and timestamp idx
+        ts = timestamp[i]
+        spect_idx = spect_loc[i]
+        epoch_idx = (np.where(spect_data_timestamps == ts))[0]
+
+        # Check for issues with supplied location / time
+        if len(epoch_idx) == 0:
+            raise ValueError(f&#34;Input does not contain data for requested timestamp: {ts.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)}.&#34;)
+        if len(epoch_idx) &gt; 1:
+            raise ValueError(f&#34;Input contains multiple data points for requested timestamp: {ts.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)}.&#34;)
+
+        # Get the wavelength array
+        wavelength = metadata[epoch_idx[0]][&#39;wavelength&#39;]
+
+        # Slice out the spectrum of interest
+        spectrum = spectra[:, spect_idx, epoch_idx]
+
+        if ylog:
+            spectrum[np.where(spectrum &lt; 0)] = 0
+
+        # Add this spectrum to the plot
+        plt.plot(wavelength, spectrum, label=auto_legend[i], color=spectra_color)
+
+        # Update max intensity
+        if np.max(spectrum) &gt; max_intensity:
+            max_intensity = np.max(spectrum)
+
+    # Add legend if more than one spectrum is plotted
+    if auto_legend[0] is not None:
+        ax.legend()
+
+    # Set the title
+    if title is not None:
+        ax.set_title(title)
+    else:
+        ax.set_title(auto_title)
+
+    # Set x and y labels
+    ax.set_ylabel(ylabel)
+    ax.set_xlabel(xlabel)
+
+    # Set x-limits, by default to wavelength range
+    if xlim is None:
+        ax.set_xlim(min(wavelength), max(wavelength))
+    else:
+        ax.set_xlim(xlim)
+
+    # Set y-limit, by default 1.2 times max spectrum data
+    if ylim is None:
+        if ylog:
+            ax.set_ylim(1.0, max_intensity * 2.0)
+        else:
+            ax.set_ylim(0.0, max_intensity * 1.2)
+    else:
+        ax.set_ylim(ylim)
+
+    if ylog:
+        ax.set_yscale(&#39;log&#39;, base=10)
+
+    # save figure or show it
+    if (savefig is True):
+        # check that filename has been set
+        if (savefig_filename is None):
+            raise ValueError(&#34;The savefig_filename parameter is missing, but required since savefig was set to True.&#34;)
+
+        # save the figure
+        f_extension = os.path.splitext(savefig_filename)[-1].lower()
+        if (&#34;.jpg&#34; == f_extension or &#34;.jpeg&#34; == f_extension):
+            # check quality setting
+            if (savefig_quality is not None):
+                plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches=&#34;tight&#34;)
+            else:
+                plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
+        else:
+            if (savefig_quality is not None):
+                # quality specified, but output filename is not a JPG, so show a warning
+                warnings.warn(&#34;The savefig_quality parameter was specified, but is only used for saving JPG files. The &#34; +
+                              &#34;savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored&#34;,
+                              stacklevel=1)
+            plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
+
+        # clean up by closing the figure
+        plt.close(fig)
+    elif (returnfig is True):
+        # return the figure and axis objects
+        return (fig, ax)
+    else:
+        # show the figure
+        plt.show(fig)
+
+        # cleanup by closing the figure
+        plt.close(fig)
+
+    # return
+    return None</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js" integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyaurorax.tools" href="../index.html">pyaurorax.tools</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pyaurorax.tools.spectra.plot" href="#pyaurorax.tools.spectra.plot">plot</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
