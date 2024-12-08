@@ -127,8 +127,33 @@ class UCalgaryManager:
         except SRSAPIError as e:
             raise AuroraXAPIError(e) from e
 
+    def get_dataset(self, name: str, timeout: Optional[int] = None) -&gt; Dataset:
+        &#34;&#34;&#34;
+        Get a specific dataset
+
+        Args:
+            name (str): 
+                The dataset name to get. Case is insensitive.
+            
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyaurorax.PyAuroraX`
+                object. This parameter is optional.
+            
+        Returns:
+            The found [`Dataset`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset)
+            object. Raises an exception if not found.
+        
+        Raises:
+            pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
+        &#34;&#34;&#34;
+        try:
+            return self.__aurorax_obj.srs_obj.data.get_dataset(name, timeout=timeout)
+        except Exception as e:
+            raise AuroraXAPIError(e) from e
+
     def list_observatories(self,
-                           instrument_array: Literal[&#34;themis_asi&#34;, &#34;rego&#34;, &#34;trex_rgb&#34;, &#34;trex_nir&#34;, &#34;trex_blue&#34;],
+                           instrument_array: Literal[&#34;themis_asi&#34;, &#34;rego&#34;, &#34;trex_rgb&#34;, &#34;trex_nir&#34;, &#34;trex_blue&#34;, &#34;trex_spectrograph&#34;],
                            uid: Optional[str] = None,
                            timeout: Optional[int] = None) -&gt; List[Observatory]:
         &#34;&#34;&#34;
@@ -137,7 +162,7 @@ class UCalgaryManager:
         Args:
             instrument_array (str): 
                 The instrument array to list observatories for. Valid values are: themis_asi, rego, 
-                trex_rgb, trex_nir, and trex_blue.
+                trex_rgb, trex_nir, trex_blue, and trex_spectrograph.
 
             uid (str): 
                 Supply a observatory unique identifier used for filtering (usually 4-letter site code). If that UID 
@@ -498,6 +523,8 @@ class UCalgaryManager:
              n_parallel: int = 1,
              first_record: bool = False,
              no_metadata: bool = False,
+             start_time: Optional[datetime.datetime] = None,
+             end_time: Optional[datetime.datetime] = None,
              quiet: bool = False) -&gt; Data:
         &#34;&#34;&#34;
         Read in data files for a given dataset. Note that only one type of dataset&#39;s data
@@ -527,7 +554,25 @@ class UCalgaryManager:
             no_metadata (bool): 
                 Skip reading of metadata. This is a minor optimization if the metadata is not needed.
                 Default is `False`. This parameter is optional.
-            
+
+            start_time (datetime.datetime): 
+                The start timestamp to read data onwards from (inclusive). This can be utilized to 
+                read a portion of a data file, and could be paired with the `end_time` parameter. 
+                This tends to be utilized for datasets that are hour or day-long files where it is 
+                possible to only read a smaller bit of that file. An example is the TREx Spectrograph 
+                processed data (1 hour files), or the riometer data (1 day files). If not supplied, 
+                it will assume the start time is the timestamp of the first record in the first 
+                file supplied (ie. beginning of the supplied data). This parameter is optional.
+
+            end_time (datetime.datetime): 
+                The end timestamp to read data up to (inclusive). This can be utilized to read a 
+                portion of a data file, and could be paired with the `start_time` parameter. This 
+                tends to be utilized for datasets that are hour or day-long files where it is possible 
+                to only read a smaller bit of that file. An example is the TREx Spectrograph processed 
+                data (1 hour files), or the riometer data (1 day files). If not supplied, it will
+                it will assume the end time is the timestamp of the last record in the last file
+                supplied (ie. end of the supplied data). This parameter is optional.
+
             quiet (bool): 
                 Do not print out errors while reading data files, if any are encountered. Any files
                 that encounter errors will be, as usual, accessible via the `problematic_files` 
@@ -558,6 +603,8 @@ class UCalgaryManager:
             n_parallel=n_parallel,
             first_record=first_record,
             no_metadata=no_metadata,
+            start_time=start_time,
+            end_time=end_time,
             quiet=quiet,
         )
 
@@ -1978,8 +2025,33 @@ the submodules and carry over configuration information in the super class.</p><
         except SRSAPIError as e:
             raise AuroraXAPIError(e) from e
 
+    def get_dataset(self, name: str, timeout: Optional[int] = None) -&gt; Dataset:
+        &#34;&#34;&#34;
+        Get a specific dataset
+
+        Args:
+            name (str): 
+                The dataset name to get. Case is insensitive.
+            
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyaurorax.PyAuroraX`
+                object. This parameter is optional.
+            
+        Returns:
+            The found [`Dataset`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset)
+            object. Raises an exception if not found.
+        
+        Raises:
+            pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
+        &#34;&#34;&#34;
+        try:
+            return self.__aurorax_obj.srs_obj.data.get_dataset(name, timeout=timeout)
+        except Exception as e:
+            raise AuroraXAPIError(e) from e
+
     def list_observatories(self,
-                           instrument_array: Literal[&#34;themis_asi&#34;, &#34;rego&#34;, &#34;trex_rgb&#34;, &#34;trex_nir&#34;, &#34;trex_blue&#34;],
+                           instrument_array: Literal[&#34;themis_asi&#34;, &#34;rego&#34;, &#34;trex_rgb&#34;, &#34;trex_nir&#34;, &#34;trex_blue&#34;, &#34;trex_spectrograph&#34;],
                            uid: Optional[str] = None,
                            timeout: Optional[int] = None) -&gt; List[Observatory]:
         &#34;&#34;&#34;
@@ -1988,7 +2060,7 @@ the submodules and carry over configuration information in the super class.</p><
         Args:
             instrument_array (str): 
                 The instrument array to list observatories for. Valid values are: themis_asi, rego, 
-                trex_rgb, trex_nir, and trex_blue.
+                trex_rgb, trex_nir, trex_blue, and trex_spectrograph.
 
             uid (str): 
                 Supply a observatory unique identifier used for filtering (usually 4-letter site code). If that UID 
@@ -2349,6 +2421,8 @@ the submodules and carry over configuration information in the super class.</p><
              n_parallel: int = 1,
              first_record: bool = False,
              no_metadata: bool = False,
+             start_time: Optional[datetime.datetime] = None,
+             end_time: Optional[datetime.datetime] = None,
              quiet: bool = False) -&gt; Data:
         &#34;&#34;&#34;
         Read in data files for a given dataset. Note that only one type of dataset&#39;s data
@@ -2378,7 +2452,25 @@ the submodules and carry over configuration information in the super class.</p><
             no_metadata (bool): 
                 Skip reading of metadata. This is a minor optimization if the metadata is not needed.
                 Default is `False`. This parameter is optional.
-            
+
+            start_time (datetime.datetime): 
+                The start timestamp to read data onwards from (inclusive). This can be utilized to 
+                read a portion of a data file, and could be paired with the `end_time` parameter. 
+                This tends to be utilized for datasets that are hour or day-long files where it is 
+                possible to only read a smaller bit of that file. An example is the TREx Spectrograph 
+                processed data (1 hour files), or the riometer data (1 day files). If not supplied, 
+                it will assume the start time is the timestamp of the first record in the first 
+                file supplied (ie. beginning of the supplied data). This parameter is optional.
+
+            end_time (datetime.datetime): 
+                The end timestamp to read data up to (inclusive). This can be utilized to read a 
+                portion of a data file, and could be paired with the `start_time` parameter. This 
+                tends to be utilized for datasets that are hour or day-long files where it is possible 
+                to only read a smaller bit of that file. An example is the TREx Spectrograph processed 
+                data (1 hour files), or the riometer data (1 day files). If not supplied, it will
+                it will assume the end time is the timestamp of the last record in the last file
+                supplied (ie. end of the supplied data). This parameter is optional.
+
             quiet (bool): 
                 Do not print out errors while reading data files, if any are encountered. Any files
                 that encounter errors will be, as usual, accessible via the `problematic_files` 
@@ -2409,6 +2501,8 @@ the submodules and carry over configuration information in the super class.</p><
             n_parallel=n_parallel,
             first_record=first_record,
             no_metadata=no_metadata,
+            start_time=start_time,
+            end_time=end_time,
             quiet=quiet,
         )
 
@@ -3389,6 +3483,58 @@ aurorax.data.download(dataset_name, start, end)
         raise AuroraXAPIError(e) from e</code></pre>
 </details>
 </dd>
+<dt id="pyaurorax.data.ucalgary.UCalgaryManager.get_dataset"><code class="name flex">
+<span>def <span class="ident">get_dataset</span></span>(<span>self, name: str, timeout: Optional[int] = None) ‑> pyucalgarysrs.data.classes.Dataset</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a specific dataset</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The dataset name to get. Case is insensitive.</dd>
+<dt><strong><code>timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents how many seconds to wait for the API to send data before giving up. The
+default is 10 seconds, or the <code>api_timeout</code> value in the super class' <code><a title="pyaurorax.PyAuroraX" href="../../index.html#pyaurorax.PyAuroraX">PyAuroraX</a></code>
+object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The found <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset"><code>Dataset</code></a>
+object. Raises an exception if not found.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyaurorax.exceptions.AuroraXAPIError" href="../../exceptions.html#pyaurorax.exceptions.AuroraXAPIError">AuroraXAPIError</a></code></dt>
+<dd>An API error was encountered.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_dataset(self, name: str, timeout: Optional[int] = None) -&gt; Dataset:
+    &#34;&#34;&#34;
+    Get a specific dataset
+
+    Args:
+        name (str): 
+            The dataset name to get. Case is insensitive.
+        
+        timeout (int): 
+            Represents how many seconds to wait for the API to send data before giving up. The 
+            default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyaurorax.PyAuroraX`
+            object. This parameter is optional.
+        
+    Returns:
+        The found [`Dataset`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset)
+        object. Raises an exception if not found.
+    
+    Raises:
+        pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
+    &#34;&#34;&#34;
+    try:
+        return self.__aurorax_obj.srs_obj.data.get_dataset(name, timeout=timeout)
+    except Exception as e:
+        raise AuroraXAPIError(e) from e</code></pre>
+</details>
+</dd>
 <dt id="pyaurorax.data.ucalgary.UCalgaryManager.get_urls"><code class="name flex">
 <span>def <span class="ident">get_urls</span></span>(<span>self, dataset_name: str, start: datetime.datetime, end: datetime.datetime, site_uid: Optional[str] = None, device_uid: Optional[str] = None, timeout: Optional[int] = None) ‑> pyucalgarysrs.data.classes.FileListingResponse</span>
 </code></dt>
@@ -3620,7 +3766,7 @@ objects.</p>
 </details>
 </dd>
 <dt id="pyaurorax.data.ucalgary.UCalgaryManager.list_observatories"><code class="name flex">
-<span>def <span class="ident">list_observatories</span></span>(<span>self, instrument_array: Literal['themis_asi', 'rego', 'trex_rgb', 'trex_nir', 'trex_blue'], uid: Optional[str] = None, timeout: Optional[int] = None) ‑> List[pyucalgarysrs.data.classes.Observatory]</span>
+<span>def <span class="ident">list_observatories</span></span>(<span>self, instrument_array: Literal['themis_asi', 'rego', 'trex_rgb', 'trex_nir', 'trex_blue', 'trex_spectrograph'], uid: Optional[str] = None, timeout: Optional[int] = None) ‑> List[pyucalgarysrs.data.classes.Observatory]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>List information about observatories</p>
@@ -3628,7 +3774,7 @@ objects.</p>
 <dl>
 <dt><strong><code>instrument_array</code></strong> :&ensp;<code>str</code></dt>
 <dd>The instrument array to list observatories for. Valid values are: themis_asi, rego,
-trex_rgb, trex_nir, and trex_blue.</dd>
+trex_rgb, trex_nir, trex_blue, and trex_spectrograph.</dd>
 <dt><strong><code>uid</code></strong> :&ensp;<code>str</code></dt>
 <dd>Supply a observatory unique identifier used for filtering (usually 4-letter site code). If that UID
 is found in the available observatories received from the API, it will be included in the results. This
@@ -3651,7 +3797,7 @@ objects.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def list_observatories(self,
-                       instrument_array: Literal[&#34;themis_asi&#34;, &#34;rego&#34;, &#34;trex_rgb&#34;, &#34;trex_nir&#34;, &#34;trex_blue&#34;],
+                       instrument_array: Literal[&#34;themis_asi&#34;, &#34;rego&#34;, &#34;trex_rgb&#34;, &#34;trex_nir&#34;, &#34;trex_blue&#34;, &#34;trex_spectrograph&#34;],
                        uid: Optional[str] = None,
                        timeout: Optional[int] = None) -&gt; List[Observatory]:
     &#34;&#34;&#34;
@@ -3660,7 +3806,7 @@ objects.</p>
     Args:
         instrument_array (str): 
             The instrument array to list observatories for. Valid values are: themis_asi, rego, 
-            trex_rgb, trex_nir, and trex_blue.
+            trex_rgb, trex_nir, trex_blue, and trex_spectrograph.
 
         uid (str): 
             Supply a observatory unique identifier used for filtering (usually 4-letter site code). If that UID 
@@ -3707,7 +3853,7 @@ objects.</p>
 </details>
 </dd>
 <dt id="pyaurorax.data.ucalgary.UCalgaryManager.read"><code class="name flex">
-<span>def <span class="ident">read</span></span>(<span>self, dataset: pyucalgarysrs.data.classes.Dataset, file_list: Union[List[str], List[pathlib.Path], str, pathlib.Path], n_parallel: int = 1, first_record: bool = False, no_metadata: bool = False, quiet: bool = False) ‑> pyucalgarysrs.data.classes.Data</span>
+<span>def <span class="ident">read</span></span>(<span>self, dataset: pyucalgarysrs.data.classes.Dataset, file_list: Union[List[str], List[pathlib.Path], str, pathlib.Path], n_parallel: int = 1, first_record: bool = False, no_metadata: bool = False, start_time: Optional[datetime.datetime] = None, end_time: Optional[datetime.datetime] = None, quiet: bool = False) ‑> pyucalgarysrs.data.classes.Data</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Read in data files for a given dataset. Note that only one type of dataset's data
@@ -3733,6 +3879,22 @@ full temporal resolution of data (e.g., 3sec cadence). This parameter is optiona
 <dt><strong><code>no_metadata</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Skip reading of metadata. This is a minor optimization if the metadata is not needed.
 Default is <code>False</code>. This parameter is optional.</dd>
+<dt><strong><code>start_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The start timestamp to read data onwards from (inclusive). This can be utilized to
+read a portion of a data file, and could be paired with the <code>end_time</code> parameter.
+This tends to be utilized for datasets that are hour or day-long files where it is
+possible to only read a smaller bit of that file. An example is the TREx Spectrograph
+processed data (1 hour files), or the riometer data (1 day files). If not supplied,
+it will assume the start time is the timestamp of the first record in the first
+file supplied (ie. beginning of the supplied data). This parameter is optional.</dd>
+<dt><strong><code>end_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The end timestamp to read data up to (inclusive). This can be utilized to read a
+portion of a data file, and could be paired with the <code>start_time</code> parameter. This
+tends to be utilized for datasets that are hour or day-long files where it is possible
+to only read a smaller bit of that file. An example is the TREx Spectrograph processed
+data (1 hour files), or the riometer data (1 day files). If not supplied, it will
+it will assume the end time is the timestamp of the last record in the last file
+supplied (ie. end of the supplied data). This parameter is optional.</dd>
 <dt><strong><code>quiet</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Do not print out errors while reading data files, if any are encountered. Any files
 that encounter errors will be, as usual, accessible via the <code>problematic_files</code>
@@ -3764,6 +3926,8 @@ future.</p></div>
          n_parallel: int = 1,
          first_record: bool = False,
          no_metadata: bool = False,
+         start_time: Optional[datetime.datetime] = None,
+         end_time: Optional[datetime.datetime] = None,
          quiet: bool = False) -&gt; Data:
     &#34;&#34;&#34;
     Read in data files for a given dataset. Note that only one type of dataset&#39;s data
@@ -3793,7 +3957,25 @@ future.</p></div>
         no_metadata (bool): 
             Skip reading of metadata. This is a minor optimization if the metadata is not needed.
             Default is `False`. This parameter is optional.
-        
+
+        start_time (datetime.datetime): 
+            The start timestamp to read data onwards from (inclusive). This can be utilized to 
+            read a portion of a data file, and could be paired with the `end_time` parameter. 
+            This tends to be utilized for datasets that are hour or day-long files where it is 
+            possible to only read a smaller bit of that file. An example is the TREx Spectrograph 
+            processed data (1 hour files), or the riometer data (1 day files). If not supplied, 
+            it will assume the start time is the timestamp of the first record in the first 
+            file supplied (ie. beginning of the supplied data). This parameter is optional.
+
+        end_time (datetime.datetime): 
+            The end timestamp to read data up to (inclusive). This can be utilized to read a 
+            portion of a data file, and could be paired with the `start_time` parameter. This 
+            tends to be utilized for datasets that are hour or day-long files where it is possible 
+            to only read a smaller bit of that file. An example is the TREx Spectrograph processed 
+            data (1 hour files), or the riometer data (1 day files). If not supplied, it will
+            it will assume the end time is the timestamp of the last record in the last file
+            supplied (ie. end of the supplied data). This parameter is optional.
+
         quiet (bool): 
             Do not print out errors while reading data files, if any are encountered. Any files
             that encounter errors will be, as usual, accessible via the `problematic_files` 
@@ -3824,6 +4006,8 @@ future.</p></div>
         n_parallel=n_parallel,
         first_record=first_record,
         no_metadata=no_metadata,
+        start_time=start_time,
+        end_time=end_time,
         quiet=quiet,
     )</code></pre>
 </details>
@@ -3983,6 +4167,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyaurorax.data.ucalgary.UCalgaryManager.download_best_rayleighs_calibration" href="#pyaurorax.data.ucalgary.UCalgaryManager.download_best_rayleighs_calibration">download_best_rayleighs_calibration</a></code></li>
 <li><code><a title="pyaurorax.data.ucalgary.UCalgaryManager.download_best_skymap" href="#pyaurorax.data.ucalgary.UCalgaryManager.download_best_skymap">download_best_skymap</a></code></li>
 <li><code><a title="pyaurorax.data.ucalgary.UCalgaryManager.download_using_urls" href="#pyaurorax.data.ucalgary.UCalgaryManager.download_using_urls">download_using_urls</a></code></li>
+<li><code><a title="pyaurorax.data.ucalgary.UCalgaryManager.get_dataset" href="#pyaurorax.data.ucalgary.UCalgaryManager.get_dataset">get_dataset</a></code></li>
 <li><code><a title="pyaurorax.data.ucalgary.UCalgaryManager.get_urls" href="#pyaurorax.data.ucalgary.UCalgaryManager.get_urls">get_urls</a></code></li>
 <li><code><a title="pyaurorax.data.ucalgary.UCalgaryManager.is_read_supported" href="#pyaurorax.data.ucalgary.UCalgaryManager.is_read_supported">is_read_supported</a></code></li>
 <li><code><a title="pyaurorax.data.ucalgary.UCalgaryManager.list_datasets" href="#pyaurorax.data.ucalgary.UCalgaryManager.list_datasets">list_datasets</a></code></li>

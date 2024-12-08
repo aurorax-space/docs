@@ -176,6 +176,8 @@ Plot a preview of the bounded area.</p>
         raise ValueError(&#34;Azimuth bounds defined with zero area.&#34;)
 
     # Obtain azimuth array from skymap
+    if (skymap.full_azimuth is None):
+        raise ValueError(&#34;Skymap &#39;full_azimuth&#39; value is None. Unable to perform function&#34;)
     az = np.squeeze(skymap.full_azimuth)
 
     # Obtain indices into skymap within azimuth range

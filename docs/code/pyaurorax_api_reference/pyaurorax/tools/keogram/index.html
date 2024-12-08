@@ -61,7 +61,7 @@ __all__ = [
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pyaurorax.tools.keogram.create"><code class="name flex">
-<span>def <span class="ident">create</span></span>(<span>images: numpy.ndarray, timestamp: List[datetime.datetime], axis: int = 0) ‑> <a title="pyaurorax.tools.classes.keogram.Keogram" href="../classes/keogram.html#pyaurorax.tools.classes.keogram.Keogram">Keogram</a></span>
+<span>def <span class="ident">create</span></span>(<span>images: numpy.ndarray, timestamp: List[datetime.datetime], axis: int = 0, spectra: bool = False, wavelength: Optional[numpy.ndarray] = None, spect_emission: Literal['green', 'red', 'blue', 'hbeta'] = 'green', spect_band: Optional[Tuple[float, float]] = None, spect_band_bg: Optional[Tuple[float, float]] = None) ‑> <a title="pyaurorax.tools.classes.keogram.Keogram" href="../classes/keogram.html#pyaurorax.tools.classes.keogram.Keogram">Keogram</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a keogram from a set of images.</p>
@@ -77,6 +77,20 @@ accordingly.</dd>
 <dt><strong><code>axis</code></strong> :&ensp;<code>int</code></dt>
 <dd>The axis to extract the keogram slice from. Default is <code>0</code>, meaning the rows (or Y) axis.</dd>
 </dl>
+<p>spectra (bool):
+Make a keogram out of spectrograph data, for a specific emission. Defaults to False (ASI data).</p>
+<p>wavelength (numpy.ndarray):
+The wavelength array corresponding to spectrograph data. If spectra=True, this parameter
+must be supplied.</p>
+<p>spect_emission (str):
+The emission (green, red, blue, hbeta) to prepare from spectrograph data. Default is
+'green' (557.7 nm emission).</p>
+<p>spect_band (Tuple[float]):
+Manual selection of the wavelength region to integrate for obtaining emissions. Use this
+to prepare emissions that are not available in spect_emission.</p>
+<p>spect_band_bg (Tuple[float]):
+Manual selection of the wavelength region to subtract from integration for manually
+chosen emissions, via the spect_band argument.</p>
 <h2 id="returns">Returns</h2>
 <p>A <code><a title="pyaurorax.tools.Keogram" href="../index.html#pyaurorax.tools.Keogram">Keogram</a></code> object.</p>
 <h2 id="raises">Raises</h2>
@@ -88,7 +102,14 @@ accordingly.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def create(images: np.ndarray, timestamp: List[datetime.datetime], axis: int = 0) -&gt; Keogram:
+<pre><code class="python">def create(images: np.ndarray,
+           timestamp: List[datetime.datetime],
+           axis: int = 0,
+           spectra: bool = False,
+           wavelength: Optional[np.ndarray] = None,
+           spect_emission: Literal[&#34;green&#34;, &#34;red&#34;, &#34;blue&#34;, &#34;hbeta&#34;] = &#34;green&#34;,
+           spect_band: Optional[Tuple[float, float]] = None,
+           spect_band_bg: Optional[Tuple[float, float]] = None) -&gt; Keogram:
     &#34;&#34;&#34;
     Create a keogram from a set of images.
 
@@ -105,51 +126,159 @@ accordingly.</dd>
         axis (int): 
             The axis to extract the keogram slice from. Default is `0`, meaning the rows (or Y) axis.
 
+        spectra (bool):
+            Make a keogram out of spectrograph data, for a specific emission. Defaults to False (ASI data).
+
+        wavelength (numpy.ndarray):
+            The wavelength array corresponding to spectrograph data. If spectra=True, this parameter
+            must be supplied.
+
+        spect_emission (str):
+            The emission (green, red, blue, hbeta) to prepare from spectrograph data. Default is 
+            &#39;green&#39; (557.7 nm emission).
+
+        spect_band (Tuple[float]):
+            Manual selection of the wavelength region to integrate for obtaining emissions. Use this
+            to prepare emissions that are not available in spect_emission.
+
+        spect_band_bg (Tuple[float]):
+            Manual selection of the wavelength region to subtract from integration for manually
+            chosen emissions, via the spect_band argument.
+
     Returns:
         A `pyaurorax.tools.Keogram` object.
 
     Raises:
         ValueError: issue with supplied parameters.
     &#34;&#34;&#34;
-    # set y axis
-    ccd_y = np.arange(0, images.shape[axis])
 
-    # determine if we are single or 3 channel
-    n_channels = 1
-    if (len(images.shape) == 3):
-        # single channel
+    # First check if we are dealing with spectrograph data
+    if spectra:
+
+        instrument_type = &#39;spectrograph&#39;
+        middle_column_idx = None
+
+        if axis != 0:
+            raise ValueError(f&#34;Cannot create keogram for spectrograph data along axis other than 0, received axis: {axis}.&#34;)
+        if wavelength is None:
+            raise ValueError(&#34;Parameter &#39;wavelength&#39; must be supplied when using spectrograph data.&#34;)
+
+        # Determine integration bounds for spectrograph data
+        wavelength_range = {
+            &#39;green&#39;: [557.0 - 1.5, 557.0 + 1.5],
+            &#39;red&#39;: [630.0 - 1.5, 630.0 + 1.5],
+            &#39;blue&#39;: [427.8 - 3.0, 427.8 + 0.5],
+            &#39;hbeta&#39;: [486.1 - 1.5, 486.1 + 1.5]
+        }[spect_emission]
+
+        wavelength_bg_range = {
+            &#39;green&#39;: [552.0 - 1.5, 552.0 + 1.5],
+            &#39;red&#39;: [625.0 - 1.5, 625.0 + 1.5],
+            &#39;blue&#39;: [430.0 - 1.0, 430.0 + 1.0],
+            &#39;hbeta&#39;: [480.0 - 1.0, 480.0 + 1.0]
+        }[spect_emission]
+
+        # Check if manual integration bands were supplied
+        if spect_band is not None:
+            wavelength_range = spect_band
+            if spect_band_bg is None:
+                warnings.warn(
+                    &#34;Wavelength band supplied without background band. No background subtraction will be performed.&#34;,
+                    stacklevel=1,
+                )
+                wavelength_bg_range = None
+            else:
+                wavelength_bg_range = spect_band_bg
+
+        # Extract wavelength from metadata, and get integration indices
+        int_w = np.where((wavelength &gt;= wavelength_range[0]) &amp; (wavelength &lt;= wavelength_range[1]))
+        if wavelength_bg_range is not None:
+            int_bg_w = np.where((wavelength &gt;= wavelength_bg_range[0]) &amp; (wavelength &lt;= wavelength_bg_range[1]))
+
+        # Integrate all spectrograph pixels to get emission
+        n_wavelengths_in_spectra = images.shape[0]
+        n_spatial_bins = images.shape[1]
+        n_timestamps_in_spectra = images.shape[2]
+        n_wavelengths = wavelength.shape[0]
+        n_timestamps = len(timestamp)
+
+        if n_timestamps != n_timestamps_in_spectra:
+            raise ValueError(f&#34;Mismatched timestamp dimensions. Received {n_timestamps} &#34;
+                             f&#34;timestamps for spectrograph data with {n_timestamps_in_spectra} timestamps.&#34;)
+
+        if n_wavelengths != n_wavelengths_in_spectra:
+            raise ValueError(f&#34;Mismatched wavelength dimensions. Received {n_wavelengths} &#34;
+                             f&#34;wavelengths for spectrograph data with {n_wavelengths_in_spectra} wavelengths.&#34;)
+
+        # set y-axis
+        ccd_y = np.arange(0, n_spatial_bins)
+
+        # Initialize keogram array
+        keo_arr = np.full([n_spatial_bins, n_timestamps], 0, dtype=images.dtype)
+
+        # Iterate through each timestamp and compute emissions for all spatial bins
+        for i in range(0, n_timestamps):
+
+            # Integrate over wavelengths to get Rayleighs
+            iter_spectra = images[:, :, i]
+
+            rayleighs = np.trapz(iter_spectra[int_w[0], :], x=wavelength[int_w[0]], axis=0)
+
+            if wavelength_bg_range is not None:
+                if int_bg_w is not None:  #type: ignore
+                    rayleighs -= np.trapz(
+                        iter_spectra[int_bg_w[0], :],  #type: ignore
+                        x=wavelength[int_bg_w[0]],  #type: ignore
+                        axis=0)
+
+            rayleighs = np.nan_to_num(rayleighs, nan=0.0)
+            rayleighs[np.where(rayleighs &lt; 0.0)] = 0.0
+
+            keo_arr[:, i] = rayleighs
+
+    # Otherwise, for ASI data, slice keogram as required
+    else:
+        instrument_type = &#39;asi&#39;
+
+        # set y axis
+        ccd_y = np.arange(0, images.shape[axis])
+
+        # determine if we are single or 3 channel
         n_channels = 1
-    elif (len(images.shape) == 4):
-        # three channel
-        n_channels = 3
-    else:
-        ValueError(&#34;Unable to determine number of channels based on the supplied images. Make sure you are supplying a &#34; +
-                   &#34;[rows,cols,images] or [rows,cols,channels,images] sized array.&#34;)
-
-    # initialize keogram data
-    n_rows = images.shape[0]
-    n_imgs = images.shape[-1]
-    if (n_channels == 1):
-        keo_arr = np.full([n_rows, n_imgs], 0, dtype=images.dtype)
-    else:
-        keo_arr = np.full([n_rows, n_imgs, n_channels], 0, dtype=images.dtype)
-
-    # extract the keogram slices
-    middle_column_idx = int(np.floor((images.shape[1]) / 2 - 1))
-    for img_idx in range(0, n_imgs):
-        if (n_channels == 1):
+        if (len(images.shape) == 3):
             # single channel
-            frame = images[:, :, img_idx]
-            frame_middle_slice = frame[:, middle_column_idx]
-            keo_arr[:, img_idx] = frame_middle_slice
+            n_channels = 1
+        elif (len(images.shape) == 4):
+            # three channel
+            n_channels = 3
         else:
-            # 3-channel
-            frame = images[:, :, :, img_idx]
-            frame_middle_slice = frame[:, middle_column_idx, :]
-            keo_arr[:, img_idx, :] = frame_middle_slice
+            ValueError(&#34;Unable to determine number of channels based on the supplied images. Make sure you are supplying a &#34; +
+                       &#34;[rows,cols,images] or [rows,cols,channels,images] sized array.&#34;)
+
+        # initialize keogram data
+        n_rows = images.shape[0]
+        n_imgs = images.shape[-1]
+        if (n_channels == 1):
+            keo_arr = np.full([n_rows, n_imgs], 0, dtype=images.dtype)
+        else:
+            keo_arr = np.full([n_rows, n_imgs, n_channels], 0, dtype=images.dtype)
+
+        # extract the keogram slices
+        middle_column_idx = int(np.floor((images.shape[1]) / 2 - 1))
+        for img_idx in range(0, n_imgs):
+            if (n_channels == 1):
+                # single channel
+                frame = images[:, :, img_idx]
+                frame_middle_slice = frame[:, middle_column_idx]
+                keo_arr[:, img_idx] = frame_middle_slice
+            else:
+                # 3-channel
+                frame = images[:, :, :, img_idx]
+                frame_middle_slice = frame[:, middle_column_idx, :]
+                keo_arr[:, img_idx, :] = frame_middle_slice
 
     # create the keogram object
-    keo_obj = Keogram(data=keo_arr, slice_idx=middle_column_idx, timestamp=timestamp, ccd_y=ccd_y)
+    keo_obj = Keogram(data=keo_arr, slice_idx=middle_column_idx, timestamp=timestamp, ccd_y=ccd_y, instrument_type=instrument_type)
 
     # return
     return keo_obj</code></pre>
@@ -423,7 +552,7 @@ Raises:</p></div>
                          &#34;try increasing &#39;width&#39; or decreasing number of points in input coordinates.&#34;)
 
     # Create keogram object
-    keo_obj = Keogram(data=keo_arr, timestamp=timestamp)
+    keo_obj = Keogram(data=keo_arr, timestamp=timestamp, instrument_type=&#39;asi&#39;)
 
     if preview:
         plt.figure()
