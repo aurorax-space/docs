@@ -119,7 +119,7 @@ INDEX=[
 {
 "ref":"pyaurorax.PyAuroraX.purge_download_output_root_path",
 "url":0,
-"doc":"Delete all files in the  download_output_root_path directory. Since the library downloads data to this directory, over time it can grow too large and the user can risk running out of space. This method is here to assist with easily clearing out this directory. Note that it also deletes all files in the PyUCalgarySRS object's download_output_root_path path as well. Normally, these two paths are the same, but it can be different if the user specifically changes it. Raises: pyaurorax.exceptions.AuroraXPurgeError: an error was encountered during the purge operation",
+"doc":"Delete all files in the  download_output_root_path directory. Since the library downloads data to this directory, over time it can grow too large and the user can risk running out of space. This method is here to assist with easily clearing out this directory. Note that it also deletes all files in the PyUCalgarySRS object's download_output_root_path path as well. Normally, these two paths are the same, but it can be different if the user specifically changes it. Args: dataset_name (str): Delete only files for a specific dataset name. This parameter is optional. Raises: pyaurorax.exceptions.AuroraXPurgeError: an error was encountered during the purge operation",
 "func":1
 },
 {
