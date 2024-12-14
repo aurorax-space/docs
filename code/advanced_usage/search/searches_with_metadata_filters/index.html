@@ -1,0 +1,3446 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.aurorax.space/code/advanced_usage/search/searches_with_metadata_filters/">
+      
+      
+        <link rel="prev" href="../asynchronous_search/">
+      
+      
+        <link rel="next" href="../contributing_data/">
+      
+      
+      <link rel="icon" href="../../../../_extras/img/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Searches with metadata filters - AuroraX Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../_extras/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-CTBLCFZ6EP"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-CTBLCFZ6EP",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-CTBLCFZ6EP",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#searches-with-metadata-filters" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="AuroraX Documentation" class="md-header__button md-logo" aria-label="AuroraX Documentation" data-md-component="logo">
+      
+  <img src="../../../../_extras/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AuroraX Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Searches with metadata filters
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/aurorax-space" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../getting_started/1_intro/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../about_the_data/overview/" class="md-tabs__link">
+          
+  
+  About the Data
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../web/overview/" class="md-tabs__link">
+          
+  
+  Web Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../ml/overview/" class="md-tabs__link">
+          
+  
+  Machine Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../overview/" class="md-tabs__link">
+          
+  
+  Developer Zone
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="AuroraX Documentation" class="md-nav__button md-logo" aria-label="AuroraX Documentation" data-md-component="logo">
+      
+  <img src="../../../../_extras/img/logo.svg" alt="logo">
+
+    </a>
+    AuroraX Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/aurorax-space" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/1_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/2_aurorax_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Brief Look at AuroraX Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/3_what_are_conjunctions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What are Conjunctions?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/4_searching_conjunctions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Searching and Exploring Conjunctions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/5_exploring_keograms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using Keogramist to Explore Keograms and Movies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/6_data_availability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Availability and Statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/7_interacting_programmatically/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with AuroraX Programmatically
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    About the Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            About the Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/metadata_in_aurorax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What metadata is in the AuroraX database?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/categories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Categories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Instrument Descriptions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Instrument Descriptions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/instruments/ground/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ground-based
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/instruments/space/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Space-based
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/availability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Availability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/policy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Policy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_the_data/standards/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Recommended Standards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Web Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Web Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../web/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../web/conjunction_search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conjunction Search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../web/virtual_observatory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Observatory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../web/citizen_science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Citizen Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ml/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ml/models/ucalgary_cloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About UCalgary cloud model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ml/models/ucalgary_apa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About UCalgary APA model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ml/models/clausen_oath/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About Clausen OATH model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Developer Zone
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Zone
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../upgrading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Basic Usage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic_usage/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4_2" id="__nav_6_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AuroraX Search Engine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            AuroraX Search Engine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic_usage/search/data_sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic_usage/search/conjunctions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conjunctions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic_usage/search/ephemeris/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ephemeris
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic_usage/search/data_products/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Products
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Usage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Usage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_1" id="__nav_6_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AuroraX Search Engine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            AuroraX Search Engine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_conjunctions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced conjunction searches
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asynchronous_search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asynchronous searches
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Searches with metadata filters
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Searches with metadata filters
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-conjunction-search-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      A conjunction search example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-ephemeris-search-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      An ephemeris search example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-data-product-search-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      A data product search example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uploading data to AuroraX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../availability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data availability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../swarmaurora/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interact with Swarm-Aurora
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyaurorax_api_reference/pyaurorax" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyAuroraX API Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7" id="__nav_6_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    IDL-AuroraX API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7">
+            <span class="md-nav__icon md-icon"></span>
+            IDL-AuroraX API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7_2" id="__nav_6_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data Access
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Data Access
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/data/aurorax_list_datasets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_list_datasets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/data/aurorax_list_observatories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_list_observatories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/data/aurorax_ucalgary_get_urls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_ucalgary_get_urls
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/data/aurorax_ucalgary_download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_ucalgary_download
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/data/aurorax_ucalgary_download_best_skymap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_ucalgary_download_best_skymap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/data/aurorax_ucalgary_read/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_ucalgary_read
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/data/aurorax_ucalgary_is_read_supported/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_ucalgary_is_read_supported
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7_3" id="__nav_6_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Analyis Support Software
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Analyis Support Software
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_bounding_box_extract_metric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_bounding_box_extract_metric
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_calibrate_rego/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_calibrate_rego
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_calibrate_trex_nir/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_calibrate_trex_nir
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_keogram_add_axis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_keogram_add_axis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_keogram_create_custom/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_keogram_create_custom
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_keogram_create/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_keogram_create
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_keogram_plot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_keogram_plot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_montage_create/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_montage_create
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_mosaic_plot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_mosaic_plot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_mosaic_oplot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_mosaic_oplot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_mosaic_prep_images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_mosaic_prep_images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_mosaic_prep_skymap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_mosaic_prep_skymap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_get_decomposed_color/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_get_decomposed_color
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/tools/aurorax_movie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_movie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7_4" id="__nav_6_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TREx Auroral Transport Model (ATM)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            TREx Auroral Transport Model (ATM)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/models/atm/aurorax_atm_forward/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_atm_forward
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/models/atm/aurorax_atm_forward_get_output_flags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_atm_forward_get_output_flags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/models/atm/aurorax_atm_inverse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_atm_inverse
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/models/atm/aurorax_atm_inverse_get_output_flags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_atm_inverse_get_output_flags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7_5" id="__nav_6_7_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AuroraX Search Engine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            AuroraX Search Engine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/conjunctions/search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_conjunction_search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/conjunctions/open_in_aurorax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_open_conjunctions_in_aurorax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/conjunctions/open_in_swarmaurora/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_open_conjunctions_in_swarmaurora
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/conjunctions/save_swarmaurora_import_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_save_swarmaurora_custom_import_file
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/conjunctions/create_advanced_distances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_create_advanced_distances_hash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/conjunctions/create_criteria_block/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_create_criteria_block
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/metadata_filters/create_metadata_filter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_create_metadata_filter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/metadata_filters/create_expression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_create_metadata_filter_expression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/availability/data_products/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_data_products_availability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/data_products/search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_data_product_search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/availability/ephemeris/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_ephemeris_availability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/ephemeris/search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_ephemeris_search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idlaurorax_api_reference/search/sources/list/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aurorax_list_sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-conjunction-search-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      A conjunction search example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-ephemeris-search-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      An ephemeris search example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-data-product-search-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      A data product search example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="searches-with-metadata-filters">Searches with metadata filters<a class="headerlink" href="#searches-with-metadata-filters" title="Permanent link">&para;</a></h1>
+<p>The AuroraX search engine can be used with something we refer to as "metadata filters". As the AuroraX database contains ephemeris and data product records with arbitrary metadata fields, we can leverage this to further enhance conjunction, ephemeris, and data product searches.</p>
+<p>Below, we'll go through a simple example of using the metadata filters for a conjunction, ephemeris, and data product search.</p>
+<p>Also see:</p>
+<ul>
+<li><a href="/about_the_data/categories/#metadata">Information about the ephemeris metadata field</a></li>
+<li><a href="/about_the_data/categories/#metadata_1">Information about the data products metadata field</a></li>
+</ul>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Metadata filters are added as part of a criteria block in a conjunction search, and as a parameter for the ephemeris and data product search functions.</p>
+<p>Every filter takes the same form:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;some key name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>  <span class="c1"># operator options are: =, &gt;, &lt;, &gt;=, &lt;=, between, in, not in</span>
+    <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;some value&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;another value if we want&quot;</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>key</code> is the key of the metadata value in the record</li>
+<li><code>operator</code> can be one of =, &gt;, &lt;, &lt;=, &gt;=, !=, "in", "not in", and "between"</li>
+<li><code>values</code> is a list of values to filter for. <ul>
+<li>the list can contain at most one entry if the operator is an =, &gt;, &lt;, &lt;=, &gt;=, !=.</li>
+<li>for the operator "in" and "not in", the list can contain a number of values.</li>
+<li>for the operator "between", the list must contain exactly two values.</li>
+</ul>
+</li>
+</ul>
+<h2 id="a-conjunction-search-example">A conjunction search example<a class="headerlink" href="#a-conjunction-search-example" title="Permanent link">&para;</a></h2>
+<p>To include a metadata filter in a conjunction search, place it within the criteria block it applies to.</p>
+<div class="admonition info">
+<p class="admonition-title">Improvement on its way for PyAuroraX</p>
+<p>Please note - an improvement to the structure of conjunction searches is coming soon to PyAuroraX. The specific issue tickets for these improvements are <a href="https://github.com/aurorax-space/pyaurorax/issues/28" target="_blank">!28</a>, <a href="https://github.com/aurorax-space/pyaurorax/issues/51" target="_blank">!51</a>, and <a href="https://github.com/aurorax-space/pyaurorax/issues/54" target="_blank">!54</a>.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Conjunction search with metadata filters</p>
+<p>In the following example, we are searching for conjunctions between ground instruments in the "themis-asi" program and space instruments in the "swarm" program. We narrow the search using filters on the "calgary_cloud_ml_v1" and "nbtrace_region" metadata fields on the ground and space criteria blocks, respectively.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Python</label><label for="__tabbed_1_2">IDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># imports</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pyaurorax</span>
+<span class="n">aurorax</span> <span class="o">=</span> <span class="n">pyaurorax</span><span class="o">.</span><span class="n">PyAuroraX</span><span class="p">()</span>
+
+<span class="c1"># set up search parameters</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">ground_params</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;programs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;themis-asi&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ephemeris_metadata_filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;logical_operator&quot;</span><span class="p">:</span> <span class="s2">&quot;AND&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;calgary_cloud_ml_v1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;classified as not cloudy&quot;</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">space_params</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;programs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;themis&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;hemisphere&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;northern&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ephemeris_metadata_filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;logical_operator&quot;</span><span class="p">:</span> <span class="s2">&quot;AND&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;nbtrace_region&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;north polar cap&quot;</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="c1"># perform the search</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">aurorax</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">conjunctions</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+                                       <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+                                       <span class="n">distance</span><span class="o">=</span><span class="n">distance</span><span class="p">,</span>
+                                       <span class="n">ground</span><span class="o">=</span><span class="n">ground_params</span><span class="p">,</span>
+                                       <span class="n">space</span><span class="o">=</span><span class="n">space_params</span><span class="p">,</span>
+                                       <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># output data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<p>Example output from this code would be:</p>
+<div class="highlight"><pre><span></span><code>[2022-03-02 23:00:27.761557] Search object created
+[2022-03-02 23:00:28.016696] Request submitted
+[2022-03-02 23:00:28.016772] Request ID: d6ae7403-a799-455d-ab98-386323ab1a16
+[2022-03-02 23:00:28.016784] Request details available at: https://api.aurorax.space/api/v1/conjunctions/requests/d6ae7403-a799-455d-ab98-386323ab1a16
+[2022-03-02 23:00:28.016788] Waiting for data ...
+[2022-03-02 23:00:29.083976] Checking for data ...
+[2022-03-02 23:00:30.173733] Checking for data ...
+[2022-03-02 23:00:30.254631] Data is now available
+[2022-03-02 23:00:30.254683] Retrieving data ...
+[2022-03-02 23:00:30.348727] Retrieved 32.8 kB of data containing 5 records
+</code></pre></div>
+<p>And the resulting conjunctions would be:</p>
+<div class="highlight"><pre><span></span><code>[
+    Conjunction(start=datetime.datetime(2019, 1, 20, 9, 30), end=datetime.datetime(2019, 1, 20, 9, 51), min_distance=305.86, max_distance=498.35, data_sources=[...], events=[...]), 
+    Conjunction(start=datetime.datetime(2019, 1, 20, 8, 51), end=datetime.datetime(2019, 1, 20, 9, 9), min_distance=61.12, max_distance=119.83, data_sources=[...], events=[...]), 
+    Conjunction(start=datetime.datetime(2019, 1, 22, 6, 20), end=datetime.datetime(2019, 1, 22, 6, 29), min_distance=436.22, max_distance=468.41, data_sources=[...], events=[...]), 
+    Conjunction(start=datetime.datetime(2019, 1, 22, 5, 16), end=datetime.datetime(2019, 1, 22, 5, 29), min_distance=388.89, max_distance=492.20, data_sources=[...], events=[...]), 
+    Conjunction(start=datetime.datetime(2019, 1, 22, 5, 40), end=datetime.datetime(2019, 1, 22, 5, 49), min_distance=339.71, max_distance=344.09, data_sources=[...], events=[...])
+]
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Using the metadata filter helper functions, we can create a metadata filter object that will be added to a criteria block.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">; set distance and timeframe</span>
+start_dt<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2019-01-01T00:00:00&#39;</span>
+end_dt<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2019-01-31T23:59:59&#39;</span>
+distance<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span>
+
+<span class="c1">; set our ground metadata filter</span>
+expression<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter_expression(<span class="s1">&#39;calgary_cloud_ml_v1&#39;</span>,<span class="w"> </span><span class="nb">list</span>(<span class="s1">&#39;classified as not cloudy&#39;</span>),<span class="o">/</span>OPERATOR_IN)
+expressions<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">list</span>(expression)
+ground_metadata_filters<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter(expressions,<span class="o">/</span>OPERATOR_AND)
+
+<span class="c1">; set our ground criteria block</span>
+ground1<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_criteria_block(programs<span class="o">=</span>[<span class="s1">&#39;themis-asi&#39;</span>],<span class="w"> </span>metadata_filters<span class="o">=</span>ground_metadata_filters,<span class="o">/</span>GROUND)
+ground<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">list</span>(ground1)
+
+<span class="c1">; set our space metadata filter</span>
+expression<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter_expression(<span class="s1">&#39;nbtrace_region&#39;</span>,<span class="w"> </span><span class="nb">list</span>(<span class="s1">&#39;north polar cap&#39;</span>),<span class="o">/</span>OPERATOR_IN)
+expressions<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">list</span>(expression)
+space_metadata_filters<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter(expressions,<span class="o">/</span>OPERATOR_AND)
+
+<span class="c1">; set our space criteria block</span>
+space1<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_criteria_block(programs<span class="o">=</span>[<span class="s1">&#39;themis&#39;</span>],hemisphere<span class="o">=</span>[<span class="s1">&#39;northern&#39;</span>],metadata_filters<span class="o">=</span>space_metadata_filters,<span class="o">/</span>SPACE)
+space<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">list</span>(space1)
+
+<span class="c1">; perform the search</span>
+data<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_conjunction_search(start_dt,end_dt,distance,ground<span class="o">=</span>ground,space<span class="o">=</span>space,<span class="o">/</span>nbtrace)
+</code></pre></div>
+<p>Example output from this code would be:</p>
+<div class="highlight"><pre><span></span><code>[Wed Mar 02 16:14:42 2022] Parsing start and end timestamps
+[Wed Mar 02 16:14:42 2022] Creating request struct
+[Wed Mar 02 16:14:42 2022] Sending search request ...
+[Wed Mar 02 16:14:42 2022] Search request accepted
+[Wed Mar 02 16:14:42 2022] Request ID: dfd75094-6f20-4f80-a2fa-e61a215eb0be
+[Wed Mar 02 16:14:42 2022] Waiting for search to finish ...
+[Wed Mar 02 16:14:43 2022] Data is now available
+[Wed Mar 02 16:14:43 2022] Downloading 32.07 KB of data ...
+[Wed Mar 02 16:14:43 2022] Data downloaded, search completed
+[Wed Mar 02 16:14:43 2022] Post-processing data into IDL struct
+[Wed Mar 02 16:14:43 2022] Search completed, found 5 conjunctions in 1.2 seconds
+</code></pre></div>
+<p>An example conjunction record would be:</p>
+<div class="highlight"><pre><span></span><code>IDL<span class="o">&gt;</span><span class="w"> </span><span class="nb">help</span>,data[<span class="mi">0</span>]
+<span class="o">**</span><span class="w"> </span>Structure<span class="w"> </span><span class="o">&lt;</span>6edd4810<span class="o">&gt;</span>,<span class="w"> </span><span class="mi">8</span><span class="w"> </span>tags,<span class="w"> </span>length<span class="o">=</span><span class="mi">88</span>,<span class="w"> </span>data<span class="w"> </span>length<span class="o">=</span><span class="mi">88</span>,<span class="w"> </span>refs<span class="o">=</span><span class="mi">2</span><span class="o">:</span>
+<span class="w">   </span>START_DT<span class="w">        </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;2019-01-20T09:30:00&#39;</span>
+<span class="w">   </span>END_DT<span class="w">          </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;2019-01-20T09:51:00&#39;</span>
+<span class="w">   </span>MIN_DISTANCE<span class="w">    </span><span class="nb">DOUBLE</span><span class="w">           </span><span class="mf">305.86436</span>
+<span class="w">   </span>MAX_DISTANCE<span class="w">    </span><span class="nb">DOUBLE</span><span class="w">           </span><span class="mf">498.35154</span>
+<span class="w">   </span>CLOSEST_EPOCH<span class="w">   </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;2019-01-20T09:30:00&#39;</span>
+<span class="w">   </span>FARTHEST_EPOCH<span class="w">  </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;2019-01-20T09:51:00&#39;</span>
+<span class="w">   </span>DATA_SOURCES<span class="w">    </span>OBJREF<span class="w">    </span><span class="o">&lt;</span>ObjHeapVar4872(<span class="nb">LIST</span>)<span class="o">&gt;</span>
+<span class="w">   </span>EVENTS<span class="w">          </span>OBJREF<span class="w">    </span><span class="o">&lt;</span>ObjHeapVar4922(<span class="nb">LIST</span>)<span class="o">&gt;</span>
+IDL<span class="o">&gt;</span><span class="w"> </span>data[<span class="mi">0</span>]
+{
+<span class="w">    </span><span class="s2">&quot;START_DT&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2019-01-20T09:30:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;END_DT&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2019-01-20T09:51:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;MIN_DISTANCE&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">305.86435755861999</span>,
+<span class="w">    </span><span class="s2">&quot;MAX_DISTANCE&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">498.35153965450996</span>,
+<span class="w">    </span><span class="s2">&quot;CLOSEST_EPOCH&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2019-01-20T09:30:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;FARTHEST_EPOCH&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2019-01-20T09:51:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;DATA_SOURCES&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span>ObjHeapVar4872(<span class="nb">LIST</span>)<span class="o">&gt;</span>,
+<span class="w">    </span><span class="s2">&quot;EVENTS&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span>ObjHeapVar4922(<span class="nb">LIST</span>)<span class="o">&gt;</span>
+}
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="an-ephemeris-search-example">An ephemeris search example<a class="headerlink" href="#an-ephemeris-search-example" title="Permanent link">&para;</a></h2>
+<p>To include a metadata filter in an ephemeris search, supply it as an addition argument to the search function.</p>
+<div class="admonition example">
+<p class="admonition-title">Ephemeris search with metadata filters</p>
+<p>In the following example, we are searching for ephemeris records over one day for the "swarm" program and "swarma" platform, where the metadata filter for "nbtrace_region" is either "north polar cap" or "north auroral oval".</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Python</label><label for="__tabbed_2_2">IDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>We use the <a href="/code/pyaurorax_api_reference/pyaurorax/search/ephemeris/index.html#pyaurorax.ephemeris.search" target="_blank"><code>aurorax.search.ephemeris.search()</code></a> function with the <code>metadata_filters_logical_operator</code> and <code>metadata_filters</code> parameters supplied.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># imports</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pyaurorax</span>
+<span class="n">aurorax</span> <span class="o">=</span> <span class="n">pyaurorax</span><span class="o">.</span><span class="n">PyAuroraX</span><span class="p">()</span>
+
+<span class="c1"># set up search parameters</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">programs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;swarm&quot;</span><span class="p">]</span>
+<span class="n">platforms</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;swarma&quot;</span><span class="p">]</span>
+<span class="n">metadata_filters_logical_operator</span> <span class="o">=</span> <span class="s2">&quot;AND&quot;</span>
+<span class="n">metadata_filters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;nbtrace_region&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;north polar cap&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;north auroral oval&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># perform the search</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">aurorax</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ephemeris</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+                                    <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+                                    <span class="n">programs</span><span class="o">=</span><span class="n">programs</span><span class="p">,</span>
+                                    <span class="n">platforms</span><span class="o">=</span><span class="n">platforms</span><span class="p">,</span>
+                                    <span class="n">metadata_filters_logical_operator</span><span class="o">=</span><span class="n">metadata_filters_logical_operator</span><span class="p">,</span>
+                                    <span class="n">metadata_filters</span><span class="o">=</span><span class="n">metadata_filters</span><span class="p">,</span>
+                                    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># output data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<p>Example output from this code would be:</p>
+<div class="highlight"><pre><span></span><code>[2022-03-03 15:41:32.699680] Search object created
+[2022-03-03 15:41:32.758331] Request submitted
+[2022-03-03 15:41:32.758422] Request ID: 63e341af-2f2c-4bde-98f9-977e82736ad8
+[2022-03-03 15:41:32.758442] Request details available at: https://api.aurorax.space/api/v1/ephemeris/requests/63e341af-2f2c-4bde-98f9-977e82736ad8
+[2022-03-03 15:41:32.758447] Waiting for data ...
+[2022-03-03 15:41:33.831208] Checking for data ...
+[2022-03-03 15:41:33.903628] Data is now available
+[2022-03-03 15:41:33.903717] Retrieving data ...
+[2022-03-03 15:41:34.092507] Retrieved 1.5 MB of data containing 269 records
+</code></pre></div>
+<p>And example ephemeris records would be:</p>
+<div class="highlight"><pre><span></span><code>[
+    Ephemeris(data_source=DataSource(identifier=3, program=&#39;swarm&#39;, platform=&#39;swarma&#39;, instrument_type=&#39;footprint&#39;, source_type=&#39;leo&#39;, display_name=&#39;Swarm A&#39;), epoch=datetime.datetime(2019, 1, 1, 0, 22), location_geo=Location(lat=67.75, lon=-134.21866), location_gsm=Location(lat=79.08494, lon=137.89024), nbtrace=Location(lat=68.18764, lon=-133.78503), nbtrace=Location(lat=68.18764, lon=-133.78503), metadata={&#39;state&#39;: &#39;definitiv...}),
+    Ephemeris(data_source=DataSource(identifier=3, program=&#39;swarm&#39;, platform=&#39;swarma&#39;, instrument_type=&#39;footprint&#39;, source_type=&#39;leo&#39;, display_name=&#39;Swarm A&#39;), epoch=datetime.datetime(2019, 1, 1, 0, 25), location_geo=Location(lat=79.17033, lon=-127.45004), location_gsm=Location(lat=72.97663, lon=-179.49547), nbtrace=Location(lat=79.30263, lon=-127.23894000000001), nbtrace=Location(lat=79.30263, lon=-127.23894000000001), metadata={&#39;state&#39;: &#39;definitiv...}),
+    Ephemeris(data_source=DataSource(identifier=3, program=&#39;swarm&#39;, platform=&#39;swarma&#39;, instrument_type=&#39;footprint&#39;, source_type=&#39;leo&#39;, display_name=&#39;Swarm A&#39;), epoch=datetime.datetime(2019, 1, 1, 0, 26), location_geo=Location(lat=82.853424, lon=-120.02243000000001), location_gsm=Location(lat=69.864494, lon=-172.31992), nbtrace=Location(lat=82.91019, lon=-120.09123), nbtrace=Location(lat=82.91019, lon=-120.09123), metadata={&#39;state&#39;: &#39;definitiv...}),
+    ...
+    ...
+    ...
+]
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Using the metadata filter helper functions, we can create a metadata filter object that will be added to a our ephemeris search.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">; set timeframe, programs, and platforms</span>
+start_dt<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2019-01-01T00:00:00&#39;</span>
+end_dt<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2019-01-01T23:59:59&#39;</span>
+programs<span class="w"> </span><span class="o">=</span><span class="w"> </span>[<span class="s1">&#39;swarm&#39;</span>]
+platforms<span class="w"> </span><span class="o">=</span><span class="w"> </span>[<span class="s1">&#39;swarma&#39;</span>]
+
+<span class="c1">; set metadata filter</span>
+expression<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter_expression(<span class="s1">&#39;nbtrace_region&#39;</span>,<span class="w"> </span><span class="nb">list</span>(<span class="s1">&#39;north polar cap&#39;</span>,<span class="w"> </span><span class="s1">&#39;north auroral oval&#39;</span>),<span class="o">/</span>OPERATOR_IN)
+expressions<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">list</span>(expression)
+metadata_filters<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter(expressions,<span class="o">/</span>OPERATOR_AND)
+
+<span class="c1">; perform the search</span>
+data<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_ephemeris_search(start_dt,end_dt,programs<span class="o">=</span>programs,platforms<span class="o">=</span>platforms,metadata_filters<span class="o">=</span>metadata_filters)
+</code></pre></div>
+<p>Example output from this code would be:</p>
+<div class="highlight"><pre><span></span><code>[Thu Mar 03 08:47:21 2022] Parsing start and end timestamps
+[Thu Mar 03 08:47:21 2022] Creating request struct
+[Thu Mar 03 08:47:21 2022] Sending search request ...
+[Thu Mar 03 08:47:21 2022] Search request accepted
+[Thu Mar 03 08:47:21 2022] Request ID: 91f5ed5c-1b22-4b60-b7d2-f8bea44030a3
+[Thu Mar 03 08:47:21 2022] Waiting for search to finish ...
+[Thu Mar 03 08:47:22 2022] Data is now available
+[Thu Mar 03 08:47:22 2022] Downloading 1.46 MB of data ...
+[Thu Mar 03 08:47:22 2022] Data downloaded, search completed
+[Thu Mar 03 08:47:22 2022] Search completed, found 269 records in 1.5 seconds
+</code></pre></div>
+<p>An example conjunction record would be:</p>
+<div class="highlight"><pre><span></span><code>IDL<span class="o">&gt;</span><span class="w"> </span><span class="nb">help</span>,data[<span class="mi">0</span>]
+<span class="o">**</span><span class="w"> </span>Structure<span class="w"> </span><span class="o">&lt;</span>69a33d60<span class="o">&gt;</span>,<span class="w"> </span><span class="mi">7</span><span class="w"> </span>tags,<span class="w"> </span>length<span class="o">=</span><span class="mi">296</span>,<span class="w"> </span>data<span class="w"> </span>length<span class="o">=</span><span class="mi">289</span>,<span class="w"> </span>refs<span class="o">=</span><span class="mi">2</span><span class="o">:</span>
+<span class="w">   </span>DATA_SOURCE<span class="w">     </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+<span class="w">   </span>EPOCH<span class="w">           </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;2019-01-01T00:22:00&#39;</span>
+<span class="w">   </span>LOCATION_GEO<span class="w">    </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+<span class="w">   </span>LOCATION_GSM<span class="w">    </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+<span class="w">   </span>NBTRACE<span class="w">         </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+<span class="w">   </span>SBTRACE<span class="w">         </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+<span class="w">   </span>METADATA<span class="w">        </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+IDL<span class="o">&gt;</span><span class="w"> </span>data[<span class="mi">0</span>]
+{
+<span class="w">    </span><span class="s2">&quot;DATA_SOURCE&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;IDENTIFIER&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span>,
+<span class="w">        </span><span class="s2">&quot;PROGRAM&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;swarm&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;PLATFORM&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;swarma&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;INSTRUMENT_TYPE&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;footprint&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;SOURCE_TYPE&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;leo&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;DISPLAY_NAME&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Swarm A&quot;</span>
+<span class="w">    </span>},
+<span class="w">    </span><span class="s2">&quot;EPOCH&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2019-01-01T00:22:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;LOCATION_GEO&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;LAT&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">67.750000000000000</span>,
+<span class="w">        </span><span class="s2">&quot;LON&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">134.21866000000000</span>
+<span class="w">    </span>},
+<span class="w">    </span><span class="s2">&quot;LOCATION_GSM&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;LAT&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">79.084940000000003</span>,
+<span class="w">        </span><span class="s2">&quot;LON&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">137.89024000000001</span>
+<span class="w">    </span>},
+<span class="w">    </span><span class="s2">&quot;NBTRACE&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;LAT&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">68.187640000000002</span>,
+<span class="w">        </span><span class="s2">&quot;LON&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">133.78503000000001</span>
+<span class="w">    </span>},
+<span class="w">    </span><span class="s2">&quot;SBTRACE&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;LAT&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">64.920006000000001</span>,
+<span class="w">        </span><span class="s2">&quot;LON&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">170.13804999999999</span>
+<span class="w">    </span>},
+<span class="w">    </span><span class="s2">&quot;METADATA&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;STATE&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;definitive&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;TII_ON&quot;</span><span class="o">:</span><span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;NBTRACE_REGION&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;north auroral oval&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;SBTRACE_REGION&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;south mid-latitude&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;RADIAL_DISTANCE&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">6805.6910331714098</span>,
+<span class="w">        </span><span class="s2">&quot;TII_QUALITY_VIY&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span>,
+<span class="w">        </span><span class="s2">&quot;TII_QUALITY_VIZ&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span>,
+<span class="w">        </span><span class="s2">&quot;TII_QUALITY_VIXH&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span>,
+<span class="w">        </span><span class="s2">&quot;TII_QUALITY_VIXV&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>,
+<span class="w">        </span><span class="s2">&quot;SPACECRAFT_REGION&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;nightside magnetosphere&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;RADIAL_TRACE_REGION&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;north auroral oval&quot;</span>
+<span class="w">    </span>}
+}
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="a-data-product-search-example">A data product search example<a class="headerlink" href="#a-data-product-search-example" title="Permanent link">&para;</a></h2>
+<p>To include a metadata filter in a data product search, supply it as an addition argument to the search function.</p>
+<div class="admonition example">
+<p class="admonition-title">Data product search with metadata filters</p>
+<p>In the following example, we are searching for data product records over one day for the one of the TREx RGB instruments (Gillam), where the metadata filter for "keogram_type" is either "daily" or "hourly".</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Python</label><label for="__tabbed_3_2">IDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>We use the <a href="/code/pyaurorax_api_reference/pyaurorax/search/data_products/index.html#pyaurorax.data_products.search" target="_blank"><code>aurorax.search.data_products.search()</code></a> function with the <code>metadata_filters_logical_operator</code> and <code>metadata_filters</code> parameters supplied.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># imports</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pyaurorax</span>
+<span class="n">aurorax</span> <span class="o">=</span> <span class="n">pyaurorax</span><span class="o">.</span><span class="n">PyAuroraX</span><span class="p">()</span>
+
+<span class="c1"># set up search parameters</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">programs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;trex&quot;</span><span class="p">]</span>
+<span class="n">platforms</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gillam&quot;</span><span class="p">]</span>
+<span class="n">instrument_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RGB ASI&quot;</span><span class="p">]</span>
+<span class="n">metadata_filters_logical_operator</span> <span class="o">=</span> <span class="s2">&quot;AND&quot;</span>
+<span class="n">metadata_filters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;keogram_type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;daily&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hourly&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># perform the search</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">aurorax</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">data_products</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+                                        <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+                                        <span class="n">programs</span><span class="o">=</span><span class="n">programs</span><span class="p">,</span>
+                                        <span class="n">platforms</span><span class="o">=</span><span class="n">platforms</span><span class="p">,</span>
+                                        <span class="n">instrument_types</span><span class="o">=</span><span class="n">instrument_types</span><span class="p">,</span>
+                                        <span class="n">metadata_filters_logical_operator</span><span class="o">=</span><span class="n">metadata_filters_logical_operator</span><span class="p">,</span>
+                                        <span class="n">metadata_filters</span><span class="o">=</span><span class="n">metadata_filters</span><span class="p">,</span>
+                                        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># output data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<p>Example output from this code would be:</p>
+<div class="highlight"><pre><span></span><code>[2022-03-03 16:02:00.816900] Search object created
+[2022-03-03 16:02:00.937031] Request submitted
+[2022-03-03 16:02:00.937115] Request ID: c1c87ea8-6d7f-4885-8e12-7c320099ac89
+[2022-03-03 16:02:00.937127] Request details available at: https://api.aurorax.space/api/v1/data_products/requests/c1c87ea8-6d7f-4885-8e12-7c320099ac89
+[2022-03-03 16:02:00.937131] Waiting for data ...
+[2022-03-03 16:02:02.008381] Checking for data ...
+[2022-03-03 16:02:02.141127] Data is now available
+[2022-03-03 16:02:02.141256] Retrieving data ...
+[2022-03-03 16:02:02.199203] Retrieved 40.0 kB of data containing 16 records
+</code></pre></div>
+<p>And example data product records would be:</p>
+<div class="highlight"><pre><span></span><code>[
+    DataProduct(data_source=DataSource(identifier=103, program=&#39;trex&#39;, platform=&#39;gillam&#39;, instrument_type=&#39;RGB ASI&#39;, source_type=&#39;ground&#39;, display_name=&#39;TREx RGB GILL&#39;), start=datetime.datetime(2020, 1, 1, 0, 0), end=datetime.datetime(2020, 1, 1, 23, 59), data_product_type=&#39;keogram&#39;, url=&#39;https://data.phys.uc...&#39;, metadata={&#39;keogram_type&#39;: &#39;da...}),
+    DataProduct(data_source=DataSource(identifier=103, program=&#39;trex&#39;, platform=&#39;gillam&#39;, instrument_type=&#39;RGB ASI&#39;, source_type=&#39;ground&#39;, display_name=&#39;TREx RGB GILL&#39;), start=datetime.datetime(2020, 1, 1, 0, 0), end=datetime.datetime(2020, 1, 1, 0, 59), data_product_type=&#39;keogram&#39;, url=&#39;https://data.phys.uc...&#39;, metadata={&#39;keogram_type&#39;: &#39;ho...}),
+    DataProduct(data_source=DataSource(identifier=103, program=&#39;trex&#39;, platform=&#39;gillam&#39;, instrument_type=&#39;RGB ASI&#39;, source_type=&#39;ground&#39;, display_name=&#39;TREx RGB GILL&#39;), start=datetime.datetime(2020, 1, 1, 1, 0), end=datetime.datetime(2020, 1, 1, 1, 59), data_product_type=&#39;keogram&#39;, url=&#39;https://data.phys.uc...&#39;, metadata={&#39;keogram_type&#39;: &#39;ho...}),
+    ...
+    ...
+    ...
+]
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Using the metadata filter helper functions, we can create a metadata filter object that will be added to a our data product search.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">; set timeframe, programs, and platforms</span>
+start_dt<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2020-01-01T00:00:00&#39;</span>
+end_dt<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2020-01-01T23:59:59&#39;</span>
+programs<span class="w"> </span><span class="o">=</span><span class="w"> </span>[<span class="s1">&#39;trex&#39;</span>]
+platforms<span class="w"> </span><span class="o">=</span><span class="w"> </span>[<span class="s1">&#39;gillam&#39;</span>]
+instrument_types<span class="w"> </span><span class="o">=</span><span class="w"> </span>[<span class="s1">&#39;RGB ASI&#39;</span>]
+
+<span class="c1">; set metadata filter</span>
+expression<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter_expression(<span class="s1">&#39;keogram_type&#39;</span>,<span class="w"> </span><span class="nb">list</span>(<span class="s1">&#39;daily&#39;</span>,<span class="w"> </span><span class="s1">&#39;hourly&#39;</span>),<span class="o">/</span>OPERATOR_IN)
+expressions<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">list</span>(expression)
+metadata_filters<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_create_metadata_filter(expressions,<span class="o">/</span>OPERATOR_AND)
+
+<span class="c1">; perform the search</span>
+data<span class="w"> </span><span class="o">=</span><span class="w"> </span>aurorax_data_product_search(start_dt,end_dt,programs<span class="o">=</span>programs,platforms<span class="o">=</span>platforms,instrument_types<span class="o">=</span>instrument_types,metadata_filters<span class="o">=</span>metadata_filters)
+</code></pre></div>
+<p>Example output from this code would be:</p>
+<div class="highlight"><pre><span></span><code>[Thu Mar 03 09:04:12 2022] Parsing start and end timestamps
+[Thu Mar 03 09:04:12 2022] Creating request struct
+[Thu Mar 03 09:04:12 2022] Sending search request ...
+[Thu Mar 03 09:04:12 2022] Search request accepted
+[Thu Mar 03 09:04:12 2022] Request ID: 763d8e14-cafd-4d29-afe6-e66098dbc954
+[Thu Mar 03 09:04:12 2022] Waiting for search to finish ...
+[Thu Mar 03 09:04:13 2022] Data is now available
+[Thu Mar 03 09:04:13 2022] Downloading 39.11 KB of data ...
+[Thu Mar 03 09:04:13 2022] Data downloaded, search completed
+[Thu Mar 03 09:04:13 2022] Post-processing data into IDL struct
+[Thu Mar 03 09:04:13 2022] Search completed, found 16 records in 1.2 seconds
+</code></pre></div>
+<p>An example conjunction record would be:</p>
+<div class="highlight"><pre><span></span><code>IDL<span class="o">&gt;</span><span class="w"> </span><span class="nb">help</span>,data[<span class="mi">0</span>]
+<span class="o">**</span><span class="w"> </span>Structure<span class="w"> </span><span class="o">&lt;</span>713d4c00<span class="o">&gt;</span>,<span class="w"> </span><span class="mi">6</span><span class="w"> </span>tags,<span class="w"> </span>length<span class="o">=</span><span class="mi">200</span>,<span class="w"> </span>data<span class="w"> </span>length<span class="o">=</span><span class="mi">200</span>,<span class="w"> </span>refs<span class="o">=</span><span class="mi">2</span><span class="o">:</span>
+<span class="w">   </span>START_DT<span class="w">           </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;2020-01-01T00:00:00&#39;</span>
+<span class="w">   </span>END_DT<span class="w">             </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;2020-01-01T23:59:00&#39;</span>
+<span class="w">   </span>DATA_SOURCE<span class="w">        </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+<span class="w">   </span>URL<span class="w">                </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;https://data.phys.ucalgary.ca/sort_by_project/TREx/RGB/stream2/2020/01/01/gill_rgb-04/20200101__gill_rgb-04_full-keogram.jpg&#39;</span>
+<span class="w">   </span>DATA_PRODUCT_TYPE<span class="w">  </span><span class="nb">STRING</span><span class="w">    </span><span class="s1">&#39;keogram&#39;</span>
+<span class="w">   </span>METADATA<span class="w">           </span>STRUCT<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">&lt;</span>Anonymous<span class="o">&gt;</span><span class="w"> </span>Array[<span class="mi">1</span>]
+IDL<span class="o">&gt;</span><span class="w"> </span>data[<span class="mi">0</span>]
+{
+<span class="w">    </span><span class="s2">&quot;START_DT&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2020-01-01T00:00:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;END_DT&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2020-01-01T23:59:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;DATA_SOURCE&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;IDENTIFIER&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">103</span>,
+<span class="w">        </span><span class="s2">&quot;PROGRAM&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;trex&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;PLATFORM&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;gillam&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;INSTRUMENT_TYPE&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;RGB ASI&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;SOURCE_TYPE&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ground&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;DISPLAY_NAME&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;TREx RGB GILL&quot;</span>
+<span class="w">    </span>},
+<span class="w">    </span><span class="s2">&quot;URL&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://data.phys.ucalgary.ca/sort_by_project/TREx/RGB/stream2/2020/01/01/gill_rgb-04/20200101__gill_rgb-04_full-keogram.jpg&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;DATA_PRODUCT_TYPE&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;keogram&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;METADATA&quot;</span><span class="o">:</span><span class="w"> </span>{
+<span class="w">        </span><span class="s2">&quot;KEOGRAM_TYPE&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;daily&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;IMAGING_END_TIME&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2020-01-01T13:16:00.000000&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;IMAGING_START_TIME&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2019-12-31T23:30:00.000000&quot;</span>
+<span class="w">    </span>}
+}
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://aurorax.space" target="_blank" rel="noopener" title="AuroraX website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64h185.4c2.2 20.4 3.3 41.8 3.3 64zm28.8-64h123.1c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6 78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7 10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5 11.6 26 20.9 58.2 27 94.7zm-209 0H18.6c30-74.1 93.6-130.9 172-151.6-25.5 34.2-45.3 87.7-55.3 151.6zM8.1 192h123.1c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zm186.6 254.6c-11.6-26-20.9-58.2-27-94.6h176.6c-6.1 36.4-15.5 68.6-27 94.6-10.5 23.6-22.2 40.7-33.5 51.5-11.2 10.7-20.5 13.9-27.8 13.9s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6-78.4-20.7-142-77.5-172-151.6h116.7zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6 25.5-34.2 45.2-87.7 55.3-151.6h116.6z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/aurorax-space" target="_blank" rel="noopener" title="Source code on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="../../../../_extras/javascripts/tablesort.js"></script>
+      
+    
+  </body>
+</html>
