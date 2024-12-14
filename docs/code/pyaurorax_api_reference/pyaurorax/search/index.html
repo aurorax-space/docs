@@ -626,7 +626,59 @@ development and still considered "alpha".</dd>
         return self.__repr__()
 
     def __repr__(self):
-        return f&#34;ConjunctionSearch(executed={self.executed}, completed={self.completed}, request_id=&#39;{self.request_id}&#39;)&#34;
+        return &#34;ConjunctionSearch(executed=%s, completed=%s, request_id=&#39;%s&#39;)&#34; % (
+            self.executed,
+            self.completed,
+            self.request_id,
+        )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        # set status and query strings
+        max_len = 80
+        status_str = str(self.status)
+        query_str = str(self.query)
+        if (len(status_str) &gt; max_len):
+            status_str = &#34;%s...&#34; % (status_str[0:max_len])
+        if (len(query_str) &gt; max_len):
+            query_str = &#34;%s...&#34; % (query_str[0:max_len])
+
+        # set results string
+        if (self.executed is True):
+            if (len(self.data) == 0):
+                data_str = &#34;[0 conjunction results]&#34;
+            elif (len(self.data) == 1):
+                data_str = &#34;[1 conjunction result]&#34;
+            else:
+                data_str = &#34;[%d conjunction results]&#34; % (len(self.data))
+        else:
+            data_str = &#34;&#34;
+
+        # set logs string
+        if (self.executed is True):
+            if (len(self.logs) == 0):
+                logs_str = &#34;[0 log messages]&#34;
+            elif (len(self.logs) == 1):
+                logs_str = &#34;[1 log message]&#34;
+            else:
+                logs_str = &#34;[%d log messages]&#34; % (len(self.logs))
+        else:
+            logs_str = &#34;&#34;
+
+        # print
+        print(&#34;ConjunctionSearch:&#34;)
+        print(&#34;  %-13s: %s&#34; % (&#34;executed&#34;, self.executed))
+        print(&#34;  %-13s: %s&#34; % (&#34;completed&#34;, self.completed))
+        print(&#34;  %-13s: %s&#34; % (&#34;request_id&#34;, self.request_id))
+        print(&#34;  %-13s: %s&#34; % (&#34;request&#34;, self.request))
+        print(&#34;  %-13s: %s&#34; % (&#34;request_url&#34;, self.request_url))
+        print(&#34;  %-13s: %s&#34; % (&#34;data_url&#34;, self.data_url))
+        print(&#34;  %-13s: %s&#34; % (&#34;query&#34;, query_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;status&#34;, status_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;data&#34;, data_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;logs&#34;, logs_str))
 
     def __fill_in_missing_distances(self, curr_distances: Dict) -&gt; Dict:
         # get all distances possible
@@ -1195,6 +1247,64 @@ search request</p>
         self.data = [Conjunction(**c) for c in raw_data]</code></pre>
 </details>
 </dd>
+<dt id="pyaurorax.search.ConjunctionSearch.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pretty_print(self):
+    &#34;&#34;&#34;
+    A special print output for this class.
+    &#34;&#34;&#34;
+    # set status and query strings
+    max_len = 80
+    status_str = str(self.status)
+    query_str = str(self.query)
+    if (len(status_str) &gt; max_len):
+        status_str = &#34;%s...&#34; % (status_str[0:max_len])
+    if (len(query_str) &gt; max_len):
+        query_str = &#34;%s...&#34; % (query_str[0:max_len])
+
+    # set results string
+    if (self.executed is True):
+        if (len(self.data) == 0):
+            data_str = &#34;[0 conjunction results]&#34;
+        elif (len(self.data) == 1):
+            data_str = &#34;[1 conjunction result]&#34;
+        else:
+            data_str = &#34;[%d conjunction results]&#34; % (len(self.data))
+    else:
+        data_str = &#34;&#34;
+
+    # set logs string
+    if (self.executed is True):
+        if (len(self.logs) == 0):
+            logs_str = &#34;[0 log messages]&#34;
+        elif (len(self.logs) == 1):
+            logs_str = &#34;[1 log message]&#34;
+        else:
+            logs_str = &#34;[%d log messages]&#34; % (len(self.logs))
+    else:
+        logs_str = &#34;&#34;
+
+    # print
+    print(&#34;ConjunctionSearch:&#34;)
+    print(&#34;  %-13s: %s&#34; % (&#34;executed&#34;, self.executed))
+    print(&#34;  %-13s: %s&#34; % (&#34;completed&#34;, self.completed))
+    print(&#34;  %-13s: %s&#34; % (&#34;request_id&#34;, self.request_id))
+    print(&#34;  %-13s: %s&#34; % (&#34;request&#34;, self.request))
+    print(&#34;  %-13s: %s&#34; % (&#34;request_url&#34;, self.request_url))
+    print(&#34;  %-13s: %s&#34; % (&#34;data_url&#34;, self.data_url))
+    print(&#34;  %-13s: %s&#34; % (&#34;query&#34;, query_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;status&#34;, status_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;data&#34;, data_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;logs&#34;, logs_str))</code></pre>
+</details>
+</dd>
 <dt id="pyaurorax.search.ConjunctionSearch.update_status"><code class="name flex">
 <span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict] = None) ‑> None</span>
 </code></dt>
@@ -1590,7 +1700,59 @@ to "AND"</dd>
         return self.__repr__()
 
     def __repr__(self) -&gt; str:
-        return f&#34;DataProductsSearch(executed={self.executed}, completed={self.completed}, request_id=&#39;{self.request_id}&#39;)&#34;
+        return &#34;DataProductSearch(executed=%s, completed=%s, request_id=&#39;%s&#39;)&#34; % (
+            self.executed,
+            self.completed,
+            self.request_id,
+        )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        # set status and query strings
+        max_len = 80
+        status_str = str(self.status)
+        query_str = str(self.query)
+        if (len(status_str) &gt; max_len):
+            status_str = &#34;%s...&#34; % (status_str[0:max_len])
+        if (len(query_str) &gt; max_len):
+            query_str = &#34;%s...&#34; % (query_str[0:max_len])
+
+        # set results string
+        if (self.executed is True):
+            if (len(self.data) == 0):
+                data_str = &#34;[0 data product results]&#34;
+            elif (len(self.data) == 1):
+                data_str = &#34;[1 data product result]&#34;
+            else:
+                data_str = &#34;[%d data product results]&#34; % (len(self.data))
+        else:
+            data_str = &#34;&#34;
+
+        # set logs string
+        if (self.executed is True):
+            if (len(self.logs) == 0):
+                logs_str = &#34;[0 log messages]&#34;
+            elif (len(self.logs) == 1):
+                logs_str = &#34;[1 log message]&#34;
+            else:
+                logs_str = &#34;[%d log messages]&#34; % (len(self.logs))
+        else:
+            logs_str = &#34;&#34;
+
+        # print
+        print(&#34;DataProductSearch:&#34;)
+        print(&#34;  %-13s: %s&#34; % (&#34;executed&#34;, self.executed))
+        print(&#34;  %-13s: %s&#34; % (&#34;completed&#34;, self.completed))
+        print(&#34;  %-13s: %s&#34; % (&#34;request_id&#34;, self.request_id))
+        print(&#34;  %-13s: %s&#34; % (&#34;request&#34;, self.request))
+        print(&#34;  %-13s: %s&#34; % (&#34;request_url&#34;, self.request_url))
+        print(&#34;  %-13s: %s&#34; % (&#34;data_url&#34;, self.data_url))
+        print(&#34;  %-13s: %s&#34; % (&#34;query&#34;, query_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;status&#34;, status_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;data&#34;, data_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;logs&#34;, logs_str))
 
     @property
     def query(self):
@@ -1922,6 +2084,64 @@ search request</p>
         self.data = [DataProductData(**dp) for dp in raw_data]</code></pre>
 </details>
 </dd>
+<dt id="pyaurorax.search.DataProductSearch.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pretty_print(self):
+    &#34;&#34;&#34;
+    A special print output for this class.
+    &#34;&#34;&#34;
+    # set status and query strings
+    max_len = 80
+    status_str = str(self.status)
+    query_str = str(self.query)
+    if (len(status_str) &gt; max_len):
+        status_str = &#34;%s...&#34; % (status_str[0:max_len])
+    if (len(query_str) &gt; max_len):
+        query_str = &#34;%s...&#34; % (query_str[0:max_len])
+
+    # set results string
+    if (self.executed is True):
+        if (len(self.data) == 0):
+            data_str = &#34;[0 data product results]&#34;
+        elif (len(self.data) == 1):
+            data_str = &#34;[1 data product result]&#34;
+        else:
+            data_str = &#34;[%d data product results]&#34; % (len(self.data))
+    else:
+        data_str = &#34;&#34;
+
+    # set logs string
+    if (self.executed is True):
+        if (len(self.logs) == 0):
+            logs_str = &#34;[0 log messages]&#34;
+        elif (len(self.logs) == 1):
+            logs_str = &#34;[1 log message]&#34;
+        else:
+            logs_str = &#34;[%d log messages]&#34; % (len(self.logs))
+    else:
+        logs_str = &#34;&#34;
+
+    # print
+    print(&#34;DataProductSearch:&#34;)
+    print(&#34;  %-13s: %s&#34; % (&#34;executed&#34;, self.executed))
+    print(&#34;  %-13s: %s&#34; % (&#34;completed&#34;, self.completed))
+    print(&#34;  %-13s: %s&#34; % (&#34;request_id&#34;, self.request_id))
+    print(&#34;  %-13s: %s&#34; % (&#34;request&#34;, self.request))
+    print(&#34;  %-13s: %s&#34; % (&#34;request_url&#34;, self.request_url))
+    print(&#34;  %-13s: %s&#34; % (&#34;data_url&#34;, self.data_url))
+    print(&#34;  %-13s: %s&#34; % (&#34;query&#34;, query_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;status&#34;, status_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;data&#34;, data_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;logs&#34;, logs_str))</code></pre>
+</details>
+</dd>
 <dt id="pyaurorax.search.DataProductSearch.update_status"><code class="name flex">
 <span>def <span class="ident">update_status</span></span>(<span>self, status: Optional[Dict] = None) ‑> None</span>
 </code></dt>
@@ -2045,8 +2265,7 @@ at the top level using the pyaurorax.search.FORMAT_* variables.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@dataclass
-class DataSource:
+<pre><code class="python">class DataSource:
     &#34;&#34;&#34;
     AuroraX data source record
 
@@ -2073,73 +2292,123 @@ class DataSource:
             &#34;full_record&#34;. Other options are in the pyaurorax.search.sources module, or
             at the top level using the pyaurorax.search.FORMAT_* variables.
     &#34;&#34;&#34;
-    identifier: Optional[int] = None
-    program: Optional[str] = None
-    platform: Optional[str] = None
-    instrument_type: Optional[str] = None
-    source_type: Optional[str] = None
-    display_name: Optional[str] = None
-    metadata: Optional[Dict] = None
-    owner: Optional[str] = None
-    maintainers: Optional[List[str]] = None
-    ephemeris_metadata_schema: Optional[List[Dict]] = None
-    data_product_metadata_schema: Optional[List[Dict]] = None
-    stats: Optional[DataSourceStatistics] = None
-    format: str = FORMAT_FULL_RECORD</code></pre>
+
+    def __init__(self,
+                 identifier: Optional[int] = None,
+                 program: Optional[str] = None,
+                 platform: Optional[str] = None,
+                 instrument_type: Optional[str] = None,
+                 source_type: Optional[str] = None,
+                 display_name: Optional[str] = None,
+                 metadata: Optional[Dict] = None,
+                 owner: Optional[str] = None,
+                 maintainers: Optional[List[str]] = None,
+                 ephemeris_metadata_schema: Optional[List[Dict]] = None,
+                 data_product_metadata_schema: Optional[List[Dict]] = None,
+                 stats: Optional[DataSourceStatistics] = None,
+                 format: str = FORMAT_FULL_RECORD):
+        self.identifier = identifier
+        self.program = program
+        self.platform = platform
+        self.instrument_type = instrument_type
+        self.source_type = source_type
+        self.display_name = display_name
+        self.metadata = metadata
+        self.owner = owner
+        self.maintainers = maintainers
+        self.ephemeris_metadata_schema = ephemeris_metadata_schema
+        self.data_product_metadata_schema = data_product_metadata_schema
+        self.stats = stats
+        self.format = format
+
+    def __str__(self) -&gt; str:
+        return self.__repr__()
+
+    def __repr__(self) -&gt; str:
+        return &#34;DataSource(identifier=%s, program=&#39;%s&#39;, platform=&#39;%s&#39;, instrument_type=&#39;%s&#39;, source_type=&#39;%s&#39;, display_name=&#39;%s&#39;, ...)&#34; % (
+            self.identifier,
+            self.program,
+            self.platform,
+            self.instrument_type,
+            self.source_type,
+            self.display_name,
+        )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        max_len = 80
+        print(&#34;DataSource:&#34;)
+        print(&#34;  %-30s: %d&#34; % (&#34;identifier&#34;, self.identifier))
+        print(&#34;  %-30s: %s&#34; % (&#34;program&#34;, self.program))
+        print(&#34;  %-30s: %s&#34; % (&#34;platform&#34;, self.platform))
+        print(&#34;  %-30s: %s&#34; % (&#34;instrument_type&#34;, self.instrument_type))
+        print(&#34;  %-30s: %s&#34; % (&#34;source_type&#34;, self.source_type))
+        print(&#34;  %-30s: %s&#34; % (&#34;display_name&#34;, self.display_name))
+        print(&#34;  %-30s: %s&#34; % (&#34;metadata&#34;, self.metadata))
+        print(&#34;  %-30s: %s&#34; % (&#34;owner&#34;, self.owner))
+        print(&#34;  %-30s: %s&#34; % (&#34;maintainers&#34;, self.maintainers))
+        if (self.ephemeris_metadata_schema is not None and len(str(self.ephemeris_metadata_schema)) &gt; max_len):
+            ephemeris_metadata_schema_str = &#34;%s...&#34; % (str(self.ephemeris_metadata_schema)[0:max_len])
+        else:
+            ephemeris_metadata_schema_str = self.ephemeris_metadata_schema
+        print(&#34;  %-30s: %s&#34; % (&#34;ephemeris_metadata_schema&#34;, ephemeris_metadata_schema_str))
+        if (self.data_product_metadata_schema is not None and len(str(self.data_product_metadata_schema)) &gt; max_len):
+            data_product_metadata_schema_str = &#34;%s...&#34; % (str(self.data_product_metadata_schema)[0:max_len])
+        else:
+            data_product_metadata_schema_str = self.data_product_metadata_schema
+        print(&#34;  %-30s: %s&#34; % (&#34;data_product_metadata_schema&#34;, data_product_metadata_schema_str))
+        if (self.stats is not None and len(str(self.stats)) &gt; max_len):
+            stats_str = &#34;%s...&#34; % (str(self.stats)[0:max_len])
+        else:
+            stats_str = self.data_product_metadata_schema
+        print(&#34;  %-30s: %s&#34; % (&#34;stats&#34;, stats_str))
+        print(&#34;  %-30s: %s&#34; % (&#34;format&#34;, self.format))</code></pre>
 </details>
-<h3>Class variables</h3>
+<h3>Methods</h3>
 <dl>
-<dt id="pyaurorax.search.DataSource.data_product_metadata_schema"><code class="name">var <span class="ident">data_product_metadata_schema</span> : Optional[List[Dict]]</code></dt>
+<dt id="pyaurorax.search.DataSource.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
 <dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.display_name"><code class="name">var <span class="ident">display_name</span> : Optional[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.ephemeris_metadata_schema"><code class="name">var <span class="ident">ephemeris_metadata_schema</span> : Optional[List[Dict]]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.format"><code class="name">var <span class="ident">format</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.identifier"><code class="name">var <span class="ident">identifier</span> : Optional[int]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.instrument_type"><code class="name">var <span class="ident">instrument_type</span> : Optional[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.maintainers"><code class="name">var <span class="ident">maintainers</span> : Optional[List[str]]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.metadata"><code class="name">var <span class="ident">metadata</span> : Optional[Dict]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.owner"><code class="name">var <span class="ident">owner</span> : Optional[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.platform"><code class="name">var <span class="ident">platform</span> : Optional[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.program"><code class="name">var <span class="ident">program</span> : Optional[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.source_type"><code class="name">var <span class="ident">source_type</span> : Optional[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="pyaurorax.search.DataSource.stats"><code class="name">var <span class="ident">stats</span> : Optional[<a title="pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics" href="sources/classes/data_source_stats.html#pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics">DataSourceStatistics</a>]</code></dt>
-<dd>
-<div class="desc"></div>
+<div class="desc"><p>A special print output for this class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pretty_print(self):
+    &#34;&#34;&#34;
+    A special print output for this class.
+    &#34;&#34;&#34;
+    max_len = 80
+    print(&#34;DataSource:&#34;)
+    print(&#34;  %-30s: %d&#34; % (&#34;identifier&#34;, self.identifier))
+    print(&#34;  %-30s: %s&#34; % (&#34;program&#34;, self.program))
+    print(&#34;  %-30s: %s&#34; % (&#34;platform&#34;, self.platform))
+    print(&#34;  %-30s: %s&#34; % (&#34;instrument_type&#34;, self.instrument_type))
+    print(&#34;  %-30s: %s&#34; % (&#34;source_type&#34;, self.source_type))
+    print(&#34;  %-30s: %s&#34; % (&#34;display_name&#34;, self.display_name))
+    print(&#34;  %-30s: %s&#34; % (&#34;metadata&#34;, self.metadata))
+    print(&#34;  %-30s: %s&#34; % (&#34;owner&#34;, self.owner))
+    print(&#34;  %-30s: %s&#34; % (&#34;maintainers&#34;, self.maintainers))
+    if (self.ephemeris_metadata_schema is not None and len(str(self.ephemeris_metadata_schema)) &gt; max_len):
+        ephemeris_metadata_schema_str = &#34;%s...&#34; % (str(self.ephemeris_metadata_schema)[0:max_len])
+    else:
+        ephemeris_metadata_schema_str = self.ephemeris_metadata_schema
+    print(&#34;  %-30s: %s&#34; % (&#34;ephemeris_metadata_schema&#34;, ephemeris_metadata_schema_str))
+    if (self.data_product_metadata_schema is not None and len(str(self.data_product_metadata_schema)) &gt; max_len):
+        data_product_metadata_schema_str = &#34;%s...&#34; % (str(self.data_product_metadata_schema)[0:max_len])
+    else:
+        data_product_metadata_schema_str = self.data_product_metadata_schema
+    print(&#34;  %-30s: %s&#34; % (&#34;data_product_metadata_schema&#34;, data_product_metadata_schema_str))
+    if (self.stats is not None and len(str(self.stats)) &gt; max_len):
+        stats_str = &#34;%s...&#34; % (str(self.stats)[0:max_len])
+    else:
+        stats_str = self.data_product_metadata_schema
+    print(&#34;  %-30s: %s&#34; % (&#34;stats&#34;, stats_str))
+    print(&#34;  %-30s: %s&#34; % (&#34;format&#34;, self.format))</code></pre>
+</details>
 </dd>
 </dl>
 </dd>
@@ -2460,7 +2729,59 @@ to "AND"</dd>
         return self.__repr__()
 
     def __repr__(self) -&gt; str:
-        return f&#34;EphemerisSearch(executed={self.executed}, completed={self.completed}, request_id=&#39;{self.request_id}&#39;)&#34;
+        return &#34;EphemerisSearch(executed=%s, completed=%s, request_id=&#39;%s&#39;)&#34; % (
+            self.executed,
+            self.completed,
+            self.request_id,
+        )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        # set status and query strings
+        max_len = 80
+        status_str = str(self.status)
+        query_str = str(self.query)
+        if (len(status_str) &gt; max_len):
+            status_str = &#34;%s...&#34; % (status_str[0:max_len])
+        if (len(query_str) &gt; max_len):
+            query_str = &#34;%s...&#34; % (query_str[0:max_len])
+
+        # set results string
+        if (self.executed is True):
+            if (len(self.data) == 0):
+                data_str = &#34;[0 ephemeris results]&#34;
+            elif (len(self.data) == 1):
+                data_str = &#34;[1 ephemeris result]&#34;
+            else:
+                data_str = &#34;[%d ephemeris results]&#34; % (len(self.data))
+        else:
+            data_str = &#34;&#34;
+
+        # set logs string
+        if (self.executed is True):
+            if (len(self.logs) == 0):
+                logs_str = &#34;[0 log messages]&#34;
+            elif (len(self.logs) == 1):
+                logs_str = &#34;[1 log message]&#34;
+            else:
+                logs_str = &#34;[%d log messages]&#34; % (len(self.logs))
+        else:
+            logs_str = &#34;&#34;
+
+        # print
+        print(&#34;EphemerisSearch:&#34;)
+        print(&#34;  %-13s: %s&#34; % (&#34;executed&#34;, self.executed))
+        print(&#34;  %-13s: %s&#34; % (&#34;completed&#34;, self.completed))
+        print(&#34;  %-13s: %s&#34; % (&#34;request_id&#34;, self.request_id))
+        print(&#34;  %-13s: %s&#34; % (&#34;request&#34;, self.request))
+        print(&#34;  %-13s: %s&#34; % (&#34;request_url&#34;, self.request_url))
+        print(&#34;  %-13s: %s&#34; % (&#34;data_url&#34;, self.data_url))
+        print(&#34;  %-13s: %s&#34; % (&#34;query&#34;, query_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;status&#34;, status_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;data&#34;, data_str))
+        print(&#34;  %-13s: %s&#34; % (&#34;logs&#34;, logs_str))
 
     @property
     def query(self):
@@ -2807,6 +3128,64 @@ search request</p>
 
         # cast ephemeris objects
         self.data = [EphemerisData(**e) for e in raw_data]</code></pre>
+</details>
+</dd>
+<dt id="pyaurorax.search.EphemerisSearch.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pretty_print(self):
+    &#34;&#34;&#34;
+    A special print output for this class.
+    &#34;&#34;&#34;
+    # set status and query strings
+    max_len = 80
+    status_str = str(self.status)
+    query_str = str(self.query)
+    if (len(status_str) &gt; max_len):
+        status_str = &#34;%s...&#34; % (status_str[0:max_len])
+    if (len(query_str) &gt; max_len):
+        query_str = &#34;%s...&#34; % (query_str[0:max_len])
+
+    # set results string
+    if (self.executed is True):
+        if (len(self.data) == 0):
+            data_str = &#34;[0 ephemeris results]&#34;
+        elif (len(self.data) == 1):
+            data_str = &#34;[1 ephemeris result]&#34;
+        else:
+            data_str = &#34;[%d ephemeris results]&#34; % (len(self.data))
+    else:
+        data_str = &#34;&#34;
+
+    # set logs string
+    if (self.executed is True):
+        if (len(self.logs) == 0):
+            logs_str = &#34;[0 log messages]&#34;
+        elif (len(self.logs) == 1):
+            logs_str = &#34;[1 log message]&#34;
+        else:
+            logs_str = &#34;[%d log messages]&#34; % (len(self.logs))
+    else:
+        logs_str = &#34;&#34;
+
+    # print
+    print(&#34;EphemerisSearch:&#34;)
+    print(&#34;  %-13s: %s&#34; % (&#34;executed&#34;, self.executed))
+    print(&#34;  %-13s: %s&#34; % (&#34;completed&#34;, self.completed))
+    print(&#34;  %-13s: %s&#34; % (&#34;request_id&#34;, self.request_id))
+    print(&#34;  %-13s: %s&#34; % (&#34;request&#34;, self.request))
+    print(&#34;  %-13s: %s&#34; % (&#34;request_url&#34;, self.request_url))
+    print(&#34;  %-13s: %s&#34; % (&#34;data_url&#34;, self.data_url))
+    print(&#34;  %-13s: %s&#34; % (&#34;query&#34;, query_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;status&#34;, status_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;data&#34;, data_str))
+    print(&#34;  %-13s: %s&#34; % (&#34;logs&#34;, logs_str))</code></pre>
 </details>
 </dd>
 <dt id="pyaurorax.search.EphemerisSearch.update_status"><code class="name flex">
@@ -3362,6 +3741,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyaurorax.search.ConjunctionSearch.execute" href="#pyaurorax.search.ConjunctionSearch.execute">execute</a></code></li>
 <li><code><a title="pyaurorax.search.ConjunctionSearch.get_advanced_distances_combos" href="#pyaurorax.search.ConjunctionSearch.get_advanced_distances_combos">get_advanced_distances_combos</a></code></li>
 <li><code><a title="pyaurorax.search.ConjunctionSearch.get_data" href="#pyaurorax.search.ConjunctionSearch.get_data">get_data</a></code></li>
+<li><code><a title="pyaurorax.search.ConjunctionSearch.pretty_print" href="#pyaurorax.search.ConjunctionSearch.pretty_print">pretty_print</a></code></li>
 <li><code><a title="pyaurorax.search.ConjunctionSearch.query" href="#pyaurorax.search.ConjunctionSearch.query">query</a></code></li>
 <li><code><a title="pyaurorax.search.ConjunctionSearch.update_status" href="#pyaurorax.search.ConjunctionSearch.update_status">update_status</a></code></li>
 <li><code><a title="pyaurorax.search.ConjunctionSearch.wait" href="#pyaurorax.search.ConjunctionSearch.wait">wait</a></code></li>
@@ -3380,6 +3760,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyaurorax.search.DataProductSearch.check_for_data" href="#pyaurorax.search.DataProductSearch.check_for_data">check_for_data</a></code></li>
 <li><code><a title="pyaurorax.search.DataProductSearch.execute" href="#pyaurorax.search.DataProductSearch.execute">execute</a></code></li>
 <li><code><a title="pyaurorax.search.DataProductSearch.get_data" href="#pyaurorax.search.DataProductSearch.get_data">get_data</a></code></li>
+<li><code><a title="pyaurorax.search.DataProductSearch.pretty_print" href="#pyaurorax.search.DataProductSearch.pretty_print">pretty_print</a></code></li>
 <li><code><a title="pyaurorax.search.DataProductSearch.query" href="#pyaurorax.search.DataProductSearch.query">query</a></code></li>
 <li><code><a title="pyaurorax.search.DataProductSearch.update_status" href="#pyaurorax.search.DataProductSearch.update_status">update_status</a></code></li>
 <li><code><a title="pyaurorax.search.DataProductSearch.wait" href="#pyaurorax.search.DataProductSearch.wait">wait</a></code></li>
@@ -3388,19 +3769,7 @@ setTimeout(() => input.focus(), 100);
 <li>
 <h4><code><a title="pyaurorax.search.DataSource" href="#pyaurorax.search.DataSource">DataSource</a></code></h4>
 <ul class="">
-<li><code><a title="pyaurorax.search.DataSource.data_product_metadata_schema" href="#pyaurorax.search.DataSource.data_product_metadata_schema">data_product_metadata_schema</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.display_name" href="#pyaurorax.search.DataSource.display_name">display_name</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.ephemeris_metadata_schema" href="#pyaurorax.search.DataSource.ephemeris_metadata_schema">ephemeris_metadata_schema</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.format" href="#pyaurorax.search.DataSource.format">format</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.identifier" href="#pyaurorax.search.DataSource.identifier">identifier</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.instrument_type" href="#pyaurorax.search.DataSource.instrument_type">instrument_type</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.maintainers" href="#pyaurorax.search.DataSource.maintainers">maintainers</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.metadata" href="#pyaurorax.search.DataSource.metadata">metadata</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.owner" href="#pyaurorax.search.DataSource.owner">owner</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.platform" href="#pyaurorax.search.DataSource.platform">platform</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.program" href="#pyaurorax.search.DataSource.program">program</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.source_type" href="#pyaurorax.search.DataSource.source_type">source_type</a></code></li>
-<li><code><a title="pyaurorax.search.DataSource.stats" href="#pyaurorax.search.DataSource.stats">stats</a></code></li>
+<li><code><a title="pyaurorax.search.DataSource.pretty_print" href="#pyaurorax.search.DataSource.pretty_print">pretty_print</a></code></li>
 </ul>
 </li>
 <li>
@@ -3416,6 +3785,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyaurorax.search.EphemerisSearch.check_for_data" href="#pyaurorax.search.EphemerisSearch.check_for_data">check_for_data</a></code></li>
 <li><code><a title="pyaurorax.search.EphemerisSearch.execute" href="#pyaurorax.search.EphemerisSearch.execute">execute</a></code></li>
 <li><code><a title="pyaurorax.search.EphemerisSearch.get_data" href="#pyaurorax.search.EphemerisSearch.get_data">get_data</a></code></li>
+<li><code><a title="pyaurorax.search.EphemerisSearch.pretty_print" href="#pyaurorax.search.EphemerisSearch.pretty_print">pretty_print</a></code></li>
 <li><code><a title="pyaurorax.search.EphemerisSearch.query" href="#pyaurorax.search.EphemerisSearch.query">query</a></code></li>
 <li><code><a title="pyaurorax.search.EphemerisSearch.update_status" href="#pyaurorax.search.EphemerisSearch.update_status">update_status</a></code></li>
 <li><code><a title="pyaurorax.search.EphemerisSearch.wait" href="#pyaurorax.search.EphemerisSearch.wait">wait</a></code></li>

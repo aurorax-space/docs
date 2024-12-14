@@ -270,69 +270,10 @@ INDEX=[
 "doc":"AuroraX data source record Attributes: identifier (int): the unique AuroraX data source identifier program (str): the program for this data source platform (str): the platform for this data source instrument_type (str): the instrument type for this data source source_type (str): the data source type for this data source. Options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.SOURCE_TYPE_ variables. display_name (str): the display name for this data source metadata (Dict): metadata for this data source (arbitrary keys and values) owner (str): the owner's email address of this data source maintainers (List[str]): the email addresses of AuroraX accounts that can alter this data source and its associated records ephemeris_metadata_schema (Dict): a list of dictionaries capturing the metadata keys and values that can appear in ephemeris records associated with this data source data_product_metadata_schema (Dict): a list of dictionaries capturing the metadata keys and values that can appear in data product records associated with this data source format (str): the format used when printing the data source, defaults to \"full_record\". Other options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.FORMAT_ variables."
 },
 {
-"ref":"pyaurorax.search.DataSource.identifier",
+"ref":"pyaurorax.search.DataSource.pretty_print",
 "url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.program",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.platform",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.instrument_type",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.source_type",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.display_name",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.metadata",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.owner",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.maintainers",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.ephemeris_metadata_schema",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.data_product_metadata_schema",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.stats",
-"url":2,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.DataSource.format",
-"url":2,
-"doc":""
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.Location",
@@ -392,6 +333,12 @@ INDEX=[
 "doc":"Class representing an ephemeris search Note: At least one search criteria from programs, platforms, or instrument_types must be specified. Args: start: start timestamp of the search (inclusive) end: end timestamp of the search (inclusive) programs: list of programs to search through, defaults to None platforms: list of platforms to search through, defaults to None instrument_types: list of instrument types to search through, defaults to None metadata_filters: list of dictionaries describing metadata keys and values to filter on, defaults to None e.g. { \"key\": \"string\", \"operator\": \"=\", \"values\": [ \"string\" ] } metadata_filters_logical_operator: the logical operator to use when evaluating metadata filters (either 'AND' or 'OR'), defaults to \"AND\" response_format: JSON representation of desired data response format request: AuroraXResponse object returned when the search is executed request_id: unique ID assigned to the request by the AuroraX API request_url: unique URL assigned to the request by the AuroraX API executed: indicates if the search has been executed/started completed: indicates if the search has finished data_url: the URL where data is accessed query: the query for this request as JSON status: the status of the query data: the ephemeris records found logs: all log messages outputted by the AuroraX API for this request"
 },
 {
+"ref":"pyaurorax.search.EphemerisSearch.pretty_print",
+"url":2,
+"doc":"A special print output for this class.",
+"func":1
+},
+{
 "ref":"pyaurorax.search.EphemerisSearch.query",
 "url":2,
 "doc":"Property for the query value"
@@ -449,6 +396,12 @@ INDEX=[
 "doc":"Class representing a data product search Attributes: start: start timestamp of the search (inclusive) end: end timestamp of the search (inclusive) programs: list of program names to search platforms: list of platform names to search instrument_types: list of instrument types to search data_product_types: list of dictionaries describing data product types to filter on e.g. \"keogram\", defaults to None. Options are in the pyaurorax.data_products module, or at the top level using the pyaurorax.DATA_PRODUCT_TYPE variables. metadata_filters: list of dictionaries describing metadata keys and values to filter on, defaults to None Example: [{ \"key\": \"nbtrace_region\", \"operator\": \"in\", \"values\": [\"north polar cap\"] }] metadata_filters_logical_operator: the logical operator to use when evaluating metadata filters (either 'AND' or 'OR'), defaults to \"AND\" response_format: JSON representation of desired data response format request: AuroraXResponse object returned when the search is executed request_id: unique ID assigned to the request by the AuroraX API request_url: unique URL assigned to the request by the AuroraX API executed: indicates if the search has been executed/started completed: indicates if the search has finished data_url: the URL where data is accessed query: the query for this request as JSON status: the status of the query data: the data product records found logs: all log messages outputted by the AuroraX API for this request"
 },
 {
+"ref":"pyaurorax.search.DataProductSearch.pretty_print",
+"url":2,
+"doc":"A special print output for this class.",
+"func":1
+},
+{
 "ref":"pyaurorax.search.DataProductSearch.query",
 "url":2,
 "doc":"Property for the query value"
@@ -498,6 +451,12 @@ INDEX=[
 "ref":"pyaurorax.search.ConjunctionSearch",
 "url":2,
 "doc":"Class representing a conjunction search Attributes: start: start timestamp of the search (inclusive) end: end timestamp of the search (inclusive) distance: the maximum distance allowed between data sources when searching for conjunctions. This can either be a number (int or float), or a dictionary modified from the output of the \"get_advanced_distances_combos()\" function. ground: list of ground instrument search parameters, defaults to [] Example: [{ \"programs\": [\"themis-asi\"], \"platforms\": [\"gillam\", \"rabbit lake\"], \"instrument_types\": [\"RGB\"], \"ephemeris_metadata_filters\": { \"logical_operator\": \"AND\", \"expressions\": [ { \"key\": \"calgary_apa_ml_v1\", \"operator\": \"in\", \"values\": [ \"classified as APA\" ] } ] } }] space: list of one or more space instrument search parameters, defaults to [] Example: [{ \"programs\": [\"themis-asi\", \"swarm\"], \"platforms\": [\"themisa\", \"swarma\"], \"instrument_types\": [\"footprint\"], \"ephemeris_metadata_filters\": { \"logical_operator\": \"AND\", \"expressions\": [ { \"key\": \"nbtrace_region\", \"operator\": \"in\", \"values\": [ \"north auroral oval\" ] } ] }, \"hemisphere\": [ \"northern\" ] }] events: list of one or more events search parameters, defaults to [] Example: [{ \"programs\": [ \"events\" ], \"instrument_types\": [ \"substorm onsets\" ] }] conjunction_types: list of conjunction types, defaults to [\"nbtrace\"]. Options are in the pyaurorax.conjunctions module, or at the top level using the pyaurorax.CONJUNCTION_TYPE_ variables. epoch_search_precision: the time precision to which conjunctions are calculated. Can be 30 or 60 seconds. Defaults to 60 seconds. Note - this parameter is under active development and still considered \"alpha\". response_format: JSON representation of desired data response format request: AuroraXResponse object returned when the search is executed request_id: unique ID assigned to the request by the AuroraX API request_url: unique URL assigned to the request by the AuroraX API executed: indicates if the search has been executed/started completed: indicates if the search has finished data_url: the URL where data is accessed query: the query for this request as JSON status: the status of the query data: the conjunctions found logs: all log messages outputted by the AuroraX API for this request"
+},
+{
+"ref":"pyaurorax.search.ConjunctionSearch.pretty_print",
+"url":2,
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.ConjunctionSearch.check_criteria_block_count_validity",
@@ -669,6 +628,12 @@ INDEX=[
 "ref":"pyaurorax.search.data_products.classes.search.DataProductSearch",
 "url":6,
 "doc":"Class representing a data product search Attributes: start: start timestamp of the search (inclusive) end: end timestamp of the search (inclusive) programs: list of program names to search platforms: list of platform names to search instrument_types: list of instrument types to search data_product_types: list of dictionaries describing data product types to filter on e.g. \"keogram\", defaults to None. Options are in the pyaurorax.data_products module, or at the top level using the pyaurorax.DATA_PRODUCT_TYPE variables. metadata_filters: list of dictionaries describing metadata keys and values to filter on, defaults to None Example: [{ \"key\": \"nbtrace_region\", \"operator\": \"in\", \"values\": [\"north polar cap\"] }] metadata_filters_logical_operator: the logical operator to use when evaluating metadata filters (either 'AND' or 'OR'), defaults to \"AND\" response_format: JSON representation of desired data response format request: AuroraXResponse object returned when the search is executed request_id: unique ID assigned to the request by the AuroraX API request_url: unique URL assigned to the request by the AuroraX API executed: indicates if the search has been executed/started completed: indicates if the search has finished data_url: the URL where data is accessed query: the query for this request as JSON status: the status of the query data: the data product records found logs: all log messages outputted by the AuroraX API for this request"
+},
+{
+"ref":"pyaurorax.search.data_products.classes.search.DataProductSearch.pretty_print",
+"url":6,
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.data_products.classes.search.DataProductSearch.query",
@@ -867,6 +832,12 @@ INDEX=[
 "func":1
 },
 {
+"ref":"pyaurorax.search.sources.SourcesManager.list_in_table",
+"url":12,
+"doc":"Display all data source records in a table. Parameters can be used to filter as desired. Args: program (str): the program to filter for, defaults to  None platform (str): the platform to filter for, defaults to  None instrument_type (str): the instrument type to filter for, defaults to  None source_type (str): the data source type to filter for, defaults to  None . Options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.SOURCE_TYPE_ variables. owner (str): the owner's email address to filter for, defaults to  None format (str): the format of the data sources returned, defaults to  classes.data_source.FORMAT_FULL_RECORD . Other options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.FORMAT_ variables. order (str): the category to order results by. Valid values are identifier, program, platform, instrument_type, display_name, or owner. Defaults to  identifier table_max_width (int): table maximum width, defaults to 200 Returns: No return, only prints a table Raises: pyaurorax.exceptions.AuroraXAPIError: error during API call",
+"func":1
+},
+{
 "ref":"pyaurorax.search.sources.SourcesManager.search",
 "url":12,
 "doc":"Search for data source records. Parameters can be used to filter as desired. This function is very similar to the  list() function, however multiple programs, platforms, and/or instrument types can be supplied here. The  list() function only supports single values for the parameters. Args: programs (List[str]): the programs to search for, defaults to  [] platforms (List[str]): the platforms to search for, defaults to  [] instrument_type (List[str]): the instrument types to search for, defaults to  [] format (str): the format of the data sources returned, defaults to  classes.data_source.FORMAT_FULL_RECORD . Other options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.FORMAT_ variables. order (str): the category to order results by. Valid values are identifier, program, platform, instrument_type, display_name, or owner. Defaults to  identifier include_stats (bool): include additional stats information about the data source, defaults to  False Returns: a list of  DataSource records matching the requested parameters Raises: pyaurorax.exceptions.AuroraXAPIError: error during API call",
@@ -914,69 +885,10 @@ INDEX=[
 "doc":"AuroraX data source record Attributes: identifier (int): the unique AuroraX data source identifier program (str): the program for this data source platform (str): the platform for this data source instrument_type (str): the instrument type for this data source source_type (str): the data source type for this data source. Options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.SOURCE_TYPE_ variables. display_name (str): the display name for this data source metadata (Dict): metadata for this data source (arbitrary keys and values) owner (str): the owner's email address of this data source maintainers (List[str]): the email addresses of AuroraX accounts that can alter this data source and its associated records ephemeris_metadata_schema (Dict): a list of dictionaries capturing the metadata keys and values that can appear in ephemeris records associated with this data source data_product_metadata_schema (Dict): a list of dictionaries capturing the metadata keys and values that can appear in data product records associated with this data source format (str): the format used when printing the data source, defaults to \"full_record\". Other options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.FORMAT_ variables."
 },
 {
-"ref":"pyaurorax.search.sources.DataSource.identifier",
+"ref":"pyaurorax.search.sources.DataSource.pretty_print",
 "url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.program",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.platform",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.instrument_type",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.source_type",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.display_name",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.metadata",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.owner",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.maintainers",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.ephemeris_metadata_schema",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.data_product_metadata_schema",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.stats",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSource.format",
-"url":12,
-"doc":""
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.sources.DataSourceStatistics",
@@ -984,34 +896,10 @@ INDEX=[
 "doc":"Data source statistics information Attributes: ephemeris_count (int): total number of ephemeris records for this data source data_product_count (int): total number of ephemeris records for this data source earliest_ephemeris_loaded (datetime.datetime): timestamp of the earliest ephemeris record latest_ephemeris_loaded (datetime.datetime): timestamp of the latest ephemeris record earliest_data_product_loaded (datetime.datetime): timestamp of the earliest data_product record latest_data_product_loaded (datetime.datetime): timestamp of the latest data product record"
 },
 {
-"ref":"pyaurorax.search.sources.DataSourceStatistics.ephemeris_count",
+"ref":"pyaurorax.search.sources.DataSourceStatistics.pretty_print",
 "url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSourceStatistics.data_product_count",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSourceStatistics.earliest_ephemeris_loaded",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSourceStatistics.latest_ephemeris_loaded",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSourceStatistics.earliest_data_product_loaded",
-"url":12,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.DataSourceStatistics.latest_data_product_loaded",
-"url":12,
-"doc":""
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.sources.classes",
@@ -1084,69 +972,10 @@ INDEX=[
 "doc":"AuroraX data source record Attributes: identifier (int): the unique AuroraX data source identifier program (str): the program for this data source platform (str): the platform for this data source instrument_type (str): the instrument type for this data source source_type (str): the data source type for this data source. Options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.SOURCE_TYPE_ variables. display_name (str): the display name for this data source metadata (Dict): metadata for this data source (arbitrary keys and values) owner (str): the owner's email address of this data source maintainers (List[str]): the email addresses of AuroraX accounts that can alter this data source and its associated records ephemeris_metadata_schema (Dict): a list of dictionaries capturing the metadata keys and values that can appear in ephemeris records associated with this data source data_product_metadata_schema (Dict): a list of dictionaries capturing the metadata keys and values that can appear in data product records associated with this data source format (str): the format used when printing the data source, defaults to \"full_record\". Other options are in the pyaurorax.search.sources module, or at the top level using the pyaurorax.search.FORMAT_ variables."
 },
 {
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.identifier",
+"ref":"pyaurorax.search.sources.classes.data_source.DataSource.pretty_print",
 "url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.program",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.platform",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.instrument_type",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.source_type",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.display_name",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.metadata",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.owner",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.maintainers",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.ephemeris_metadata_schema",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.data_product_metadata_schema",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.stats",
-"url":14,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source.DataSource.format",
-"url":14,
-"doc":""
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.sources.classes.data_source_stats",
@@ -1159,34 +988,10 @@ INDEX=[
 "doc":"Data source statistics information Attributes: ephemeris_count (int): total number of ephemeris records for this data source data_product_count (int): total number of ephemeris records for this data source earliest_ephemeris_loaded (datetime.datetime): timestamp of the earliest ephemeris record latest_ephemeris_loaded (datetime.datetime): timestamp of the latest ephemeris record earliest_data_product_loaded (datetime.datetime): timestamp of the earliest data_product record latest_data_product_loaded (datetime.datetime): timestamp of the latest data product record"
 },
 {
-"ref":"pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics.ephemeris_count",
+"ref":"pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics.pretty_print",
 "url":15,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics.data_product_count",
-"url":15,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics.earliest_ephemeris_loaded",
-"url":15,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics.latest_ephemeris_loaded",
-"url":15,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics.earliest_data_product_loaded",
-"url":15,
-"doc":""
-},
-{
-"ref":"pyaurorax.search.sources.classes.data_source_stats.DataSourceStatistics.latest_data_product_loaded",
-"url":15,
-"doc":""
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.ephemeris",
@@ -1242,6 +1047,12 @@ INDEX=[
 "ref":"pyaurorax.search.ephemeris.classes.search.EphemerisSearch",
 "url":18,
 "doc":"Class representing an ephemeris search Note: At least one search criteria from programs, platforms, or instrument_types must be specified. Args: start: start timestamp of the search (inclusive) end: end timestamp of the search (inclusive) programs: list of programs to search through, defaults to None platforms: list of platforms to search through, defaults to None instrument_types: list of instrument types to search through, defaults to None metadata_filters: list of dictionaries describing metadata keys and values to filter on, defaults to None e.g. { \"key\": \"string\", \"operator\": \"=\", \"values\": [ \"string\" ] } metadata_filters_logical_operator: the logical operator to use when evaluating metadata filters (either 'AND' or 'OR'), defaults to \"AND\" response_format: JSON representation of desired data response format request: AuroraXResponse object returned when the search is executed request_id: unique ID assigned to the request by the AuroraX API request_url: unique URL assigned to the request by the AuroraX API executed: indicates if the search has been executed/started completed: indicates if the search has finished data_url: the URL where data is accessed query: the query for this request as JSON status: the status of the query data: the ephemeris records found logs: all log messages outputted by the AuroraX API for this request"
+},
+{
+"ref":"pyaurorax.search.ephemeris.classes.search.EphemerisSearch.pretty_print",
+"url":18,
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.ephemeris.classes.search.EphemerisSearch.query",
@@ -1477,6 +1288,12 @@ INDEX=[
 "ref":"pyaurorax.search.conjunctions.classes.search.ConjunctionSearch",
 "url":29,
 "doc":"Class representing a conjunction search Attributes: start: start timestamp of the search (inclusive) end: end timestamp of the search (inclusive) distance: the maximum distance allowed between data sources when searching for conjunctions. This can either be a number (int or float), or a dictionary modified from the output of the \"get_advanced_distances_combos()\" function. ground: list of ground instrument search parameters, defaults to [] Example: [{ \"programs\": [\"themis-asi\"], \"platforms\": [\"gillam\", \"rabbit lake\"], \"instrument_types\": [\"RGB\"], \"ephemeris_metadata_filters\": { \"logical_operator\": \"AND\", \"expressions\": [ { \"key\": \"calgary_apa_ml_v1\", \"operator\": \"in\", \"values\": [ \"classified as APA\" ] } ] } }] space: list of one or more space instrument search parameters, defaults to [] Example: [{ \"programs\": [\"themis-asi\", \"swarm\"], \"platforms\": [\"themisa\", \"swarma\"], \"instrument_types\": [\"footprint\"], \"ephemeris_metadata_filters\": { \"logical_operator\": \"AND\", \"expressions\": [ { \"key\": \"nbtrace_region\", \"operator\": \"in\", \"values\": [ \"north auroral oval\" ] } ] }, \"hemisphere\": [ \"northern\" ] }] events: list of one or more events search parameters, defaults to [] Example: [{ \"programs\": [ \"events\" ], \"instrument_types\": [ \"substorm onsets\" ] }] conjunction_types: list of conjunction types, defaults to [\"nbtrace\"]. Options are in the pyaurorax.conjunctions module, or at the top level using the pyaurorax.CONJUNCTION_TYPE_ variables. epoch_search_precision: the time precision to which conjunctions are calculated. Can be 30 or 60 seconds. Defaults to 60 seconds. Note - this parameter is under active development and still considered \"alpha\". response_format: JSON representation of desired data response format request: AuroraXResponse object returned when the search is executed request_id: unique ID assigned to the request by the AuroraX API request_url: unique URL assigned to the request by the AuroraX API executed: indicates if the search has been executed/started completed: indicates if the search has finished data_url: the URL where data is accessed query: the query for this request as JSON status: the status of the query data: the conjunctions found logs: all log messages outputted by the AuroraX API for this request"
+},
+{
+"ref":"pyaurorax.search.conjunctions.classes.search.ConjunctionSearch.pretty_print",
+"url":29,
+"doc":"A special print output for this class.",
+"func":1
 },
 {
 "ref":"pyaurorax.search.conjunctions.classes.search.ConjunctionSearch.check_criteria_block_count_validity",
