@@ -68,17 +68,15 @@ __all__ = [&#34;elevation&#34;, &#34;azimuth&#34;, &#34;geo&#34;, &#34;mag&#34;]
 <dl>
 <dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
 <dd>The skymap corresponding to the CCD image data to generate contours for.</dd>
-</dl>
-<p>constant_elevation (int | float):
-The elevation angle, in degrees from the horizon, to create contour of.</p>
-<p>min_elevation (int | float):
-Optionally specify the elevation angle at which contour begins. Defaults to 5.</p>
-<p>min_elevation (int | float):
-Optionally specify the elevation angle at which contour begins. Defaults to 90.</p>
-<p>n_points (int | float):
-Optionally specify the number of points used to define a contour. By default
-a reasonable value is selected automatically.</p>
-<dl>
+<dt><strong><code>constant_elevation</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>The elevation angle, in degrees from the horizon, to create contour of.</dd>
+<dt><strong><code>min_elevation</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the elevation angle at which contour begins. Defaults to 5.</dd>
+<dt><strong><code>min_elevation</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the elevation angle at which contour begins. Defaults to 90.</dd>
+<dt><strong><code>n_points</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the number of points used to define a contour. By default
+a reasonable value is selected automatically.</dd>
 <dt><strong><code>remove_edge_cases</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Due to the nature of skymaps, often, around the edge of CCD data, contours will
 have often undesired behaviour due to being bounded within the CCD range. The result
@@ -111,16 +109,16 @@ the azimuth contour.</p>
         skymap (pyaurorax.data.ucalgary.Skymap): 
             The skymap corresponding to the CCD image data to generate contours for.
 
-        constant_elevation (int | float): 
+        constant_elevation (int or float): 
             The elevation angle, in degrees from the horizon, to create contour of.
 
-        min_elevation (int | float): 
+        min_elevation (int or float): 
             Optionally specify the elevation angle at which contour begins. Defaults to 5.
         
-        min_elevation (int | float): 
+        min_elevation (int or float): 
             Optionally specify the elevation angle at which contour begins. Defaults to 90.
 
-        n_points (int | float): 
+        n_points (int or float): 
             Optionally specify the number of points used to define a contour. By default
             a reasonable value is selected automatically.
 
@@ -221,9 +219,9 @@ the azimuth contour.</p>
 <dl>
 <dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
 <dd>The skymap corresponding to the CCD image data to generate contours for.</dd>
-<dt><strong><code>constant_elevation</code></strong> :&ensp;<code>int, float</code></dt>
+<dt><strong><code>constant_elevation</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
 <dd>The elevation angle, in degrees from the horizon, to create contour of.</dd>
-<dt><strong><code>n_points</code></strong> :&ensp;<code>int, float</code></dt>
+<dt><strong><code>n_points</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
 <dd>Optionally specify the number of points used to define a contour. By default
 a reasonable value is selected automatically.</dd>
 <dt><strong><code>remove_edge_cases</code></strong> :&ensp;<code>bool</code></dt>
@@ -256,10 +254,10 @@ the elevation contour.</p>
         skymap (pyaurorax.data.ucalgary.Skymap): 
             The skymap corresponding to the CCD image data to generate contours for.
 
-        constant_elevation (int, float): 
+        constant_elevation (int or float): 
             The elevation angle, in degrees from the horizon, to create contour of.
 
-        n_points (int, float): 
+        n_points (int or float): 
             Optionally specify the number of points used to define a contour. By default
             a reasonable value is selected automatically.
 
