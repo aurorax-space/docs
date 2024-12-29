@@ -22,7 +22,7 @@ docs-update docs-update-deps:
 
 docs-generate: 
 	rm -rf docs/code/pyaurorax_api_reference/*
-	cd pyaurorax && poetry run python3 -m pdoc --html --force --output-dir ../docs/code/pyaurorax_api_reference pyaurorax --config "lunr_search={'fuzziness': 1}"
+	cp -Rfv pyaurorax/docs/generated/* docs/code/pyaurorax_api_reference/.
 
 docs-build:
 	python -m mkdocs build

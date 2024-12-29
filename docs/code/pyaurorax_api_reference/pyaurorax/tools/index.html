@@ -2,19 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.10.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
 <title>pyaurorax.tools API documentation</title>
 <meta name="description" content="Data analysis toolkit for working with all-sky imager data available within the
-AuroraX platform …" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+AuroraX platform …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+<style>
+@media screen and (max-width: 699px) {
+#content {
+padding-left: 2em;
+padding-right: 2em;
+padding-top: 0;
+}
+}
+@media screen and (min-width: 700px) {
+#content {
+max-width: 125ch;
+padding-left: 3em;
+padding-right: 3em;
+padding-top: 1em;
+border-left: 1px solid #ddd;
+}
+}
+</style>
 </head>
 <body>
 <main>
@@ -35,88 +67,6 @@ a given lat/lon bounding box.</p>
 aurorax = pyaurorax.PyAuroraX()
 at = aurorax.tools
 </code></pre>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python"># Copyright 2024 University of Calgary
-#
-# Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-&#34;&#34;&#34;
-Data analysis toolkit for working with all-sky imager data available within the
-AuroraX platform.
-
-This portion of the PyAuroraX library allows you to easily generate basic plots
-for ASI data, and common manipulations. These include things like displaying single
-images, making keograms, projecting ASI data onto maps, and extracting metrics for
-a given lat/lon bounding box.
-
-Example:
-    For shorter function calls, you can initialize the tools submodule using like so:
-
-    ```
-    import pyaurorax
-    aurorax = pyaurorax.PyAuroraX()
-    at = aurorax.tools
-    ```
-&#34;&#34;&#34;
-
-# pull in top-level functions
-from ._display import display
-from ._movie import movie
-from ._scale_intensity import scale_intensity
-from ._util import set_theme
-
-# pull in classes
-from .classes.keogram import Keogram
-from .classes.montage import Montage
-from .classes.mosaic import Mosaic, MosaicData, MosaicSkymap
-
-# pull in submodules
-from . import keogram
-from . import montage
-from . import calibration
-from . import bounding_box
-from . import mosaic
-from . import ccd_contour
-from . import grid_files
-from . import spectra
-
-__all__ = [
-    # sub-modules
-    &#34;keogram&#34;,
-    &#34;montage&#34;,
-    &#34;calibration&#34;,
-    &#34;bounding_box&#34;,
-    &#34;mosaic&#34;,
-    &#34;ccd_contour&#34;,
-    &#34;grid_files&#34;,
-    &#34;spectra&#34;,
-
-    # top level functions
-    &#34;display&#34;,
-    &#34;movie&#34;,
-    &#34;scale_intensity&#34;,
-    &#34;set_theme&#34;,
-
-    # classses
-    &#34;Keogram&#34;,
-    &#34;Montage&#34;,
-    &#34;Mosaic&#34;,
-    &#34;MosaicData&#34;,
-    &#34;MosaicSkymap&#34;,
-]</code></pre>
-</details>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
@@ -165,64 +115,9 @@ __all__ = [
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pyaurorax.tools.display"><code class="name flex">
-<span>def <span class="ident">display</span></span>(<span>image: numpy.ndarray, cmap: Optional[str] = None, figsize: Optional[Tuple[int, int]] = None, aspect: Union[Literal['equal', 'auto'], float, ForwardRef(None)] = None, colorbar: bool = False, title: Optional[str] = None, returnfig: bool = False, savefig: bool = False, savefig_filename: Optional[str] = None, savefig_quality: Optional[int] = None) ‑> Any</span>
+<span>def <span class="ident">display</span></span>(<span>image: numpy.ndarray,<br>cmap: str | None = None,<br>figsize: Tuple[int, int] | None = None,<br>aspect: Literal['equal', 'auto'] | float | None = None,<br>colorbar: bool = False,<br>title: str | None = None,<br>returnfig: bool = False,<br>savefig: bool = False,<br>savefig_filename: str | None = None,<br>savefig_quality: int | None = None) ‑> Any</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Render a visualization of a single image.</p>
-<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
-return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>image</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
-<dd>The image to display, represented as a numpy array.</dd>
-<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
-<dd>
-<p>The matplotlib colormap to use.</p>
-<p>Commonly used colormaps are:</p>
-<ul>
-<li>REGO: <code>gist_heat</code></li>
-<li>THEMIS ASI: <code>gray</code></li>
-<li>TREx Blue: <code>Blues_r</code></li>
-<li>TREx NIR: <code>gray</code></li>
-<li>TREx RGB: <code>None</code></li>
-</ul>
-<p>A list of all available colormaps can be found on the
-<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
-</dd>
-<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
-<dd>The matplotlib figure size to use when displaying, tuple of two integers (ie. <code>figsize=(14, 4)</code>)</dd>
-<dt><strong><code>aspect</code></strong> :&ensp;<code>str</code> or <code>float</code></dt>
-<dd>The matplotlib imshow aspect ration to use. A common value for this is <code>auto</code>. All valid values
-can be found on the <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html">matplotlib documentation</a>.</dd>
-<dt><strong><code>colorbar</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Display a colorbar. Default is <code>False</code>.</dd>
-<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
-<dd>A title to display above the rendered image. Defaults to no title.</dd>
-<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>
-<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
-manipulation, for example, adding labels or a title in a different location than the default. </p>
-<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
-with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
-<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
-</dd>
-<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
-this parameter is set to True. Defaults to <code>False</code>.</dd>
-<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
-<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
-<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
-<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
-is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The displayed image, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
-set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>ValueError</code></dt>
-<dd>issues with supplied parameters.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -366,33 +261,66 @@ set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
     # return
     return None</code></pre>
 </details>
-</dd>
-<dt id="pyaurorax.tools.movie"><code class="name flex">
-<span>def <span class="ident">movie</span></span>(<span>input_filenames: List[str], output_filename: str, n_parallel: int = 1, fps: int = 25, progress_bar_disable: bool = False) ‑> None</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Generate a movie file from a list of filenames. Note that the codec used is "mp4v".</p>
+<div class="desc"><p>Render a visualization of a single image.</p>
+<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
+return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>input_filenames</code></strong> :&ensp;<code>List[str]</code></dt>
-<dd>Filenames of frames to use for movie generation. No sorting is applied, so it is
-assumed the list is in the desired order. This parameter is required.</dd>
-<dt><strong><code>output_filename</code></strong> :&ensp;<code>str</code></dt>
-<dd>Filename for the created movie file. This parameter is required.</dd>
-<dt><strong><code>n_parallel</code></strong> :&ensp;<code>int</code></dt>
-<dd>Number of multiprocessing workers to use. Default is <code>1</code>, which does not use
-multiprocessing.</dd>
-<dt><strong><code>fps</code></strong> :&ensp;<code>int</code></dt>
-<dd>Frames per second (FPS) for the movie file. Default is <code>25</code>.</dd>
-<dt><strong><code>progress_bar_disable</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Toggle the progress bars off. Default is <code>False</code>.
+<dt><strong><code>image</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The image to display, represented as a numpy array.</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<p>The matplotlib colormap to use.</p>
+<p>Commonly used colormaps are:</p>
+<ul>
+<li>REGO: <code>gist_heat</code></li>
+<li>THEMIS ASI: <code>gray</code></li>
+<li>TREx Blue: <code>Blues_r</code></li>
+<li>TREx NIR: <code>gray</code></li>
+<li>TREx RGB: <code>None</code></li>
+</ul>
+<p>A list of all available colormaps can be found on the
+<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
 </dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The matplotlib figure size to use when displaying, tuple of two integers (ie. <code>figsize=(14, 4)</code>)</dd>
+<dt><strong><code>aspect</code></strong> :&ensp;<code>str</code> or <code>float</code></dt>
+<dd>The matplotlib imshow aspect ration to use. A common value for this is <code>auto</code>. All valid values
+can be found on the <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html">matplotlib documentation</a>.</dd>
+<dt><strong><code>colorbar</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Display a colorbar. Default is <code>False</code>.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>A title to display above the rendered image. Defaults to no title.</dd>
+<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
+manipulation, for example, adding labels or a title in a different location than the default. </p>
+<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
+with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
+<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
+</dd>
+<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
+this parameter is set to True. Defaults to <code>False</code>.</dd>
+<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
+<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
+<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
 </dl>
+<h2 id="returns">Returns</h2>
+<p>The displayed image, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
+set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
 <h2 id="raises">Raises</h2>
 <dl>
-<dt><code>IOError</code></dt>
-<dd>I/O related issue while generating movie</dd>
+<dt><code>ValueError</code></dt>
+<dd>issues with supplied parameters.</dd>
 </dl></div>
+</dd>
+<dt id="pyaurorax.tools.movie"><code class="name flex">
+<span>def <span class="ident">movie</span></span>(<span>input_filenames: List[str],<br>output_filename: str,<br>n_parallel: int = 1,<br>fps: int = 25,<br>progress_bar_disable: bool = False) ‑> None</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -497,39 +425,33 @@ multiprocessing.</dd>
     # close the writer
     writer.release()</code></pre>
 </details>
-</dd>
-<dt id="pyaurorax.tools.scale_intensity"><code class="name flex">
-<span>def <span class="ident">scale_intensity</span></span>(<span>data: numpy.ndarray, min: Optional[float] = None, max: Optional[float] = None, top: Optional[float] = None, memory_saver: bool = True) ‑> numpy.ndarray</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Scale all values of an array that lie in the range min&lt;=x&lt;=max in to
-the range 0&lt;=x&lt;=high.</p>
+<div class="desc"><p>Generate a movie file from a list of filenames. Note that the codec used is "mp4v".</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>data</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
-<dd>Data array, can be 2, 3, or 4-dimensional. Assumed to be an image, or array of
-images. Also assumed that the first 2 dimensions are the image's x and y
-coordinates, and the following dimensions are some combination of the number of
-images, and/or the colour channel.</dd>
-<dt><strong><code>min</code></strong> :&ensp;<code>float</code></dt>
-<dd>Minimum value of array to be considered</dd>
-<dt><strong><code>max</code></strong> :&ensp;<code>float</code></dt>
-<dd>Maximum value of array to be considered</dd>
-<dt><strong><code>top</code></strong> :&ensp;<code>float</code></dt>
-<dd>Maximum value of the scaled result. If not supplied, the max value
-of the data array's dtype is used.</dd>
-<dt><strong><code>memory_saver</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Utilize less RAM when scaling a set of images. Defaults to <code>True</code>. If set to <code>False</code> then
-the scaling routine will be faster, but will utilize significantly more RAM.</dd>
+<dt><strong><code>input_filenames</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>Filenames of frames to use for movie generation. No sorting is applied, so it is
+assumed the list is in the desired order. This parameter is required.</dd>
+<dt><strong><code>output_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename for the created movie file. This parameter is required.</dd>
+<dt><strong><code>n_parallel</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of multiprocessing workers to use. Default is <code>1</code>, which does not use
+multiprocessing.</dd>
+<dt><strong><code>fps</code></strong> :&ensp;<code>int</code></dt>
+<dd>Frames per second (FPS) for the movie file. Default is <code>25</code>.</dd>
+<dt><strong><code>progress_bar_disable</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Toggle the progress bars off. Default is <code>False</code>.
+</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new <code>numpy.ndarray</code> that is the same dimensions as the inputted data array,
-with the scaling applied.</p>
 <h2 id="raises">Raises</h2>
 <dl>
-<dt><code>ValueError</code></dt>
-<dd>Issues with the supplied min, max, or top</dd>
+<dt><code>IOError</code></dt>
+<dd>I/O related issue while generating movie</dd>
 </dl></div>
+</dd>
+<dt id="pyaurorax.tools.scale_intensity"><code class="name flex">
+<span>def <span class="ident">scale_intensity</span></span>(<span>data: numpy.ndarray,<br>min: float | None = None,<br>max: float | None = None,<br>top: float | None = None,<br>memory_saver: bool = True) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -617,23 +539,39 @@ with the scaling applied.</p>
         # scale and return
         return __scale_data(data, min, max, top)</code></pre>
 </details>
+<div class="desc"><p>Scale all values of an array that lie in the range min&lt;=x&lt;=max in to
+the range 0&lt;=x&lt;=high.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>Data array, can be 2, 3, or 4-dimensional. Assumed to be an image, or array of
+images. Also assumed that the first 2 dimensions are the image's x and y
+coordinates, and the following dimensions are some combination of the number of
+images, and/or the colour channel.</dd>
+<dt><strong><code>min</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum value of array to be considered</dd>
+<dt><strong><code>max</code></strong> :&ensp;<code>float</code></dt>
+<dd>Maximum value of array to be considered</dd>
+<dt><strong><code>top</code></strong> :&ensp;<code>float</code></dt>
+<dd>Maximum value of the scaled result. If not supplied, the max value
+of the data array's dtype is used.</dd>
+<dt><strong><code>memory_saver</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Utilize less RAM when scaling a set of images. Defaults to <code>True</code>. If set to <code>False</code> then
+the scaling routine will be faster, but will utilize significantly more RAM.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A new <code>numpy.ndarray</code> that is the same dimensions as the inputted data array,
+with the scaling applied.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>Issues with the supplied min, max, or top</dd>
+</dl></div>
 </dd>
 <dt id="pyaurorax.tools.set_theme"><code class="name flex">
 <span>def <span class="ident">set_theme</span></span>(<span>theme: str) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>A handy wrapper for setting the matplotlib global theme. Common choices are <code>light</code>,
-<code>dark</code>, or <code>default</code>.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>theme</code></strong> :&ensp;<code>str</code></dt>
-<dd>
-<p>Theme name. Common choices are <code>light</code>, <code>dark</code>, or <code>default</code>. If default, then
-matplotlib theme settings will be fully reset to their defaults.</p>
-<p>Additional themes can be found on the
-<a href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html">matplotlib documentation</a></p>
-</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -660,6 +598,18 @@ matplotlib theme settings will be fully reset to their defaults.</p>
     else:
         plt.style.use(theme)</code></pre>
 </details>
+<div class="desc"><p>A handy wrapper for setting the matplotlib global theme. Common choices are <code>light</code>,
+<code>dark</code>, or <code>default</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>theme</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<p>Theme name. Common choices are <code>light</code>, <code>dark</code>, or <code>default</code>. If default, then
+matplotlib theme settings will be fully reset to their defaults.</p>
+<p>Additional themes can be found on the
+<a href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html">matplotlib documentation</a></p>
+</dd>
+</dl></div>
 </dd>
 </dl>
 </section>
@@ -668,25 +618,9 @@ matplotlib theme settings will be fully reset to their defaults.</p>
 <dl>
 <dt id="pyaurorax.tools.Keogram"><code class="flex name class">
 <span>class <span class="ident">Keogram</span></span>
-<span>(</span><span>data: numpy.ndarray, timestamp: List[datetime.datetime], instrument_type: str, slice_idx: Optional[int] = None, ccd_y: Optional[numpy.ndarray] = None, mag_y: Optional[numpy.ndarray] = None, geo_y: Optional[numpy.ndarray] = None)</span>
+<span>(</span><span>data: numpy.ndarray,<br>timestamp: List[datetime.datetime],<br>instrument_type: str,<br>slice_idx: int | None = None,<br>ccd_y: numpy.ndarray | None = None,<br>mag_y: numpy.ndarray | None = None,<br>geo_y: numpy.ndarray | None = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class representation for a keogram</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>data</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
-<dd>The derived keogram data.</dd>
-<dt><strong><code>timestamp</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
-<dd>Timestamps corresponding to each keogram slice.</dd>
-<dt>instrument_type (str):</dt>
-<dt>String giving instrument type, either 'asi' or 'spectrograph'.</dt>
-<dt><strong><code>ccd_y</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
-<dd>The y-axis representing CCD Y coordinates for the keogram.</dd>
-<dt><strong><code>mag_y</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
-<dd>The y-axis representing magnetic latitude for the keogram.</dd>
-<dt><strong><code>geo_y</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
-<dd>The y-axis representing geographic latitude for the keogram.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1103,76 +1037,28 @@ class Keogram:
         # return
         return None</code></pre>
 </details>
+<div class="desc"><p>Class representation for a keogram</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The derived keogram data.</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
+<dd>Timestamps corresponding to each keogram slice.</dd>
+<dt>instrument_type (str):</dt>
+<dt>String giving instrument type, either 'asi' or 'spectrograph'.</dt>
+<dt><strong><code>ccd_y</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The y-axis representing CCD Y coordinates for the keogram.</dd>
+<dt><strong><code>mag_y</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The y-axis representing magnetic latitude for the keogram.</dd>
+<dt><strong><code>geo_y</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The y-axis representing geographic latitude for the keogram.</dd>
+</dl></div>
 <h3>Methods</h3>
 <dl>
 <dt id="pyaurorax.tools.Keogram.plot"><code class="name flex">
-<span>def <span class="ident">plot</span></span>(<span>self, y_type: Literal['ccd', 'mag', 'geo'] = 'ccd', title: Optional[str] = None, figsize: Optional[Tuple[int, int]] = None, cmap: Optional[str] = None, aspect: Union[Literal['equal', 'auto'], float, ForwardRef(None)] = None, axes_visible: bool = True, xlabel: str = 'Time (UTC)', ylabel: Optional[str] = None, xtick_increment: Optional[int] = None, ytick_increment: Optional[int] = None, returnfig: bool = False, savefig: bool = False, savefig_filename: Optional[str] = None, savefig_quality: Optional[int] = None) ‑> Any</span>
+<span>def <span class="ident">plot</span></span>(<span>self,<br>y_type: Literal['ccd', 'mag', 'geo'] = 'ccd',<br>title: str | None = None,<br>figsize: Tuple[int, int] | None = None,<br>cmap: str | None = None,<br>aspect: Literal['equal', 'auto'] | float | None = None,<br>axes_visible: bool = True,<br>xlabel: str = 'Time (UTC)',<br>ylabel: str | None = None,<br>xtick_increment: int | None = None,<br>ytick_increment: int | None = None,<br>returnfig: bool = False,<br>savefig: bool = False,<br>savefig_filename: str | None = None,<br>savefig_quality: int | None = None) ‑> Any</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Generate a plot of the keogram data. </p>
-<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
-return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>y_type</code></strong> :&ensp;<code>str</code></dt>
-<dd>Type of y-axis to use when plotting. Options are <code>ccd</code>, <code>mag</code>, or <code>geo</code>. The
-default is <code>ccd</code>. This parameter is required.</dd>
-<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
-<dd>The title to display above the plotted keogram.</dd>
-<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
-<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
-<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
-<dd>
-<p>The matplotlib colormap to use.</p>
-<p>Commonly used colormaps are:</p>
-<ul>
-<li>REGO: <code>gist_heat</code></li>
-<li>THEMIS ASI: <code>gray</code></li>
-<li>TREx Blue: <code>Blues_r</code></li>
-<li>TREx NIR: <code>gray</code></li>
-<li>TREx RGB: <code>None</code></li>
-</ul>
-<p>A list of all available colormaps can be found on the
-<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
-</dd>
-<dt><strong><code>aspect</code></strong> :&ensp;<code>str</code> or <code>float</code></dt>
-<dd>The matplotlib imshow aspect ration to use. A common value for this is <code>auto</code>. All valid values
-can be found on the <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html">matplotlib documentation</a>.</dd>
-<dt><strong><code>axes_visible</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Display the axes. Default is <code>True</code>.</dd>
-<dt><strong><code>xlabel</code></strong> :&ensp;<code>str</code></dt>
-<dd>The x-axis label to use. Default is <code>Time (UTC)</code>.</dd>
-<dt><strong><code>ylabel</code></strong> :&ensp;<code>str</code></dt>
-<dd>The y-axis label to use. Default is based on y_type.</dd>
-<dt><strong><code>xtick_increment</code></strong> :&ensp;<code>int</code></dt>
-<dd>The x-axis tick increment to use. Default is 100.</dd>
-<dt><strong><code>ytick_increment</code></strong> :&ensp;<code>int</code></dt>
-<dd>The y-axis tick increment to use. Default is 50.</dd>
-<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>
-<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
-manipulation, for example, adding labels or a title in a different location than the default. </p>
-<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
-with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
-<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
-</dd>
-<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
-this parameter is set to True. Defaults to <code>False</code>.</dd>
-<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
-<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
-<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
-<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
-is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The displayed keogram, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
-set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>ValueError</code></dt>
-<dd>Issues with the y-axis choice.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1404,29 +1290,75 @@ set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
     # return
     return None</code></pre>
 </details>
-</dd>
-<dt id="pyaurorax.tools.Keogram.set_geographic_latitudes"><code class="name flex">
-<span>def <span class="ident">set_geographic_latitudes</span></span>(<span>self, skymap: pyucalgarysrs.data.classes.Skymap, altitude_km: Union[int, float, ForwardRef(None)] = None) ‑> None</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Set the geographic latitude values for this keogram, using the specified skymap
-data. The data will be set to the geo_y attribute of this Keogram object, which
-can then be used for plotting and/or further analysis.</p>
+<div class="desc"><p>Generate a plot of the keogram data. </p>
+<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
+return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
-<dd>The skymap object to use. This parameter is required.</dd>
-<dt><strong><code>altitude_km</code></strong> :&ensp;<code>int</code></dt>
-<dd>The altitude to use, in kilometers. If not specified, it will use the default in the
-skymap object. If the specified altitude is not valid, a ValueError will be raised.</dd>
+<dt><strong><code>y_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>Type of y-axis to use when plotting. Options are <code>ccd</code>, <code>mag</code>, or <code>geo</code>. The
+default is <code>ccd</code>. This parameter is required.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>The title to display above the plotted keogram.</dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<p>The matplotlib colormap to use.</p>
+<p>Commonly used colormaps are:</p>
+<ul>
+<li>REGO: <code>gist_heat</code></li>
+<li>THEMIS ASI: <code>gray</code></li>
+<li>TREx Blue: <code>Blues_r</code></li>
+<li>TREx NIR: <code>gray</code></li>
+<li>TREx RGB: <code>None</code></li>
+</ul>
+<p>A list of all available colormaps can be found on the
+<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
+</dd>
+<dt><strong><code>aspect</code></strong> :&ensp;<code>str</code> or <code>float</code></dt>
+<dd>The matplotlib imshow aspect ration to use. A common value for this is <code>auto</code>. All valid values
+can be found on the <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html">matplotlib documentation</a>.</dd>
+<dt><strong><code>axes_visible</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Display the axes. Default is <code>True</code>.</dd>
+<dt><strong><code>xlabel</code></strong> :&ensp;<code>str</code></dt>
+<dd>The x-axis label to use. Default is <code>Time (UTC)</code>.</dd>
+<dt><strong><code>ylabel</code></strong> :&ensp;<code>str</code></dt>
+<dd>The y-axis label to use. Default is based on y_type.</dd>
+<dt><strong><code>xtick_increment</code></strong> :&ensp;<code>int</code></dt>
+<dd>The x-axis tick increment to use. Default is 100.</dd>
+<dt><strong><code>ytick_increment</code></strong> :&ensp;<code>int</code></dt>
+<dd>The y-axis tick increment to use. Default is 50.</dd>
+<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
+manipulation, for example, adding labels or a title in a different location than the default. </p>
+<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
+with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
+<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
+</dd>
+<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
+this parameter is set to True. Defaults to <code>False</code>.</dd>
+<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
+<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
+<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>None. The Keogram object's <code>geo_y</code> attribute will be updated.</p>
+<p>The displayed keogram, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
+set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code>ValueError</code></dt>
-<dd>Issues with specified altitude.</dd>
+<dd>Issues with the y-axis choice.</dd>
 </dl></div>
+</dd>
+<dt id="pyaurorax.tools.Keogram.set_geographic_latitudes"><code class="name flex">
+<span>def <span class="ident">set_geographic_latitudes</span></span>(<span>self,<br>skymap: pyucalgarysrs.data.classes.Skymap,<br>altitude_km: int | float | None = None) ‑> None</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1483,33 +1415,29 @@ skymap object. If the specified altitude is not valid, a ValueError will be rais
         # use default middle altitude
         self.geo_y = np.squeeze(skymap.full_map_latitude[1, :, self.__slice_idx]).copy()</code></pre>
 </details>
-</dd>
-<dt id="pyaurorax.tools.Keogram.set_magnetic_latitudes"><code class="name flex">
-<span>def <span class="ident">set_magnetic_latitudes</span></span>(<span>self, skymap: pyucalgarysrs.data.classes.Skymap, timestamp: datetime.datetime, altitude_km: Union[int, float, ForwardRef(None)] = None) ‑> None</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Set the magnetic latitude values for this keogram, using the specified skymap
-data. AACGMv2 will be utilized to perform the calculations. The resulting data
-will be set to the mag_y attribute of this Keogram object, which can then be
-used for plotting and/or further analysis.</p>
+<div class="desc"><p>Set the geographic latitude values for this keogram, using the specified skymap
+data. The data will be set to the geo_y attribute of this Keogram object, which
+can then be used for plotting and/or further analysis.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
 <dd>The skymap object to use. This parameter is required.</dd>
-<dt><strong><code>timestamp</code></strong> :&ensp;<code>datetime.datetime</code></dt>
-<dd>The timestamp to use when converting skymap data to magnetic coordinates. Utilizes
-AACGMv2 to do the conversion.</dd>
 <dt><strong><code>altitude_km</code></strong> :&ensp;<code>int</code></dt>
-<dd>The altitude to use. If not specified, it will use the default in the skymap
-object. If the specified altitude is not valid, a ValueError will be raised.</dd>
+<dd>The altitude to use, in kilometers. If not specified, it will use the default in the
+skymap object. If the specified altitude is not valid, a ValueError will be raised.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>None. The Keogram object's <code>mag_y</code> attribute will be updated.</p>
+<p>None. The Keogram object's <code>geo_y</code> attribute will be updated.</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code>ValueError</code></dt>
 <dd>Issues with specified altitude.</dd>
 </dl></div>
+</dd>
+<dt id="pyaurorax.tools.Keogram.set_magnetic_latitudes"><code class="name flex">
+<span>def <span class="ident">set_magnetic_latitudes</span></span>(<span>self,<br>skymap: pyucalgarysrs.data.classes.Skymap,<br>timestamp: datetime.datetime,<br>altitude_km: int | float | None = None) ‑> None</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1596,6 +1524,28 @@ object. If the specified altitude is not valid, a ValueError will be raised.</dd
         # Set the y axis to the desired slice index of the magnetic latitudes
         self.mag_y = mag_lats[:, self.__slice_idx].copy()</code></pre>
 </details>
+<div class="desc"><p>Set the magnetic latitude values for this keogram, using the specified skymap
+data. AACGMv2 will be utilized to perform the calculations. The resulting data
+will be set to the mag_y attribute of this Keogram object, which can then be
+used for plotting and/or further analysis.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
+<dd>The skymap object to use. This parameter is required.</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The timestamp to use when converting skymap data to magnetic coordinates. Utilizes
+AACGMv2 to do the conversion.</dd>
+<dt><strong><code>altitude_km</code></strong> :&ensp;<code>int</code></dt>
+<dd>The altitude to use. If not specified, it will use the default in the skymap
+object. If the specified altitude is not valid, a ValueError will be raised.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None. The Keogram object's <code>mag_y</code> attribute will be updated.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>Issues with specified altitude.</dd>
+</dl></div>
 </dd>
 </dl>
 </dd>
@@ -1604,14 +1554,6 @@ object. If the specified altitude is not valid, a ValueError will be raised.</dd
 <span>(</span><span>data: numpy.ndarray, timestamp: List[datetime.datetime], n_channels: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class representation for a montage</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>data</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
-<dd>The derived montage data.</dd>
-<dt><strong><code>timestamp</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
-<dd>Timestamps corresponding to each montage image.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1786,58 +1728,20 @@ class Montage:
         # return
         return None</code></pre>
 </details>
+<div class="desc"><p>Class representation for a montage</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The derived montage data.</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
+<dd>Timestamps corresponding to each montage image.</dd>
+</dl></div>
 <h3>Methods</h3>
 <dl>
 <dt id="pyaurorax.tools.Montage.plot"><code class="name flex">
-<span>def <span class="ident">plot</span></span>(<span>self, rows: int, cols: int, figsize: Optional[Tuple[int, int]] = None, cmap: Optional[str] = None, timestamps_display: bool = True, timestamps_format: str = '%Y-%m-%d %H:%M:%S', timestamps_fontsize: int = 11, returnfig: bool = False, savefig: bool = False, savefig_filename: Optional[str] = None, savefig_quality: Optional[int] = None) ‑> Any</span>
+<span>def <span class="ident">plot</span></span>(<span>self,<br>rows: int,<br>cols: int,<br>figsize: Tuple[int, int] | None = None,<br>cmap: str | None = None,<br>timestamps_display: bool = True,<br>timestamps_format: str = '%Y-%m-%d %H:%M:%S',<br>timestamps_fontsize: int = 11,<br>returnfig: bool = False,<br>savefig: bool = False,<br>savefig_filename: str | None = None,<br>savefig_quality: int | None = None) ‑> Any</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Generate a plot of the montage data. </p>
-<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
-return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
-<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
-<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
-<dd>
-<p>The matplotlib colormap to use.</p>
-<p>Commonly used colormaps are:</p>
-<ul>
-<li>REGO: <code>gist_heat</code></li>
-<li>THEMIS ASI: <code>gray</code></li>
-<li>TREx Blue: <code>Blues_r</code></li>
-<li>TREx NIR: <code>gray</code></li>
-<li>TREx RGB: <code>None</code></li>
-</ul>
-<p>A list of all available colormaps can be found on the
-<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
-</dd>
-<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>
-<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
-manipulation, for example, adding labels or a title in a different location than the default. </p>
-<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
-with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
-<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
-</dd>
-<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
-this parameter is set to True. Defaults to <code>False</code>.</dd>
-<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
-<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
-<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
-<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
-is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The displayed montage, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
-set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>ValueError</code></dt>
-<dd>Issues with the y-axis choice.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1982,29 +1886,60 @@ set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
     # return
     return None</code></pre>
 </details>
+<div class="desc"><p>Generate a plot of the montage data. </p>
+<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
+return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<p>The matplotlib colormap to use.</p>
+<p>Commonly used colormaps are:</p>
+<ul>
+<li>REGO: <code>gist_heat</code></li>
+<li>THEMIS ASI: <code>gray</code></li>
+<li>TREx Blue: <code>Blues_r</code></li>
+<li>TREx NIR: <code>gray</code></li>
+<li>TREx RGB: <code>None</code></li>
+</ul>
+<p>A list of all available colormaps can be found on the
+<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
+</dd>
+<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
+manipulation, for example, adding labels or a title in a different location than the default. </p>
+<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
+with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
+<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
+</dd>
+<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
+this parameter is set to True. Defaults to <code>False</code>.</dd>
+<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
+<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
+<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The displayed montage, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
+set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>Issues with the y-axis choice.</dd>
+</dl></div>
 </dd>
 </dl>
 </dd>
 <dt id="pyaurorax.tools.Mosaic"><code class="flex name class">
 <span>class <span class="ident">Mosaic</span></span>
-<span>(</span><span>polygon_data: Union[matplotlib.collections.PolyCollection, List[matplotlib.collections.PolyCollection]], cartopy_projection: cartopy.crs.Projection, contour_data: Optional[Dict[str, List[Any]]] = None, spect_cmap: Optional[str] = None, spect_intensity_scale: Optional[Tuple[int, int]] = None)</span>
+<span>(</span><span>polygon_data: matplotlib.collections.PolyCollection | List[matplotlib.collections.PolyCollection],<br>cartopy_projection: cartopy.crs.Projection,<br>contour_data: Dict[str, List[Any]] | None = None,<br>spect_cmap: str | None = None,<br>spect_intensity_scale: Tuple[int, int] | None = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class representation for a generated mosaic.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>polygon_data</code></strong> :&ensp;<code>matplotlib.collections.PolyCollection</code></dt>
-<dd>Generated polygons containing rendered data.</dd>
-<dt><strong><code>cartopy_projection</code></strong> :&ensp;<code>cartopy.crs.Projection</code></dt>
-<dd>Cartopy projection to utilize.</dd>
-<dt><strong><code>contour_data</code></strong> :&ensp;<code>Dict[str, List[Any]]</code></dt>
-<dd>Generated contour data.</dd>
-<dt><strong><code>spect_cmap</code></strong> :&ensp;<code>str</code></dt>
-<dd>String giving the cmap to use for spect legend.</dd>
-<dt><strong><code>spect_intensity_scale</code></strong> :&ensp;<code>Tuple[int]</code></dt>
-<dd>The min and max values that spectrograph data
-is scaled to in the mosaic, if any is present.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2629,25 +2564,40 @@ class Mosaic:
                 self.contour_data[&#34;marker&#34;].append(marker)
                 self.contour_data[&#34;zorder&#34;].append(int(bring_to_front))</code></pre>
 </details>
+<div class="desc"><p>Class representation for a generated mosaic.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>polygon_data</code></strong> :&ensp;<code>matplotlib.collections.PolyCollection</code></dt>
+<dd>Generated polygons containing rendered data.</dd>
+<dt><strong><code>cartopy_projection</code></strong> :&ensp;<code>cartopy.crs.Projection</code></dt>
+<dd>Cartopy projection to utilize.</dd>
+<dt><strong><code>contour_data</code></strong> :&ensp;<code>Dict[str, List[Any]]</code></dt>
+<dd>Generated contour data.</dd>
+<dt><strong><code>spect_cmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>String giving the cmap to use for spect legend.</dd>
+<dt><strong><code>spect_intensity_scale</code></strong> :&ensp;<code>Tuple[int]</code></dt>
+<dd>The min and max values that spectrograph data
+is scaled to in the mosaic, if any is present.</dd>
+</dl></div>
 <h3>Class variables</h3>
 <dl>
 <dt id="pyaurorax.tools.Mosaic.cartopy_projection"><code class="name">var <span class="ident">cartopy_projection</span> : cartopy.crs.Projection</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.tools.Mosaic.contour_data"><code class="name">var <span class="ident">contour_data</span> : Optional[Dict[str, List[Any]]]</code></dt>
+<dt id="pyaurorax.tools.Mosaic.contour_data"><code class="name">var <span class="ident">contour_data</span> : Dict[str, List[Any]] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.tools.Mosaic.polygon_data"><code class="name">var <span class="ident">polygon_data</span> : Union[matplotlib.collections.PolyCollection, List[matplotlib.collections.PolyCollection]]</code></dt>
+<dt id="pyaurorax.tools.Mosaic.polygon_data"><code class="name">var <span class="ident">polygon_data</span> : matplotlib.collections.PolyCollection | List[matplotlib.collections.PolyCollection]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.tools.Mosaic.spect_cmap"><code class="name">var <span class="ident">spect_cmap</span> : Optional[str]</code></dt>
+<dt id="pyaurorax.tools.Mosaic.spect_cmap"><code class="name">var <span class="ident">spect_cmap</span> : str | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyaurorax.tools.Mosaic.spect_intensity_scale"><code class="name">var <span class="ident">spect_intensity_scale</span> : Optional[Tuple[int, int]]</code></dt>
+<dt id="pyaurorax.tools.Mosaic.spect_intensity_scale"><code class="name">var <span class="ident">spect_intensity_scale</span> : Tuple[int, int] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -2655,34 +2605,9 @@ class Mosaic:
 <h3>Methods</h3>
 <dl>
 <dt id="pyaurorax.tools.Mosaic.add_geo_contours"><code class="name flex">
-<span>def <span class="ident">add_geo_contours</span></span>(<span>self, lats: Union[numpy.ndarray, list, ForwardRef(None)] = None, lons: Union[numpy.ndarray, list, ForwardRef(None)] = None, constant_lats: Union[float, int, Sequence[Union[float, int]], numpy.ndarray, ForwardRef(None)] = None, constant_lons: Union[float, int, Sequence[Union[float, int]], numpy.ndarray, ForwardRef(None)] = None, color: str = 'black', linewidth: Union[float, int] = 1, linestyle: str = 'solid', marker: str = '', bring_to_front: bool = False)</span>
+<span>def <span class="ident">add_geo_contours</span></span>(<span>self,<br>lats: numpy.ndarray | list | None = None,<br>lons: numpy.ndarray | list | None = None,<br>constant_lats: float | int | Sequence[float | int] | numpy.ndarray | None = None,<br>constant_lons: float | int | Sequence[float | int] | numpy.ndarray | None = None,<br>color: str = 'black',<br>linewidth: float | int = 1,<br>linestyle: str = 'solid',<br>marker: str = '',<br>bring_to_front: bool = False)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Add geographic contours to a mosaic.</p>
-<h2 id="args">Args</h2>
-<p>lats (ndarray or list):
-Sequence of geographic latitudes defining a contour.</p>
-<p>lons (ndarray or list):
-Sequence of geographic longitudes defining a contour.</p>
-<p>constant_lats (float, int, or Sequence):
-Geographic Latitude(s) at which to add line(s) of constant latitude.</p>
-<p>constant_lons (float, int, or Sequence):
-Geographic Longitude(s) at which to add line(s) of constant longitude.</p>
-<p>color (str):
-The matplotlib color used for the contour(s).</p>
-<p>linewidth (float or int):
-The contour thickness.</p>
-<p>linestyle (str):
-The matplotlib linestyle used for the contour(s).</p>
-<p>marker (str):
-The matplotlib marker used for the contour(s).</p>
-<h2 id="returns">Returns</h2>
-<p>The object's contour_data parameter is populated appropriately.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>ValueError</code></dt>
-<dd>issues encountered with supplied parameters.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2839,23 +2764,16 @@ The matplotlib marker used for the contour(s).</p>
             self.contour_data[&#34;marker&#34;].append(marker)
             self.contour_data[&#34;zorder&#34;].append(int(bring_to_front))</code></pre>
 </details>
-</dd>
-<dt id="pyaurorax.tools.Mosaic.add_mag_contours"><code class="name flex">
-<span>def <span class="ident">add_mag_contours</span></span>(<span>self, timestamp: datetime.datetime, constant_lats: Union[float, int, Sequence[Union[float, int]], numpy.ndarray, ForwardRef(None)] = None, constant_lons: Union[float, int, Sequence[Union[float, int]], numpy.ndarray, ForwardRef(None)] = None, lats: Union[numpy.ndarray, list, ForwardRef(None)] = None, lons: Union[numpy.ndarray, list, ForwardRef(None)] = None, color: str = 'black', linewidth: Union[float, int] = 1, linestyle: str = 'solid', marker: str = '', bring_to_front: bool = False)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Add geomagnetic contours to a mosaic.</p>
+<div class="desc"><p>Add geographic contours to a mosaic.</p>
 <h2 id="args">Args</h2>
-<p>timestamp (datetime.datetime):
-The timestamp used in computing AACGM coordinates.</p>
 <p>lats (ndarray or list):
-Sequence of geomagnetic latitudes defining a contour.</p>
+Sequence of geographic latitudes defining a contour.</p>
 <p>lons (ndarray or list):
-Sequence of geomagnetic longitudes defining a contour.</p>
-<p>constant_lats (float, int, Sequence):
-Geomagnetic latitude(s) at which to add contour(s) of constant latitude.</p>
-<p>constant_lons (float, int, Sequence):
-Geomagnetic longitude(s) at which to add contours(s) of constant longitude.</p>
+Sequence of geographic longitudes defining a contour.</p>
+<p>constant_lats (float, int, or Sequence):
+Geographic Latitude(s) at which to add line(s) of constant latitude.</p>
+<p>constant_lons (float, int, or Sequence):
+Geographic Longitude(s) at which to add line(s) of constant longitude.</p>
 <p>color (str):
 The matplotlib color used for the contour(s).</p>
 <p>linewidth (float or int):
@@ -2871,6 +2789,11 @@ The matplotlib marker used for the contour(s).</p>
 <dt><code>ValueError</code></dt>
 <dd>issues encountered with supplied parameters.</dd>
 </dl></div>
+</dd>
+<dt id="pyaurorax.tools.Mosaic.add_mag_contours"><code class="name flex">
+<span>def <span class="ident">add_mag_contours</span></span>(<span>self,<br>timestamp: datetime.datetime,<br>constant_lats: float | int | Sequence[float | int] | numpy.ndarray | None = None,<br>constant_lons: float | int | Sequence[float | int] | numpy.ndarray | None = None,<br>lats: numpy.ndarray | list | None = None,<br>lons: numpy.ndarray | list | None = None,<br>color: str = 'black',<br>linewidth: float | int = 1,<br>linestyle: str = 'solid',<br>marker: str = '',<br>bring_to_front: bool = False)</span>
+</code></dt>
+<dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -3031,76 +2954,38 @@ The matplotlib marker used for the contour(s).</p>
             self.contour_data[&#34;marker&#34;].append(marker)
             self.contour_data[&#34;zorder&#34;].append(int(bring_to_front))</code></pre>
 </details>
+<div class="desc"><p>Add geomagnetic contours to a mosaic.</p>
+<h2 id="args">Args</h2>
+<p>timestamp (datetime.datetime):
+The timestamp used in computing AACGM coordinates.</p>
+<p>lats (ndarray or list):
+Sequence of geomagnetic latitudes defining a contour.</p>
+<p>lons (ndarray or list):
+Sequence of geomagnetic longitudes defining a contour.</p>
+<p>constant_lats (float, int, Sequence):
+Geomagnetic latitude(s) at which to add contour(s) of constant latitude.</p>
+<p>constant_lons (float, int, Sequence):
+Geomagnetic longitude(s) at which to add contours(s) of constant longitude.</p>
+<p>color (str):
+The matplotlib color used for the contour(s).</p>
+<p>linewidth (float or int):
+The contour thickness.</p>
+<p>linestyle (str):
+The matplotlib linestyle used for the contour(s).</p>
+<p>marker (str):
+The matplotlib marker used for the contour(s).</p>
+<h2 id="returns">Returns</h2>
+<p>The object's contour_data parameter is populated appropriately.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>issues encountered with supplied parameters.</dd>
+</dl></div>
 </dd>
 <dt id="pyaurorax.tools.Mosaic.plot"><code class="name flex">
-<span>def <span class="ident">plot</span></span>(<span>self, map_extent: Sequence[Union[float, int]], figsize: Optional[Tuple[int, int]] = None, rayleighs: bool = False, max_rayleighs: int = 20000, title: Optional[str] = None, colorbar_title: Optional[str] = None, ocean_color: Optional[str] = None, land_color: str = 'gray', land_edgecolor: str = '#8A8A8A', borders_color: str = '#AEAEAE', borders_disable: bool = False, cbar_colormap: str = '', returnfig: bool = False, savefig: bool = False, savefig_filename: Optional[str] = None, savefig_quality: Optional[int] = None) ‑> Any</span>
+<span>def <span class="ident">plot</span></span>(<span>self,<br>map_extent: Sequence[float | int],<br>figsize: Tuple[int, int] | None = None,<br>rayleighs: bool = False,<br>max_rayleighs: int = 20000,<br>title: str | None = None,<br>colorbar_title: str | None = None,<br>ocean_color: str | None = None,<br>land_color: str = 'gray',<br>land_edgecolor: str = '#8A8A8A',<br>borders_color: str = '#AEAEAE',<br>borders_disable: bool = False,<br>cbar_colormap: str = '',<br>returnfig: bool = False,<br>savefig: bool = False,<br>savefig_filename: str | None = None,<br>savefig_quality: int | None = None) ‑> Any</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Generate a plot of the mosaic data. </p>
-<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
-return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>map_extent</code></strong> :&ensp;<code>List[int]</code></dt>
-<dd>Latitude/longitude range to be visible on the rendered map. This is a list of 4 integers
-and/or floats, in the order of [min_lon, max_lon, min_lat, max_lat].</dd>
-<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
-<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
-<dt><strong><code>rayleighs</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Set to <code>True</code> if the data being plotted is in Rayleighs. Defaults to <code>False</code>.</dd>
-<dt><strong><code>max_rayleighs</code></strong> :&ensp;<code>int</code></dt>
-<dd>Max intensity scale for Rayleighs. Defaults to <code>20000</code>.</dd>
-<dt><strong><code>ocean_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Colour of the ocean. Default is cartopy's default shade of blue. Colours can be supplied
-as a word, or hexcode prefixed with a '#' character (ie. <code>#55AADD</code>).</dd>
-<dt><strong><code>land_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Colour of the land. Default is <code>gray</code>. Colours can be supplied as a word, or hexcode
-prefixed with a '#' character (ie. <code>#41BB87</code>).</dd>
-<dt><strong><code>land_edgecolor</code></strong> :&ensp;<code>str</code></dt>
-<dd>Color of the land edges. Default is <code>#8A8A8A</code>. Colours can be supplied as a word, or
-hexcode prefixed with a '#' character.</dd>
-<dt><strong><code>borders_color</code></strong> :&ensp;<code>str</code></dt>
-<dd>Color of the country borders. Default is <code>AEAEAE</code>. Colours can be supplied as a word, or
-hexcode prefixed with a '#' character.</dd>
-<dt><strong><code>borders_disable</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Disbale rendering of the borders. Default is <code>False</code>.</dd>
-<dt><strong><code>cbar_colorcmap</code></strong> :&ensp;<code>str</code></dt>
-<dd>
-<p>The matplotlib colormap to use for the plotted color bar. Default is <code>gray</code>, unless
-mosaic was created with spectrograph data, in which case defaults to the colormap
-used for spectrograph data..</p>
-<p>Commonly used colormaps are:</p>
-<ul>
-<li>REGO: <code>gist_heat</code></li>
-<li>THEMIS ASI: <code>gray</code></li>
-<li>TREx Blue: <code>Blues_r</code></li>
-<li>TREx NIR: <code>gray</code></li>
-<li>TREx RGB: <code>None</code></li>
-</ul>
-<p>A list of all available colormaps can be found on the
-<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
-</dd>
-<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>
-<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
-manipulation, for example, adding labels or a title in a different location than the default. </p>
-<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
-with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
-<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
-</dd>
-<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
-this parameter is set to True. Defaults to <code>False</code>.</dd>
-<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
-<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
-<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
-<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
-is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The displayed montage, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
-set to True, the plotting variables <code>(fig, ax)</code> will be returned.
-Raises:</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -3372,29 +3257,79 @@ Raises:</p></div>
     # return
     return None</code></pre>
 </details>
+<div class="desc"><p>Generate a plot of the mosaic data. </p>
+<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
+return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>map_extent</code></strong> :&ensp;<code>List[int]</code></dt>
+<dd>Latitude/longitude range to be visible on the rendered map. This is a list of 4 integers
+and/or floats, in the order of [min_lon, max_lon, min_lat, max_lat].</dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
+<dt><strong><code>rayleighs</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Set to <code>True</code> if the data being plotted is in Rayleighs. Defaults to <code>False</code>.</dd>
+<dt><strong><code>max_rayleighs</code></strong> :&ensp;<code>int</code></dt>
+<dd>Max intensity scale for Rayleighs. Defaults to <code>20000</code>.</dd>
+<dt><strong><code>ocean_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Colour of the ocean. Default is cartopy's default shade of blue. Colours can be supplied
+as a word, or hexcode prefixed with a '#' character (ie. <code>#55AADD</code>).</dd>
+<dt><strong><code>land_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Colour of the land. Default is <code>gray</code>. Colours can be supplied as a word, or hexcode
+prefixed with a '#' character (ie. <code>#41BB87</code>).</dd>
+<dt><strong><code>land_edgecolor</code></strong> :&ensp;<code>str</code></dt>
+<dd>Color of the land edges. Default is <code>#8A8A8A</code>. Colours can be supplied as a word, or
+hexcode prefixed with a '#' character.</dd>
+<dt><strong><code>borders_color</code></strong> :&ensp;<code>str</code></dt>
+<dd>Color of the country borders. Default is <code>AEAEAE</code>. Colours can be supplied as a word, or
+hexcode prefixed with a '#' character.</dd>
+<dt><strong><code>borders_disable</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Disbale rendering of the borders. Default is <code>False</code>.</dd>
+<dt><strong><code>cbar_colorcmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<p>The matplotlib colormap to use for the plotted color bar. Default is <code>gray</code>, unless
+mosaic was created with spectrograph data, in which case defaults to the colormap
+used for spectrograph data..</p>
+<p>Commonly used colormaps are:</p>
+<ul>
+<li>REGO: <code>gist_heat</code></li>
+<li>THEMIS ASI: <code>gray</code></li>
+<li>TREx Blue: <code>Blues_r</code></li>
+<li>TREx NIR: <code>gray</code></li>
+<li>TREx RGB: <code>None</code></li>
+</ul>
+<p>A list of all available colormaps can be found on the
+<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
+</dd>
+<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
+manipulation, for example, adding labels or a title in a different location than the default. </p>
+<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
+with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
+<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
+</dd>
+<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
+this parameter is set to True. Defaults to <code>False</code>.</dd>
+<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
+<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
+<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The displayed montage, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
+set to True, the plotting variables <code>(fig, ax)</code> will be returned.
+Raises:</p></div>
 </dd>
 </dl>
 </dd>
 <dt id="pyaurorax.tools.MosaicData"><code class="flex name class">
 <span>class <span class="ident">MosaicData</span></span>
-<span>(</span><span>site_uid_list: List[str], timestamps: List[datetime.datetime], images: Dict[str, numpy.ndarray], images_dimensions: Dict[str, Tuple], data_types: List[str])</span>
+<span>(</span><span>site_uid_list: List[str],<br>timestamps: List[datetime.datetime],<br>images: Dict[str, numpy.ndarray],<br>images_dimensions: Dict[str, Tuple],<br>data_types: List[str])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Prepared image data for use by mosaic routines.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>site_uid_list</code></strong> :&ensp;<code>List[str]</code></dt>
-<dd>List of site unique identifiers contained within this object.</dd>
-<dt><strong><code>timestamps</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
-<dd>Timestamps of corresponding images.</dd>
-<dt><strong><code>images</code></strong> :&ensp;<code>Dict[str, numpy.ndarray]</code></dt>
-<dd>Image data prepared into the necessary format; a dictionary. Keys are the site UID,
-ndarray is the prepared data.</dd>
-<dt><strong><code>images_dimensions</code></strong> :&ensp;<code>Dict[str, Tuple]</code></dt>
-<dd>The image dimensions.</dd>
-<dt><strong><code>data_types</code></strong> :&ensp;<code>List[str]</code></dt>
-<dd>The data types for each data object.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -3434,6 +3369,21 @@ class MosaicData:
 
         return &#34;MosaicData(images=%s, timestamps=%s, site_uid_list=%s)&#34; % (images_str, timestamps_str, self.site_uid_list.__repr__())</code></pre>
 </details>
+<div class="desc"><p>Prepared image data for use by mosaic routines.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>site_uid_list</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>List of site unique identifiers contained within this object.</dd>
+<dt><strong><code>timestamps</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
+<dd>Timestamps of corresponding images.</dd>
+<dt><strong><code>images</code></strong> :&ensp;<code>Dict[str, numpy.ndarray]</code></dt>
+<dd>Image data prepared into the necessary format; a dictionary. Keys are the site UID,
+ndarray is the prepared data.</dd>
+<dt><strong><code>images_dimensions</code></strong> :&ensp;<code>Dict[str, Tuple]</code></dt>
+<dd>The image dimensions.</dd>
+<dt><strong><code>data_types</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>The data types for each data object.</dd>
+</dl></div>
 <h3>Class variables</h3>
 <dl>
 <dt id="pyaurorax.tools.MosaicData.data_types"><code class="name">var <span class="ident">data_types</span> : List[str]</code></dt>
@@ -3460,24 +3410,9 @@ class MosaicData:
 </dd>
 <dt id="pyaurorax.tools.MosaicSkymap"><code class="flex name class">
 <span>class <span class="ident">MosaicSkymap</span></span>
-<span>(</span><span>site_uid_list: List[str], elevation: List[numpy.ndarray], polyfill_lat: List[numpy.ndarray], polyfill_lon: List[numpy.ndarray])</span>
+<span>(</span><span>site_uid_list: List[str],<br>elevation: List[numpy.ndarray],<br>polyfill_lat: List[numpy.ndarray],<br>polyfill_lon: List[numpy.ndarray])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Prepared skymap data for use by mosaic routines.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>site_uid_list</code></strong> :&ensp;<code>List[str]</code></dt>
-<dd>List of site unique identifiers contained within this object.</dd>
-<dt><strong><code>elevation</code></strong> :&ensp;<code>List[numpy.ndarray]</code></dt>
-<dd>List of elevation data, with each element corresponding to each site. Order
-matches that of the <code>site_uid_list</code> attribute.</dd>
-<dt><strong><code>polyfoll_lat</code></strong> :&ensp;<code>List[numpy.ndarray]</code></dt>
-<dd>List of latitude polygon data, with each element corresponding to each site.
-Order matches that of the <code>site_uid_list</code> attribute. </dd>
-<dt><strong><code>polyfoll_lon</code></strong> :&ensp;<code>List[numpy.ndarray]</code></dt>
-<dd>List of longitude polygon data, with each element corresponding to each site.
-Order matches that of the <code>site_uid_list</code> attribute.</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -3529,6 +3464,21 @@ class MosaicSkymap:
             self.site_uid_list.__repr__(),
         )</code></pre>
 </details>
+<div class="desc"><p>Prepared skymap data for use by mosaic routines.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>site_uid_list</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>List of site unique identifiers contained within this object.</dd>
+<dt><strong><code>elevation</code></strong> :&ensp;<code>List[numpy.ndarray]</code></dt>
+<dd>List of elevation data, with each element corresponding to each site. Order
+matches that of the <code>site_uid_list</code> attribute.</dd>
+<dt><strong><code>polyfoll_lat</code></strong> :&ensp;<code>List[numpy.ndarray]</code></dt>
+<dd>List of latitude polygon data, with each element corresponding to each site.
+Order matches that of the <code>site_uid_list</code> attribute. </dd>
+<dt><strong><code>polyfoll_lon</code></strong> :&ensp;<code>List[numpy.ndarray]</code></dt>
+<dd>List of longitude polygon data, with each element corresponding to each site.
+Order matches that of the <code>site_uid_list</code> attribute.</dd>
+</dl></div>
 <h3>Class variables</h3>
 <dl>
 <dt id="pyaurorax.tools.MosaicSkymap.elevation"><code class="name">var <span class="ident">elevation</span> : List[numpy.ndarray]</code></dt>
@@ -3557,8 +3507,8 @@ class MosaicSkymap:
 <input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
 disabled minlength="2">
 </form>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js" integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g==" crossorigin></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
 <style>
 .modal-dialog iframe {
 width: 100vw;
@@ -3599,7 +3549,6 @@ setTimeout(() => input.focus(), 100);
 }).setContent('<iframe src="' + url + '"></iframe>').open();
 }
 </script>
-<h1>Index</h1>
 <div class="toc">
 <ul></ul>
 </div>
@@ -3684,7 +3633,7 @@ setTimeout(() => input.focus(), 100);
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
 </footer>
 </body>
 </html>
