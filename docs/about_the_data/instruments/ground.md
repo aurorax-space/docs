@@ -38,4 +38,4 @@ Keograms are images that represent a period of time of data from an ASI. The cen
 
 Below is one example of keograms with several stacked vertically. The top frames are all from a certain time identified by the red lines, each image is from a different ASI (left to right and top to bottom: TREx Blueline, TREx NIR, TREx RGB, REGO).
 
-![Keogram example](/_extras/img/keogram_example_1.jpg)
+![Keogram example](../../_extras/img/keogram_example_1.jpg)

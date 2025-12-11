@@ -10,7 +10,7 @@ You can upgrade PyAuroraX using pip:
 $ pip install --upgrade pyaurorax
 ```
 
-More details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/pyaurorax){:target="_blank"}.
+More details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/pyaurorax).
 
 ## IDL-AuroraX
 
@@ -20,4 +20,4 @@ You can upgrade IDL-AuroraX using the `ipm` command:
 IDL> ipm,/update,'idl-aurorax'
 ```
 
-More details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}.
+More details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/idl-aurorax).

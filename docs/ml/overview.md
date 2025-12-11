@@ -8,17 +8,17 @@ Metadata derived from machine learning models is included in the AuroraX databas
 
 Machine learning models are currently used to enhance the AuroraX Conjunction Search capabilities. For example, you can perform searches with metadata filters specified to reduce the search down to only times when it was not cloudy, or an imager had Amorphous Pulsating Aurora (APA) in the field of view.
 
-You can try this functionality out by clicking on "Example 7" on the [Conjunction Search](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} page. This example searches for conjunctions between any THEMIS ASI and any THEMIS satellite, where the "ucalgary_apa" ML model says there's amorphous pulsating aurora in the field of view of the camera. You can perform the search and view the data using the Swarm-Aurora "open all results" button, as seen in the below screenshots.
+You can try this functionality out by clicking on "Example 7" on the [Conjunction Search](https://aurorax.space/conjunctionSearch/standard) page. This example searches for conjunctions between any THEMIS ASI and any THEMIS satellite, where the "ucalgary_apa" ML model says there's amorphous pulsating aurora in the field of view of the camera. You can perform the search and view the data using the Swarm-Aurora "open all results" button, as seen in the below screenshots.
 
 <figure>
-  <a href="/_extras/img/conjunction_search_screenshot_1.png" target="_blank">
+  <a href="/_extras/img/conjunction_search_screenshot_1.png">
     <img src="/_extras/img/conjunction_search_screenshot_1.png" />
   </a>
   <figcaption>Conjunction search results from "example 7". Conjunctions between THEMIS-ASI and THEMIS spacecrafts where the "ucalgary_apa" ML model believes there's Amorphous Pulsating Aurora (APA) in the field of view of a camera.</figcaption>
 </figure>
 
 <figure>
-  <a href="/_extras/img/swarmaurora_apa_example.png" target="_blank">
+  <a href="/_extras/img/swarmaurora_apa_example.png">
     <img src="/_extras/img/swarmaurora_apa_example.png" />
   </a>
   <figcaption>Swarm-Aurora interface showing the first result from the above conjunction search</figcaption>
@@ -30,6 +30,6 @@ We currently only have models for the THEMIS ASI array. There exist three models
 
 Further information on these models can be found here:
 
-* [UCalgary Cloud model](/ml/models/ucalgary_cloud/)
-* [UCalgary Amorphous Pulsating Aurora (APA) model](/ml/models/ucalgary_apa/)
-* [Lasse Clausen OATH model](/ml/models/clausen_oath/)
+* [UCalgary Cloud model](models/ucalgary_cloud.md)
+* [UCalgary Amorphous Pulsating Aurora (APA) model](models/ucalgary_apa.md)
+* [Lasse Clausen OATH model](models/clausen_oath.md)

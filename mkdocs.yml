@@ -75,13 +75,13 @@ extra_javascript:
 nav:
   - Home: index.md
   - Getting Started:
-    - Introduction: getting_started/1_intro.md
-    - A Brief Look at AuroraX Data: getting_started/2_aurorax_data.md
-    - What are Conjunctions?: getting_started/3_what_are_conjunctions.md
-    - Searching and Exploring Conjunctions: getting_started/4_searching_conjunctions.md
-    - Using Keogramist to Explore Keograms and Movies: getting_started/5_exploring_keograms.md
-    - Data Availability and Statistics: getting_started/6_data_availability.md
-    - Interacting with AuroraX Programmatically: getting_started/7_interacting_programmatically.md
+    - Introduction: getting_started/intro.md
+    - A Brief Look at AuroraX Data: getting_started/aurorax_data.md
+    - What are Conjunctions?: getting_started/what_are_conjunctions.md
+    - Searching and Exploring Conjunctions: getting_started/searching_conjunctions.md
+    - Using Keogramist to Explore Keograms and Movies: getting_started/exploring_keograms.md
+    - Data Availability and Statistics: getting_started/data_availability.md
+    - Interacting with AuroraX Programmatically: getting_started/interacting_programmatically.md
   - About the Data:
     - Overview: about_the_data/overview.md
     - What metadata is in the AuroraX database?: about_the_data/metadata_in_aurorax.md
@@ -106,23 +106,7 @@ nav:
     - Overview: code/overview.md
     - Installation: code/installation.md
     - Upgrading: code/upgrading.md
-    - Basic Usage:
-      - Overview: code/basic_usage/overview.md
-      - AuroraX Search Engine:
-        - Data Sources: code/basic_usage/search/data_sources.md
-        - Conjunctions: code/basic_usage/search/conjunctions.md
-        - Ephemeris: code/basic_usage/search/ephemeris.md
-        - Data Products: code/basic_usage/search/data_products.md
-    - Advanced Usage:
-      - AuroraX Search Engine:
-        - Authentication: code/advanced_usage/search/authentication.md
-        - Advanced conjunction searches: code/advanced_usage/search/advanced_conjunctions.md
-        - Asynchronous searches: code/advanced_usage/search/asynchronous_search.md
-        - Searches with metadata filters: code/advanced_usage/search/searches_with_metadata_filters.md
-        - Uploading data to AuroraX: code/advanced_usage/search/contributing_data.md
-        - Data availability: code/advanced_usage/search/availability.md
-        - Interact with Swarm-Aurora: code/advanced_usage/search/swarmaurora.md
-    - PyAuroraX API Reference: code/pyaurorax_api_reference/pyaurorax
+    - PyAuroraX API Reference: code/pyaurorax_api_reference/pyaurorax/index.html
     - IDL-AuroraX API Reference: 
       - Overview: code/idlaurorax_api_reference/overview.md
       - Data Access:

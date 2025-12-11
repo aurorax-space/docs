@@ -6,8 +6,8 @@ The AuroraX Conjunction Search engine is a tool for finding conjunctions between
 
 The Conjunction Search is available in several different forms:
 
-* Using the [AuroraX website](https://aurorax.space/conjunctionSearch/standard){:target="_blank"}
-* Using the AuroraX website's [expert mode](https://aurorax.space/conjunctionSearch/expert){:target="_blank"} 
+* Using the [AuroraX website](https://aurorax.space/conjunctionSearch/standard)
+* Using the AuroraX website's [expert mode](https://aurorax.space/conjunctionSearch/expert) 
 * Programmatically using the HTTPS-based RESTful API or PyAuroraX
 
 ## What are conjunctions?
@@ -27,4 +27,4 @@ A differentiating factor of AuroraX "conjunction" searching from other systems a
 
 In the "Getting Started" section of this documentation website, we have a few pages devoted to helping users get a bit more familiar with the AuroraX Conjunction Search engine.
 
-[Get started with conjunction searching&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/searching_conjunctions){.md-button}
+[Get started with conjunction searching&nbsp;&nbsp;:octicons-arrow-right-16:](../getting_started/searching_conjunctions.md){.md-button}

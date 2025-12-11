@@ -2,7 +2,7 @@
 
 The AuroraX Virtual Observatory aims at providing interactive visualizations and data browsing tools to quickly navigate the vast amount of data available. These web-based applications are geared towards identifying auroral events of interest using summary data of different types.
 
-The Virtual Observatory currently has two web interfaces available: [Keogramist](https://aurorax.space/keogramist){:target="_blank"}, and the [Event Explorer](https://aurorax.space/eventExplorer){:target="_blank"}. The Event Explorer is under active development, and currently in an "alpha" state.
+The Virtual Observatory currently has two web interfaces available: [Keogramist](https://aurorax.space/keogramist), and the [Event Explorer](https://aurorax.space/eventExplorer). The Event Explorer is under active development, and currently in an "alpha" state.
 
 ## Keogramist
 
@@ -10,9 +10,9 @@ Keogramist is a tool that helps quickly navigate auroral data in AuroraX using k
 
 Using keogramist you can browse through large amounts of keograms for different ASI networks. When you find a day that is interesting, you can click on it to expand the view. A movie player and the "Snipping Tool" will then be visible buttons, where you can watch the movie of the night of data with some nice playback tools to help investigate further.
 
-[Get started with Keogramist&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/exploring_keograms/){.md-button}&nbsp;&nbsp;
-[Learn about keograms&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/exploring_keograms/){.md-button}
+[Get started with Keogramist&nbsp;&nbsp;:octicons-arrow-right-16:](../getting_started/exploring_keograms.md){.md-button}&nbsp;&nbsp;
+[Learn about keograms&nbsp;&nbsp;:octicons-arrow-right-16:](../getting_started/exploring_keograms.md){.md-button}
 
 ## Event Explorer
 
-The Event Explorer uses an interactive globe to help browse ASI data and satellite location data. This tool is meant to assist with exploring data from a global point of view, with different layers of data able to be overlapped on top of one another. Please note: this tool is very early in development and is not meant for significant usage yet.
+The Event Explorer is an evolution of the Swarm-Aurora Conjunction Finder, using an interactive globe to help browse ASI data and satellite location data (instead of a static map). This tool is meant to assist with exploring data from a global point of view, with different layers of data able to be overlapped on top of one another.

@@ -13,13 +13,13 @@ $ python
 >>> aurorax = pyaurorax.PyAuroraX()
 ```
 
-More installation details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/pyaurorax){:target="_blank"}.
+More installation details can be found on the readme of the code repository [on Github](https://github.com/aurorax-space/pyaurorax).
 
 ## IDL-AuroraX
 
-Since IDL 8.7.1, there exists an IDL package manager called [ipm](https://www.l3harrisgeospatial.com/docs/ipm.html#INSTALL){:target="_blank"}. We can use this to install the IDL-AuroraX library with a single command. 
+Since IDL 8.7.1, there exists an IDL package manager called [ipm](https://www.l3harrisgeospatial.com/docs/ipm.html#INSTALL). We can use this to install the IDL-AuroraX library with a single command. 
 
-This is the recommended way of installing the IDL-AuroraX library, but, refer to the [Github repository README file](https://github.com/aurorax-space/idl-aurorax){:target="_blank"} for additional installation methods.
+This is the recommended way of installing the IDL-AuroraX library, but, refer to the [Github repository README file](https://github.com/aurorax-space/idl-aurorax) for additional installation methods.
 
 1. From the IDL command prompt, run the following:
 
@@ -31,7 +31,7 @@ This is the recommended way of installing the IDL-AuroraX library, but, refer to
 
     ```
     [ open your startup.pro file and put the following in it ]
-    .run aurorax_startup
+    @aurorax_startup
     ```
 
 3. [OPTIONAL] If you added the above line to your startup file, you must reset your IDL session. Do this by either clicking the Reset button in the IDL editor or by typing `.reset` into the IDL command prompt.

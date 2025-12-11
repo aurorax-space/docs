@@ -9,9 +9,9 @@ Below, we'll have a look at what's available to use if you want to programmatica
 There are four main ways of interacting with AuroraX programmatically:
 
 1. Making raw HTTP/HTTPS requests to the RESTful APIs
-2. Writing Python code with [PyAuroraX](https://github.com/aurorax-space/pyaurorax){:target="_blank"}
+2. Writing Python code with [PyAuroraX](https://github.com/aurorax-space/pyaurorax)
 3. Using the command line with aurorax-cli (part of PyAuroraX)
-4. Writing IDL code with [IDL-AuroraX](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}
+4. Writing IDL code with [IDL-AuroraX](https://github.com/aurorax-space/idl-aurorax)
 
 Below, we'll introduce you to each and discuss the tools available.
 
@@ -21,14 +21,15 @@ Since AuroraX operates as a HTTPS-based RESTful API, you can interact with it us
 
 The API provides a basic interactive website for documenting and running endpoints:
 
-- [Interactive Swagger API documentation](https://api.aurorax.space){:target="_blank"}
+- [Interactive Swagger API documentation](https://api.aurorax.space)
 
 ## Writing Python code with PyAuroraX
 
 AuroraX provides a Python library to make life easier for application development. The software can be found on Github, and the API reference documentation can be found on this documentation website.
 
-- [PyAuroraX code repository](https://github.com/aurorax-space/pyaurorax){:target="_blank"}
-- [PyAuroraX API reference documentation](/code/pyaurorax_api_reference/pyaurorax/)
+- [PyAuroraX code repository](https://github.com/aurorax-space/pyaurorax)
+- <a href="/code/pyaurorax_api_reference/pyaurorax">PyAuroraX API reference documentation</a>
+- [Example Gallery](https://data.phys.ucalgary.ca/working_with_data/index.html#python)
 
 You can install it and import it like so:
 
@@ -36,17 +37,19 @@ You can install it and import it like so:
 $ pip install pyaurorax
 $ python
 >>> import pyaurorax
->>> sources = pyaurorax.sources.list(program="swarm")
+>>> aurorax = pyaurorax.PyAuroraX()  # to initialize the main library object
+>>> search_sources = aurorax.search.sources.list(program="swarm")
 ```
 
-??? abstract "Click to view the output of the above pyaurorax function call"
+??? abstract "View output from above PyAuroraX function call"
 
-    Below is the `sources` variable from the `pyaurorax.sources.list()` function when the program is set to "swarm".
+    Below is the `sources` variable from the `aurorax.search.sources.list()` function when the program is set to "swarm".
 
     ```python
     >>> import pyaurorax
     >>> import pprint
-    >>> sources = pyaurorax.sources.list(program="swarm")
+    >>> aurorax = pyaurorax.PyAuroraX()
+    >>> search_sources = aurorax.search.sources.list(program="swarm")
     >>> pprint.pprint(sources)
     [
       DataSource(identifier=3, program='swarm', platform='swarma', instrument_type='footprint', source_type='leo', display_name='Swarm A', metadata={}, owner='dchaddoc@ucalgary.ca', maintainers=[], ephemeris_metadata_schema=[{'field_name': 'nbt...}], data_product_metadata_schema=[]),
@@ -55,11 +58,11 @@ $ python
     ]
     ```
 
-More details on installation can be found [here](https://github.com/aurorax-space/pyaurorax){:target="_blank"}.
+More details on installation can be found [here](https://github.com/aurorax-space/pyaurorax), and a comprehensive example gallery can be found [here](https://data.phys.ucalgary.ca/working_with_data/index.html#python).
 
 ## Using the command line with aurorax-cli
 
-If you only need to interact with AuroraX from the command line, you can use the `aurorax-cli` program that is bundled with the PyAuroraX library. The software is part of the PyAuroraX repository and can be found [here on Github](https://github.com/aurorax-space/pyaurorax){:target="_blank"}.
+If you only need to interact with AuroraX from the command line, you can use the `aurorax-cli` program that is bundled with the PyAuroraX library. The software is part of the PyAuroraX repository and can be found [here on Github](https://github.com/aurorax-space/pyaurorax).
 
 After installing the PyAuroraX library, you can view the usage information by typing:
 
@@ -77,18 +80,19 @@ Identifier ↓   Display Name   Program   Platform   Instrument Type   Source Ty
 
 AuroraX provides an IDL library for retrieving data from the platform, and performing conjunction searches. The software can be found on Github, and the API reference documentation can be found on this documentation website.
 
-- [IDL-AuroraX code repository](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}
-- [IDL-AuroraX API reference documentation](/code/idlaurorax_api_reference/overview)
+- [IDL-AuroraX code repository](https://github.com/aurorax-space/idl-aurorax)
+- [IDL-AuroraX API reference documentation](../code/idlaurorax_api_reference/overview.md)
+- [Example Gallery](https://data.phys.ucalgary.ca/working_with_data/index.html#idl)
 
 You can install it and use it like so:
 
 ```idl
 IDL> ipm,/install,'https://data.aurorax.space/data/software/idl-aurorax/latest.zip'
-[ add ".run aurorax_startup" to your startup file (see Github README) ]
+[ add "@aurorax_startup" to your startup file (see Github README) ]
 IDL> sources = aurorax_list_sources(program='swarm')
 ```
 
-??? abstract "Click to view the output of the above idl-aurorax function call"
+??? abstract "View output from above IDL-AuroraX function call"
 
     Below is the `sources` variable from the `aurorax_list_sources()` function when the program is set to "swarm".
 
@@ -122,7 +126,7 @@ IDL> sources = aurorax_list_sources(program='swarm')
        DISPLAY_NAME    STRING    'Swarm C'
     ```
 
-More details on installation can be found [here](https://github.com/aurorax-space/idl-aurorax){:target="_blank"}.
+More details on installation can be found [here](https://github.com/aurorax-space/idl-aurorax), and a comprehensive example gallery can be found [here](https://data.phys.ucalgary.ca/working_with_data/index.html#idl).
 
 ## All done!
 

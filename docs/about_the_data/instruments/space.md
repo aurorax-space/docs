@@ -4,7 +4,7 @@ AuroraX contains footprints for satellites and operating flags for several onboa
 
 ## Satellite Footprints
 
-Three sets of satellite location information are contained in AuroraX, all of which are retrieved from [SSCWeb](https://sscweb.gsfc.nasa.gov/){:target="_blank"}: geographic lat/lon, North B-Trace geo lat/lon, and South B-Trace geo lat/lon. The B-Trace values are the magnetic footprints for a satellite in each hemisphere, mapped in geographic coordinates. These B-Trace values are used for the conjunction search algorithm.
+Three sets of satellite location information are contained in AuroraX, all of which are retrieved from [SSCWeb](https://sscweb.gsfc.nasa.gov/): geographic lat/lon, North B-Trace geo lat/lon, and South B-Trace geo lat/lon. The B-Trace values are the magnetic footprints for a satellite in each hemisphere, mapped in geographic coordinates. These B-Trace values are used for the conjunction search algorithm.
 
 ## Swarm
 

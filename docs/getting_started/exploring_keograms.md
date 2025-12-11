@@ -1,8 +1,8 @@
 # Using Keogramist to Explore Keograms and Movies
 
-Another resource in AuroraX is a web interface called [Keogramist](https://aurorax.space/keogramist){:target="_blank"}.
+Another resource in AuroraX is a web interface called [Keogramist](https://aurorax.space/keogramist).
 
-[![Keogramist screenshot](/_extras/img/keogramist_screenshot1.png)](/_extras/img/keogramist_screenshot1.png){:target="_blank"}
+[![Keogramist screenshot](../_extras/img/keogramist_screenshot1.png)](../_extras/img/keogramist_screenshot1.png)
 
 ## About Keogramist
 
@@ -12,20 +12,20 @@ Using keogramist you can browse through large amounts of keograms for different 
 
 ## What are keograms?
 
-Keograms are images that represent a period of time of data from an ASI. The centre column of each frame is extracted and stacked left-to-right to form the keogram. North is at the top, south at the bottom, and time runs from left-to-right. You can learn more about them [here](about_the_data/standards/?h=keograms#keograms) and [here](/about_the_data/instruments/ground/#keograms).
+Keograms are images that represent a period of time of data from an ASI. The centre column of each frame is extracted and stacked left-to-right to form the keogram. North is at the top, south at the bottom, and time runs from left-to-right. You can learn more about them [here](../about_the_data/standards.md?#keograms) and [here](../about_the_data/instruments/ground.md#keograms).
 
 Below is one example of keograms with several stacked vertically. The top frames are all from a certain time identified by the red lines, each image is from a different ASI (left to right and top to bottom: TREx Blueline, TREx NIR, TREx RGB, REGO).
 
-[![Keogram example](/_extras/img/keogram_example_1.jpg)](/_extras/img/keogram_example_1.jpg){:target="_blank"}
+[![Keogram example](../_extras/img/keogram_example_1.jpg)](../_extras/img/keogram_example_1.jpg)
 
 ## Snipping Tool
 
 The "Snipping Tool" in Keogramist is something that we came up with out of the endless nights before a conference presentation where we need a quick good example of some phenomenon as a movie, but don't have the time to process the data and make it in time. So, we created this interface where you can take a nightly movie and change the resolution, playback speed, and start/end times. Then with a single click, AuroraX will create the movie file for you.
 
-[![Keogramist screenshot](/_extras/img/keogramist_snipping_tool_screenshot1.png)](/_extras/img/keogramist_snipping_tool_screenshot1.png){:target="_blank"}
+[![Keogramist screenshot](../_extras/img/keogramist_snipping_tool_screenshot1.png)](../_extras/img/keogramist_snipping_tool_screenshot1.png)
 
 ## Next step
 
 Let's now move on to a little tool we have in AuroraX that lets us know quickly what data we have on the platform.
 
-[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/6_data_availability/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](data_availability.md){.md-button}

@@ -8,6 +8,4 @@ There exists a series of web-based tools for interacting with the AuroraX platfo
 
 The pages in this section give you some more details on each, and how to use them.
 
-You can navigate to the AuroraX website to find them all: [https://aurorax.space](https://aurorax.space){:target="_blank"}
-
-[![AuroraX screenshot](/_extras/img/aurorax_screenshot1.png)](https://aurorax.space){:target="_blank"}
+You can navigate to the AuroraX website to find them all: [https://aurorax.space](https://aurorax.space)

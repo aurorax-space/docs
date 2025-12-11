@@ -1,12 +1,12 @@
 # Data Availability
 
-The Data Availability page on the AuroraX website provides an easy and quick way to see what data is in the database. You can visit the page [here](https://aurorax.space/data/availability){:target="_blank"}.
+The Data Availability page on the AuroraX website provides an easy and quick way to see what data is in the database. You can visit the page [here](https://aurorax.space/data/availability).
 
-<a href="/_extras/img/data_availability_screenshot1.png" target="_blank">
+<a href="/_extras/img/data_availability_screenshot1.png">
     <img src="/_extras/img/data_availability_screenshot1.png" />
 </a>
 
-Furthermore, there is a [Data Statistics](https://aurorax.space/data/statistics){:target="_blank"} page that provides additional statistics about data in the AuroraX database.
+Furthermore, there is a [Data Statistics](https://aurorax.space/data/statistics) page that provides additional statistics about data in the AuroraX database.
 
 ## Getting availability information programmatically
 

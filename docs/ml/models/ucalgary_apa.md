@@ -1,9 +1,9 @@
 # UCalgary APA detection model
 
-This model is a binary classifier which predicts whether Amorphous Pulsating Aurora (APA) is visible in THEMIS ASI data. APA is a type of pulsating aurora, discussed in the paper <a href="https://angeo.copernicus.org/articles/36/891/2018/" target="_blank">Grono, Donovan [2018]</a>.
+This model is a binary classifier which predicts whether Amorphous Pulsating Aurora (APA) is visible in THEMIS ASI data. APA is a type of pulsating aurora, discussed in the paper <a href="https://angeo.copernicus.org/articles/36/891/2018/">Grono, Donovan [2018]</a>.
 
 <figure>
-  <a href="/_extras/img/apa_example_1.jpg" target="_blank">
+  <a href="/_extras/img/apa_example_1.jpg">
     <img src="/_extras/img/apa_example_1.jpg" />
   </a>
   <figcaption>Hourly keogram showing an example of Amorphous Pulsating Aurora from Fort Smith, Canada (2019-03-16 UT11)</figcaption>
@@ -20,7 +20,7 @@ You can use this model in the Conjunction Search webpage and the Ephemeris searc
     * Allowed values
         * float between 0.0 and 100.0
 
-  <a href="/_extras/img/ml_screenshot_apa.png" target="_blank">
+  <a href="/_extras/img/ml_screenshot_apa.png">
     <img src="/_extras/img/ml_screenshot_apa.png" />
   </a>
   <figcaption>AuroraX Conjunction Search metadata filter modal showing the "calgary_apa_ml_v1" and "calgary_apa_ml_v1_confidence" fields.</figcaption>

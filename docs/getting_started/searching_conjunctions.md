@@ -2,19 +2,19 @@
 
 With AuroraX, you can use the search engine to perform various types of conjunction search queries. We'll have a look at some examples in the sections below.
 
-Note that the examples we go through will be using the [Conjunction Search](https://aurorax.space/conjunctionSearch/standard){:target="_blank"} web interface.
+Note that the examples we go through will be using the [Conjunction Search](https://aurorax.space/conjunctionSearch/standard) web interface.
 
 ## Your first conjunction search
 
-On the [Conjunction Search](https://aurorax.space/conjunctionSeach/standard){:target="_blank"} web interface, we have several examples pre-configured to help you get a sense of what kinds of searches you can do. We'll start by going through Example 1 - a search to find conjunctions between two THEMIS ASI sites (Fort Smith and Gillam), and any Swarm spacecraft (Swarm A, B, or C). The timeframe is 3 days at the beginning of 2020, and the maximum distance is 500km. Other details are that we're restricting the search to only evaluate North B-Trace magnetic footprints, and times where Swarm spacecraft geographic location is in the northern hemisphere.
+On the [Conjunction Search](https://aurorax.space/conjunctionSeach/standard) web interface, we have several examples pre-configured to help you get a sense of what kinds of searches you can do. We'll start by going through Example 1 - a search to find conjunctions between two THEMIS ASI sites (Fort Smith and Gillam), and any Swarm spacecraft (Swarm A, B, or C). The timeframe is 3 days at the beginning of 2020, and the maximum distance is 500km. Other details are that we're restricting the search to only evaluate North B-Trace magnetic footprints, and times where Swarm spacecraft geographic location is in the northern hemisphere.
 
-[![Basic conjunction search](/_extras/img/conjunction_search_basic_search_screenshot1.png)](/_extras/img/conjunction_search_basic_search_screenshot1.png){:target="_blank"}
+[![Basic conjunction search](../_extras/img/conjunction_search_basic_search_screenshot1.png)](../_extras/img/conjunction_search_basic_search_screenshot1.png)
 
 ## Exploring results with Swarm-Aurora
 
 When this search finishes after a couple seconds, the search returned 11 results. You can then visualize the conjunctions using Swarm-Aurora via the "Open" buttons in the results table, or using the "Open all results" Swarm-Aurora button (in the set of tools buttons, above the search button).
 
-[![Visualize results in Swarm-Aurora](/_extras/img/conjunction_search_basic_search_screenshot2.png)](/_extras/img/conjunction_search_basic_search_screenshot2.png){:target="_blank"}
+[![Visualize results in Swarm-Aurora](../_extras/img/conjunction_search_basic_search_screenshot2.png)](../_extras/img/conjunction_search_basic_search_screenshot2.png)
 
 ## Triple-conjunction searches
 
@@ -22,7 +22,7 @@ Criteria blocks are what we call each "Ground X" or "Space X" row in the query t
 
 We can add another criteria block to our search to find "triple" conjunctions: conjunctions between three different data sources. Example 5 on the Conjunction Search webpage is one such search.
 
-[![Triple conjunction search](/_extras/img/conjunction_search_triple_screenshot1.png)](/_extras/img/conjunction_search_triple_screenshot1.png){:target="_blank"}
+[![Triple conjunction search](../_extras/img/conjunction_search_triple_screenshot1.png)](../_extras/img/conjunction_search_triple_screenshot1.png)
 
 This search returns 24 results, with one being a conjunction between "THEMIS-ASI NRSQ and THEMIS-A and Swarm A". Note the AND statements and how there exists one data source from each criteria block.
 
@@ -34,7 +34,7 @@ Using the "metadata filters" section of a criteria block, we can add different v
 
 Example 7 on the Conjunction Search webpage illustrates the use of the metadata filters and a machine learning model. Below is a screenshot of the metadata filters modal for this example. You can also change the logical expression that the search engine uses when evaluating multiple metadata filters. By default, it is a logical "AND", but can be adjusted in the modal.
 
-[![Triple conjunction search](/_extras/img/conjunction_search_metadata_filters_screenshot1.png)](/_extras/img/conjunction_search_metadata_filters_screenshot1.png){:target="_blank"}
+[![Metadata filters](../_extras/img/conjunction_search_metadata_filters_screenshot1.png)](../_extras/img/conjunction_search_metadata_filters_screenshot1.png)
 
 To give a brief glimpse as to how the search engine evaluates these metadata filters, we can look at some ephemeris data. Below is a single 1-minute ephemeris record for the Swarm A spacecraft.
 
@@ -239,7 +239,7 @@ This flexibility in distances is where the "advanced distances" component comes 
 
 Below is the advanced distanced modal for example 5 on the Conjunction Search webpage. In this example, we are searching for triple conjunctions between one ground and two space, where the maximum distance between the ground and each space is 900 km, and the distance between the two space is not a restriction.
 
-[![Triple conjunction search](/_extras/img/conjunction_search_advanced_distances_screenshot1.png)](/_extras/img/conjunction_search_advanced_distances_screenshot1.png){:target="_blank"}
+[![Advanced distances](../_extras/img/conjunction_search_advanced_distances_screenshot1.png)](../_extras/img/conjunction_search_advanced_distances_screenshot1.png)
 
 ## Searching Ephemeris and Data Product Records
 
@@ -251,4 +251,4 @@ You can easily do an ephemeris search to retrieve all 1-minute records for a set
 
 Now that we've dipped our toes into searching for conjunctions, we'll explore the the search engine's capabilities of retrieving ephemeris and data product records.
 
-[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](/getting_started/5_exploring_keograms/){.md-button}
+[Next step&nbsp;&nbsp;:octicons-arrow-right-16:](exploring_keograms.md){.md-button}

@@ -9,11 +9,11 @@ AuroraX is powered by a database with two core types of data:
 
 ## Ephemeris
 
-Ephemeris data are 1-minute location records corresponding the times that a ground-based or space-based instrument was operating. One of the defining qualities of AuroraX is that data contained in the database consists of only times that instruments definitively collected data. This allows applications such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns){:target="_blank"} to return more useful query results; ones where theres definitely data that can be further evaluated by researchers.
+Ephemeris data are 1-minute location records corresponding the times that a ground-based or space-based instrument was operating. One of the defining qualities of AuroraX is that data contained in the database consists of only times that instruments definitively collected data. This allows applications such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns) to return more useful query results; ones where theres definitely data that can be further evaluated by researchers.
 
 ### Example record
 
-The following is an example of a ground-based ephemeris record. This is a single record from the THEMIS ASI in Gillam, Manitoba, retrieved using the [PyAuroraX](/pyaurorax/overview) library:
+The following is an example of a ground-based ephemeris record. This is a single record from the THEMIS ASI in Gillam, Manitoba, retrieved using the [PyAuroraX](../code/installation.md#pyaurorax) library:
 
 ```python
 {
@@ -73,7 +73,7 @@ All ephemeris records contain details regarding what data source it is associate
 
 ### B-Trace values
 
-AuroraX tools such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns){:target="_blank"} looks for times when spacecrafts are magnetically conjugate with ground-based instruments. This is done by using the North/South B-Trace values from [SSCWeb](https://sscweb.gsfc.nasa.gov/){:target="_blank"} and custom generated values for the ground-based instruments. To generate these values for a ground-based instrument, we use the geographic location do one of two different calculations on it:
+AuroraX tools such as the [Conjunction Search](https://aurorax.space/conjunctionSearch/dropdowns) looks for times when spacecrafts are magnetically conjugate with ground-based instruments. This is done by using the North/South B-Trace values from [SSCWeb](https://sscweb.gsfc.nasa.gov/) and custom generated values for the ground-based instruments. To generate these values for a ground-based instrument, we use the geographic location do one of two different calculations on it:
 
 ```python hl_lines="13-14"
 {
@@ -174,14 +174,14 @@ Please note that GSM data is only available for space-based instruments. This is
 
 In addition to ephemeris metadata, AuroraX also contains metadata representing data products. There are several different types currently: keogram, montage, average, movie, summary_plot, data_availability, and gridded_data.
 
-Keograms are the most recognizable data product for ground-based ASIs; they are images that represent a period of time for imaging. More information about them can be found [here](/about_the_data/instruments/ground/#keograms).
+Keograms are the most recognizable data product for ground-based ASIs; they are images that represent a period of time for imaging. More information about them can be found [here](instruments/ground.md#keograms).
 
 <figure>
   <img src="https://data.swarm-aurora.com/data/summary_data/2008/20080904/themis-asi/20080904_07_gill_themis19_full-keogram.pgm.jpg" />
   <figcaption>THEMIS ASI hourly keogram from Gillam, MB, representing the hour 2008-09-04 UT07</figcaption>
 </figure>
 
-AuroraX contains data product records for an assortment of different keograms and are used by web applications such as [Keogramist](https://aurorax.space/keogramist){:target="_blank"}. Below is an example of a daily keogram record in AuroraX:
+AuroraX contains data product records for an assortment of different keograms and are used by web applications such as [Keogramist](https://aurorax.space/keogramist). Below is an example of a daily keogram record in AuroraX:
 
 ```python
 {
