@@ -27,7 +27,7 @@ docs-generate:
 docs-build:
 	python -m mkdocs build
 
-docs-serve:
+dev docs-serve:
 	python -m mkdocs serve
 
 docs-deploy:

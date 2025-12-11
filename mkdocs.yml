@@ -109,45 +109,8 @@ nav:
     - PyAuroraX API Reference: code/pyaurorax_api_reference/pyaurorax/index.html
     - IDL-AuroraX API Reference: 
       - Overview: code/idlaurorax_api_reference/overview.md
-      - Data Access:
-        - aurorax_list_datasets: code/idlaurorax_api_reference/data/aurorax_list_datasets.md
-        - aurorax_list_observatories: code/idlaurorax_api_reference/data/aurorax_list_observatories.md
-        - aurorax_ucalgary_get_urls: code/idlaurorax_api_reference/data/aurorax_ucalgary_get_urls.md
-        - aurorax_ucalgary_download: code/idlaurorax_api_reference/data/aurorax_ucalgary_download.md
-        - aurorax_ucalgary_download_best_skymap: code/idlaurorax_api_reference/data/aurorax_ucalgary_download_best_skymap.md
-        - aurorax_ucalgary_read: code/idlaurorax_api_reference/data/aurorax_ucalgary_read.md
-        - aurorax_ucalgary_is_read_supported: code/idlaurorax_api_reference/data/aurorax_ucalgary_is_read_supported.md
-      - Analyis Support Software:
-        - aurorax_bounding_box_extract_metric: code/idlaurorax_api_reference/tools/aurorax_bounding_box_extract_metric.md
-        - aurorax_calibrate_rego: code/idlaurorax_api_reference/tools/aurorax_calibrate_rego.md
-        - aurorax_calibrate_trex_nir: code/idlaurorax_api_reference/tools/aurorax_calibrate_trex_nir.md
-        - aurorax_keogram_add_axis: code/idlaurorax_api_reference/tools/aurorax_keogram_add_axis.md
-        - aurorax_keogram_create_custom: code/idlaurorax_api_reference/tools/aurorax_keogram_create_custom.md
-        - aurorax_keogram_create: code/idlaurorax_api_reference/tools/aurorax_keogram_create.md
-        - aurorax_keogram_plot: code/idlaurorax_api_reference/tools/aurorax_keogram_plot.md
-        - aurorax_montage_create: code/idlaurorax_api_reference/tools/aurorax_montage_create.md
-        - aurorax_mosaic_plot: code/idlaurorax_api_reference/tools/aurorax_mosaic_plot.md
-        - aurorax_mosaic_oplot: code/idlaurorax_api_reference/tools/aurorax_mosaic_oplot.md
-        - aurorax_mosaic_prep_images: code/idlaurorax_api_reference/tools/aurorax_mosaic_prep_images.md
-        - aurorax_mosaic_prep_skymap: code/idlaurorax_api_reference/tools/aurorax_mosaic_prep_skymap.md
-        - aurorax_get_decomposed_color: code/idlaurorax_api_reference/tools/aurorax_get_decomposed_color.md
-        - aurorax_movie: code/idlaurorax_api_reference/tools/aurorax_movie.md
-      - TREx Auroral Transport Model (ATM):
-        - aurorax_atm_forward: code/idlaurorax_api_reference/models/atm/aurorax_atm_forward.md
-        - aurorax_atm_forward_get_output_flags: code/idlaurorax_api_reference/models/atm/aurorax_atm_forward_get_output_flags.md
-        - aurorax_atm_inverse: code/idlaurorax_api_reference/models/atm/aurorax_atm_inverse.md
-        - aurorax_atm_inverse_get_output_flags: code/idlaurorax_api_reference/models/atm/aurorax_atm_inverse_get_output_flags.md
-      - AuroraX Search Engine:
-        - aurorax_conjunction_search: code/idlaurorax_api_reference/search/conjunctions/search.md
-        - aurorax_open_conjunctions_in_aurorax: code/idlaurorax_api_reference/search/conjunctions/open_in_aurorax.md
-        - aurorax_open_conjunctions_in_swarmaurora: code/idlaurorax_api_reference/search/conjunctions/open_in_swarmaurora.md
-        - aurorax_save_swarmaurora_custom_import_file: code/idlaurorax_api_reference/search/conjunctions/save_swarmaurora_import_file.md
-        - aurorax_create_advanced_distances_hash: code/idlaurorax_api_reference/search/conjunctions/create_advanced_distances.md
-        - aurorax_create_criteria_block: code/idlaurorax_api_reference/search/conjunctions/create_criteria_block.md
-        - aurorax_create_metadata_filter: code/idlaurorax_api_reference/search/metadata_filters/create_metadata_filter.md
-        - aurorax_create_metadata_filter_expression: code/idlaurorax_api_reference/search/metadata_filters/create_expression.md
-        - aurorax_data_products_availability: code/idlaurorax_api_reference/search/availability/data_products.md
-        - aurorax_data_product_search: code/idlaurorax_api_reference/search/data_products/search.md
-        - aurorax_ephemeris_availability: code/idlaurorax_api_reference/search/availability/ephemeris.md
-        - aurorax_ephemeris_search: code/idlaurorax_api_reference/search/ephemeris/search.md
-        - aurorax_list_sources: code/idlaurorax_api_reference/search/sources/list.md
+      - Data Access: code/idlaurorax_api_reference/data.md
+      - Data Analysis: code/idlaurorax_api_reference/tools.md
+      - TREx ATM: code/idlaurorax_api_reference/models/atm.md
+      - Search Engine: code/idlaurorax_api_reference/search.md
+      - Other: code/idlaurorax_api_reference/other.md
