@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>pyaurorax.search.conjunctions API documentation</title>
+<meta name="description" content="Use the AuroraX search engine to find conjunctions between groupings
+of data sources …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+<style>
+@media screen and (max-width: 699px) {
+#content {
+padding-left: 2em;
+padding-right: 2em;
+padding-top: 0;
+}
+}
+@media screen and (min-width: 700px) {
+#content {
+max-width: 125ch;
+padding-left: 3em;
+padding-right: 3em;
+padding-top: 1em;
+border-left: 1px solid #ddd;
+}
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyaurorax.search.conjunctions</code></h1>
+</header>
+<section id="section-intro">
+<p>Use the AuroraX search engine to find conjunctions between groupings
+of data sources.</p>
+<p>Note that all functions and classes from submodules are all imported
+at this level of the conjunctions module. They can be referenced from
+here instead of digging in deeper to the submodules.</p>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="pyaurorax.search.conjunctions.classes" href="classes/index.html">pyaurorax.search.conjunctions.classes</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="pyaurorax.search.conjunctions.swarmaurora" href="swarmaurora/index.html">pyaurorax.search.conjunctions.swarmaurora</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager"><code class="flex name class">
+<span>class <span class="ident">ConjunctionsManager</span></span>
+<span>(</span><span>aurorax_obj)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ConjunctionsManager:
+    &#34;&#34;&#34;
+    The ConjunctionsManager object is initialized within every PyAuroraX object. It acts as a way to access 
+    the submodules and carry over configuration information in the super class.
+    &#34;&#34;&#34;
+
+    __STANDARD_POLLING_SLEEP_TIME: float = 1.0  # Polling sleep time when waiting for data (after the initial sleep time), in seconds
+
+    def __init__(self, aurorax_obj):
+        self.__aurorax_obj = aurorax_obj
+
+        # initialize sub-modules
+        self.__swarmaurora = SwarmAuroraManager(self.__aurorax_obj)
+
+    @property
+    def swarmaurora(self):
+        &#34;&#34;&#34;
+        Access to the `swarmaurora` submodule from within a PyAuroraX object.
+        &#34;&#34;&#34;
+        return self.__swarmaurora
+
+    def search(self,
+               start: datetime.datetime,
+               end: datetime.datetime,
+               distance: Union[int, float, Dict],
+               ground: Sequence[Union[GroundCriteriaBlock, Dict]] = [],
+               space: Sequence[Union[SpaceCriteriaBlock, Dict]] = [],
+               events: Sequence[Union[EventsCriteriaBlock, Dict]] = [],
+               custom_locations: Sequence[Union[CustomLocationsCriteriaBlock, Dict]] = [],
+               conjunction_types: Sequence[Union[str, Literal[&#34;nbtrace&#34;, &#34;sbtrace&#34;, &#34;geographic&#34;]]] = [],
+               response_format: Optional[Dict] = None,
+               poll_interval: float = __STANDARD_POLLING_SLEEP_TIME,
+               return_immediately: bool = False,
+               verbose: bool = False) -&gt; ConjunctionSearch:
+        &#34;&#34;&#34;
+        Search for conjunctions
+
+        By default, this function will block and wait until the request completes and
+        all data is downloaded. If you don&#39;t want to wait, set the &#39;return_immediately`
+        value to True. The Search object will be returned right after the search has been
+        started, and you can use the helper functions as part of that object to get the
+        data when it&#39;s done.
+
+        Args:
+            start (datetime.datetime): 
+                Start timestamp of the search (inclusive).
+
+            end (datetime.datetime): 
+                End timestamp of the search (inclusive).
+
+            distance (int or float or Dict): 
+                The maximum distance allowed between data sources when searching for
+                conjunctions. This can either be a number (int or float), or a dictionary
+                modified from the output of the &#34;get_advanced_distances_combos()&#34; function.
+
+            ground (List[GroundCriteriaBlock or Dict]): 
+                List of ground instrument criteria blocks, defaults to [].
+
+            space (List[SpaceCriteriaBlock or Dict]): 
+                List of space instrument criteria blocks, defaults to [].
+
+            events (List[EventsCriteriaBlock or Dict]): 
+                List of event criteria blocks, defaults to [].
+
+            custom_locations (List[CustomLocationsCriteriaBlock or Dict]): 
+                List of custom location criteria blocks, defaults to [].
+
+            conjunction_types (List[str]): 
+                List of conjunction types, defaults to [] (meaning all conjunction types). Valid
+                options are &#39;nbtrace&#39;, &#39;sbtrace&#39;, and &#39;geographic&#39;. Defaults to &#39;nbtrace&#39;.
+
+            response_format (Dict): 
+                JSON representation of desired data response format.
+
+            poll_interval (bool): 
+                Seconds to wait between polling calls, defaults to 1 second.
+
+            return_immediately (bool): 
+                Initiate the search and return without waiting for data to be received, defaults 
+                to `False`.
+
+            verbose (bool): 
+                Show the progress of the request using the request log, defaults to `False`.
+
+        Returns:
+            A `pyaurorax.search.ConjunctionSearch` object
+
+        Raises:
+            pyaurorax.exceptions.AuroraXSearchError: The API experienced a search error
+        &#34;&#34;&#34;
+        return func_search(
+            self.__aurorax_obj,
+            start,
+            end,
+            distance,
+            ground,
+            space,
+            events,
+            custom_locations,
+            conjunction_types,
+            response_format,
+            poll_interval,
+            return_immediately,
+            verbose,
+        )
+
+    def search_from_raw_query(self,
+                              query: Union[Dict, str],
+                              poll_interval: float = __STANDARD_POLLING_SLEEP_TIME,
+                              return_immediately: bool = False,
+                              verbose: bool = False) -&gt; ConjunctionSearch:
+        &#34;&#34;&#34;
+        Search for conjunctions, using a query dictionary as the input. 
+        
+        This is especially useful if you&#39;re working in the AuroraX Conjunction Search webpage 
+        to create a search and you&#39;d like to port it over to this Python library with ease.
+
+        Args:
+            query (Dict or str): 
+                A query in dictionary or string format. If it&#39;s in string format, it should valid
+                JSON.
+
+                In the conjunction search web page (https://aurorax.space/conjunctionSearch/standard), 
+                click on the &#39;More&#39; button under the &#39;Tools&#39; section on the right of the page. Then click 
+                on &#39;About query&#39; to bring up a modal. Copy the query in JSON format using the clipboard 
+                icon, and use this JSON string as input to the function.
+
+                Many JSON strings can be pasted as a dictionary object without any adjustments, however, 
+                there are a few edge cases. For example, if the max_distances field has &#39;null&#39; values in 
+                it, then it is not valid Python. In this case, enclose the JSON in a multi-line string 
+                (using the triple-quotes), and pass the query as a string to the function.
+
+            poll_interval (bool): 
+                Seconds to wait between polling calls, defaults to 1 second.
+
+            return_immediately (bool): 
+                Initiate the search and return without waiting for data to be received, defaults 
+                to `False`.
+
+            verbose (bool): 
+                Show the progress of the request using the request log, defaults to `False`.
+
+        Returns:
+            A `ConjunctionSearch` object.
+
+        Raises:
+            pyaurorax.exceptions.AuroraXSearchError: An error was encountered during the search process
+        &#34;&#34;&#34;
+        return func_search_from_raw_query(self.__aurorax_obj, query, poll_interval, return_immediately, verbose)
+
+    def describe(self, search_obj: Optional[ConjunctionSearch] = None, query_dict: Optional[Dict] = None) -&gt; str:
+        &#34;&#34;&#34;
+        Describe a conjunction search as an &#34;SQL-like&#34; string. Either a ConjunctionSearch
+        object can be supplied, or a dictionary of the raw JSON query.
+
+        Args:
+            search_obj (ConjunctionSearch): 
+                The conjunction search to describe, optional
+
+            query_dict (Dict): 
+                The conjunction search query represented as a raw dictionary, optional
+
+        Returns:
+            The &#34;SQL-like&#34; string describing the conjunction search object
+
+        Raises:
+            pyaurorax.exceptions.AuroraXError: Invalid arguments
+        &#34;&#34;&#34;
+        return func_describe(self.__aurorax_obj, search_obj, query_dict)
+
+    def get_request_url(self, request_id: str) -&gt; str:
+        &#34;&#34;&#34;
+        Get the conjunction search request URL for a given request ID. This URL 
+        can be used for subsequent pyaurorax.requests function calls. Primarily 
+        this method facilitates delving into details about a set of already-submitted 
+        conjunction searches.
+
+        Args:
+            request_id (str): 
+                The request identifier
+
+        Returns:
+            The request URL
+        &#34;&#34;&#34;
+        return func_get_request_url(self.__aurorax_obj, request_id)
+
+    def create_advanced_distance_combos(
+        self,
+        distance: Optional[int] = None,
+        ground: int = 0,
+        space: int = 0,
+        events: int = 0,
+        custom: int = 0,
+    ) -&gt; Dict:
+        &#34;&#34;&#34;
+        Get the advanced distances combinations for the specified parameters
+
+        Args:
+            distance (int): 
+                The default distance to use, defaults to None
+            
+            ground (int): 
+                The number of ground criteria blocks, defaults to 0
+
+            space (int): 
+                The number of space criteria blocks, defaults to 0
+
+            events (int): 
+                The number of events criteria blocks, defaults to 0
+
+            custom (int): 
+                The number of custom location criteria blocks, defaults to 0
+
+        Returns:
+            The advanced distances combinations
+        &#34;&#34;&#34;
+        return func_create_advanced_distance_combos(distance, ground, space, events, custom)
+
+    def create_response_format_template(self, default: bool = True) -&gt; Dict:
+        &#34;&#34;&#34;
+        Generate a template dictionary that can be used as the response_format parameter
+        in a conjunction search.
+
+        Args:
+            default (bool): 
+                The default value to set for every parameter that can be returned, defaults
+                to True.
+
+        Returns:
+            A template dictionary for the response format
+        &#34;&#34;&#34;
+        return {
+            &#34;conjunction_type&#34;: default,
+            &#34;start&#34;: default,
+            &#34;end&#34;: default,
+            &#34;min_distance&#34;: default,
+            &#34;max_distance&#34;: default,
+            &#34;closest_epoch&#34;: default,
+            &#34;farthest_epoch&#34;: default,
+            &#34;data_sources&#34;: {
+                &#34;identifier&#34;: default,
+                &#34;program&#34;: default,
+                &#34;platform&#34;: default,
+                &#34;instrument_type&#34;: default,
+                &#34;source_type&#34;: default,
+                &#34;display_name&#34;: default,
+                &#34;ephemeris_metadata_schema&#34;: {
+                    &#34;field_name&#34;: default,
+                    &#34;description&#34;: default,
+                    &#34;data_type&#34;: default,
+                    &#34;allowed_values&#34;: default,
+                    &#34;additional_description&#34;: default
+                },
+                &#34;data_product_metadata_schema&#34;: {
+                    &#34;field_name&#34;: default,
+                    &#34;description&#34;: default,
+                    &#34;data_type&#34;: default,
+                    &#34;allowed_values&#34;: default,
+                    &#34;additional_description&#34;: default
+                },
+                &#34;owner&#34;: default,
+                &#34;maintainers&#34;: default,
+                &#34;metadata&#34;: default
+            },
+            &#34;events&#34;: {
+                &#34;conjunction_type&#34;: default,
+                &#34;e1_source&#34;: {
+                    &#34;identifier&#34;: default,
+                    &#34;program&#34;: default,
+                    &#34;platform&#34;: default,
+                    &#34;instrument_type&#34;: default,
+                    &#34;source_type&#34;: default,
+                    &#34;display_name&#34;: default,
+                    &#34;ephemeris_metadata_schema&#34;: {
+                        &#34;field_name&#34;: default,
+                        &#34;description&#34;: default,
+                        &#34;data_type&#34;: default,
+                        &#34;allowed_values&#34;: default,
+                        &#34;additional_description&#34;: default
+                    },
+                    &#34;data_product_metadata_schema&#34;: {
+                        &#34;field_name&#34;: default,
+                        &#34;description&#34;: default,
+                        &#34;data_type&#34;: default,
+                        &#34;allowed_values&#34;: default,
+                        &#34;additional_description&#34;: default
+                    },
+                    &#34;owner&#34;: default,
+                    &#34;maintainers&#34;: default,
+                    &#34;metadata&#34;: default
+                },
+                &#34;e2_source&#34;: {
+                    &#34;identifier&#34;: default,
+                    &#34;program&#34;: default,
+                    &#34;platform&#34;: default,
+                    &#34;instrument_type&#34;: default,
+                    &#34;source_type&#34;: default,
+                    &#34;display_name&#34;: default,
+                    &#34;ephemeris_metadata_schema&#34;: {
+                        &#34;field_name&#34;: default,
+                        &#34;description&#34;: default,
+                        &#34;data_type&#34;: default,
+                        &#34;allowed_values&#34;: default,
+                        &#34;additional_description&#34;: default
+                    },
+                    &#34;data_product_metadata_schema&#34;: {
+                        &#34;field_name&#34;: default,
+                        &#34;description&#34;: default,
+                        &#34;data_type&#34;: default,
+                        &#34;allowed_values&#34;: default,
+                        &#34;additional_description&#34;: default
+                    },
+                    &#34;owner&#34;: default,
+                    &#34;maintainers&#34;: default,
+                    &#34;metadata&#34;: default
+                },
+                &#34;start&#34;: default,
+                &#34;end&#34;: default,
+                &#34;min_distance&#34;: default,
+                &#34;max_distance&#34;: default,
+                &#34;generated_e1_ephemeris_query&#34;: {
+                    &#34;request_id&#34;: default,
+                    &#34;data_sources&#34;: {
+                        &#34;programs&#34;: default,
+                        &#34;platforms&#34;: default,
+                        &#34;instrument_types&#34;: default,
+                        &#34;ephemeris_metadata_filters&#34;: {
+                            &#34;logicalOperator&#34;: default,
+                            &#34;expressions&#34;: {
+                                &#34;key&#34;: default,
+                                &#34;operator&#34;: default,
+                                &#34;values&#34;: default
+                            }
+                        }
+                    },
+                    &#34;start&#34;: default,
+                    &#34;end&#34;: default
+                },
+                &#34;generated_e2_ephemeris_query&#34;: {
+                    &#34;request_id&#34;: default,
+                    &#34;data_sources&#34;: {
+                        &#34;programs&#34;: default,
+                        &#34;platforms&#34;: default,
+                        &#34;instrument_types&#34;: default,
+                        &#34;ephemeris_metadata_filters&#34;: {
+                            &#34;logicalOperator&#34;: default,
+                            &#34;expressions&#34;: {
+                                &#34;key&#34;: default,
+                                &#34;operator&#34;: default,
+                                &#34;values&#34;: default
+                            }
+                        }
+                    },
+                    &#34;start&#34;: default,
+                    &#34;end&#34;: default
+                }
+            }
+        }</code></pre>
+</details>
+<div class="desc"><p>The ConjunctionsManager object is initialized within every PyAuroraX object. It acts as a way to access
+the submodules and carry over configuration information in the super class.</p></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager.swarmaurora"><code class="name">prop <span class="ident">swarmaurora</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def swarmaurora(self):
+    &#34;&#34;&#34;
+    Access to the `swarmaurora` submodule from within a PyAuroraX object.
+    &#34;&#34;&#34;
+    return self.__swarmaurora</code></pre>
+</details>
+<div class="desc"><p>Access to the <code><a title="pyaurorax.search.conjunctions.swarmaurora" href="swarmaurora/index.html">pyaurorax.search.conjunctions.swarmaurora</a></code> submodule from within a PyAuroraX object.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager.create_advanced_distance_combos"><code class="name flex">
+<span>def <span class="ident">create_advanced_distance_combos</span></span>(<span>self,<br>distance: int | None = None,<br>ground: int = 0,<br>space: int = 0,<br>events: int = 0,<br>custom: int = 0) ‑> Dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_advanced_distance_combos(
+    self,
+    distance: Optional[int] = None,
+    ground: int = 0,
+    space: int = 0,
+    events: int = 0,
+    custom: int = 0,
+) -&gt; Dict:
+    &#34;&#34;&#34;
+    Get the advanced distances combinations for the specified parameters
+
+    Args:
+        distance (int): 
+            The default distance to use, defaults to None
+        
+        ground (int): 
+            The number of ground criteria blocks, defaults to 0
+
+        space (int): 
+            The number of space criteria blocks, defaults to 0
+
+        events (int): 
+            The number of events criteria blocks, defaults to 0
+
+        custom (int): 
+            The number of custom location criteria blocks, defaults to 0
+
+    Returns:
+        The advanced distances combinations
+    &#34;&#34;&#34;
+    return func_create_advanced_distance_combos(distance, ground, space, events, custom)</code></pre>
+</details>
+<div class="desc"><p>Get the advanced distances combinations for the specified parameters</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>distance</code></strong> :&ensp;<code>int</code></dt>
+<dd>The default distance to use, defaults to None</dd>
+<dt><strong><code>ground</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of ground criteria blocks, defaults to 0</dd>
+<dt><strong><code>space</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of space criteria blocks, defaults to 0</dd>
+<dt><strong><code>events</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of events criteria blocks, defaults to 0</dd>
+<dt><strong><code>custom</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of custom location criteria blocks, defaults to 0</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The advanced distances combinations</p></div>
+</dd>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager.create_response_format_template"><code class="name flex">
+<span>def <span class="ident">create_response_format_template</span></span>(<span>self, default: bool = True) ‑> Dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_response_format_template(self, default: bool = True) -&gt; Dict:
+    &#34;&#34;&#34;
+    Generate a template dictionary that can be used as the response_format parameter
+    in a conjunction search.
+
+    Args:
+        default (bool): 
+            The default value to set for every parameter that can be returned, defaults
+            to True.
+
+    Returns:
+        A template dictionary for the response format
+    &#34;&#34;&#34;
+    return {
+        &#34;conjunction_type&#34;: default,
+        &#34;start&#34;: default,
+        &#34;end&#34;: default,
+        &#34;min_distance&#34;: default,
+        &#34;max_distance&#34;: default,
+        &#34;closest_epoch&#34;: default,
+        &#34;farthest_epoch&#34;: default,
+        &#34;data_sources&#34;: {
+            &#34;identifier&#34;: default,
+            &#34;program&#34;: default,
+            &#34;platform&#34;: default,
+            &#34;instrument_type&#34;: default,
+            &#34;source_type&#34;: default,
+            &#34;display_name&#34;: default,
+            &#34;ephemeris_metadata_schema&#34;: {
+                &#34;field_name&#34;: default,
+                &#34;description&#34;: default,
+                &#34;data_type&#34;: default,
+                &#34;allowed_values&#34;: default,
+                &#34;additional_description&#34;: default
+            },
+            &#34;data_product_metadata_schema&#34;: {
+                &#34;field_name&#34;: default,
+                &#34;description&#34;: default,
+                &#34;data_type&#34;: default,
+                &#34;allowed_values&#34;: default,
+                &#34;additional_description&#34;: default
+            },
+            &#34;owner&#34;: default,
+            &#34;maintainers&#34;: default,
+            &#34;metadata&#34;: default
+        },
+        &#34;events&#34;: {
+            &#34;conjunction_type&#34;: default,
+            &#34;e1_source&#34;: {
+                &#34;identifier&#34;: default,
+                &#34;program&#34;: default,
+                &#34;platform&#34;: default,
+                &#34;instrument_type&#34;: default,
+                &#34;source_type&#34;: default,
+                &#34;display_name&#34;: default,
+                &#34;ephemeris_metadata_schema&#34;: {
+                    &#34;field_name&#34;: default,
+                    &#34;description&#34;: default,
+                    &#34;data_type&#34;: default,
+                    &#34;allowed_values&#34;: default,
+                    &#34;additional_description&#34;: default
+                },
+                &#34;data_product_metadata_schema&#34;: {
+                    &#34;field_name&#34;: default,
+                    &#34;description&#34;: default,
+                    &#34;data_type&#34;: default,
+                    &#34;allowed_values&#34;: default,
+                    &#34;additional_description&#34;: default
+                },
+                &#34;owner&#34;: default,
+                &#34;maintainers&#34;: default,
+                &#34;metadata&#34;: default
+            },
+            &#34;e2_source&#34;: {
+                &#34;identifier&#34;: default,
+                &#34;program&#34;: default,
+                &#34;platform&#34;: default,
+                &#34;instrument_type&#34;: default,
+                &#34;source_type&#34;: default,
+                &#34;display_name&#34;: default,
+                &#34;ephemeris_metadata_schema&#34;: {
+                    &#34;field_name&#34;: default,
+                    &#34;description&#34;: default,
+                    &#34;data_type&#34;: default,
+                    &#34;allowed_values&#34;: default,
+                    &#34;additional_description&#34;: default
+                },
+                &#34;data_product_metadata_schema&#34;: {
+                    &#34;field_name&#34;: default,
+                    &#34;description&#34;: default,
+                    &#34;data_type&#34;: default,
+                    &#34;allowed_values&#34;: default,
+                    &#34;additional_description&#34;: default
+                },
+                &#34;owner&#34;: default,
+                &#34;maintainers&#34;: default,
+                &#34;metadata&#34;: default
+            },
+            &#34;start&#34;: default,
+            &#34;end&#34;: default,
+            &#34;min_distance&#34;: default,
+            &#34;max_distance&#34;: default,
+            &#34;generated_e1_ephemeris_query&#34;: {
+                &#34;request_id&#34;: default,
+                &#34;data_sources&#34;: {
+                    &#34;programs&#34;: default,
+                    &#34;platforms&#34;: default,
+                    &#34;instrument_types&#34;: default,
+                    &#34;ephemeris_metadata_filters&#34;: {
+                        &#34;logicalOperator&#34;: default,
+                        &#34;expressions&#34;: {
+                            &#34;key&#34;: default,
+                            &#34;operator&#34;: default,
+                            &#34;values&#34;: default
+                        }
+                    }
+                },
+                &#34;start&#34;: default,
+                &#34;end&#34;: default
+            },
+            &#34;generated_e2_ephemeris_query&#34;: {
+                &#34;request_id&#34;: default,
+                &#34;data_sources&#34;: {
+                    &#34;programs&#34;: default,
+                    &#34;platforms&#34;: default,
+                    &#34;instrument_types&#34;: default,
+                    &#34;ephemeris_metadata_filters&#34;: {
+                        &#34;logicalOperator&#34;: default,
+                        &#34;expressions&#34;: {
+                            &#34;key&#34;: default,
+                            &#34;operator&#34;: default,
+                            &#34;values&#34;: default
+                        }
+                    }
+                },
+                &#34;start&#34;: default,
+                &#34;end&#34;: default
+            }
+        }
+    }</code></pre>
+</details>
+<div class="desc"><p>Generate a template dictionary that can be used as the response_format parameter
+in a conjunction search.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>default</code></strong> :&ensp;<code>bool</code></dt>
+<dd>The default value to set for every parameter that can be returned, defaults
+to True.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A template dictionary for the response format</p></div>
+</dd>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager.describe"><code class="name flex">
+<span>def <span class="ident">describe</span></span>(<span>self,<br>search_obj: <a title="pyaurorax.search.conjunctions.classes.search.ConjunctionSearch" href="classes/search.html#pyaurorax.search.conjunctions.classes.search.ConjunctionSearch">ConjunctionSearch</a> | None = None,<br>query_dict: Dict | None = None) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def describe(self, search_obj: Optional[ConjunctionSearch] = None, query_dict: Optional[Dict] = None) -&gt; str:
+    &#34;&#34;&#34;
+    Describe a conjunction search as an &#34;SQL-like&#34; string. Either a ConjunctionSearch
+    object can be supplied, or a dictionary of the raw JSON query.
+
+    Args:
+        search_obj (ConjunctionSearch): 
+            The conjunction search to describe, optional
+
+        query_dict (Dict): 
+            The conjunction search query represented as a raw dictionary, optional
+
+    Returns:
+        The &#34;SQL-like&#34; string describing the conjunction search object
+
+    Raises:
+        pyaurorax.exceptions.AuroraXError: Invalid arguments
+    &#34;&#34;&#34;
+    return func_describe(self.__aurorax_obj, search_obj, query_dict)</code></pre>
+</details>
+<div class="desc"><p>Describe a conjunction search as an "SQL-like" string. Either a ConjunctionSearch
+object can be supplied, or a dictionary of the raw JSON query.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>search_obj</code></strong> :&ensp;<code>ConjunctionSearch</code></dt>
+<dd>The conjunction search to describe, optional</dd>
+<dt><strong><code>query_dict</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>The conjunction search query represented as a raw dictionary, optional</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The "SQL-like" string describing the conjunction search object</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyaurorax.exceptions.AuroraXError" href="../../exceptions.html#pyaurorax.exceptions.AuroraXError">AuroraXError</a></code></dt>
+<dd>Invalid arguments</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager.get_request_url"><code class="name flex">
+<span>def <span class="ident">get_request_url</span></span>(<span>self, request_id: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_request_url(self, request_id: str) -&gt; str:
+    &#34;&#34;&#34;
+    Get the conjunction search request URL for a given request ID. This URL 
+    can be used for subsequent pyaurorax.requests function calls. Primarily 
+    this method facilitates delving into details about a set of already-submitted 
+    conjunction searches.
+
+    Args:
+        request_id (str): 
+            The request identifier
+
+    Returns:
+        The request URL
+    &#34;&#34;&#34;
+    return func_get_request_url(self.__aurorax_obj, request_id)</code></pre>
+</details>
+<div class="desc"><p>Get the conjunction search request URL for a given request ID. This URL
+can be used for subsequent pyaurorax.requests function calls. Primarily
+this method facilitates delving into details about a set of already-submitted
+conjunction searches.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The request identifier</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The request URL</p></div>
+</dd>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>self,<br>start: datetime.datetime,<br>end: datetime.datetime,<br>distance: int | float | Dict,<br>ground: Sequence[<a title="pyaurorax.search.conjunctions.classes.criteria_block.GroundCriteriaBlock" href="classes/criteria_block.html#pyaurorax.search.conjunctions.classes.criteria_block.GroundCriteriaBlock">GroundCriteriaBlock</a> | Dict] = [],<br>space: Sequence[<a title="pyaurorax.search.conjunctions.classes.criteria_block.SpaceCriteriaBlock" href="classes/criteria_block.html#pyaurorax.search.conjunctions.classes.criteria_block.SpaceCriteriaBlock">SpaceCriteriaBlock</a> | Dict] = [],<br>events: Sequence[<a title="pyaurorax.search.conjunctions.classes.criteria_block.EventsCriteriaBlock" href="classes/criteria_block.html#pyaurorax.search.conjunctions.classes.criteria_block.EventsCriteriaBlock">EventsCriteriaBlock</a> | Dict] = [],<br>custom_locations: Sequence[<a title="pyaurorax.search.conjunctions.classes.criteria_block.CustomLocationsCriteriaBlock" href="classes/criteria_block.html#pyaurorax.search.conjunctions.classes.criteria_block.CustomLocationsCriteriaBlock">CustomLocationsCriteriaBlock</a> | Dict] = [],<br>conjunction_types: Sequence[str | Literal['nbtrace', 'sbtrace', 'geographic']] = [],<br>response_format: Dict | None = None,<br>poll_interval: float = 1.0,<br>return_immediately: bool = False,<br>verbose: bool = False) ‑> <a title="pyaurorax.search.conjunctions.classes.search.ConjunctionSearch" href="classes/search.html#pyaurorax.search.conjunctions.classes.search.ConjunctionSearch">ConjunctionSearch</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search(self,
+           start: datetime.datetime,
+           end: datetime.datetime,
+           distance: Union[int, float, Dict],
+           ground: Sequence[Union[GroundCriteriaBlock, Dict]] = [],
+           space: Sequence[Union[SpaceCriteriaBlock, Dict]] = [],
+           events: Sequence[Union[EventsCriteriaBlock, Dict]] = [],
+           custom_locations: Sequence[Union[CustomLocationsCriteriaBlock, Dict]] = [],
+           conjunction_types: Sequence[Union[str, Literal[&#34;nbtrace&#34;, &#34;sbtrace&#34;, &#34;geographic&#34;]]] = [],
+           response_format: Optional[Dict] = None,
+           poll_interval: float = __STANDARD_POLLING_SLEEP_TIME,
+           return_immediately: bool = False,
+           verbose: bool = False) -&gt; ConjunctionSearch:
+    &#34;&#34;&#34;
+    Search for conjunctions
+
+    By default, this function will block and wait until the request completes and
+    all data is downloaded. If you don&#39;t want to wait, set the &#39;return_immediately`
+    value to True. The Search object will be returned right after the search has been
+    started, and you can use the helper functions as part of that object to get the
+    data when it&#39;s done.
+
+    Args:
+        start (datetime.datetime): 
+            Start timestamp of the search (inclusive).
+
+        end (datetime.datetime): 
+            End timestamp of the search (inclusive).
+
+        distance (int or float or Dict): 
+            The maximum distance allowed between data sources when searching for
+            conjunctions. This can either be a number (int or float), or a dictionary
+            modified from the output of the &#34;get_advanced_distances_combos()&#34; function.
+
+        ground (List[GroundCriteriaBlock or Dict]): 
+            List of ground instrument criteria blocks, defaults to [].
+
+        space (List[SpaceCriteriaBlock or Dict]): 
+            List of space instrument criteria blocks, defaults to [].
+
+        events (List[EventsCriteriaBlock or Dict]): 
+            List of event criteria blocks, defaults to [].
+
+        custom_locations (List[CustomLocationsCriteriaBlock or Dict]): 
+            List of custom location criteria blocks, defaults to [].
+
+        conjunction_types (List[str]): 
+            List of conjunction types, defaults to [] (meaning all conjunction types). Valid
+            options are &#39;nbtrace&#39;, &#39;sbtrace&#39;, and &#39;geographic&#39;. Defaults to &#39;nbtrace&#39;.
+
+        response_format (Dict): 
+            JSON representation of desired data response format.
+
+        poll_interval (bool): 
+            Seconds to wait between polling calls, defaults to 1 second.
+
+        return_immediately (bool): 
+            Initiate the search and return without waiting for data to be received, defaults 
+            to `False`.
+
+        verbose (bool): 
+            Show the progress of the request using the request log, defaults to `False`.
+
+    Returns:
+        A `pyaurorax.search.ConjunctionSearch` object
+
+    Raises:
+        pyaurorax.exceptions.AuroraXSearchError: The API experienced a search error
+    &#34;&#34;&#34;
+    return func_search(
+        self.__aurorax_obj,
+        start,
+        end,
+        distance,
+        ground,
+        space,
+        events,
+        custom_locations,
+        conjunction_types,
+        response_format,
+        poll_interval,
+        return_immediately,
+        verbose,
+    )</code></pre>
+</details>
+<div class="desc"><p>Search for conjunctions</p>
+<p>By default, this function will block and wait until the request completes and
+all data is downloaded. If you don't want to wait, set the 'return_immediately`
+value to True. The Search object will be returned right after the search has been
+started, and you can use the helper functions as part of that object to get the
+data when it's done.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>Start timestamp of the search (inclusive).</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>End timestamp of the search (inclusive).</dd>
+<dt><strong><code>distance</code></strong> :&ensp;<code>int</code> or <code>float</code> or <code>Dict</code></dt>
+<dd>The maximum distance allowed between data sources when searching for
+conjunctions. This can either be a number (int or float), or a dictionary
+modified from the output of the "get_advanced_distances_combos()" function.</dd>
+<dt><strong><code>ground</code></strong> :&ensp;<code>List[GroundCriteriaBlock</code> or <code>Dict]</code></dt>
+<dd>List of ground instrument criteria blocks, defaults to [].</dd>
+<dt><strong><code>space</code></strong> :&ensp;<code>List[SpaceCriteriaBlock</code> or <code>Dict]</code></dt>
+<dd>List of space instrument criteria blocks, defaults to [].</dd>
+<dt><strong><code>events</code></strong> :&ensp;<code>List[EventsCriteriaBlock</code> or <code>Dict]</code></dt>
+<dd>List of event criteria blocks, defaults to [].</dd>
+<dt><strong><code>custom_locations</code></strong> :&ensp;<code>List[CustomLocationsCriteriaBlock</code> or <code>Dict]</code></dt>
+<dd>List of custom location criteria blocks, defaults to [].</dd>
+<dt><strong><code>conjunction_types</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>List of conjunction types, defaults to [] (meaning all conjunction types). Valid
+options are 'nbtrace', 'sbtrace', and 'geographic'. Defaults to 'nbtrace'.</dd>
+<dt><strong><code>response_format</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>JSON representation of desired data response format.</dd>
+<dt><strong><code>poll_interval</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Seconds to wait between polling calls, defaults to 1 second.</dd>
+<dt><strong><code>return_immediately</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Initiate the search and return without waiting for data to be received, defaults
+to <code>False</code>.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Show the progress of the request using the request log, defaults to <code>False</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A <code><a title="pyaurorax.search.ConjunctionSearch" href="../index.html#pyaurorax.search.ConjunctionSearch">ConjunctionSearch</a></code> object</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyaurorax.exceptions.AuroraXSearchError" href="../../exceptions.html#pyaurorax.exceptions.AuroraXSearchError">AuroraXSearchError</a></code></dt>
+<dd>The API experienced a search error</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.search.conjunctions.ConjunctionsManager.search_from_raw_query"><code class="name flex">
+<span>def <span class="ident">search_from_raw_query</span></span>(<span>self,<br>query: Dict | str,<br>poll_interval: float = 1.0,<br>return_immediately: bool = False,<br>verbose: bool = False) ‑> <a title="pyaurorax.search.conjunctions.classes.search.ConjunctionSearch" href="classes/search.html#pyaurorax.search.conjunctions.classes.search.ConjunctionSearch">ConjunctionSearch</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search_from_raw_query(self,
+                          query: Union[Dict, str],
+                          poll_interval: float = __STANDARD_POLLING_SLEEP_TIME,
+                          return_immediately: bool = False,
+                          verbose: bool = False) -&gt; ConjunctionSearch:
+    &#34;&#34;&#34;
+    Search for conjunctions, using a query dictionary as the input. 
+    
+    This is especially useful if you&#39;re working in the AuroraX Conjunction Search webpage 
+    to create a search and you&#39;d like to port it over to this Python library with ease.
+
+    Args:
+        query (Dict or str): 
+            A query in dictionary or string format. If it&#39;s in string format, it should valid
+            JSON.
+
+            In the conjunction search web page (https://aurorax.space/conjunctionSearch/standard), 
+            click on the &#39;More&#39; button under the &#39;Tools&#39; section on the right of the page. Then click 
+            on &#39;About query&#39; to bring up a modal. Copy the query in JSON format using the clipboard 
+            icon, and use this JSON string as input to the function.
+
+            Many JSON strings can be pasted as a dictionary object without any adjustments, however, 
+            there are a few edge cases. For example, if the max_distances field has &#39;null&#39; values in 
+            it, then it is not valid Python. In this case, enclose the JSON in a multi-line string 
+            (using the triple-quotes), and pass the query as a string to the function.
+
+        poll_interval (bool): 
+            Seconds to wait between polling calls, defaults to 1 second.
+
+        return_immediately (bool): 
+            Initiate the search and return without waiting for data to be received, defaults 
+            to `False`.
+
+        verbose (bool): 
+            Show the progress of the request using the request log, defaults to `False`.
+
+    Returns:
+        A `ConjunctionSearch` object.
+
+    Raises:
+        pyaurorax.exceptions.AuroraXSearchError: An error was encountered during the search process
+    &#34;&#34;&#34;
+    return func_search_from_raw_query(self.__aurorax_obj, query, poll_interval, return_immediately, verbose)</code></pre>
+</details>
+<div class="desc"><p>Search for conjunctions, using a query dictionary as the input. </p>
+<p>This is especially useful if you're working in the AuroraX Conjunction Search webpage
+to create a search and you'd like to port it over to this Python library with ease.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>query</code></strong> :&ensp;<code>Dict</code> or <code>str</code></dt>
+<dd>
+<p>A query in dictionary or string format. If it's in string format, it should valid
+JSON.</p>
+<p>In the conjunction search web page (<a href="https://aurorax.space/conjunctionSearch/standard">https://aurorax.space/conjunctionSearch/standard</a>),
+click on the 'More' button under the 'Tools' section on the right of the page. Then click
+on 'About query' to bring up a modal. Copy the query in JSON format using the clipboard
+icon, and use this JSON string as input to the function.</p>
+<p>Many JSON strings can be pasted as a dictionary object without any adjustments, however,
+there are a few edge cases. For example, if the max_distances field has 'null' values in
+it, then it is not valid Python. In this case, enclose the JSON in a multi-line string
+(using the triple-quotes), and pass the query as a string to the function.</p>
+</dd>
+<dt><strong><code>poll_interval</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Seconds to wait between polling calls, defaults to 1 second.</dd>
+<dt><strong><code>return_immediately</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Initiate the search and return without waiting for data to be received, defaults
+to <code>False</code>.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Show the progress of the request using the request log, defaults to <code>False</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A <code>ConjunctionSearch</code> object.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyaurorax.exceptions.AuroraXSearchError" href="../../exceptions.html#pyaurorax.exceptions.AuroraXSearchError">AuroraXSearchError</a></code></dt>
+<dd>An error was encountered during the search process</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyaurorax.search" href="../index.html">pyaurorax.search</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="pyaurorax.search.conjunctions.classes" href="classes/index.html">pyaurorax.search.conjunctions.classes</a></code></li>
+<li><code><a title="pyaurorax.search.conjunctions.swarmaurora" href="swarmaurora/index.html">pyaurorax.search.conjunctions.swarmaurora</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager" href="#pyaurorax.search.conjunctions.ConjunctionsManager">ConjunctionsManager</a></code></h4>
+<ul class="">
+<li><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager.create_advanced_distance_combos" href="#pyaurorax.search.conjunctions.ConjunctionsManager.create_advanced_distance_combos">create_advanced_distance_combos</a></code></li>
+<li><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager.create_response_format_template" href="#pyaurorax.search.conjunctions.ConjunctionsManager.create_response_format_template">create_response_format_template</a></code></li>
+<li><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager.describe" href="#pyaurorax.search.conjunctions.ConjunctionsManager.describe">describe</a></code></li>
+<li><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager.get_request_url" href="#pyaurorax.search.conjunctions.ConjunctionsManager.get_request_url">get_request_url</a></code></li>
+<li><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager.search" href="#pyaurorax.search.conjunctions.ConjunctionsManager.search">search</a></code></li>
+<li><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager.search_from_raw_query" href="#pyaurorax.search.conjunctions.ConjunctionsManager.search_from_raw_query">search_from_raw_query</a></code></li>
+<li><code><a title="pyaurorax.search.conjunctions.ConjunctionsManager.swarmaurora" href="#pyaurorax.search.conjunctions.ConjunctionsManager.swarmaurora">swarmaurora</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

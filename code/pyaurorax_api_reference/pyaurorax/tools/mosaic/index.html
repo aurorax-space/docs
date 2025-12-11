@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>pyaurorax.tools.mosaic API documentation</title>
+<meta name="description" content="Prepare data and create mosaics.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+<style>
+@media screen and (max-width: 699px) {
+#content {
+padding-left: 2em;
+padding-right: 2em;
+padding-top: 0;
+}
+}
+@media screen and (min-width: 700px) {
+#content {
+max-width: 125ch;
+padding-left: 3em;
+padding-right: 3em;
+padding-top: 1em;
+border-left: 1px solid #ddd;
+}
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyaurorax.tools.mosaic</code></h1>
+</header>
+<section id="section-intro">
+<p>Prepare data and create mosaics.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyaurorax.tools.mosaic.MosaicManager"><code class="flex name class">
+<span>class <span class="ident">MosaicManager</span></span>
+<span>(</span><span>aurorax_obj)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MosaicManager:
+    &#34;&#34;&#34;
+    The MosaicManager object is initialized within every PyAuroraX object. It acts as a way to access 
+    the submodules and carry over configuration information in the super class.
+    &#34;&#34;&#34;
+
+    def __init__(self, aurorax_obj):
+        self.__aurorax_obj = aurorax_obj
+
+    def create(
+            self,
+            prepped_data: Union[MosaicData, List[MosaicData]],
+            prepped_skymap: Union[MosaicSkymap, List[MosaicSkymap]],
+            timestamp: datetime.datetime,
+            cartopy_projection: cartopy.crs.Projection,
+            min_elevation: Union[int, List[int]] = 5,
+            cmap: Optional[Union[str, List[str]]] = None,
+            spect_cmap: Optional[Union[str, List[str]]] = None,
+            image_intensity_scales: Optional[Union[List, Dict]] = None,
+            spect_intensity_scales: Optional[Tuple[int, int]] = None,
+            colormap: Optional[Union[str, List[str]]] = None,  # deprecated in v1.10.0
+            spect_colormap: Optional[Union[str, List[str]]] = None,  # deprecated in v1.10.0
+    ) -&gt; Mosaic:
+        &#34;&#34;&#34;
+        Create a mosaic object.
+
+        Args:
+            prepped_data (pyaurorax.tools.MosaicData): 
+                The prepared mosaic data. Generated from a prior `prep_images()` function call.
+
+            prepped_skymap (pyaurorax.tools.MosaicSkymap): 
+                The prepared skymap data. Generated from a prior `prep_skymaps()` function call.
+
+            timestamp (datetime.datetime): 
+                The timestamp to generate a mosaic for. Must be within the range of timestamps
+                for which image data was prepped and provided.
+
+            cartopy_projection (cartopy.crs.Projection): 
+                The cartopy projection to use when creating the mosaic.
+
+            min_elevation (int): 
+                The minimum elevation cutoff when projecting images on the map, in degrees. Default is `5`.
+
+            cmap (str): 
+                The matplotlib colormap to use for the rendered image data. Default is `gray`.
+
+                Commonly used colormaps are:
+
+                - REGO: `gist_heat`
+                - THEMIS ASI: `gray`
+                - TREx Blue: `Blues_r`
+                - TREx NIR: `gray`
+                - TREx RGB: `None`
+
+                A list of all available colormaps can be found on the 
+                [matplotlib documentation](https://matplotlib.org/stable/gallery/color/colormap_reference.html).
+
+            colormap (str): 
+                Deprecated as of v1.10.0. Use &#39;cmap&#39; instead in the exact same way.
+
+            spect_cmap (str): 
+                The matplotlib colormap to use for the colorbar if working with spectrograph
+                data. Default is `gnuplot`.
+
+            image_intensity_scales (List or Dict): 
+                Ranges for scaling images. Either a a list with 2 elements which will scale all sites with 
+                the same range, or as a dictionary which can be used for scaling each site differently. 
+
+                Example of uniform scaling across all sites: 
+                `image_intensity_scales = [2000, 8000]`
+
+                Example of scaling each site differently:
+                `image_intensity_scales = {&#34;fsmi&#34;: [1000, 10000], &#34;gill&#34;: [2000, 8000]}`
+
+            spect_intensity_scales (Tuple[int]): 
+                Min and max values, in Rayleighs, to scale ALL spectrograph data.
+
+            spect_colormap (str): 
+                The name of a matplotlib colormap to use for plotting spectrograph data.
+
+        Returns:
+            The generated `pyaurorax.tools.Mosaic` object.
+
+        Raises:
+            ValueError: issues encountered with supplied parameters
+            pyaurorax.exceptions.AuroraXError: general issue encountered
+        &#34;&#34;&#34;
+        # handle deprecation warnings
+        use_colormap = False
+        use_spect_colormap = False
+        if (colormap is not None):
+            show_warning(&#34;The parameter &#39;colormap&#39; was deprecated in v1.10.0. Please use &#39;cmap&#39; instead (usage is identical).&#34;, stacklevel=1)
+            use_colormap = True
+        if (spect_colormap is not None):
+            show_warning(&#34;The parameter &#39;spect_colormap&#39; was deprecated in v1.10.0. Please use &#39;spect_cmap&#39; instead (usage is identical).&#34;,
+                         stacklevel=1)
+            use_spect_colormap = True
+
+        # run function
+        if (use_colormap is False and use_spect_colormap is False):
+            # normal
+            return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, cmap, spect_cmap, image_intensity_scales,
+                               spect_intensity_scales)
+        elif (use_colormap is True and use_spect_colormap is True):
+            # both deprecated parameters were supplied
+            return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, colormap, spect_colormap,
+                               image_intensity_scales, spect_intensity_scales)
+        elif (use_colormap is True and use_spect_colormap is False):
+            # one deprecated parameter was supplied (colormap)
+            return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, colormap, spect_cmap,
+                               image_intensity_scales, spect_intensity_scales)
+        else:
+            # one deprecated parameter was supplied (spect_colormap)
+            return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, cmap, spect_colormap,
+                               image_intensity_scales, spect_intensity_scales)
+
+    def prep_images(self,
+                    image_list: List[Data],
+                    data_attribute: Literal[&#34;data&#34;, &#34;calibrated_data&#34;] = &#34;data&#34;,
+                    spect_emission: Literal[&#34;green&#34;, &#34;red&#34;, &#34;blue&#34;, &#34;hbeta&#34;] = &#34;green&#34;,
+                    spect_band: Optional[Tuple[float, float]] = None,
+                    spect_band_bg: Optional[Tuple[float, float]] = None) -&gt; MosaicData:
+        &#34;&#34;&#34;
+        Prepare the image data for use in a mosaic.
+
+        Args:
+            image_list (List[pyaurorax.data.ucalgary.Data]): 
+                List of image data. Each element of the list is the data for each site.
+            
+            data_attribute (str): 
+                The data attribute to use when prepping the images. Either `data` or `calibrated_data`. 
+                Default is `data`.
+
+            spect_emission (str): 
+                The emission (green, red, blue, hbeta) to prepare from spectrograph data. Default is 
+                &#39;green&#39; (557.7 nm emission).
+
+            spect_band (Tuple[float]): 
+                Manual selection of the wavelength region to integrate for obtaining emissions. Use this
+                to prepare emissions that are not available in spect_emission.
+
+            spect_band_bg (Tuple[float]): 
+                Manual selection of the wavelength region to subtract from integration for manually
+                chosen emissions, via the spect_band argument.
+
+        Returns:
+            The prepared data, as a `pyaurorax.tools.MosaicData` object.
+
+        Raises:
+            ValueError: issues encountered with supplied parameters
+        &#34;&#34;&#34;
+        return func_prep_images(image_list, data_attribute, spect_emission, spect_band, spect_band_bg)
+
+    def prep_skymaps(self,
+                     skymaps: List[Skymap],
+                     height_km: int,
+                     site_uid_order: Optional[List[str]] = None,
+                     progress_bar_disable: bool = False,
+                     n_parallel: int = 1) -&gt; MosaicSkymap:
+        &#34;&#34;&#34;
+        Prepare skymap data for use by the mosaic routine. This is not time-dependent, so it 
+        would only need to be done once.
+
+        Allows for plotting multiple images on a map, masking the boundaries between 
+        images by elevation angle.
+
+        Args:
+            skymaps (List[pyaurorax.data.ucalgary.Skymap]): 
+                The skymaps to prep.
+            
+            height_km (int): 
+                The altitude to utilize, in kilometers.
+            
+            site_uid_order (List[str]): 
+                The site list order. The order of this list is not important for plotting, but must be
+                consistent with the order of the `skymaps` parameter.
+            
+            progress_bar_disable (bool): 
+                Disable the progress bar. Defaults to `False`.
+
+            n_parallel (int): 
+                Number of skymaps to prepare in parallel using multiprocessing. Default is `1`. 
+
+        Returns:
+            The prepared skymap data as a `pyaurorax.tools.MosaicSkymap` object.
+            
+        Raises:
+            ValueError: issues encountered with supplied parameters
+        &#34;&#34;&#34;
+        return func_prep_skymaps(self.__aurorax_obj, skymaps, height_km, site_uid_order, progress_bar_disable, n_parallel)</code></pre>
+</details>
+<div class="desc"><p>The MosaicManager object is initialized within every PyAuroraX object. It acts as a way to access
+the submodules and carry over configuration information in the super class.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="pyaurorax.tools.mosaic.MosaicManager.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>self,<br>prepped_data: <a title="pyaurorax.tools.classes.mosaic.MosaicData" href="../classes/mosaic.html#pyaurorax.tools.classes.mosaic.MosaicData">MosaicData</a> | List[<a title="pyaurorax.tools.classes.mosaic.MosaicData" href="../classes/mosaic.html#pyaurorax.tools.classes.mosaic.MosaicData">MosaicData</a>],<br>prepped_skymap: <a title="pyaurorax.tools.classes.mosaic.MosaicSkymap" href="../classes/mosaic.html#pyaurorax.tools.classes.mosaic.MosaicSkymap">MosaicSkymap</a> | List[<a title="pyaurorax.tools.classes.mosaic.MosaicSkymap" href="../classes/mosaic.html#pyaurorax.tools.classes.mosaic.MosaicSkymap">MosaicSkymap</a>],<br>timestamp: datetime.datetime,<br>cartopy_projection: cartopy.crs.Projection,<br>min_elevation: int | List[int] = 5,<br>cmap: str | List[str] | None = None,<br>spect_cmap: str | List[str] | None = None,<br>image_intensity_scales: List | Dict | None = None,<br>spect_intensity_scales: Tuple[int, int] | None = None,<br>colormap: str | List[str] | None = None,<br>spect_colormap: str | List[str] | None = None) ‑> <a title="pyaurorax.tools.classes.mosaic.Mosaic" href="../classes/mosaic.html#pyaurorax.tools.classes.mosaic.Mosaic">Mosaic</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create(
+        self,
+        prepped_data: Union[MosaicData, List[MosaicData]],
+        prepped_skymap: Union[MosaicSkymap, List[MosaicSkymap]],
+        timestamp: datetime.datetime,
+        cartopy_projection: cartopy.crs.Projection,
+        min_elevation: Union[int, List[int]] = 5,
+        cmap: Optional[Union[str, List[str]]] = None,
+        spect_cmap: Optional[Union[str, List[str]]] = None,
+        image_intensity_scales: Optional[Union[List, Dict]] = None,
+        spect_intensity_scales: Optional[Tuple[int, int]] = None,
+        colormap: Optional[Union[str, List[str]]] = None,  # deprecated in v1.10.0
+        spect_colormap: Optional[Union[str, List[str]]] = None,  # deprecated in v1.10.0
+) -&gt; Mosaic:
+    &#34;&#34;&#34;
+    Create a mosaic object.
+
+    Args:
+        prepped_data (pyaurorax.tools.MosaicData): 
+            The prepared mosaic data. Generated from a prior `prep_images()` function call.
+
+        prepped_skymap (pyaurorax.tools.MosaicSkymap): 
+            The prepared skymap data. Generated from a prior `prep_skymaps()` function call.
+
+        timestamp (datetime.datetime): 
+            The timestamp to generate a mosaic for. Must be within the range of timestamps
+            for which image data was prepped and provided.
+
+        cartopy_projection (cartopy.crs.Projection): 
+            The cartopy projection to use when creating the mosaic.
+
+        min_elevation (int): 
+            The minimum elevation cutoff when projecting images on the map, in degrees. Default is `5`.
+
+        cmap (str): 
+            The matplotlib colormap to use for the rendered image data. Default is `gray`.
+
+            Commonly used colormaps are:
+
+            - REGO: `gist_heat`
+            - THEMIS ASI: `gray`
+            - TREx Blue: `Blues_r`
+            - TREx NIR: `gray`
+            - TREx RGB: `None`
+
+            A list of all available colormaps can be found on the 
+            [matplotlib documentation](https://matplotlib.org/stable/gallery/color/colormap_reference.html).
+
+        colormap (str): 
+            Deprecated as of v1.10.0. Use &#39;cmap&#39; instead in the exact same way.
+
+        spect_cmap (str): 
+            The matplotlib colormap to use for the colorbar if working with spectrograph
+            data. Default is `gnuplot`.
+
+        image_intensity_scales (List or Dict): 
+            Ranges for scaling images. Either a a list with 2 elements which will scale all sites with 
+            the same range, or as a dictionary which can be used for scaling each site differently. 
+
+            Example of uniform scaling across all sites: 
+            `image_intensity_scales = [2000, 8000]`
+
+            Example of scaling each site differently:
+            `image_intensity_scales = {&#34;fsmi&#34;: [1000, 10000], &#34;gill&#34;: [2000, 8000]}`
+
+        spect_intensity_scales (Tuple[int]): 
+            Min and max values, in Rayleighs, to scale ALL spectrograph data.
+
+        spect_colormap (str): 
+            The name of a matplotlib colormap to use for plotting spectrograph data.
+
+    Returns:
+        The generated `pyaurorax.tools.Mosaic` object.
+
+    Raises:
+        ValueError: issues encountered with supplied parameters
+        pyaurorax.exceptions.AuroraXError: general issue encountered
+    &#34;&#34;&#34;
+    # handle deprecation warnings
+    use_colormap = False
+    use_spect_colormap = False
+    if (colormap is not None):
+        show_warning(&#34;The parameter &#39;colormap&#39; was deprecated in v1.10.0. Please use &#39;cmap&#39; instead (usage is identical).&#34;, stacklevel=1)
+        use_colormap = True
+    if (spect_colormap is not None):
+        show_warning(&#34;The parameter &#39;spect_colormap&#39; was deprecated in v1.10.0. Please use &#39;spect_cmap&#39; instead (usage is identical).&#34;,
+                     stacklevel=1)
+        use_spect_colormap = True
+
+    # run function
+    if (use_colormap is False and use_spect_colormap is False):
+        # normal
+        return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, cmap, spect_cmap, image_intensity_scales,
+                           spect_intensity_scales)
+    elif (use_colormap is True and use_spect_colormap is True):
+        # both deprecated parameters were supplied
+        return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, colormap, spect_colormap,
+                           image_intensity_scales, spect_intensity_scales)
+    elif (use_colormap is True and use_spect_colormap is False):
+        # one deprecated parameter was supplied (colormap)
+        return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, colormap, spect_cmap,
+                           image_intensity_scales, spect_intensity_scales)
+    else:
+        # one deprecated parameter was supplied (spect_colormap)
+        return func_create(prepped_data, prepped_skymap, timestamp, cartopy_projection, min_elevation, cmap, spect_colormap,
+                           image_intensity_scales, spect_intensity_scales)</code></pre>
+</details>
+<div class="desc"><p>Create a mosaic object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>prepped_data</code></strong> :&ensp;<code><a title="pyaurorax.tools.MosaicData" href="../index.html#pyaurorax.tools.MosaicData">MosaicData</a></code></dt>
+<dd>The prepared mosaic data. Generated from a prior <code>prep_images()</code> function call.</dd>
+<dt><strong><code>prepped_skymap</code></strong> :&ensp;<code><a title="pyaurorax.tools.MosaicSkymap" href="../index.html#pyaurorax.tools.MosaicSkymap">MosaicSkymap</a></code></dt>
+<dd>The prepared skymap data. Generated from a prior <code>prep_skymaps()</code> function call.</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The timestamp to generate a mosaic for. Must be within the range of timestamps
+for which image data was prepped and provided.</dd>
+<dt><strong><code>cartopy_projection</code></strong> :&ensp;<code>cartopy.crs.Projection</code></dt>
+<dd>The cartopy projection to use when creating the mosaic.</dd>
+<dt><strong><code>min_elevation</code></strong> :&ensp;<code>int</code></dt>
+<dd>The minimum elevation cutoff when projecting images on the map, in degrees. Default is <code>5</code>.</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<p>The matplotlib colormap to use for the rendered image data. Default is <code>gray</code>.</p>
+<p>Commonly used colormaps are:</p>
+<ul>
+<li>REGO: <code>gist_heat</code></li>
+<li>THEMIS ASI: <code>gray</code></li>
+<li>TREx Blue: <code>Blues_r</code></li>
+<li>TREx NIR: <code>gray</code></li>
+<li>TREx RGB: <code>None</code></li>
+</ul>
+<p>A list of all available colormaps can be found on the
+<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
+</dd>
+<dt><strong><code>colormap</code></strong> :&ensp;<code>str</code></dt>
+<dd>Deprecated as of v1.10.0. Use 'cmap' instead in the exact same way.</dd>
+<dt><strong><code>spect_cmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>The matplotlib colormap to use for the colorbar if working with spectrograph
+data. Default is <code>gnuplot</code>.</dd>
+<dt><strong><code>image_intensity_scales</code></strong> :&ensp;<code>List</code> or <code>Dict</code></dt>
+<dd>
+<p>Ranges for scaling images. Either a a list with 2 elements which will scale all sites with
+the same range, or as a dictionary which can be used for scaling each site differently. </p>
+<p>Example of uniform scaling across all sites:
+<code>image_intensity_scales = [2000, 8000]</code></p>
+<p>Example of scaling each site differently:
+<code>image_intensity_scales = {"fsmi": [1000, 10000], "gill": [2000, 8000]}</code></p>
+</dd>
+<dt><strong><code>spect_intensity_scales</code></strong> :&ensp;<code>Tuple[int]</code></dt>
+<dd>Min and max values, in Rayleighs, to scale ALL spectrograph data.</dd>
+<dt><strong><code>spect_colormap</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of a matplotlib colormap to use for plotting spectrograph data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The generated <code><a title="pyaurorax.tools.Mosaic" href="../index.html#pyaurorax.tools.Mosaic">Mosaic</a></code> object.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>issues encountered with supplied parameters</dd>
+<dt><code><a title="pyaurorax.exceptions.AuroraXError" href="../../exceptions.html#pyaurorax.exceptions.AuroraXError">AuroraXError</a></code></dt>
+<dd>general issue encountered</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.tools.mosaic.MosaicManager.prep_images"><code class="name flex">
+<span>def <span class="ident">prep_images</span></span>(<span>self,<br>image_list: List[pyucalgarysrs.data.classes.Data],<br>data_attribute: Literal['data', 'calibrated_data'] = 'data',<br>spect_emission: Literal['green', 'red', 'blue', 'hbeta'] = 'green',<br>spect_band: Tuple[float, float] | None = None,<br>spect_band_bg: Tuple[float, float] | None = None) ‑> <a title="pyaurorax.tools.classes.mosaic.MosaicData" href="../classes/mosaic.html#pyaurorax.tools.classes.mosaic.MosaicData">MosaicData</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prep_images(self,
+                image_list: List[Data],
+                data_attribute: Literal[&#34;data&#34;, &#34;calibrated_data&#34;] = &#34;data&#34;,
+                spect_emission: Literal[&#34;green&#34;, &#34;red&#34;, &#34;blue&#34;, &#34;hbeta&#34;] = &#34;green&#34;,
+                spect_band: Optional[Tuple[float, float]] = None,
+                spect_band_bg: Optional[Tuple[float, float]] = None) -&gt; MosaicData:
+    &#34;&#34;&#34;
+    Prepare the image data for use in a mosaic.
+
+    Args:
+        image_list (List[pyaurorax.data.ucalgary.Data]): 
+            List of image data. Each element of the list is the data for each site.
+        
+        data_attribute (str): 
+            The data attribute to use when prepping the images. Either `data` or `calibrated_data`. 
+            Default is `data`.
+
+        spect_emission (str): 
+            The emission (green, red, blue, hbeta) to prepare from spectrograph data. Default is 
+            &#39;green&#39; (557.7 nm emission).
+
+        spect_band (Tuple[float]): 
+            Manual selection of the wavelength region to integrate for obtaining emissions. Use this
+            to prepare emissions that are not available in spect_emission.
+
+        spect_band_bg (Tuple[float]): 
+            Manual selection of the wavelength region to subtract from integration for manually
+            chosen emissions, via the spect_band argument.
+
+    Returns:
+        The prepared data, as a `pyaurorax.tools.MosaicData` object.
+
+    Raises:
+        ValueError: issues encountered with supplied parameters
+    &#34;&#34;&#34;
+    return func_prep_images(image_list, data_attribute, spect_emission, spect_band, spect_band_bg)</code></pre>
+</details>
+<div class="desc"><p>Prepare the image data for use in a mosaic.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image_list</code></strong> :&ensp;<code>List[<a title="pyaurorax.data.ucalgary.Data" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Data">Data</a>]</code></dt>
+<dd>List of image data. Each element of the list is the data for each site.</dd>
+<dt><strong><code>data_attribute</code></strong> :&ensp;<code>str</code></dt>
+<dd>The data attribute to use when prepping the images. Either <code>data</code> or <code>calibrated_data</code>.
+Default is <code>data</code>.</dd>
+<dt><strong><code>spect_emission</code></strong> :&ensp;<code>str</code></dt>
+<dd>The emission (green, red, blue, hbeta) to prepare from spectrograph data. Default is
+'green' (557.7 nm emission).</dd>
+<dt><strong><code>spect_band</code></strong> :&ensp;<code>Tuple[float]</code></dt>
+<dd>Manual selection of the wavelength region to integrate for obtaining emissions. Use this
+to prepare emissions that are not available in spect_emission.</dd>
+<dt><strong><code>spect_band_bg</code></strong> :&ensp;<code>Tuple[float]</code></dt>
+<dd>Manual selection of the wavelength region to subtract from integration for manually
+chosen emissions, via the spect_band argument.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The prepared data, as a <code><a title="pyaurorax.tools.MosaicData" href="../index.html#pyaurorax.tools.MosaicData">MosaicData</a></code> object.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>issues encountered with supplied parameters</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.tools.mosaic.MosaicManager.prep_skymaps"><code class="name flex">
+<span>def <span class="ident">prep_skymaps</span></span>(<span>self,<br>skymaps: List[pyucalgarysrs.data.classes.Skymap],<br>height_km: int,<br>site_uid_order: List[str] | None = None,<br>progress_bar_disable: bool = False,<br>n_parallel: int = 1) ‑> <a title="pyaurorax.tools.classes.mosaic.MosaicSkymap" href="../classes/mosaic.html#pyaurorax.tools.classes.mosaic.MosaicSkymap">MosaicSkymap</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prep_skymaps(self,
+                 skymaps: List[Skymap],
+                 height_km: int,
+                 site_uid_order: Optional[List[str]] = None,
+                 progress_bar_disable: bool = False,
+                 n_parallel: int = 1) -&gt; MosaicSkymap:
+    &#34;&#34;&#34;
+    Prepare skymap data for use by the mosaic routine. This is not time-dependent, so it 
+    would only need to be done once.
+
+    Allows for plotting multiple images on a map, masking the boundaries between 
+    images by elevation angle.
+
+    Args:
+        skymaps (List[pyaurorax.data.ucalgary.Skymap]): 
+            The skymaps to prep.
+        
+        height_km (int): 
+            The altitude to utilize, in kilometers.
+        
+        site_uid_order (List[str]): 
+            The site list order. The order of this list is not important for plotting, but must be
+            consistent with the order of the `skymaps` parameter.
+        
+        progress_bar_disable (bool): 
+            Disable the progress bar. Defaults to `False`.
+
+        n_parallel (int): 
+            Number of skymaps to prepare in parallel using multiprocessing. Default is `1`. 
+
+    Returns:
+        The prepared skymap data as a `pyaurorax.tools.MosaicSkymap` object.
+        
+    Raises:
+        ValueError: issues encountered with supplied parameters
+    &#34;&#34;&#34;
+    return func_prep_skymaps(self.__aurorax_obj, skymaps, height_km, site_uid_order, progress_bar_disable, n_parallel)</code></pre>
+</details>
+<div class="desc"><p>Prepare skymap data for use by the mosaic routine. This is not time-dependent, so it
+would only need to be done once.</p>
+<p>Allows for plotting multiple images on a map, masking the boundaries between
+images by elevation angle.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>skymaps</code></strong> :&ensp;<code>List[<a title="pyaurorax.data.ucalgary.Skymap" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a>]</code></dt>
+<dd>The skymaps to prep.</dd>
+<dt><strong><code>height_km</code></strong> :&ensp;<code>int</code></dt>
+<dd>The altitude to utilize, in kilometers.</dd>
+<dt><strong><code>site_uid_order</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>The site list order. The order of this list is not important for plotting, but must be
+consistent with the order of the <code>skymaps</code> parameter.</dd>
+<dt><strong><code>progress_bar_disable</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Disable the progress bar. Defaults to <code>False</code>.</dd>
+<dt><strong><code>n_parallel</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of skymaps to prepare in parallel using multiprocessing. Default is <code>1</code>. </dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The prepared skymap data as a <code><a title="pyaurorax.tools.MosaicSkymap" href="../index.html#pyaurorax.tools.MosaicSkymap">MosaicSkymap</a></code> object.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>issues encountered with supplied parameters</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyaurorax.tools" href="../index.html">pyaurorax.tools</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyaurorax.tools.mosaic.MosaicManager" href="#pyaurorax.tools.mosaic.MosaicManager">MosaicManager</a></code></h4>
+<ul class="">
+<li><code><a title="pyaurorax.tools.mosaic.MosaicManager.create" href="#pyaurorax.tools.mosaic.MosaicManager.create">create</a></code></li>
+<li><code><a title="pyaurorax.tools.mosaic.MosaicManager.prep_images" href="#pyaurorax.tools.mosaic.MosaicManager.prep_images">prep_images</a></code></li>
+<li><code><a title="pyaurorax.tools.mosaic.MosaicManager.prep_skymaps" href="#pyaurorax.tools.mosaic.MosaicManager.prep_skymaps">prep_skymaps</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

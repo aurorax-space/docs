@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>pyaurorax.tools.classes.montage API documentation</title>
+<meta name="description" content="Class representation for a montage.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+<style>
+@media screen and (max-width: 699px) {
+#content {
+padding-left: 2em;
+padding-right: 2em;
+padding-top: 0;
+}
+}
+@media screen and (min-width: 700px) {
+#content {
+max-width: 125ch;
+padding-left: 3em;
+padding-right: 3em;
+padding-top: 1em;
+border-left: 1px solid #ddd;
+}
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyaurorax.tools.classes.montage</code></h1>
+</header>
+<section id="section-intro">
+<p>Class representation for a montage.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyaurorax.tools.classes.montage.Montage"><code class="flex name class">
+<span>class <span class="ident">Montage</span></span>
+<span>(</span><span>data: numpy.ndarray, timestamp: List[datetime.datetime], n_channels: int)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class Montage:
+    &#34;&#34;&#34;
+    Class representation for a montage
+
+    Attributes:
+        data (numpy.ndarray): 
+            The derived montage data.
+
+        timestamp (List[datetime.datetime]): 
+            Timestamps corresponding to each montage image.
+    &#34;&#34;&#34;
+
+    def __init__(self, data: np.ndarray, timestamp: List[datetime.datetime], n_channels: int):
+        # public vars
+        self.data = data
+        self.timestamp = timestamp
+
+        # private vars
+        self.__n_channels = n_channels
+
+    def __str__(self) -&gt; str:
+        return self.__repr__()
+
+    def __repr__(self) -&gt; str:
+        data_str = &#34;array(dims=%s, dtype=%s)&#34; % (self.data.shape, self.data.dtype)
+        timestamp_str = &#34;[%d datetime objects]&#34; % (len(self.timestamp))
+
+        return &#34;Montage(data=%s, timestamp=%s)&#34; % (data_str, timestamp_str)
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        # set special strings
+        data_str = &#34;array(dims=%s, dtype=%s)&#34; % (self.data.shape, self.data.dtype)
+        timestamp_str = &#34;[%d datetime objects]&#34; % (len(self.timestamp))
+
+        # print
+        print(&#34;Montage:&#34;)
+        print(&#34;  %-11s: %s&#34; % (&#34;data&#34;, data_str))
+        print(&#34;  %-11s: %s&#34; % (&#34;timestamp&#34;, timestamp_str))
+
+    def plot(self,
+             rows: int,
+             cols: int,
+             timestamps_display: bool = True,
+             timestamps_format: str = &#34;%Y-%m-%d %H:%M:%S&#34;,
+             timestamps_fontsize: int = 11,
+             figsize: Optional[Tuple[int, int]] = None,
+             title: Optional[str] = None,
+             cmap: Optional[str] = None,
+             returnfig: bool = False,
+             savefig: bool = False,
+             savefig_filename: Optional[str] = None,
+             savefig_quality: Optional[int] = None) -&gt; Any:
+        &#34;&#34;&#34;
+        Generate a plot of the montage data. 
+        
+        Either display it (default behaviour), save it to disk (using the `savefig` parameter), or 
+        return the matplotlib plot object for further usage (using the `returnfig` parameter).
+
+        Args:
+            rows (int): 
+                The number of rows to use when displaying the images as a montage. The product of 
+                the `rows` and `cols` parameters must match the number of images supplied when creating 
+                the `Montage` object. If not, a ValueError will be raised. This parameter is required.
+
+            cols (int): 
+                The number of columns to use when displaying the images as a montage. The product of 
+                the `rows` and `cols` parameters must match the number of images supplied when creating 
+                the `Montage` object. If not, a ValueError will be raised. This parameter is required.
+
+            timestamps_display (bool): 
+                Display the timestamps on each montage image. Defaults to True. This parameter is
+                optional.
+
+            timestamps_format (str): 
+                The format of the timestamps when being displayed. This is the same format string
+                as when using the `strftime()` function for a `datetime` object. Default format 
+                string is `%Y-%m-%d %H:%M:%S`. Refer to the 
+                [Python documentation](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
+                for further information. This parameter is optional.
+            
+            timestamps_fontsize (int): 
+                The font size for the displayed timestamps. Default is size 11. This parameter is 
+                optional.
+
+            figsize (tuple): 
+                The matplotlib figure size to use when plotting. For example `figsize=(14,4)`.
+
+            title (str): 
+                The title to display above the plotted montage. Default is no title.
+
+            cmap (str): 
+                The matplotlib colormap to use.
+
+                Commonly used colormaps are:
+
+                - REGO: `gist_heat`
+                - THEMIS ASI: `gray`
+                - TREx Blue: `Blues_r`
+                - TREx NIR: `gray`
+                - TREx RGB: `None`
+
+                A list of all available colormaps can be found on the 
+                [matplotlib documentation](https://matplotlib.org/stable/gallery/color/colormap_reference.html).
+            
+            returnfig (bool): 
+                Instead of displaying the image, return the matplotlib figure object. This allows for further plot 
+                manipulation, for example, adding labels or a title in a different location than the default. 
+                
+                Remember - if this parameter is supplied, be sure that you close your plot after finishing work 
+                with it. This can be achieved by doing `plt.close(fig)`. 
+                
+                Note that this method cannot be used in combination with `savefig`.
+
+            savefig (bool): 
+                Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if 
+                this parameter is set to True. Defaults to `False`.
+
+            savefig_filename (str): 
+                Filename to save the image to. Must be specified if the savefig parameter is set to True.
+
+            savefig_quality (int): 
+                Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+                is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow&#39;s default of 75%.
+
+        Returns:
+            The displayed montage, by default. If `savefig` is set to True, nothing will be returned. If `returnfig` is 
+            set to True, the plotting variables `(fig, ax)` will be returned.
+
+        Raises:
+            ValueError: issues with the y-axis choice, or rows/cols choice.
+        &#34;&#34;&#34;
+        # check rows and cols
+        if (rows * cols != self.data.shape[-1]):
+            raise ValueError((&#34;Invalid choice of rows and columns. The %d images in this Montage object &#34; +
+                              &#34;cannot be organized into a %dx%d grid (%d * %d != %d)&#34;) % (
+                                  self.data.shape[-1],
+                                  rows,
+                                  cols,
+                                  rows,
+                                  cols,
+                                  self.data.shape[-1],
+                              ))
+
+        # check return mode
+        if (returnfig is True and savefig is True):
+            raise ValueError(&#34;Only one of returnfig or savefig can be set to True&#34;)
+        if (returnfig is True and (savefig_filename is not None or savefig_quality is not None)):
+            show_warning(&#34;The figure will be returned, but a savefig option parameter was supplied. Consider &#34; +
+                         &#34;removing the savefig option parameter(s) as they will be ignored.&#34;,
+                         stacklevel=1)
+        elif (savefig is False and (savefig_filename is not None or savefig_quality is not None)):
+            show_warning(&#34;A savefig option parameter was supplied, but the savefig parameter is False. The &#34; +
+                         &#34;savefig option parameters will be ignored.&#34;,
+                         stacklevel=1)
+
+        # init figure
+        fig, axs = plt.subplots(nrows=rows, ncols=cols, figsize=figsize)
+
+        # set title
+        if (title is not None):
+            fig.suptitle(title)
+
+        # for each image
+        for ax, i in zip(axs.flat, range(0, len(self.timestamp)), strict=False):  # type: ignore
+            if (self.__n_channels == 1):
+                # single channel
+                ax.imshow(self.data[:, :, i], cmap=cmap, origin=&#34;lower&#34;, interpolation=&#34;nearest&#34;)
+            elif (self.__n_channels == 3):
+                # single channel
+                ax.imshow(self.data[:, :, :, i], cmap=cmap, origin=&#34;lower&#34;, interpolation=&#34;nearest&#34;)
+            else:  # pragma: nocover
+                raise ValueError(&#34;Can only plot 3 or 4 dimensional data (series of single-channel or RGB mages), but found data of shape %s&#34; %
+                                 (self.data.shape))
+
+            ax.set_axis_off()
+
+            # show timestamp
+            if (timestamps_display is True):
+                ax.text(
+                    int(np.floor(self.data.shape[1] / 2.)),
+                    5,
+                    self.timestamp[i].strftime(timestamps_format),
+                    ha=&#34;center&#34;,
+                    fontsize=timestamps_fontsize,
+                )
+        plt.tight_layout(h_pad=0, w_pad=0)
+
+        # save figure or show it
+        if (savefig is True):
+            # check that filename has been set
+            if (savefig_filename is None):
+                raise ValueError(&#34;The savefig_filename parameter is missing, but required since savefig was set to True.&#34;)
+
+            # save the figure
+            f_extension = os.path.splitext(savefig_filename)[-1].lower()
+            if (&#34;.jpg&#34; == f_extension or &#34;.jpeg&#34; == f_extension):
+                # check quality setting
+                if (savefig_quality is not None):
+                    plt.savefig(savefig_filename, pil_kwargs={&#34;quality&#34;: savefig_quality}, bbox_inches=&#34;tight&#34;)
+                else:
+                    plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
+            else:
+                if (savefig_quality is not None):
+                    # quality specified, but output filename is not a JPG, so show a warning
+                    show_warning(&#34;The savefig_quality parameter was specified, but is only used for saving JPG files. The &#34; +
+                                 &#34;savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored&#34;,
+                                 stacklevel=1)
+                plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
+
+            # clean up by closing the figure
+            plt.close(fig)
+        elif (returnfig is True):
+            # return the figure and axis objects
+            return (fig, axs)
+        else:
+            # show the figure
+            plt.show(fig)
+
+            # cleanup by closing the figure
+            plt.close(fig)
+
+        # return
+        return None</code></pre>
+</details>
+<div class="desc"><p>Class representation for a montage</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The derived montage data.</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
+<dd>Timestamps corresponding to each montage image.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="pyaurorax.tools.classes.montage.Montage.plot"><code class="name flex">
+<span>def <span class="ident">plot</span></span>(<span>self,<br>rows: int,<br>cols: int,<br>timestamps_display: bool = True,<br>timestamps_format: str = '%Y-%m-%d %H:%M:%S',<br>timestamps_fontsize: int = 11,<br>figsize: Tuple[int, int] | None = None,<br>title: str | None = None,<br>cmap: str | None = None,<br>returnfig: bool = False,<br>savefig: bool = False,<br>savefig_filename: str | None = None,<br>savefig_quality: int | None = None) ‑> Any</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot(self,
+         rows: int,
+         cols: int,
+         timestamps_display: bool = True,
+         timestamps_format: str = &#34;%Y-%m-%d %H:%M:%S&#34;,
+         timestamps_fontsize: int = 11,
+         figsize: Optional[Tuple[int, int]] = None,
+         title: Optional[str] = None,
+         cmap: Optional[str] = None,
+         returnfig: bool = False,
+         savefig: bool = False,
+         savefig_filename: Optional[str] = None,
+         savefig_quality: Optional[int] = None) -&gt; Any:
+    &#34;&#34;&#34;
+    Generate a plot of the montage data. 
+    
+    Either display it (default behaviour), save it to disk (using the `savefig` parameter), or 
+    return the matplotlib plot object for further usage (using the `returnfig` parameter).
+
+    Args:
+        rows (int): 
+            The number of rows to use when displaying the images as a montage. The product of 
+            the `rows` and `cols` parameters must match the number of images supplied when creating 
+            the `Montage` object. If not, a ValueError will be raised. This parameter is required.
+
+        cols (int): 
+            The number of columns to use when displaying the images as a montage. The product of 
+            the `rows` and `cols` parameters must match the number of images supplied when creating 
+            the `Montage` object. If not, a ValueError will be raised. This parameter is required.
+
+        timestamps_display (bool): 
+            Display the timestamps on each montage image. Defaults to True. This parameter is
+            optional.
+
+        timestamps_format (str): 
+            The format of the timestamps when being displayed. This is the same format string
+            as when using the `strftime()` function for a `datetime` object. Default format 
+            string is `%Y-%m-%d %H:%M:%S`. Refer to the 
+            [Python documentation](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
+            for further information. This parameter is optional.
+        
+        timestamps_fontsize (int): 
+            The font size for the displayed timestamps. Default is size 11. This parameter is 
+            optional.
+
+        figsize (tuple): 
+            The matplotlib figure size to use when plotting. For example `figsize=(14,4)`.
+
+        title (str): 
+            The title to display above the plotted montage. Default is no title.
+
+        cmap (str): 
+            The matplotlib colormap to use.
+
+            Commonly used colormaps are:
+
+            - REGO: `gist_heat`
+            - THEMIS ASI: `gray`
+            - TREx Blue: `Blues_r`
+            - TREx NIR: `gray`
+            - TREx RGB: `None`
+
+            A list of all available colormaps can be found on the 
+            [matplotlib documentation](https://matplotlib.org/stable/gallery/color/colormap_reference.html).
+        
+        returnfig (bool): 
+            Instead of displaying the image, return the matplotlib figure object. This allows for further plot 
+            manipulation, for example, adding labels or a title in a different location than the default. 
+            
+            Remember - if this parameter is supplied, be sure that you close your plot after finishing work 
+            with it. This can be achieved by doing `plt.close(fig)`. 
+            
+            Note that this method cannot be used in combination with `savefig`.
+
+        savefig (bool): 
+            Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if 
+            this parameter is set to True. Defaults to `False`.
+
+        savefig_filename (str): 
+            Filename to save the image to. Must be specified if the savefig parameter is set to True.
+
+        savefig_quality (int): 
+            Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+            is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow&#39;s default of 75%.
+
+    Returns:
+        The displayed montage, by default. If `savefig` is set to True, nothing will be returned. If `returnfig` is 
+        set to True, the plotting variables `(fig, ax)` will be returned.
+
+    Raises:
+        ValueError: issues with the y-axis choice, or rows/cols choice.
+    &#34;&#34;&#34;
+    # check rows and cols
+    if (rows * cols != self.data.shape[-1]):
+        raise ValueError((&#34;Invalid choice of rows and columns. The %d images in this Montage object &#34; +
+                          &#34;cannot be organized into a %dx%d grid (%d * %d != %d)&#34;) % (
+                              self.data.shape[-1],
+                              rows,
+                              cols,
+                              rows,
+                              cols,
+                              self.data.shape[-1],
+                          ))
+
+    # check return mode
+    if (returnfig is True and savefig is True):
+        raise ValueError(&#34;Only one of returnfig or savefig can be set to True&#34;)
+    if (returnfig is True and (savefig_filename is not None or savefig_quality is not None)):
+        show_warning(&#34;The figure will be returned, but a savefig option parameter was supplied. Consider &#34; +
+                     &#34;removing the savefig option parameter(s) as they will be ignored.&#34;,
+                     stacklevel=1)
+    elif (savefig is False and (savefig_filename is not None or savefig_quality is not None)):
+        show_warning(&#34;A savefig option parameter was supplied, but the savefig parameter is False. The &#34; +
+                     &#34;savefig option parameters will be ignored.&#34;,
+                     stacklevel=1)
+
+    # init figure
+    fig, axs = plt.subplots(nrows=rows, ncols=cols, figsize=figsize)
+
+    # set title
+    if (title is not None):
+        fig.suptitle(title)
+
+    # for each image
+    for ax, i in zip(axs.flat, range(0, len(self.timestamp)), strict=False):  # type: ignore
+        if (self.__n_channels == 1):
+            # single channel
+            ax.imshow(self.data[:, :, i], cmap=cmap, origin=&#34;lower&#34;, interpolation=&#34;nearest&#34;)
+        elif (self.__n_channels == 3):
+            # single channel
+            ax.imshow(self.data[:, :, :, i], cmap=cmap, origin=&#34;lower&#34;, interpolation=&#34;nearest&#34;)
+        else:  # pragma: nocover
+            raise ValueError(&#34;Can only plot 3 or 4 dimensional data (series of single-channel or RGB mages), but found data of shape %s&#34; %
+                             (self.data.shape))
+
+        ax.set_axis_off()
+
+        # show timestamp
+        if (timestamps_display is True):
+            ax.text(
+                int(np.floor(self.data.shape[1] / 2.)),
+                5,
+                self.timestamp[i].strftime(timestamps_format),
+                ha=&#34;center&#34;,
+                fontsize=timestamps_fontsize,
+            )
+    plt.tight_layout(h_pad=0, w_pad=0)
+
+    # save figure or show it
+    if (savefig is True):
+        # check that filename has been set
+        if (savefig_filename is None):
+            raise ValueError(&#34;The savefig_filename parameter is missing, but required since savefig was set to True.&#34;)
+
+        # save the figure
+        f_extension = os.path.splitext(savefig_filename)[-1].lower()
+        if (&#34;.jpg&#34; == f_extension or &#34;.jpeg&#34; == f_extension):
+            # check quality setting
+            if (savefig_quality is not None):
+                plt.savefig(savefig_filename, pil_kwargs={&#34;quality&#34;: savefig_quality}, bbox_inches=&#34;tight&#34;)
+            else:
+                plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
+        else:
+            if (savefig_quality is not None):
+                # quality specified, but output filename is not a JPG, so show a warning
+                show_warning(&#34;The savefig_quality parameter was specified, but is only used for saving JPG files. The &#34; +
+                             &#34;savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored&#34;,
+                             stacklevel=1)
+            plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
+
+        # clean up by closing the figure
+        plt.close(fig)
+    elif (returnfig is True):
+        # return the figure and axis objects
+        return (fig, axs)
+    else:
+        # show the figure
+        plt.show(fig)
+
+        # cleanup by closing the figure
+        plt.close(fig)
+
+    # return
+    return None</code></pre>
+</details>
+<div class="desc"><p>Generate a plot of the montage data. </p>
+<p>Either display it (default behaviour), save it to disk (using the <code>savefig</code> parameter), or
+return the matplotlib plot object for further usage (using the <code>returnfig</code> parameter).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>rows</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of rows to use when displaying the images as a montage. The product of
+the <code>rows</code> and <code>cols</code> parameters must match the number of images supplied when creating
+the <code><a title="pyaurorax.tools.classes.montage.Montage" href="#pyaurorax.tools.classes.montage.Montage">Montage</a></code> object. If not, a ValueError will be raised. This parameter is required.</dd>
+<dt><strong><code>cols</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of columns to use when displaying the images as a montage. The product of
+the <code>rows</code> and <code>cols</code> parameters must match the number of images supplied when creating
+the <code><a title="pyaurorax.tools.classes.montage.Montage" href="#pyaurorax.tools.classes.montage.Montage">Montage</a></code> object. If not, a ValueError will be raised. This parameter is required.</dd>
+<dt><strong><code>timestamps_display</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Display the timestamps on each montage image. Defaults to True. This parameter is
+optional.</dd>
+<dt><strong><code>timestamps_format</code></strong> :&ensp;<code>str</code></dt>
+<dd>The format of the timestamps when being displayed. This is the same format string
+as when using the <code>strftime()</code> function for a <code>datetime</code> object. Default format
+string is <code>%Y-%m-%d %H:%M:%S</code>. Refer to the
+<a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">Python documentation</a>
+for further information. This parameter is optional.</dd>
+<dt><strong><code>timestamps_fontsize</code></strong> :&ensp;<code>int</code></dt>
+<dd>The font size for the displayed timestamps. Default is size 11. This parameter is
+optional.</dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>The title to display above the plotted montage. Default is no title.</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<p>The matplotlib colormap to use.</p>
+<p>Commonly used colormaps are:</p>
+<ul>
+<li>REGO: <code>gist_heat</code></li>
+<li>THEMIS ASI: <code>gray</code></li>
+<li>TREx Blue: <code>Blues_r</code></li>
+<li>TREx NIR: <code>gray</code></li>
+<li>TREx RGB: <code>None</code></li>
+</ul>
+<p>A list of all available colormaps can be found on the
+<a href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">matplotlib documentation</a>.</p>
+</dd>
+<dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Instead of displaying the image, return the matplotlib figure object. This allows for further plot
+manipulation, for example, adding labels or a title in a different location than the default. </p>
+<p>Remember - if this parameter is supplied, be sure that you close your plot after finishing work
+with it. This can be achieved by doing <code>plt.close(fig)</code>. </p>
+<p>Note that this method cannot be used in combination with <code>savefig</code>.</p>
+</dd>
+<dt><strong><code>savefig</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if
+this parameter is set to True. Defaults to <code>False</code>.</dd>
+<dt><strong><code>savefig_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename to save the image to. Must be specified if the savefig parameter is set to True.</dd>
+<dt><strong><code>savefig_quality</code></strong> :&ensp;<code>int</code></dt>
+<dd>Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The displayed montage, by default. If <code>savefig</code> is set to True, nothing will be returned. If <code>returnfig</code> is
+set to True, the plotting variables <code>(fig, ax)</code> will be returned.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>issues with the y-axis choice, or rows/cols choice.</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.tools.classes.montage.Montage.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pretty_print(self):
+    &#34;&#34;&#34;
+    A special print output for this class.
+    &#34;&#34;&#34;
+    # set special strings
+    data_str = &#34;array(dims=%s, dtype=%s)&#34; % (self.data.shape, self.data.dtype)
+    timestamp_str = &#34;[%d datetime objects]&#34; % (len(self.timestamp))
+
+    # print
+    print(&#34;Montage:&#34;)
+    print(&#34;  %-11s: %s&#34; % (&#34;data&#34;, data_str))
+    print(&#34;  %-11s: %s&#34; % (&#34;timestamp&#34;, timestamp_str))</code></pre>
+</details>
+<div class="desc"><p>A special print output for this class.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyaurorax.tools.classes" href="index.html">pyaurorax.tools.classes</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyaurorax.tools.classes.montage.Montage" href="#pyaurorax.tools.classes.montage.Montage">Montage</a></code></h4>
+<ul class="">
+<li><code><a title="pyaurorax.tools.classes.montage.Montage.plot" href="#pyaurorax.tools.classes.montage.Montage.plot">plot</a></code></li>
+<li><code><a title="pyaurorax.tools.classes.montage.Montage.pretty_print" href="#pyaurorax.tools.classes.montage.Montage.pretty_print">pretty_print</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

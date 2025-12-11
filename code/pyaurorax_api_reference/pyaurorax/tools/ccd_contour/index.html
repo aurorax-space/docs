@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>pyaurorax.tools.ccd_contour API documentation</title>
+<meta name="description" content="Obtain contours in pixel coordinates from a skymap for plotting over CCD images.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+<style>
+@media screen and (max-width: 699px) {
+#content {
+padding-left: 2em;
+padding-right: 2em;
+padding-top: 0;
+}
+}
+@media screen and (min-width: 700px) {
+#content {
+max-width: 125ch;
+padding-left: 3em;
+padding-right: 3em;
+padding-top: 1em;
+border-left: 1px solid #ddd;
+}
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyaurorax.tools.ccd_contour</code></h1>
+</header>
+<section id="section-intro">
+<p>Obtain contours in pixel coordinates from a skymap for plotting over CCD images.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyaurorax.tools.ccd_contour.CCDContourManager"><code class="flex name class">
+<span>class <span class="ident">CCDContourManager</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CCDContourManager:
+    &#34;&#34;&#34;
+    The CCDContourManager object is initialized within every PyAuroraX object. It acts as a way to 
+    access the submodules and carry over configuration information in the super class.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        pass
+
+    def azimuth(self,
+                skymap: Skymap,
+                constant_azimuth: Union[int, float],
+                min_elevation: Optional[Union[int, float]] = None,
+                max_elevation: Optional[Union[int, float]] = None,
+                n_points: Optional[int] = None,
+                remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+        &#34;&#34;&#34;
+        Obtain CCD Coordinates of a line of constant latitude.
+
+        Args:
+            skymap (pyaurorax.data.ucalgary.Skymap): 
+                The skymap corresponding to the CCD image data to generate contours for.
+
+            constant_azimuth (int or float): 
+                The azimuth angle, in degrees, to create contour of.
+
+            min_elevation (int or float): 
+                Optionally specify the elevation angle at which contour begins. Defaults to 5.
+            
+            max_elevation (int or float): 
+                Optionally specify the elevation angle at which contour begins. Defaults to 90.
+
+            n_points (int or float): 
+                Optionally specify the number of points used to define a contour. By default
+                a reasonable value is selected automatically.
+
+            remove_edge_cases (bool): 
+                Due to the nature of skymaps, often, around the edge of CCD data, contours will
+                have often undesired behaviour due to being bounded within the CCD range. The result
+                is flattened contours along the edge of CCD boundaries. This is completely expected,
+                and these points are removed by default, completely for aesthetic choices. Set this 
+                keyword to False to keep all points in the contour.
+                
+        Returns:
+            A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+            the azimuth contour.
+
+        Raises:
+            ValueError: invalid azimuth supplied.
+        &#34;&#34;&#34;
+        return func_azimuth(skymap, constant_azimuth, min_elevation, max_elevation, n_points, remove_edge_cases)
+
+    def elevation(self,
+                  skymap: Skymap,
+                  constant_elevation: Union[int, float],
+                  n_points: Optional[int] = None,
+                  remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+        &#34;&#34;&#34;
+        Obtain CCD Coordinates of a line of constant elevation.
+
+        Args:
+            skymap (pyaurorax.data.ucalgary.Skymap): 
+                The skymap corresponding to the CCD image data to generate contours for.
+
+            constant_elevation (int or float): 
+                The elevation angle, in degrees from the horizon, to create contour of.
+
+            n_points (int or float): 
+                Optionally specify the number of points used to define a contour. By default
+                a reasonable value is selected automatically.
+
+            remove_edge_cases (bool): 
+                Due to the nature of skymaps, often, around the edge of CCD data, contours will
+                have often undesired behaviour due to being bounded within the CCD range. The result
+                is flattened contours along the edge of CCD boundaries. This is completely expected,
+                and these points are removed by default, completely for aesthetic choices. Set this 
+                keyword to False to keep all points in the contour.
+                
+        Returns:
+            A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+            the elevation contour.
+
+        Raises:
+            ValueError: invalid elevation supplied.
+        &#34;&#34;&#34;
+        return func_elevation(skymap, constant_elevation, n_points, remove_edge_cases)
+
+    def geo(self,
+            skymap: Skymap,
+            altitude_km: Union[int, float],
+            contour_lats: Optional[Union[np.ndarray, list]] = None,
+            contour_lons: Optional[Union[np.ndarray, list]] = None,
+            constant_lat: Optional[Union[float, int]] = None,
+            constant_lon: Optional[Union[float, int]] = None,
+            n_points: Optional[int] = None,
+            remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+        &#34;&#34;&#34;
+        Obtain CCD Coordinates of a line of constant geographic latitude, constant geographic longitude, or a custom contour
+        defined in geographic coordinates.
+
+        Args:
+            skymap (pyaurorax.data.ucalgary.Skymap): 
+                The skymap corresponding to the CCD image data to generate contours for.
+
+            altitude_km (int or float): 
+                The altitude of the image data to create contours for, in kilometers.
+
+            contour_lats (ndarray or list): 
+                    Sequence of geographic latitudes defining a contour.
+                
+            contour_lons (ndarray or list): 
+                Sequence of geographic longitudes defining a contour.
+
+            constant_lat (float or int): 
+                Geographic Latitude at which to create line of constant latitude.
+            
+            constant_lon (float or int): 
+                Geographic Longitude at which to create line of constant longitude.
+
+            n_points (int or float): 
+                Optionally specify the number of points used to define a contour. By default
+                a reasonable value is selected automatically.
+            
+            remove_edge_cases (bool): 
+                Due to the nature of skymaps, often, around the edge of CCD data, contours will
+                have often undesired behaviour due to being bounded within the CCD range. The result
+                is flattened contours along the edge of CCD boundaries. This is completely expected,
+                and these points are removed by default, completely for aesthetic choices. Set this 
+                keyword to False to keep all points in the contour.
+                
+        Returns:
+            A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+            the elevation contour.
+
+        Raises:
+            ValueError: invalid elevation supplied.
+        &#34;&#34;&#34;
+        return func_geo(skymap, altitude_km, contour_lats, contour_lons, constant_lat, constant_lon, n_points, remove_edge_cases)
+
+    def mag(self,
+            skymap: Skymap,
+            timestamp: datetime.datetime,
+            altitude_km: Union[int, float],
+            contour_lats: Optional[Union[np.ndarray, list]] = None,
+            contour_lons: Optional[Union[np.ndarray, list]] = None,
+            constant_lat: Optional[Union[float, int]] = None,
+            constant_lon: Optional[Union[float, int]] = None,
+            n_points: Optional[int] = None,
+            remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+        &#34;&#34;&#34;
+        Obtain CCD Coordinates of a line of constant magnetic latitude, constant magnetic longitude, or a custom contour
+        defined in magnetic coordinates.
+
+        Args:
+            skymap (pyaurorax.data.ucalgary.Skymap): 
+                The skymap corresponding to the CCD image data to generate contours for.
+
+            timestamp (datetime.datetime): 
+                The timestamp used for AACGM Conversions.
+
+            altitude_km (int or float): 
+                The altitude of the image data to create contours for, in kilometers.
+
+            contour_lats (ndarray or list): 
+                    Sequence of magnetic latitudes defining a contour.
+                
+            contour_lons (ndarray or list): 
+                Sequence of magnetic longitudes defining a contour.
+
+            constant_lat (float or int): 
+                Magnetic Latitude at which to create line of constant latitude.
+            
+            constant_lon (float or int): 
+                Magnetic Longitude at which to create line of constant longitude.
+
+            n_points (int or float): 
+                Optionally specify the number of points used to define a contour. By default
+                a reasonable value is selected automatically.
+            
+            remove_edge_cases (bool): 
+                Due to the nature of skymaps, often, around the edge of CCD data, contours will
+                have often undesired behaviour due to being bounded within the CCD range. The result
+                is flattened contours along the edge of CCD boundaries. This is completely expected,
+                and these points are removed by default, completely for aesthetic choices. Set this 
+                keyword to False to keep all points in the contour.
+                
+        Returns:
+            A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+            the elevation contour.
+
+        Raises:
+            ValueError: invalid elevation supplied.
+        &#34;&#34;&#34;
+        return func_mag(skymap, timestamp, altitude_km, contour_lats, contour_lons, constant_lat, constant_lon, n_points, remove_edge_cases)</code></pre>
+</details>
+<div class="desc"><p>The CCDContourManager object is initialized within every PyAuroraX object. It acts as a way to
+access the submodules and carry over configuration information in the super class.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="pyaurorax.tools.ccd_contour.CCDContourManager.azimuth"><code class="name flex">
+<span>def <span class="ident">azimuth</span></span>(<span>self,<br>skymap: pyucalgarysrs.data.classes.Skymap,<br>constant_azimuth: float | int,<br>min_elevation: int | float | None = None,<br>max_elevation: int | float | None = None,<br>n_points: int | None = None,<br>remove_edge_cases: bool = True) ‑> Tuple[numpy.ndarray, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def azimuth(self,
+            skymap: Skymap,
+            constant_azimuth: Union[int, float],
+            min_elevation: Optional[Union[int, float]] = None,
+            max_elevation: Optional[Union[int, float]] = None,
+            n_points: Optional[int] = None,
+            remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+    &#34;&#34;&#34;
+    Obtain CCD Coordinates of a line of constant latitude.
+
+    Args:
+        skymap (pyaurorax.data.ucalgary.Skymap): 
+            The skymap corresponding to the CCD image data to generate contours for.
+
+        constant_azimuth (int or float): 
+            The azimuth angle, in degrees, to create contour of.
+
+        min_elevation (int or float): 
+            Optionally specify the elevation angle at which contour begins. Defaults to 5.
+        
+        max_elevation (int or float): 
+            Optionally specify the elevation angle at which contour begins. Defaults to 90.
+
+        n_points (int or float): 
+            Optionally specify the number of points used to define a contour. By default
+            a reasonable value is selected automatically.
+
+        remove_edge_cases (bool): 
+            Due to the nature of skymaps, often, around the edge of CCD data, contours will
+            have often undesired behaviour due to being bounded within the CCD range. The result
+            is flattened contours along the edge of CCD boundaries. This is completely expected,
+            and these points are removed by default, completely for aesthetic choices. Set this 
+            keyword to False to keep all points in the contour.
+            
+    Returns:
+        A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+        the azimuth contour.
+
+    Raises:
+        ValueError: invalid azimuth supplied.
+    &#34;&#34;&#34;
+    return func_azimuth(skymap, constant_azimuth, min_elevation, max_elevation, n_points, remove_edge_cases)</code></pre>
+</details>
+<div class="desc"><p>Obtain CCD Coordinates of a line of constant latitude.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
+<dd>The skymap corresponding to the CCD image data to generate contours for.</dd>
+<dt><strong><code>constant_azimuth</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>The azimuth angle, in degrees, to create contour of.</dd>
+<dt><strong><code>min_elevation</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the elevation angle at which contour begins. Defaults to 5.</dd>
+<dt><strong><code>max_elevation</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the elevation angle at which contour begins. Defaults to 90.</dd>
+<dt><strong><code>n_points</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the number of points used to define a contour. By default
+a reasonable value is selected automatically.</dd>
+<dt><strong><code>remove_edge_cases</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Due to the nature of skymaps, often, around the edge of CCD data, contours will
+have often undesired behaviour due to being bounded within the CCD range. The result
+is flattened contours along the edge of CCD boundaries. This is completely expected,
+and these points are removed by default, completely for aesthetic choices. Set this
+keyword to False to keep all points in the contour.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+the azimuth contour.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>invalid azimuth supplied.</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.tools.ccd_contour.CCDContourManager.elevation"><code class="name flex">
+<span>def <span class="ident">elevation</span></span>(<span>self,<br>skymap: pyucalgarysrs.data.classes.Skymap,<br>constant_elevation: float | int,<br>n_points: int | None = None,<br>remove_edge_cases: bool = True) ‑> Tuple[numpy.ndarray, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def elevation(self,
+              skymap: Skymap,
+              constant_elevation: Union[int, float],
+              n_points: Optional[int] = None,
+              remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+    &#34;&#34;&#34;
+    Obtain CCD Coordinates of a line of constant elevation.
+
+    Args:
+        skymap (pyaurorax.data.ucalgary.Skymap): 
+            The skymap corresponding to the CCD image data to generate contours for.
+
+        constant_elevation (int or float): 
+            The elevation angle, in degrees from the horizon, to create contour of.
+
+        n_points (int or float): 
+            Optionally specify the number of points used to define a contour. By default
+            a reasonable value is selected automatically.
+
+        remove_edge_cases (bool): 
+            Due to the nature of skymaps, often, around the edge of CCD data, contours will
+            have often undesired behaviour due to being bounded within the CCD range. The result
+            is flattened contours along the edge of CCD boundaries. This is completely expected,
+            and these points are removed by default, completely for aesthetic choices. Set this 
+            keyword to False to keep all points in the contour.
+            
+    Returns:
+        A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+        the elevation contour.
+
+    Raises:
+        ValueError: invalid elevation supplied.
+    &#34;&#34;&#34;
+    return func_elevation(skymap, constant_elevation, n_points, remove_edge_cases)</code></pre>
+</details>
+<div class="desc"><p>Obtain CCD Coordinates of a line of constant elevation.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
+<dd>The skymap corresponding to the CCD image data to generate contours for.</dd>
+<dt><strong><code>constant_elevation</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>The elevation angle, in degrees from the horizon, to create contour of.</dd>
+<dt><strong><code>n_points</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the number of points used to define a contour. By default
+a reasonable value is selected automatically.</dd>
+<dt><strong><code>remove_edge_cases</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Due to the nature of skymaps, often, around the edge of CCD data, contours will
+have often undesired behaviour due to being bounded within the CCD range. The result
+is flattened contours along the edge of CCD boundaries. This is completely expected,
+and these points are removed by default, completely for aesthetic choices. Set this
+keyword to False to keep all points in the contour.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+the elevation contour.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>invalid elevation supplied.</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.tools.ccd_contour.CCDContourManager.geo"><code class="name flex">
+<span>def <span class="ident">geo</span></span>(<span>self,<br>skymap: pyucalgarysrs.data.classes.Skymap,<br>altitude_km: float | int,<br>contour_lats: numpy.ndarray | list | None = None,<br>contour_lons: numpy.ndarray | list | None = None,<br>constant_lat: int | float | None = None,<br>constant_lon: int | float | None = None,<br>n_points: int | None = None,<br>remove_edge_cases: bool = True) ‑> Tuple[numpy.ndarray, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def geo(self,
+        skymap: Skymap,
+        altitude_km: Union[int, float],
+        contour_lats: Optional[Union[np.ndarray, list]] = None,
+        contour_lons: Optional[Union[np.ndarray, list]] = None,
+        constant_lat: Optional[Union[float, int]] = None,
+        constant_lon: Optional[Union[float, int]] = None,
+        n_points: Optional[int] = None,
+        remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+    &#34;&#34;&#34;
+    Obtain CCD Coordinates of a line of constant geographic latitude, constant geographic longitude, or a custom contour
+    defined in geographic coordinates.
+
+    Args:
+        skymap (pyaurorax.data.ucalgary.Skymap): 
+            The skymap corresponding to the CCD image data to generate contours for.
+
+        altitude_km (int or float): 
+            The altitude of the image data to create contours for, in kilometers.
+
+        contour_lats (ndarray or list): 
+                Sequence of geographic latitudes defining a contour.
+            
+        contour_lons (ndarray or list): 
+            Sequence of geographic longitudes defining a contour.
+
+        constant_lat (float or int): 
+            Geographic Latitude at which to create line of constant latitude.
+        
+        constant_lon (float or int): 
+            Geographic Longitude at which to create line of constant longitude.
+
+        n_points (int or float): 
+            Optionally specify the number of points used to define a contour. By default
+            a reasonable value is selected automatically.
+        
+        remove_edge_cases (bool): 
+            Due to the nature of skymaps, often, around the edge of CCD data, contours will
+            have often undesired behaviour due to being bounded within the CCD range. The result
+            is flattened contours along the edge of CCD boundaries. This is completely expected,
+            and these points are removed by default, completely for aesthetic choices. Set this 
+            keyword to False to keep all points in the contour.
+            
+    Returns:
+        A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+        the elevation contour.
+
+    Raises:
+        ValueError: invalid elevation supplied.
+    &#34;&#34;&#34;
+    return func_geo(skymap, altitude_km, contour_lats, contour_lons, constant_lat, constant_lon, n_points, remove_edge_cases)</code></pre>
+</details>
+<div class="desc"><p>Obtain CCD Coordinates of a line of constant geographic latitude, constant geographic longitude, or a custom contour
+defined in geographic coordinates.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
+<dd>The skymap corresponding to the CCD image data to generate contours for.</dd>
+<dt><strong><code>altitude_km</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>The altitude of the image data to create contours for, in kilometers.</dd>
+<dt><strong><code>contour_lats</code></strong> :&ensp;<code>ndarray</code> or <code>list</code></dt>
+<dd>
+<p>Sequence of geographic latitudes defining a contour.</p>
+</dd>
+<dt><strong><code>contour_lons</code></strong> :&ensp;<code>ndarray</code> or <code>list</code></dt>
+<dd>Sequence of geographic longitudes defining a contour.</dd>
+<dt><strong><code>constant_lat</code></strong> :&ensp;<code>float</code> or <code>int</code></dt>
+<dd>Geographic Latitude at which to create line of constant latitude.</dd>
+<dt><strong><code>constant_lon</code></strong> :&ensp;<code>float</code> or <code>int</code></dt>
+<dd>Geographic Longitude at which to create line of constant longitude.</dd>
+<dt><strong><code>n_points</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the number of points used to define a contour. By default
+a reasonable value is selected automatically.</dd>
+<dt><strong><code>remove_edge_cases</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Due to the nature of skymaps, often, around the edge of CCD data, contours will
+have often undesired behaviour due to being bounded within the CCD range. The result
+is flattened contours along the edge of CCD boundaries. This is completely expected,
+and these points are removed by default, completely for aesthetic choices. Set this
+keyword to False to keep all points in the contour.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+the elevation contour.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>invalid elevation supplied.</dd>
+</dl></div>
+</dd>
+<dt id="pyaurorax.tools.ccd_contour.CCDContourManager.mag"><code class="name flex">
+<span>def <span class="ident">mag</span></span>(<span>self,<br>skymap: pyucalgarysrs.data.classes.Skymap,<br>timestamp: datetime.datetime,<br>altitude_km: float | int,<br>contour_lats: numpy.ndarray | list | None = None,<br>contour_lons: numpy.ndarray | list | None = None,<br>constant_lat: int | float | None = None,<br>constant_lon: int | float | None = None,<br>n_points: int | None = None,<br>remove_edge_cases: bool = True) ‑> Tuple[numpy.ndarray, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mag(self,
+        skymap: Skymap,
+        timestamp: datetime.datetime,
+        altitude_km: Union[int, float],
+        contour_lats: Optional[Union[np.ndarray, list]] = None,
+        contour_lons: Optional[Union[np.ndarray, list]] = None,
+        constant_lat: Optional[Union[float, int]] = None,
+        constant_lon: Optional[Union[float, int]] = None,
+        n_points: Optional[int] = None,
+        remove_edge_cases: bool = True) -&gt; Tuple[np.ndarray, np.ndarray]:
+    &#34;&#34;&#34;
+    Obtain CCD Coordinates of a line of constant magnetic latitude, constant magnetic longitude, or a custom contour
+    defined in magnetic coordinates.
+
+    Args:
+        skymap (pyaurorax.data.ucalgary.Skymap): 
+            The skymap corresponding to the CCD image data to generate contours for.
+
+        timestamp (datetime.datetime): 
+            The timestamp used for AACGM Conversions.
+
+        altitude_km (int or float): 
+            The altitude of the image data to create contours for, in kilometers.
+
+        contour_lats (ndarray or list): 
+                Sequence of magnetic latitudes defining a contour.
+            
+        contour_lons (ndarray or list): 
+            Sequence of magnetic longitudes defining a contour.
+
+        constant_lat (float or int): 
+            Magnetic Latitude at which to create line of constant latitude.
+        
+        constant_lon (float or int): 
+            Magnetic Longitude at which to create line of constant longitude.
+
+        n_points (int or float): 
+            Optionally specify the number of points used to define a contour. By default
+            a reasonable value is selected automatically.
+        
+        remove_edge_cases (bool): 
+            Due to the nature of skymaps, often, around the edge of CCD data, contours will
+            have often undesired behaviour due to being bounded within the CCD range. The result
+            is flattened contours along the edge of CCD boundaries. This is completely expected,
+            and these points are removed by default, completely for aesthetic choices. Set this 
+            keyword to False to keep all points in the contour.
+            
+    Returns:
+        A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+        the elevation contour.
+
+    Raises:
+        ValueError: invalid elevation supplied.
+    &#34;&#34;&#34;
+    return func_mag(skymap, timestamp, altitude_km, contour_lats, contour_lons, constant_lat, constant_lon, n_points, remove_edge_cases)</code></pre>
+</details>
+<div class="desc"><p>Obtain CCD Coordinates of a line of constant magnetic latitude, constant magnetic longitude, or a custom contour
+defined in magnetic coordinates.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>skymap</code></strong> :&ensp;<code><a title="pyaurorax.data.ucalgary.Skymap" href="../../data/ucalgary/index.html#pyaurorax.data.ucalgary.Skymap">Skymap</a></code></dt>
+<dd>The skymap corresponding to the CCD image data to generate contours for.</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The timestamp used for AACGM Conversions.</dd>
+<dt><strong><code>altitude_km</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>The altitude of the image data to create contours for, in kilometers.</dd>
+<dt><strong><code>contour_lats</code></strong> :&ensp;<code>ndarray</code> or <code>list</code></dt>
+<dd>
+<p>Sequence of magnetic latitudes defining a contour.</p>
+</dd>
+<dt><strong><code>contour_lons</code></strong> :&ensp;<code>ndarray</code> or <code>list</code></dt>
+<dd>Sequence of magnetic longitudes defining a contour.</dd>
+<dt><strong><code>constant_lat</code></strong> :&ensp;<code>float</code> or <code>int</code></dt>
+<dd>Magnetic Latitude at which to create line of constant latitude.</dd>
+<dt><strong><code>constant_lon</code></strong> :&ensp;<code>float</code> or <code>int</code></dt>
+<dd>Magnetic Longitude at which to create line of constant longitude.</dd>
+<dt><strong><code>n_points</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Optionally specify the number of points used to define a contour. By default
+a reasonable value is selected automatically.</dd>
+<dt><strong><code>remove_edge_cases</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Due to the nature of skymaps, often, around the edge of CCD data, contours will
+have often undesired behaviour due to being bounded within the CCD range. The result
+is flattened contours along the edge of CCD boundaries. This is completely expected,
+and these points are removed by default, completely for aesthetic choices. Set this
+keyword to False to keep all points in the contour.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple (x_pix, y_pix) of numpy arrays containing the coordinates, in pixel units, of
+the elevation contour.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>invalid elevation supplied.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyaurorax.tools" href="../index.html">pyaurorax.tools</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyaurorax.tools.ccd_contour.CCDContourManager" href="#pyaurorax.tools.ccd_contour.CCDContourManager">CCDContourManager</a></code></h4>
+<ul class="">
+<li><code><a title="pyaurorax.tools.ccd_contour.CCDContourManager.azimuth" href="#pyaurorax.tools.ccd_contour.CCDContourManager.azimuth">azimuth</a></code></li>
+<li><code><a title="pyaurorax.tools.ccd_contour.CCDContourManager.elevation" href="#pyaurorax.tools.ccd_contour.CCDContourManager.elevation">elevation</a></code></li>
+<li><code><a title="pyaurorax.tools.ccd_contour.CCDContourManager.geo" href="#pyaurorax.tools.ccd_contour.CCDContourManager.geo">geo</a></code></li>
+<li><code><a title="pyaurorax.tools.ccd_contour.CCDContourManager.mag" href="#pyaurorax.tools.ccd_contour.CCDContourManager.mag">mag</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
