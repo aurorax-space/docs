@@ -26,7 +26,7 @@ Below are all functions and procedures available in IDL-AuroraX for supporting d
 - [`aurorax_spectra_get_intensity`](#aurorax_spectra_get_intensity)
 - [`aurorax_spectra_plot`](#aurorax_spectra_plot)
 - [`aurorax_get_decomposed_color`](#aurorax_get_decomposed_color)
-- [`aurorax_create_movie`](#aurorax_create_movie)
+- [`aurorax_movie`](#aurorax_movie)
 
 ## aurorax_bounding_box_extract_metric
 
@@ -784,7 +784,7 @@ Below are all functions and procedures available in IDL-AuroraX for supporting d
 ;+
 ```
 
-## aurorax_create_movie
+## aurorax_movie
 
 ```
 ;+
@@ -800,6 +800,6 @@ Below are all functions and procedures available in IDL-AuroraX for supporting d
 ;     integer giving the frames per second to create movie at
 ;
 ; :Examples:
-;   aurorax_create_movie, file_search("path\to\images\*.png"), "movie.mp4", 30
+;   aurorax_movie, file_search("path\to\images\*.png"), "movie.mp4", 30
 ;-
 ```

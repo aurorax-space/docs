@@ -39,7 +39,7 @@ The below pages provide the documentation for each function. View the example ga
 - [`aurorax_spectra_get_intensity`](tools.md#aurorax_spectra_get_intensity)
 - [`aurorax_spectra_plot`](tools.md#aurorax_spectra_plot)
 - [`aurorax_get_decomposed_color`](tools.md#aurorax_get_decomposed_color)
-- [`aurorax_create_movie`](tools.md#aurorax_create_movie)
+- [`aurorax_movie`](tools.md#aurorax_movie)
 
 ## TREx ATM
 
