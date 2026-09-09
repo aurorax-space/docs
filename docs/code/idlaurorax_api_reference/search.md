@@ -193,6 +193,9 @@ Below are all functions and procedures available in IDL-AuroraX related to using
 ;         search for south B-trace conjunctions
 ;       geographic: in, optional, Boolean
 ;         search for geographic conjunctions
+;       subminute_precision: in, optional, Boolean
+;         search for conjunctions using sub-minute precision, instead of the
+;         default one-minute precision
 ;       quiet: in, optional, Boolean
 ;         quiet output when searching, no print messages will be shown
 ;       dryrun: in, optional, Boolean
@@ -263,6 +266,9 @@ Below are all functions and procedures available in IDL-AuroraX related to using
 ;         search for south B-trace conjunctions
 ;       geographic: in, optional, Boolean
 ;         search for geographic conjunctions
+;       subminute_precision: in, optional, Boolean
+;         search for conjunctions using sub-minute precision, instead of the
+;         default one-minute precision
 ;
 ; :Returns:
 ;       String
