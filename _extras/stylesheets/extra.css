@@ -1,0 +1,41 @@
+/* Custom CSS styles */
+
+article {
+    padding-bottom: 50px;
+}
+
+figcaption {
+    font-size: 12px;
+    max-width: 95% !important;
+}
+
+li {
+    margin-bottom: 2px !important;
+}
+
+ul {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+}
+
+tbody>tr>td {
+    vertical-align: middle !important;
+    padding: 8px 17px !important;
+}
+
+thead {
+    background-color: rgb(224, 224, 224);
+}
+
+.md-typeset {
+    font-size: 0.75rem;
+    text-align: justify;
+}
+
+h1 {
+    margin-bottom: 25px !important;
+}
+
+.add-bottom-space {
+    margin-bottom: 5px;
+}
